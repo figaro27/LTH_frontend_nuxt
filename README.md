@@ -1,4 +1,4 @@
-# frontend
+# Legal Tech Hub Frontend
 
 ## Project setup
 ```
