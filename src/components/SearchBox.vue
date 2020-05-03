@@ -79,12 +79,9 @@ export default class SearchBox extends Vue {
     return (item.name && item.name.toLowerCase().includes(keyword.toLowerCase()))
   }
 
-  search () {
-    this.$emit('select', this.searchText)
-  }
-
-  select (selectedItem: Keyword) {
-    this.$emit('select', selectedItem.name)
+  select (selectedItem: { label: string; value: string }) {
+    this.selectedValue = selectedItem.value
+    this.searchText = selectedItem.label
   }
 
   reset () {
