@@ -9,10 +9,10 @@
       item-text="label"
       v-model="selectedValue"
       :filter="filter"
-      :items="feedItems"
+      :items="[]"
       :search-text.sync="searchText"
+      :disable-first-item-select-on-enter="false"
       :reset-search-on-blur="false"
-      @select="select"
     >
       <template v-if="searchText" #input-end>
         <button class="search-box__cancel" @click.stop="cancelSearch"></button>
@@ -71,6 +71,10 @@ export default class SearchBox extends Vue {
     await this.$store.dispatch('search/loadPossibleKeywords')
   }
 
+  search () {
+    this.$emit('search', this.searchText)
+  }
+
   cancelSearch () {
     this.reset()
   }
@@ -118,10 +122,6 @@ export default class SearchBox extends Vue {
 </style>
 
 <style lang="scss" scoped>
-#search-box {
-  width: 640px;
-}
-
 .search-box__cancel {
   position: relative;
   width: 25px;
