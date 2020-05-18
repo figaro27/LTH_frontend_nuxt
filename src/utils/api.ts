@@ -14,7 +14,7 @@ import qs from 'qs'
  * Signs all requests with an access token, if available.
  */
 export const client = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.VUE_APP_API || 'http://localhost:3000',
   paramsSerializer: (params) => {
     return qs.stringify(params, { arrayFormat: 'comma' }).replace(/,/g, '%2C')
   }
