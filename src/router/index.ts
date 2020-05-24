@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Search from '@/views/Search.vue'
+import SingleVendor from '@/views/SingleVendor.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ const routes: Array<RouteConfig> = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/vendor/:vendorId',
+    name: 'SingleVendor',
+    component: SingleVendor
   }
 ]
 

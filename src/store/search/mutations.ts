@@ -4,7 +4,7 @@ import { SearchState } from './state'
 import { Keyword } from './types'
 import { Vendor } from '@/models'
 
-const getters: MutationTree<SearchState> = {
+const mutations: MutationTree<SearchState> = {
   SET_DEMOGRAPHICS (state: SearchState, demographics: any) {
     state.demographics = demographics.data
   },
@@ -41,4 +41,4 @@ const getters: MutationTree<SearchState> = {
   }
 }
 
-export default getters
+export default mutations
