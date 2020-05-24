@@ -3,36 +3,44 @@
     <div class="search__header">
       <img alt="Vue logo" src="../assets/logo.png" class="search__logo">
       <div class="search-box-container">
-        <search-box @search="onSearch" />
+        <search-box :value="searchQueryParam" @search="onSearch" />
       </div>
     </div>
     <div class="content-container">
       <div class="side-filter">
-        <select-filter id="demographic" name="demographic" v-model="demographic" :options="demographics" @change="onFilter" />
-        <select-filter id="functionality" name="functionality" v-model="functionality" :options="functionalities" @change="onFilter" />
-        <select-filter id="hq" name="hq" v-model="hq" :options="hqs" @change="onFilter"  />
-        <select-filter id="installation" name="installation" v-model="installation" :options="installations" @change="onFilter" />
-        <select-filter id="integration" name="integration" v-model="integration" :options="integrations" @change="onFilter" />
-        <select-filter id="jurisdiction" name="jurisdiction" v-model="jurisdiction" :options="jurisdictions" @change="onFilter" />
-        <select-filter id="platformLanguage" name="platformLanguage" v-model="platformLanguage" :options="platformLanguages" @change="onFilter" />
-        <select-filter id="practiceArea" name="practiceArea" v-model="practiceArea" :options="practiceAreas" @change="onFilter" />
+        <select-filter id="hq" name="hq" label="HQ" v-model="hq" :options="hqs" @change="onFilter"  />
+        <select-filter id="functionality" name="functionality" label="Functionality" v-model="functionality" :options="functionalities" @change="onFilter" />
+        <select-filter id="subFunctionality" name="subFunctionality" label="Functionality" v-model="subFunctionality" :options="functionalities" @change="onFilter" />
+        <select-filter id="installation" name="installation" label="Installation" v-model="installation" :options="installations" @change="onFilter" />
+        <select-filter id="jurisdiction" name="jurisdiction" label="Jurisdiction" v-model="jurisdiction" :options="jurisdictions" @change="onFilter" />
+        <select-filter id="platformLanguage" name="platformLanguage" label="Platform Language" v-model="platformLanguage" :options="platformLanguages" @change="onFilter" />
+        <select-filter id="practiceArea" name="practiceArea" label="Practice Area" v-model="practiceArea" :options="practiceAreas" @change="onFilter" />
+        <select-filter id="demographic" name="demographic" label="Target Entity" v-model="demographic" :options="demographics" @change="onFilter" />
       </div>
-      <div class="content" v-html="result">
+      <div class="content">
+        <vendor-item
+          v-for="(vendor, index) of vendors"
+          :key="index"
+          class="content__vendor-item"
+          :data="vendor"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
 import SearchBox from '@/components/SearchBox.vue'
 import SelectFilter from '@/components/SelectFilter.vue'
+import VendorItem from '@/components/VendorItem.vue'
+import { Vendor } from '../models'
 
 @Component({
   name: 'search',
-  components: { SearchBox, SelectFilter }
+  components: { SearchBox, SelectFilter, VendorItem }
 })
 export default class Search extends Vue {
   @State(state => state.search.demographics) demographics!: any[]
@@ -43,19 +51,28 @@ export default class Search extends Vue {
   @State(state => state.search.jurisdictions) jurisdictions!: any[]
   @State(state => state.search.platformLanguages) platformLanguages!: any[]
   @State(state => state.search.practiceAreas) practiceAreas!: any[]
+  @State(state => state.search.vendors) vendors!: Vendor[]
+
+  get searchQueryParam () {
+    return this.$route.query.keyword || ''
+  }
+
+  @Watch('searchQueryParam', { immediate: true })
+  onKeywordChange () {
+    this.submitQuery()
+  }
 
   searchQuery: any = {}
 
   demographic: number | null = null
   functionality: number | null = null
+  subFunctionality: number | null = null
   hq: number | null = null
   installation: number | null = null
   integration: number | null = null
   jurisdiction: number | null = null
   platformLanguage: number | null = null
   practiceArea: number | null = null
-
-  result: any = []
 
   mounted () {
     this.$store.dispatch('search/loadDemographics')
@@ -75,13 +92,17 @@ export default class Search extends Vue {
   }
 
   onSearch (keyword: string) {
-    this.searchQuery.keyword = keyword === '' ? null : keyword
-    this.submitQuery()
+    if (!this.$route.name) { return }
+    if (keyword === this.searchQueryParam) { return }
+    this.$router.push({
+      name: this.$route.name,
+      query: { ...this.$route.query, keyword }
+    })
   }
 
   async submitQuery () {
-    const result = await this.$store.dispatch('search/runSearch', this.searchQuery)
-    this.result = result.map((r: any) => JSON.stringify(r)).join('<br><br>')
+    this.searchQuery.keyword = this.searchQueryParam === '' ? null : this.searchQueryParam
+    await this.$store.dispatch('search/runSearch', this.searchQuery)
   }
 }
 </script>
@@ -93,6 +114,7 @@ export default class Search extends Vue {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .search__header {
@@ -118,6 +140,7 @@ export default class Search extends Vue {
   flex: 1;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 }
 
 .side-filter {
@@ -135,5 +158,14 @@ export default class Search extends Vue {
   flex: 1;
   text-align: left;
   word-break: break-all;
+  overflow: hidden scroll;
+  padding: 10px;
+  border-left: 1px solid lightgray;
+}
+
+.content__vendor-item {
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }
 </style>

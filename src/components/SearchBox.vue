@@ -1,74 +1,34 @@
 <template>
-  <div id="search-box">
-    <img v-if="keywordsLoading" src="/img/svgs/spinner.svg" >
-    <cool-select
-      v-else
-      ref="select"
-      placeholder="Search with keyboard"
-      item-value="value"
-      item-text="label"
-      v-model="selectedValue"
-      :filter="filter"
-      :items="[]"
-      :search-text.sync="searchText"
-      :disable-first-item-select-on-enter="false"
-      :reset-search-on-blur="false"
-    >
-      <template v-if="searchText" #input-end>
-        <button class="search-box__cancel" @click.stop="cancelSearch"></button>
-      </template>
-
-      <template #input-after>
-        <button class="search-box__search" @click.stop="search">
-          <img src="/img/svgs/search.svg">
-        </button>
-      </template>
-
-      <template #no-data>
-        No listings found
-      </template>
-    </cool-select>
+  <div class="search-box">
+    <div class="search-box__input-container">
+      <input class="search-box__input" placeholder="Search..." v-model="searchText"  @keydown.enter="search" />
+      <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
+    </div>
+    <button class="search-box__search" :disabled="keywordsLoading" @click.stop="search">
+      <img src="/img/svgs/search.svg">
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
-import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
 
 import { Keyword } from '@/store/search/types'
 
 @Component({
-  name: 'search-box',
-  components: { CoolSelect }
+  name: 'search-box'
 })
 export default class SearchBox extends Vue {
+  @Prop({ required: true }) value!: string
   @State(state => state.search.keywords) keywords!: Keyword[]
   @State(state => state.search.keywordsLoading) keywordsLoading!: boolean
 
-  $refs!: {
-    select: VueCoolSelectComponentInterface;
-  }
-
   searchText = ''
-  selectedValue = ''
 
-  get feedItems () {
-    const items = this.keywords.map(item => ({
-      label: item.name.replace(/(\s)+/g, ' '),
-      value: `${item.index}`
-    }))
-    if (this.searchText) {
-      items.unshift({
-        label: `Search for "${this.searchText}"`.replace(/(\s)+/g, ' '),
-        value: this.searchText.replace(/(\s)+/g, ' ')
-      })
-    }
-    return items
-  }
-
-  async mounted () {
-    await this.$store.dispatch('search/loadPossibleKeywords')
+  @Watch('value', { immediate: true })
+  onValue () {
+    this.searchText = this.value
   }
 
   search () {
@@ -83,47 +43,43 @@ export default class SearchBox extends Vue {
     return (item.name && item.name.toLowerCase().includes(keyword.toLowerCase()))
   }
 
-  select (selectedItem: { label: string; value: string }) {
-    this.selectedValue = selectedItem.value
-    this.searchText = selectedItem.label
-  }
-
   reset () {
-    this.$refs.select.setSearchData('')
-    this.selectedValue = ''
+    this.searchText = ''
   }
 }
 </script>
 
-<style lang="scss">
-#search-box {
-  .IZ-select {
-    height: 40px;
-  }
-
-  .IZ-select__input {
-    border-radius: 5px 0 0 5px !important;
-    border-right: none !important;
-
-    input {
-      font-family: "Avenir", Helvetica, Arial, sans-serif;
-      font-weight: 500;
-    }
-  }
-
-  .IZ-select__input--focused {
-    box-shadow: none !important;
-  }
-
-  .IZ-select__item {
-    text-align: left;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
-.search-box__cancel {
+.search-box {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+}
+
+.search-box__input-container {
+  flex: 1;
   position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgray;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+}
+
+.search-box__input {
+  width: 100%;
+  padding: 5px 10px;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.search-box__cancel {
+  position: absolute;
+  right: 5px;
+  top: 7px;
   width: 25px;
   height: 25px;
   margin: 0 5px;
@@ -157,7 +113,6 @@ export default class SearchBox extends Vue {
 .search-box__search {
   background: #D20038;
   width: 40px;
-  height: 40px;
   outline: none;
   border: none;
   border-radius: 0 5px 5px 0;

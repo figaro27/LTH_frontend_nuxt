@@ -2,6 +2,7 @@ import { MutationTree } from 'vuex'
 
 import { SearchState } from './state'
 import { Keyword } from './types'
+import { Vendor } from '@/models'
 
 const getters: MutationTree<SearchState> = {
   SET_DEMOGRAPHICS (state: SearchState, demographics: any) {
@@ -33,6 +34,10 @@ const getters: MutationTree<SearchState> = {
   },
   SET_KEYWORDS_LOADING (state: SearchState, loading: boolean) {
     state.keywordsLoading = loading
+  },
+
+  SET_VENDORS (state: SearchState, vendors: Vendor[]) {
+    state.vendors = vendors
   }
 }
 

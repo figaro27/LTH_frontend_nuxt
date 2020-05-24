@@ -1,5 +1,6 @@
 
 import { Keyword } from './types'
+import { Vendor } from '@/models'
 
 export type SearchState = {
   demographics: any[];
@@ -12,6 +13,8 @@ export type SearchState = {
   practiceAreas: any[];
   keywords: Keyword[];
   keywordsLoading: boolean;
+
+  vendors: Vendor[];
 }
 
 const state: SearchState = {
@@ -24,7 +27,9 @@ const state: SearchState = {
   platformLanguages: [],
   practiceAreas: [],
   keywords: [],
-  keywordsLoading: false
+  keywordsLoading: false,
+
+  vendors: []
 }
 
 export default state

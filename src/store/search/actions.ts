@@ -52,7 +52,7 @@ const actions: SearchActions = {
 
   async runSearch ({ commit }, query: any = {}) {
     const { data } = await api.get('vendors/search', query)
-    return data.data.vendors
+    commit('SET_VENDORS', data.data.vendors)
   },
 
   async loadPossibleKeywords ({ commit }) {
