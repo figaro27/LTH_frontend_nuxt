@@ -11,21 +11,23 @@
         <span v-if="data.jurisdiction" class="single-vendor__jurisdiction">{{data.jurisdiction}}</span>
       </div>
       <div class="single-vendor__main">
-        <span v-if="data.functionality" class="single-vendor__functionality">
-          <strong>Functionality</strong>: {{data.functionality}}
+        <span v-if="functionalities" class="single-vendor__functionality">
+          <strong>Functionality</strong>: {{functionalities}}
         </span>
-        <span v-if="data.platformLanguage" class="single-vendor__platform_language">
-          <strong>Platform Language</strong>: {{data.platformLanguage}}
+        <span v-if="platformLanguages" class="single-vendor__platform_language">
+          <strong>Platform Language</strong>: {{platformLanguages}}
         </span>
-        <span v-if="data.linguisticFunctionality" class="single-vendor__linguistic_functionality">
-          <strong>Linguistic Functionality</strong>: {{data.linguisticFunctionality}}
+        <span v-if="linguisticFunctionalities" class="single-vendor__linguistic_functionality">
+          <strong>Linguistic Functionality</strong>: {{linguisticFunctionalities}}
         </span>
-        <span v-if="data.targetEntity" class="single-vendor__target_entity">
-          <strong>Target Entity</strong>: {{data.targetEntity}}
+        <span v-if="demographics" class="single-vendor__target_entity">
+          <strong>Target Entity</strong>: {{demographics}}
         </span>
-        <span v-if="data.installation" class="single-vendor__installation">
-          <strong>Installation</strong>: {{data.installation}}
+        <span v-if="installations" class="single-vendor__installation">
+          <strong>Installation</strong>: {{installations}}
         </span>
+        <div v-if="description" class="single-vendor__description" v-html="description">
+        </div>
       </div>
     </template>
   </div>
@@ -45,6 +47,30 @@ export default class SingleVendor extends Vue {
 
   get queryId () {
     return this.$route.params.vendorId
+  }
+
+  get description () {
+    return this.data.description
+  }
+
+  get functionalities () {
+    return this.data.functionalities.map(data => data.name).join(', ')
+  }
+
+  get platformLanguages () {
+    return this.data.platformLanguages.map(data => data.name).join(', ')
+  }
+
+  get linguisticFunctionalities () {
+    return this.data.linguisticFunctionalities.map(data => data.name).join(', ')
+  }
+
+  get demographics () {
+    return this.data.demographics.map(data => data.name).join(', ')
+  }
+
+  get installations () {
+    return this.data.installations.map(data => data.name).join(', ')
   }
 
   @Watch('queryId', { immediate: true })
@@ -127,5 +153,10 @@ export default class SingleVendor extends Vue {
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+}
+
+.single-vendor__description {
+  width: 100%;
+  text-align: left;
 }
 </style>
