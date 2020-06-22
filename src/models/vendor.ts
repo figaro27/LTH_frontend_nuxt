@@ -7,6 +7,7 @@ export type Installation = { id: string; name: string }
 export type Vendor ={
   id: string | number;
   name: string;
+  logo: string | null;
   tool: string | null;
   description: string | null;
   website: string | null;

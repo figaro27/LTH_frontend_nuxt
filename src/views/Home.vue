@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img class="home__logo" src="@/assets/logo.jpg">
     <div class="search-box-container">
-      <search-box @search="onSearch" />
+      <search-box v-model="keyword" @search="onSearch" />
     </div>
   </div>
 </template>
@@ -16,6 +16,8 @@ import SearchBox from '@/components/SearchBox.vue'
   components: { SearchBox }
 })
 export default class Home extends Vue {
+  keyword = ''
+
   onSearch (keyword: string) {
     this.$router.push(`/search?keyword=${keyword}`)
   }
@@ -28,6 +30,15 @@ export default class Home extends Vue {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.home__logo {
+  width: 150px;
+  object-fit: contain;
+  margin: -200px 0 20px 0;
 }
 
 .search-box-container {

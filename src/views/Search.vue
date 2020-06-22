@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search__header">
-      <img alt="Vue logo" src="../assets/logo.png" class="search__logo">
+      <img alt="Vue logo" src="@/assets/logo.jpg" class="search__logo">
       <div class="search-box-container">
         <search-box :value="searchQueryParam" @search="onSearch" />
       </div>
@@ -126,7 +126,6 @@ export default class Search extends Vue {
 }
 
 .search__logo {
-  width: 40px;
   height: 40px;
   object-fit: contain;
   margin-right: 20px;
