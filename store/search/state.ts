@@ -16,19 +16,20 @@ export type SearchState = {
   vendors: Vendor[]
 }
 
-const state: SearchState = () => ({
-  demographics: [],
-  functionalities: [],
-  hqs: [],
-  installations: [],
-  integrations: [],
-  jurisdictions: [],
-  platformLanguages: [],
-  practiceAreas: [],
-  keywords: [],
-  keywordsLoading: false,
+const state = () =>
+  ({
+    demographics: [],
+    functionalities: [],
+    hqs: [],
+    installations: [],
+    integrations: [],
+    jurisdictions: [],
+    platformLanguages: [],
+    practiceAreas: [],
+    keywords: [],
+    keywordsLoading: false,
 
-  vendors: []
-})
+    vendors: []
+  } as SearchState)
 
 export default state

@@ -35,7 +35,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['vue-cool-select/dist/themes/bootstrap.css'],
+  css: [],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
