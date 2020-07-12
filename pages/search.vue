@@ -7,11 +7,6 @@
           <search-box :value="filters.keyword" @search="onKeywordSubmit" />
         </div>
       </div>
-      <div class="search__header__row search__header__row--clear">
-        <nuxt-link v-if="showClearFilter" class="search__header__clear" to="/search">
-          Clear Filters
-        </nuxt-link>
-      </div>
     </div>
     <div class="search__content-container">
       <div class="search__side-filter">
@@ -66,13 +61,20 @@
         />
       </div>
       <div v-loading="loading" class="search__content">
-        <h4 v-if="!loading">Search result ({{ vendors.length }})</h4>
-        <vendor-item
-          v-for="(vendor, index) of vendors"
-          :key="index"
-          class="search__content__vendor-item"
-          :data="vendor"
-        />
+        <h4 v-if="!loading" class="search__content__count">
+          <span>Search result ({{ vendors.length }})</span>
+          <nuxt-link v-if="showClearFilter" to="/search">
+            <fa :icon="['fas', 'times-circle']" />
+          </nuxt-link>
+        </h4>
+        <div class="search__content__vendors">
+          <vendor-item
+            v-for="(vendor, index) of vendors"
+            :key="index"
+            class="search__content__vendor-item"
+            :data="vendor"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -281,10 +283,6 @@ export default class Search extends Vue {
   justify-content: flex-end;
 }
 
-.search__header__clear {
-  text-decoration: underline;
-}
-
 .search__logo {
   height: 40px;
   object-fit: contain;
@@ -302,9 +300,6 @@ export default class Search extends Vue {
   overflow: hidden;
 }
 
-.search__header__clear {
-}
-
 .search__side-filter {
   width: 300px;
   display: flex;
@@ -317,12 +312,32 @@ export default class Search extends Vue {
 }
 
 .search__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   flex: 1;
   text-align: left;
   word-break: break-all;
-  overflow: hidden scroll;
+  overflow: hidden;
   padding: 10px;
   border-left: 1px solid lightgray;
+}
+
+.search__content__count {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.search__content__vendors {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden scroll;
 }
 
 .search__content__vendor-item {
