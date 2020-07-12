@@ -1,13 +1,20 @@
 <template>
   <div class="search">
     <div class="search__header">
-      <img alt="Vue logo" src="@/assets/logo.jpg" class="search__logo" />
-      <div class="search-box-container">
-        <search-box :value="filters.keyword" @search="onKeywordSubmit" />
+      <div class="search__header__row">
+        <img alt="Vue logo" src="@/assets/logo.jpg" class="search__logo" />
+        <div class="search-box-container">
+          <search-box :value="filters.keyword" @search="onKeywordSubmit" />
+        </div>
+      </div>
+      <div class="search__header__row search__header__row--clear">
+        <nuxt-link v-if="showClearFilter" class="search__header__clear" to="/search">
+          Clear Filters
+        </nuxt-link>
       </div>
     </div>
-    <div class="content-container">
-      <div class="side-filter">
+    <div class="search__content-container">
+      <div class="search__side-filter">
         <select-filter id="hqs" v-model="filters.hqs" name="hq" label="HQ" :options="hqs" @change="onFilterUpdate" />
         <select-filter
           id="functionalities"
@@ -58,8 +65,14 @@
           @change="onFilterUpdate"
         />
       </div>
-      <div class="content">
-        <vendor-item v-for="(vendor, index) of vendors" :key="index" class="content__vendor-item" :data="vendor" />
+      <div v-loading="loading" class="search__content">
+        <h4 v-if="!loading">Search result ({{ vendors.length }})</h4>
+        <vendor-item
+          v-for="(vendor, index) of vendors"
+          :key="index"
+          class="search__content__vendor-item"
+          :data="vendor"
+        />
       </div>
     </div>
   </div>
@@ -100,6 +113,8 @@ export default class Search extends Vue {
   @State((state) => state.search.practiceAreas) practiceAreas!: any[]
   @State((state) => state.search.vendors) vendors!: Vendor[]
 
+  loading: boolean = true
+
   filterOptionsLoaded: boolean = false
 
   filters: Filters = {
@@ -132,15 +147,21 @@ export default class Search extends Vue {
     } = this.filters
     return {
       keyword,
-      demographics: demographics.map((item) => item.name).join(','),
-      functionalities: functionalities.map((item) => item.name).join(','),
-      hqs: hqs.map((item) => item.name).join(','),
-      integrations: integrations.map((item) => item.name).join(','),
-      installations: installations.map((item) => item.name).join(','),
-      jurisdictions: jurisdictions.map((item) => item.name).join(','),
-      platformLanguages: platformLanguages.map((item) => item.name).join(','),
-      practiceAreas: practiceAreas.map((item) => item.name).join(',')
+      demographics: demographics.length === 0 ? undefined : demographics.map((item) => item.name).join(','),
+      functionalities: functionalities.length === 0 ? undefined : functionalities.map((item) => item.name).join(','),
+      hqs: hqs.length === 0 ? undefined : hqs.map((item) => item.name).join(','),
+      integrations: integrations.length === 0 ? undefined : integrations.map((item) => item.name).join(','),
+      installations: installations.length === 0 ? undefined : installations.map((item) => item.name).join(','),
+      jurisdictions: jurisdictions.length === 0 ? undefined : jurisdictions.map((item) => item.name).join(','),
+      platformLanguages:
+        platformLanguages.length === 0 ? undefined : platformLanguages.map((item) => item.name).join(','),
+      practiceAreas: practiceAreas.length === 0 ? undefined : practiceAreas.map((item) => item.name).join(',')
     }
+  }
+
+  get showClearFilter() {
+    const { searchQueryParam } = this
+    return Object.keys(searchQueryParam).filter((key) => !!searchQueryParam[key]).length > 0
   }
 
   @Watch('searchQueryParam', { immediate: true })
@@ -221,16 +242,21 @@ export default class Search extends Vue {
     })
   }
 
-  submitQuery() {
+  async submitQuery() {
+    this.loading = true
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(), 1000)
+    })
     // await this.$store.dispatch('search/runSearch', this.searchQuery)
     console.log('submitQuery', this.searchQuery)
+    this.loading = false
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .search {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -240,10 +266,23 @@ export default class Search extends Vue {
 
 .search__header {
   width: 100%;
-  height: 40px;
   display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.search__header__row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search__header__row--clear {
+  min-height: 25px;
+  justify-content: flex-end;
+}
+
+.search__header__clear {
+  text-decoration: underline;
 }
 
 .search__logo {
@@ -256,14 +295,17 @@ export default class Search extends Vue {
   flex: 1;
 }
 
-.content-container {
+.search__content-container {
   flex: 1;
   display: flex;
   flex-direction: row;
   overflow: hidden;
 }
 
-.side-filter {
+.search__header__clear {
+}
+
+.search__side-filter {
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -274,7 +316,7 @@ export default class Search extends Vue {
   }
 }
 
-.content {
+.search__content {
   flex: 1;
   text-align: left;
   word-break: break-all;
@@ -283,7 +325,7 @@ export default class Search extends Vue {
   border-left: 1px solid lightgray;
 }
 
-.content__vendor-item {
+.search__content__vendor-item {
   &:not(:last-child) {
     margin-bottom: 10px;
   }

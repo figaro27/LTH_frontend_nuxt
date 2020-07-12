@@ -41,6 +41,7 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
+    { src: '@/plugins/loading.js', ssr: false },
     { src: '@/plugins/vue-cool-select.js', ssr: false },
     { src: '@/plugins/vue-multiselect.js', ssr: false }
   ],

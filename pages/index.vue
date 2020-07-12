@@ -19,7 +19,11 @@ export default class Home extends Vue {
   keyword = ''
 
   onSearch(keyword: string) {
-    this.$router.push(`/search?keyword=${keyword}`)
+    if (keyword) {
+      this.$router.push({ name: 'search', query: { keyword } })
+    } else {
+      this.$router.push({ name: 'search' })
+    }
   }
 }
 </script>
