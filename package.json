@@ -9,13 +9,11 @@
     "export": "nuxt-ts export",
     "serve": "nuxt-ts serve",
     "lint:js": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
-    "lint:style": "stylelint **/*.{vue,scss,css} --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style",
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "eslint",
-    "*.{css,scss,vue}": "stylelint"
+    "*.{js,ts,vue}": "eslint"
   },
   "husky": {
     "hooks": {
@@ -30,6 +28,7 @@
     "qs": "^6.9.4",
     "vue-class-component": "^7.2.3",
     "vue-cool-select": "^3.5.2",
+    "vue-multiselect": "^2.1.6",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -37,7 +36,6 @@
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
-    "@nuxtjs/stylelint-module": "^4.0.0",
     "@types/qs": "^6.9.3",
     "@vue/test-utils": "^1.0.3",
     "babel-core": "7.0.0-bridge.0",
@@ -53,9 +51,6 @@
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "sass-loader": "^8.0.2",
-    "stylelint": "^13.6.1",
-    "stylelint-config-prettier": "^8.0.1",
-    "stylelint-config-standard": "^20.0.0",
     "ts-jest": "^26.1.0",
     "vue-jest": "^3.0.4",
     "vue-property-decorator": "^9.0.0",

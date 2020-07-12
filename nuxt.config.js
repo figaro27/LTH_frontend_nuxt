@@ -40,7 +40,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/vue-cool-select.js'],
+  plugins: [
+    { src: '@/plugins/vue-cool-select.js', ssr: false },
+    { src: '@/plugins/vue-multiselect.js', ssr: false }
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

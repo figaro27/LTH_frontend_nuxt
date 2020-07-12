@@ -1,22 +1,17 @@
 <template>
   <div class="search-filter">
-    <label v-if="label" class="search-filter__label" :for="id"
-      >{{ label }}:</label
-    >
-    <select
-      :id="id"
+    <label v-if="label" class="search-filter__label" :for="id"> {{ label }}: </label>
+    <multiselect
       v-model="selectedVal"
       class="search-filter__select"
-      :name="name"
-    >
-      <option
-        v-for="(option, index) of options"
-        :key="`${name}-${index}`"
-        :value="option.id"
-      >
-        {{ option.name }}
-      </option>
-    </select>
+      label="name"
+      multiple
+      placeholder="*"
+      taggable
+      :tag-placeholder="`Select ${label}`"
+      track-by="id"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -35,7 +30,7 @@ export type Option = {
 export default class SelectFilter extends Vue {
   @Prop({ required: true }) id!: string
   @Prop({ required: true }) name!: string
-  @Prop({ required: true }) value!: string
+  @Prop({ required: true }) value!: Option[]
   @Prop({ required: true }) options!: Option[]
   @Prop({ required: false }) label!: string
 
@@ -43,12 +38,9 @@ export default class SelectFilter extends Vue {
     return this.value
   }
 
-  set selectedVal(value: string) {
-    this.$emit('input', value)
-    this.$emit('change', {
-      id: this.id,
-      value: this.options.find((o) => `${o.id}` === `${value}`)
-    })
+  set selectedVal(newVal: Option[]) {
+    this.$emit('input', newVal)
+    this.$emit('change', { id: this.id, value: newVal })
   }
 }
 </script>

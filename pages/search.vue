@@ -3,83 +3,63 @@
     <div class="search__header">
       <img alt="Vue logo" src="@/assets/logo.jpg" class="search__logo" />
       <div class="search-box-container">
-        <search-box :value="searchQueryParam" @search="onSearch" />
+        <search-box :value="filters.keyword" @search="onKeywordSubmit" />
       </div>
     </div>
     <div class="content-container">
       <div class="side-filter">
+        <select-filter id="hqs" v-model="filters.hqs" name="hq" label="HQ" :options="hqs" @change="onFilterUpdate" />
         <select-filter
-          id="hq"
-          v-model="hq"
-          name="hq"
-          label="HQ"
-          :options="hqs"
-          @change="onFilter"
-        />
-        <select-filter
-          id="functionality"
-          v-model="functionality"
+          id="functionalities"
+          v-model="filters.functionalities"
           name="functionality"
           label="Functionality"
           :options="functionalities"
-          @change="onFilter"
+          @change="onFilterUpdate"
         />
         <select-filter
-          id="subFunctionality"
-          v-model="subFunctionality"
-          name="subFunctionality"
-          label="Functionality"
-          :options="functionalities"
-          @change="onFilter"
-        />
-        <select-filter
-          id="installation"
-          v-model="installation"
+          id="installations"
+          v-model="filters.installations"
           name="installation"
           label="Installation"
           :options="installations"
-          @change="onFilter"
+          @change="onFilterUpdate"
         />
         <select-filter
-          id="jurisdiction"
-          v-model="jurisdiction"
+          id="jurisdictions"
+          v-model="filters.jurisdictions"
           name="jurisdiction"
-          label="Jurisdiction"
+          label="Office"
           :options="jurisdictions"
-          @change="onFilter"
+          @change="onFilterUpdate"
         />
         <select-filter
-          id="platformLanguage"
-          v-model="platformLanguage"
+          id="platformLanguages"
+          v-model="filters.platformLanguages"
           name="platformLanguage"
           label="Platform Language"
           :options="platformLanguages"
-          @change="onFilter"
+          @change="onFilterUpdate"
         />
         <select-filter
-          id="practiceArea"
-          v-model="practiceArea"
+          id="practiceAreas"
+          v-model="filters.practiceAreas"
           name="practiceArea"
           label="Practice Area"
           :options="practiceAreas"
-          @change="onFilter"
+          @change="onFilterUpdate"
         />
         <select-filter
-          id="demographic"
-          v-model="demographic"
+          id="demographics"
+          v-model="filters.demographics"
           name="demographic"
           label="Target Entity"
           :options="demographics"
-          @change="onFilter"
+          @change="onFilterUpdate"
         />
       </div>
       <div class="content">
-        <vendor-item
-          v-for="(vendor, index) of vendors"
-          :key="index"
-          class="content__vendor-item"
-          :data="vendor"
-        />
+        <vendor-item v-for="(vendor, index) of vendors" :key="index" class="content__vendor-item" :data="vendor" />
       </div>
     </div>
   </div>
@@ -94,6 +74,17 @@ import SearchBox from '@/components/SearchBox.vue'
 import SelectFilter from '@/components/SelectFilter.vue'
 import VendorItem from '@/components/VendorItem.vue'
 
+type Filters = {
+  keyword: string
+  demographics: any[]
+  functionalities: any[]
+  hqs: any[]
+  installations: any[]
+  integrations: any[]
+  jurisdictions: any[]
+  platformLanguages: any[]
+  practiceAreas: any[]
+}
 @Component({
   name: 'search',
   components: { SearchBox, SelectFilter, VendorItem }
@@ -109,61 +100,130 @@ export default class Search extends Vue {
   @State((state) => state.search.practiceAreas) practiceAreas!: any[]
   @State((state) => state.search.vendors) vendors!: Vendor[]
 
+  filterOptionsLoaded: boolean = false
+
+  filters: Filters = {
+    keyword: '',
+    demographics: [],
+    functionalities: [],
+    hqs: [],
+    integrations: [],
+    installations: [],
+    jurisdictions: [],
+    platformLanguages: [],
+    practiceAreas: []
+  }
+
   get searchQueryParam() {
-    return this.$route.query.keyword || ''
+    return this.$route.query
+  }
+
+  get searchQuery() {
+    const {
+      keyword,
+      demographics,
+      functionalities,
+      hqs,
+      integrations,
+      installations,
+      jurisdictions,
+      platformLanguages,
+      practiceAreas
+    } = this.filters
+    return {
+      keyword,
+      demographics: demographics.map((item) => item.name).join(','),
+      functionalities: functionalities.map((item) => item.name).join(','),
+      hqs: hqs.map((item) => item.name).join(','),
+      integrations: integrations.map((item) => item.name).join(','),
+      installations: installations.map((item) => item.name).join(','),
+      jurisdictions: jurisdictions.map((item) => item.name).join(','),
+      platformLanguages: platformLanguages.map((item) => item.name).join(','),
+      practiceAreas: practiceAreas.map((item) => item.name).join(',')
+    }
   }
 
   @Watch('searchQueryParam', { immediate: true })
-  onKeywordChange() {
-    this.submitQuery()
+  async onRouteChange() {
+    await this.submitQuery()
+    if (this.filterOptionsLoaded) {
+      this.updateFromRouteQuery()
+    }
   }
 
-  searchQuery: any = {}
-
-  demographic: number | null = null
-  functionality: number | null = null
-  subFunctionality: number | null = null
-  hq: number | null = null
-  installation: number | null = null
-  integration: number | null = null
-  jurisdiction: number | null = null
-  platformLanguage: number | null = null
-  practiceArea: number | null = null
-
-  mounted() {
-    this.$store.dispatch('search/loadDemographics')
-    this.$store.dispatch('search/loadFunctionalities')
-    this.$store.dispatch('search/loadHqs')
-    this.$store.dispatch('search/loadInstallations')
-    this.$store.dispatch('search/loadIntegrations')
-    this.$store.dispatch('search/loadJurisdictions')
-    this.$store.dispatch('search/loadPlatformLanguages')
-    this.$store.dispatch('search/loadPracticeAreas')
-  }
-
-  onFilter(params: { id: string; value: any }) {
-    const { id, value } = params
-    this.searchQuery[id] = value.name
-    this.submitQuery()
-  }
-
-  onSearch(keyword: string) {
-    if (!this.$route.name) {
+  async mounted() {
+    this.filterOptionsLoaded = false
+    const promises = [
+      this.$store.dispatch('search/loadDemographics'),
+      this.$store.dispatch('search/loadFunctionalities'),
+      this.$store.dispatch('search/loadHqs'),
+      this.$store.dispatch('search/loadInstallations'),
+      this.$store.dispatch('search/loadIntegrations'),
+      this.$store.dispatch('search/loadJurisdictions'),
+      this.$store.dispatch('search/loadPlatformLanguages'),
+      this.$store.dispatch('search/loadPracticeAreas')
+    ]
+    try {
+      await Promise.all(promises)
+    } catch (err) {
+      console.error(err)
+      this.filterOptionsLoaded = true
       return
     }
-    if (keyword === this.searchQueryParam) {
+    this.updateFromRouteQuery()
+    this.filterOptionsLoaded = true
+  }
+
+  onFilterUpdate() {
+    this.updateRouteQuery()
+  }
+
+  onKeywordSubmit(keyword: string) {
+    if (keyword === this.filters.keyword) {
+      return
+    }
+    this.filters.keyword = keyword
+    this.updateRouteQuery()
+  }
+
+  updatedSelectedValueFromRouteParam(id: keyof Filters, options: any[] = []) {
+    const queryValue = this.$route.query[id] as string
+    if (id === 'keyword') {
+      this.filters.keyword = queryValue
+      return
+    }
+    this.filters[id] = queryValue
+      ? queryValue
+          .split(',')
+          .map((item) => options.find((d) => d.name === item))
+          .filter((item) => !!item)
+      : []
+  }
+
+  updateFromRouteQuery() {
+    this.updatedSelectedValueFromRouteParam('keyword')
+    this.updatedSelectedValueFromRouteParam('demographics', this.demographics)
+    this.updatedSelectedValueFromRouteParam('functionalities', this.functionalities)
+    this.updatedSelectedValueFromRouteParam('hqs', this.hqs)
+    this.updatedSelectedValueFromRouteParam('installations', this.installations)
+    this.updatedSelectedValueFromRouteParam('jurisdictions', this.jurisdictions)
+    this.updatedSelectedValueFromRouteParam('platformLanguages', this.platformLanguages)
+    this.updatedSelectedValueFromRouteParam('practiceAreas', this.practiceAreas)
+  }
+
+  updateRouteQuery() {
+    if (!this.$route.name) {
       return
     }
     this.$router.push({
       name: this.$route.name,
-      query: { ...this.$route.query, keyword }
+      query: this.searchQuery
     })
   }
 
-  async submitQuery() {
-    this.searchQuery.keyword =
-      this.searchQueryParam === '' ? null : this.searchQueryParam
-    await this.$store.dispatch('search/runSearch', this.searchQuery)
+  submitQuery() {
+    // await this.$store.dispatch('search/runSearch', this.searchQuery)
+    console.log('submitQuery', this.searchQuery)
   }
 }
 </script>
@@ -204,7 +264,7 @@ export default class Search extends Vue {
 }
 
 .side-filter {
-  width: 200px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   margin-right: 20px;
