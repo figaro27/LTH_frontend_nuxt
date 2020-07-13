@@ -32,35 +32,28 @@ export const request = async <T = any>(
   method: Method,
   data: any,
   options: AdditionalRequestOptions = {}
-): Promise<AxiosResponse<T>> =>
-  await client.request({ method, url, data, ...options })
+): Promise<AxiosResponse<T>> => await client.request({ method, url, data, ...options })
 
 /**
  * Utility method for downloading files from backend.
  *
  * Defaults to arraybuffer as response type.
  */
-export const download = <T = any>(
-  url: string,
-  options: object = { responseType: 'arraybuffer' }
-) => request<T>(url, 'get', null, options)
+export const download = <T = any>(url: string, options: object = { responseType: 'arraybuffer' }) =>
+  request<T>(url, 'get', null, options)
 
 /**
  * Utility method for GET requests to the backend
  */
-export const get = <T = any>(url: string, params?: object) =>
-  request<T>(url, 'get', null, { params })
+export const get = <T = any>(url: string, params?: object) => request<T>(url, 'get', null, { params })
 
 /**
  * Utility method for POST requests to the backend
  */
-export const post = <T = any>(url: string, data?: object) =>
-  request<T>(url, 'post', data)
+export const post = <T = any>(url: string, data?: object) => request<T>(url, 'post', data)
 
 /**
  * Utility method for PUT requests to the backend
  */
-export const put = <T = any>(url: string, data?: object) =>
-  request<T>(url, 'put', data)
-export const remove = (url: string, data?: object) =>
-  request(url, 'delete', data)
+export const put = <T = any>(url: string, data?: object) => request<T>(url, 'put', data)
+export const remove = (url: string, data?: object) => request(url, 'delete', data)

@@ -5,7 +5,7 @@ export default {
    */
   mode: 'universal',
   env: {
-    apiUrl: process.env.VUE_APP_API || 'http://localhost:4000'
+    apiUrl: process.env.NUXT_APP_API_URL || 'http://localhost:4000'
   },
   server: {
     port: 3000,
