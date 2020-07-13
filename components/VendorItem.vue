@@ -3,30 +3,16 @@
     <div class="vendor-item__row">
       <span v-if="data.tool" class="vendor-item__tool">{{ data.tool }}</span>
       <span v-if="data.name" class="vendor-item__title">{{ data.name }}</span>
-      <span v-if="data.jurisdiction" class="vendor-item__jurisdiction">{{
-        data.jurisdiction
-      }}</span>
+      <span v-if="jurisdiction" class="vendor-item__jurisdiction">{{ jurisdiction }}</span>
     </div>
     <div class="vendor-item__row">
-      <span v-if="data.functionality" class="vendor-item__functionality">{{
-        data.functionality
-      }}</span>
-      <span
-        v-if="data.platformLanguage"
-        class="vendor-item__platform_language"
-        >{{ data.platformLanguage }}</span
-      >
-      <span
-        v-if="data.linguisticFunctionality"
-        class="vendor-item__linguistic_functionality"
-        >{{ data.linguisticFunctionality }}</span
-      >
-      <span v-if="data.targetEntity" class="vendor-item__target_entity">{{
-        data.targetEntity
-      }}</span>
-      <span v-if="data.installation" class="vendor-item__installation">{{
-        data.installation
-      }}</span>
+      <span v-if="functionality" class="vendor-item__functionality">{{ functionality }}</span>
+      <span v-if="platformLanguage" class="vendor-item__platform_language">{{ platformLanguage }}</span>
+      <span v-if="linguisticFunctionality" class="vendor-item__linguistic_functionality">
+        {{ linguisticFunctionality }}
+      </span>
+      <span v-if="targetEntity" class="vendor-item__target_entity">{{ targetEntity }}</span>
+      <span v-if="installation" class="vendor-item__installation">{{ installation }}</span>
     </div>
   </nuxt-link>
 </template>
@@ -38,6 +24,30 @@ import { Vendor } from '@/models'
 @Component({ name: 'vendor-item' })
 export default class VendorItem extends Vue {
   @Prop({ required: true }) data!: Vendor
+
+  get jurisdiction() {
+    return this.data.jurisdictions.map((item) => item.name).join(',')
+  }
+
+  get functionality() {
+    return this.data.functionalities.map((item) => item.name).join(',')
+  }
+
+  get platformLanguage() {
+    return this.data.functionalities.map((item) => item.name).join(',')
+  }
+
+  get linguisticFunctionality() {
+    return this.data.linguisticFunctionalities.map((item) => item.name).join(',')
+  }
+
+  get targetEntity() {
+    return this.data.demographics.map((item) => item.name).join(',')
+  }
+
+  get installation() {
+    return this.data.installations.map((item) => item.name).join(',')
+  }
 
   get url() {
     return `/vendor/${this.data.id}`

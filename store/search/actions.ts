@@ -71,13 +71,11 @@ const actions: SearchActions = {
     const keywords: Array<Keyword> = []
     responses.forEach((res) => {
       keywords.push(
-        ...res.data.map(
-          (item: { id: number; name: string }, itemIndex: number) => ({
-            ...item,
-            index: index + itemIndex,
-            table: res.config.url
-          })
-        )
+        ...res.data.map((item: { id: number; name: string }, itemIndex: number) => ({
+          ...item,
+          index: index + itemIndex,
+          table: res.config.url
+        }))
       )
       index = keywords.length
     })

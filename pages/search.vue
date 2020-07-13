@@ -249,8 +249,7 @@ export default class Search extends Vue {
     await new Promise((resolve) => {
       setTimeout(() => resolve(), 1000)
     })
-    // await this.$store.dispatch('search/runSearch', this.searchQuery)
-    console.log('submitQuery', this.searchQuery)
+    await this.$store.dispatch('search/runSearch', this.searchQuery)
     this.loading = false
   }
 }
