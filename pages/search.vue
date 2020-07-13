@@ -10,7 +10,7 @@
     </div>
     <div class="search__content-container">
       <div class="search__side-filter">
-        <select-filter id="hqs" v-model="filters.hqs" name="hq" label="HQ" :options="hqs" @change="onFilterUpdate" />
+        <!-- <select-filter id="hqs" v-model="filters.hqs" name="hq" label="HQ" :options="hqs" @change="onFilterUpdate" /> -->
         <select-filter
           id="functionalities"
           v-model="filters.functionalities"
@@ -62,7 +62,7 @@
       </div>
       <div v-loading="loading" class="search__content">
         <h4 v-if="!loading" class="search__content__count">
-          <span>Search result ({{ vendors.length }})</span>
+          <span>Search result ({{ total }})</span>
           <nuxt-link v-if="showClearFilter" to="/search">
             <fa :icon="['fas', 'times-circle']" />
           </nuxt-link>
@@ -114,6 +114,7 @@ export default class Search extends Vue {
   @State((state) => state.search.platformLanguages) platformLanguages!: any[]
   @State((state) => state.search.practiceAreas) practiceAreas!: any[]
   @State((state) => state.search.vendors) vendors!: Vendor[]
+  @State((state) => state.search.totalVendors) total!: number
 
   loading: boolean = true
 
@@ -131,11 +132,11 @@ export default class Search extends Vue {
     practiceAreas: []
   }
 
-  get searchQueryParam() {
+  get routeQuery() {
     return this.$route.query
   }
 
-  get searchQuery() {
+  get searchRouteQuery() {
     const {
       keyword,
       demographics,
@@ -161,12 +162,37 @@ export default class Search extends Vue {
     }
   }
 
-  get showClearFilter() {
-    const { searchQueryParam } = this
-    return Object.keys(searchQueryParam).filter((key) => !!searchQueryParam[key]).length > 0
+  get searchQuery() {
+    const {
+      keyword,
+      demographics,
+      functionalities,
+      hqs,
+      integrations,
+      installations,
+      jurisdictions,
+      platformLanguages,
+      practiceAreas
+    } = this.filters
+    return {
+      keyword,
+      demographics: demographics.length === 0 ? undefined : demographics.map((item) => item.id),
+      functionalities: functionalities.length === 0 ? undefined : functionalities.map((item) => item.id),
+      hqs: hqs.length === 0 ? undefined : hqs.map((item) => item.id),
+      integrations: integrations.length === 0 ? undefined : integrations.map((item) => item.id),
+      installations: installations.length === 0 ? undefined : installations.map((item) => item.id),
+      jurisdictions: jurisdictions.length === 0 ? undefined : jurisdictions.map((item) => item.id),
+      platformLanguages: platformLanguages.length === 0 ? undefined : platformLanguages.map((item) => item.id),
+      practiceAreas: practiceAreas.length === 0 ? undefined : practiceAreas.map((item) => item.id)
+    }
   }
 
-  @Watch('searchQueryParam', { immediate: true })
+  get showClearFilter() {
+    const { routeQuery } = this
+    return Object.keys(routeQuery).filter((key) => !!routeQuery[key]).length > 0
+  }
+
+  @Watch('routeQuery', { immediate: true })
   async onRouteChange() {
     await this.submitQuery()
     if (this.filterOptionsLoaded) {
@@ -240,7 +266,7 @@ export default class Search extends Vue {
     }
     this.$router.push({
       name: this.$route.name,
-      query: this.searchQuery
+      query: this.searchRouteQuery
     })
   }
 

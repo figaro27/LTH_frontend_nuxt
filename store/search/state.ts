@@ -14,6 +14,7 @@ export type SearchState = {
   keywordsLoading: boolean
 
   vendors: Vendor[]
+  totalVendors: number
 }
 
 const state = () =>
@@ -29,7 +30,8 @@ const state = () =>
     keywords: [],
     keywordsLoading: false,
 
-    vendors: []
+    vendors: [],
+    totalVendors: 0
   } as SearchState)
 
 export default state

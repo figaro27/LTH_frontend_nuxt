@@ -38,6 +38,9 @@ const mutations: MutationTree<SearchState> = {
 
   SET_VENDORS(state: SearchState, vendors: Vendor[]) {
     state.vendors = vendors
+  },
+  SET_VENDORS_TOTAL(state: SearchState, total: number) {
+    state.totalVendors = total
   }
 }
 
