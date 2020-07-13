@@ -1,4 +1,4 @@
-import { Keyword } from './types'
+import { Keyword, Filters, RouteQuery } from './types'
 import { Vendor } from '@/models'
 
 export type SearchState = {
@@ -15,6 +15,8 @@ export type SearchState = {
 
   vendors: Vendor[]
   totalVendors: number
+  vendorsLastFilter: Filters
+  routeQuery: RouteQuery
 }
 
 const state = () =>
@@ -31,7 +33,19 @@ const state = () =>
     keywordsLoading: false,
 
     vendors: [],
-    totalVendors: 0
+    totalVendors: 0,
+    vendorsLastFilter: {
+      keyword: '',
+      demographics: [],
+      functionalities: [],
+      hqs: [],
+      installations: [],
+      integrations: [],
+      jurisdictions: [],
+      platformLanguages: [],
+      practiceAreas: []
+    },
+    routeQuery: {}
   } as SearchState)
 
 export default state

@@ -84,22 +84,12 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
-import { Vendor } from '../models'
 import SearchBox from '@/components/SearchBox.vue'
 import SelectFilter from '@/components/SelectFilter.vue'
 import VendorItem from '@/components/VendorItem.vue'
+import { Vendor } from '@/models'
+import { Filters } from '@/store/search/types'
 
-type Filters = {
-  keyword: string
-  demographics: any[]
-  functionalities: any[]
-  hqs: any[]
-  installations: any[]
-  integrations: any[]
-  jurisdictions: any[]
-  platformLanguages: any[]
-  practiceAreas: any[]
-}
 @Component({
   name: 'search',
   components: { SearchBox, SelectFilter, VendorItem }
@@ -149,7 +139,7 @@ export default class Search extends Vue {
       practiceAreas
     } = this.filters
     return {
-      keyword,
+      keyword: keyword === '' ? undefined : keyword,
       demographics: demographics.length === 0 ? undefined : demographics.map((item) => item.name).join(','),
       functionalities: functionalities.length === 0 ? undefined : functionalities.map((item) => item.name).join(','),
       hqs: hqs.length === 0 ? undefined : hqs.map((item) => item.name).join(','),
@@ -175,7 +165,7 @@ export default class Search extends Vue {
       practiceAreas
     } = this.filters
     return {
-      keyword,
+      keyword: keyword === '' ? undefined : keyword,
       demographics: demographics.length === 0 ? undefined : demographics.map((item) => item.id),
       functionalities: functionalities.length === 0 ? undefined : functionalities.map((item) => item.id),
       hqs: hqs.length === 0 ? undefined : hqs.map((item) => item.id),
@@ -194,10 +184,10 @@ export default class Search extends Vue {
 
   @Watch('routeQuery', { immediate: true })
   async onRouteChange() {
-    await this.submitQuery()
     if (this.filterOptionsLoaded) {
       this.updateFromRouteQuery()
     }
+    await this.submitQuery()
   }
 
   async mounted() {
@@ -275,6 +265,7 @@ export default class Search extends Vue {
     await new Promise((resolve) => {
       setTimeout(() => resolve(), 1000)
     })
+    this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
     await this.$store.dispatch('search/runSearch', this.searchQuery)
     this.loading = false
   }

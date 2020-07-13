@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex'
 
 import { SearchState } from './state'
-import { Keyword } from './types'
+import { Keyword, Filters, RouteQuery } from './types'
 import { Vendor } from '@/models'
 
 const mutations: MutationTree<SearchState> = {
@@ -41,6 +41,12 @@ const mutations: MutationTree<SearchState> = {
   },
   SET_VENDORS_TOTAL(state: SearchState, total: number) {
     state.totalVendors = total
+  },
+  SET_LAST_ROUTE_QUERY(state: SearchState, query: RouteQuery) {
+    state.routeQuery = query
+  },
+  SAVE_LAST_FILTER(state: SearchState, filter: Filters) {
+    state.vendorsLastFilter = filter
   }
 }
 

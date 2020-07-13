@@ -50,6 +50,7 @@ const actions: SearchActions = {
   },
 
   async runSearch({ commit }, query: any = {}) {
+    commit('SAVE_LAST_FILTER', query)
     const { data } = await api.get('vendors/search', query)
     commit('SET_VENDORS', data.data.vendors)
     commit('SET_VENDORS_TOTAL', data.data.total)
