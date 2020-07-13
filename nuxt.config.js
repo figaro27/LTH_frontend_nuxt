@@ -8,7 +8,8 @@ export default {
     apiUrl: process.env.VUE_APP_API || 'http://localhost:4000'
   },
   server: {
-    port: 3000
+    port: 3000,
+    host: '0.0.0.0'
   },
   /*
    ** Nuxt target
