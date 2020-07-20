@@ -1,23 +1,10 @@
 <template>
   <div class="search-box">
     <div class="search-box__input-container">
-      <input
-        v-model="searchText"
-        class="search-box__input"
-        placeholder="Search..."
-        @keydown.enter="search"
-      />
-      <button
-        v-if="searchText"
-        class="search-box__cancel"
-        @click.stop="cancelSearch"
-      ></button>
+      <input v-model="searchText" class="search-box__input" placeholder="Search..." @keydown.enter="search" />
+      <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
     </div>
-    <button
-      class="search-box__search"
-      :disabled="keywordsLoading"
-      @click.stop="search"
-    >
+    <button class="search-box__search" :disabled="keywordsLoading" @click.stop="search">
       <img src="/img/svgs/search.svg" />
     </button>
   </div>

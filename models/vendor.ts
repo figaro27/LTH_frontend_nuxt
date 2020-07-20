@@ -1,4 +1,4 @@
-export type Jurisdiction = { id: string; name: string }
+export type Office = { id: string; name: string }
 export type Functionality = { id: string; name: string }
 export type PracticeArea = { id: string; name: string }
 export type PlatformLanguage = { id: string; name: string }
@@ -11,7 +11,8 @@ export type Vendor = {
   tool: string | null
   description: string | null
   website: string | null
-  jurisdictions: Jurisdiction[]
+  hqs: Office[]
+  offices: Office[]
   functionalities: Functionality[]
   subFunctionalities: Functionality[]
   practiceAreas: PracticeArea[]

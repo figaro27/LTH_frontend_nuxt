@@ -4,10 +4,9 @@ import { Vendor } from '@/models'
 export type SearchState = {
   demographics: any[]
   functionalities: any[]
-  hqs: any[]
   installations: any[]
   integrations: any[]
-  jurisdictions: any[]
+  offices: any[]
   platformLanguages: any[]
   practiceAreas: any[]
   keywords: Keyword[]
@@ -23,10 +22,9 @@ const state = () =>
   ({
     demographics: [],
     functionalities: [],
-    hqs: [],
     installations: [],
     integrations: [],
-    jurisdictions: [],
+    offices: [],
     platformLanguages: [],
     practiceAreas: [],
     keywords: [],
@@ -41,7 +39,7 @@ const state = () =>
       hqs: [],
       installations: [],
       integrations: [],
-      jurisdictions: [],
+      offices: [],
       platformLanguages: [],
       practiceAreas: []
     },

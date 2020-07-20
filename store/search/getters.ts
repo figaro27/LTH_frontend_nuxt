@@ -12,7 +12,7 @@ const getters: GetterTree<SearchState, RootState> = {
       hqs,
       installations,
       integrations,
-      jurisdictions,
+      offices,
       platformLanguages,
       practiceAreas
     } = state.routeQuery
@@ -23,7 +23,7 @@ const getters: GetterTree<SearchState, RootState> = {
     if (hqs) queries.push(...hqs.split(','))
     if (installations) queries.push(...installations.split(','))
     if (integrations) queries.push(...integrations.split(','))
-    if (jurisdictions) queries.push(...jurisdictions.split(','))
+    if (offices) queries.push(...offices.split(','))
     if (platformLanguages) queries.push(...platformLanguages.split(','))
     if (practiceAreas) queries.push(...practiceAreas.split(','))
     return queries

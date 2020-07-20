@@ -5,27 +5,11 @@
     </div>
     <template v-else-if="data">
       <div class="single-vendor__header">
-        <img
-          v-if="data.logo"
-          alt="Vue logo"
-          :src="data.logo"
-          class="single-vendor__logo"
-        />
-        <img
-          v-else
-          alt="Vue logo"
-          src="@/assets/logo.jpg"
-          class="single-vendor__logo"
-        />
-        <span v-if="data.tool" class="single-vendor__tool">{{
-          data.tool
-        }}</span>
-        <span v-if="data.name" class="single-vendor__title">{{
-          data.name
-        }}</span>
-        <span v-if="data.jurisdiction" class="single-vendor__jurisdiction">{{
-          data.jurisdiction
-        }}</span>
+        <img v-if="data.logo" alt="Vue logo" :src="data.logo" class="single-vendor__logo" />
+        <img v-else alt="Vue logo" src="@/assets/logo.jpg" class="single-vendor__logo" />
+        <span v-if="data.tool" class="single-vendor__tool">{{ data.tool }}</span>
+        <span v-if="data.name" class="single-vendor__title">{{ data.name }}</span>
+        <span v-if="offices" class="single-vendor__office">{{ offices }}</span>
       </div>
       <div class="single-vendor__main">
         <span v-if="functionalities" class="single-vendor__functionality">
@@ -34,10 +18,7 @@
         <span v-if="platformLanguages" class="single-vendor__platform_language">
           <strong>Platform Language</strong>: {{ platformLanguages }}
         </span>
-        <span
-          v-if="linguisticFunctionalities"
-          class="single-vendor__linguistic_functionality"
-        >
+        <span v-if="linguisticFunctionalities" class="single-vendor__linguistic_functionality">
           <strong>Linguistic Functionality</strong>:
           {{ linguisticFunctionalities }}
         </span>
@@ -47,11 +28,7 @@
         <span v-if="installations" class="single-vendor__installation">
           <strong>Installation</strong>: {{ installations }}
         </span>
-        <div
-          v-if="description"
-          class="single-vendor__description"
-          v-html="description"
-        ></div>
+        <div v-if="description" class="single-vendor__description" v-html="description"></div>
       </div>
     </template>
   </div>
@@ -86,9 +63,7 @@ export default class SingleVendor extends Vue {
   }
 
   get linguisticFunctionalities() {
-    return this.data.linguisticFunctionalities
-      .map((data) => data.name)
-      .join(', ')
+    return this.data.linguisticFunctionalities.map((data) => data.name).join(', ')
   }
 
   get demographics() {
@@ -97,6 +72,13 @@ export default class SingleVendor extends Vue {
 
   get installations() {
     return this.data.installations.map((data) => data.name).join(', ')
+  }
+
+  get offices() {
+    return this.data.hqs
+      .map((data) => data.name)
+      .concat(this.data.offices.map((data) => data.name))
+      .join(', ')
   }
 
   @Watch('queryId', { immediate: true })
@@ -157,7 +139,7 @@ export default class SingleVendor extends Vue {
   }
 }
 
-.single-vendor__jurisdiction {
+.single-vendor__office {
   font-style: italic;
 }
 

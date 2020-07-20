@@ -19,11 +19,6 @@ const actions: SearchActions = {
     commit('SET_FUNCTIONALITIES', data)
   },
 
-  async loadHqs({ commit }) {
-    const data = await api.get('hqs')
-    commit('SET_HQS', data)
-  },
-
   async loadInstallations({ commit }) {
     const data = await api.get('installations')
     commit('SET_INSTALLATIONS', data)
@@ -34,9 +29,9 @@ const actions: SearchActions = {
     commit('SET_INTEGRATIONS', data)
   },
 
-  async loadJurisdictions({ commit }) {
-    const data = await api.get('jurisdictions')
-    commit('SET_JURISDICTIONS', data)
+  async loadOffices({ commit }) {
+    const data = await api.get('offices')
+    commit('SET_OFFICES', data)
   },
 
   async loadPlatformLanguages({ commit }) {
@@ -61,10 +56,9 @@ const actions: SearchActions = {
     const responses = await Promise.all([
       api.get('demographics'),
       api.get('functionalities'),
-      api.get('hqs'),
       api.get('installations'),
       api.get('integrations'),
-      api.get('jurisdictions'),
+      api.get('offices'),
       api.get('platform-languages'),
       api.get('practice-areas')
     ])

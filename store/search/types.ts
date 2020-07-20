@@ -12,7 +12,7 @@ export type RouteQuery = {
   hqs?: string
   installations?: string
   integrations?: string
-  jurisdictions?: string
+  offices?: string
   platformLanguages?: string
   practiceAreas?: string
 }
@@ -24,7 +24,7 @@ export type Filters = {
   hqs: any[]
   installations: any[]
   integrations: any[]
-  jurisdictions: any[]
+  offices: any[]
   platformLanguages: any[]
   practiceAreas: any[]
 }

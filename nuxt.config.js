@@ -43,7 +43,6 @@ export default {
    */
   plugins: [
     { src: '@/plugins/loading.js', ssr: false },
-    { src: '@/plugins/vue-cool-select.js', ssr: false },
     { src: '@/plugins/vue-multiselect.js', ssr: false },
     { src: '@/plugins/vue-text-highlight.js', ssr: false }
   ],

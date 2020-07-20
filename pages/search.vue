@@ -28,11 +28,11 @@
           @change="onFilterUpdate"
         />
         <select-filter
-          id="jurisdictions"
-          v-model="filters.jurisdictions"
-          name="jurisdiction"
+          id="offices"
+          v-model="filters.offices"
+          name="offices"
           label="Office"
-          :options="jurisdictions"
+          :options="offices"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -100,7 +100,7 @@ export default class Search extends Vue {
   @State((state) => state.search.hqs) hqs!: any[]
   @State((state) => state.search.installations) installations!: any[]
   @State((state) => state.search.integrations) integrations!: any[]
-  @State((state) => state.search.jurisdictions) jurisdictions!: any[]
+  @State((state) => state.search.offices) offices!: any[]
   @State((state) => state.search.platformLanguages) platformLanguages!: any[]
   @State((state) => state.search.practiceAreas) practiceAreas!: any[]
   @State((state) => state.search.vendors) vendors!: Vendor[]
@@ -117,7 +117,7 @@ export default class Search extends Vue {
     hqs: [],
     integrations: [],
     installations: [],
-    jurisdictions: [],
+    offices: [],
     platformLanguages: [],
     practiceAreas: []
   }
@@ -134,7 +134,7 @@ export default class Search extends Vue {
       hqs,
       integrations,
       installations,
-      jurisdictions,
+      offices,
       platformLanguages,
       practiceAreas
     } = this.filters
@@ -145,7 +145,7 @@ export default class Search extends Vue {
       hqs: hqs.length === 0 ? undefined : hqs.map((item) => item.name).join(','),
       integrations: integrations.length === 0 ? undefined : integrations.map((item) => item.name).join(','),
       installations: installations.length === 0 ? undefined : installations.map((item) => item.name).join(','),
-      jurisdictions: jurisdictions.length === 0 ? undefined : jurisdictions.map((item) => item.name).join(','),
+      offices: offices.length === 0 ? undefined : offices.map((item) => item.name).join(','),
       platformLanguages:
         platformLanguages.length === 0 ? undefined : platformLanguages.map((item) => item.name).join(','),
       practiceAreas: practiceAreas.length === 0 ? undefined : practiceAreas.map((item) => item.name).join(',')
@@ -160,7 +160,7 @@ export default class Search extends Vue {
       hqs,
       integrations,
       installations,
-      jurisdictions,
+      offices,
       platformLanguages,
       practiceAreas
     } = this.filters
@@ -171,7 +171,7 @@ export default class Search extends Vue {
       hqs: hqs.length === 0 ? undefined : hqs.map((item) => item.id),
       integrations: integrations.length === 0 ? undefined : integrations.map((item) => item.id),
       installations: installations.length === 0 ? undefined : installations.map((item) => item.id),
-      jurisdictions: jurisdictions.length === 0 ? undefined : jurisdictions.map((item) => item.id),
+      offices: offices.length === 0 ? undefined : offices.map((item) => item.id),
       platformLanguages: platformLanguages.length === 0 ? undefined : platformLanguages.map((item) => item.id),
       practiceAreas: practiceAreas.length === 0 ? undefined : practiceAreas.map((item) => item.id)
     }
@@ -195,10 +195,9 @@ export default class Search extends Vue {
     const promises = [
       this.$store.dispatch('search/loadDemographics'),
       this.$store.dispatch('search/loadFunctionalities'),
-      this.$store.dispatch('search/loadHqs'),
       this.$store.dispatch('search/loadInstallations'),
       this.$store.dispatch('search/loadIntegrations'),
-      this.$store.dispatch('search/loadJurisdictions'),
+      this.$store.dispatch('search/loadOffices'),
       this.$store.dispatch('search/loadPlatformLanguages'),
       this.$store.dispatch('search/loadPracticeAreas')
     ]
@@ -245,7 +244,7 @@ export default class Search extends Vue {
     this.updatedSelectedValueFromRouteParam('functionalities', this.functionalities)
     this.updatedSelectedValueFromRouteParam('hqs', this.hqs)
     this.updatedSelectedValueFromRouteParam('installations', this.installations)
-    this.updatedSelectedValueFromRouteParam('jurisdictions', this.jurisdictions)
+    this.updatedSelectedValueFromRouteParam('offices', this.offices)
     this.updatedSelectedValueFromRouteParam('platformLanguages', this.platformLanguages)
     this.updatedSelectedValueFromRouteParam('practiceAreas', this.practiceAreas)
   }

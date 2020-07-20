@@ -7,8 +7,8 @@
       <span v-if="data.name" class="vendor-item__title">
         <text-highlight :queries="highlightQueries">{{ data.name }}</text-highlight>
       </span>
-      <span v-if="jurisdiction" class="vendor-item__jurisdiction">
-        <text-highlight :queries="highlightQueries">{{ jurisdiction }}</text-highlight>
+      <span v-if="office" class="vendor-item__office">
+        <text-highlight :queries="highlightQueries">{{ office }}</text-highlight>
       </span>
     </div>
     <div class="vendor-item__row">
@@ -42,8 +42,8 @@ export default class VendorItem extends Vue {
   @Prop({ required: true }) data!: Vendor
   @Getter('highlightQueries', { namespace: 'search' }) highlightQueries!: string[]
 
-  get jurisdiction() {
-    return this.data.jurisdictions.map((item) => item.name).join(',')
+  get office() {
+    return this.data.offices.map((item) => item.name).join(',')
   }
 
   get functionality() {
@@ -116,7 +116,7 @@ export default class VendorItem extends Vue {
   }
 }
 
-.vendor-item__jurisdiction {
+.vendor-item__office {
   font-size: 16px;
   font-style: italic;
 }

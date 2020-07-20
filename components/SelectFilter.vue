@@ -5,6 +5,7 @@
       v-model="selectedVal"
       class="search-filter__select"
       label="name"
+      hide-selected
       multiple
       placeholder="*"
       taggable
