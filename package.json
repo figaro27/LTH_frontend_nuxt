@@ -27,6 +27,7 @@
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "@nuxtjs/style-resources": "^1.0.0",
     "nuxt": "^2.13.0",
     "nuxt-fontawesome": "^0.4.0",
     "qs": "^6.9.4",

@@ -1,19 +1,24 @@
 <template>
   <div class="home">
-    <img class="home__logo" src="@/assets/logo.jpg" />
+    <router-link class="home__logo" to="/">
+      <img src="@/assets/logo.jpg" />
+    </router-link>
     <div class="search-box-container">
       <search-box v-model="keyword" @search="onSearch" />
     </div>
+    <saved-searchs class="home__saved-searchs" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+
+import SavedSearchs from '@/components/SavedSearchs.vue'
 import SearchBox from '@/components/SearchBox.vue'
 
 @Component({
   name: 'home',
-  components: { SearchBox }
+  components: { SavedSearchs, SearchBox }
 })
 export default class Home extends Vue {
   keyword = ''
@@ -40,12 +45,21 @@ export default class Home extends Vue {
 }
 
 .home__logo {
-  width: 150px;
-  object-fit: contain;
   margin: -200px 0 20px 0;
+  cursor: pointer;
+
+  img {
+    width: 150px;
+    object-fit: contain;
+  }
 }
 
 .search-box-container {
   width: 640px;
+}
+
+.home__saved-searchs {
+  width: 640px;
+  margin-top: 20px;
 }
 </style>

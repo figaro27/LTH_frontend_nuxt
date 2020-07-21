@@ -1,5 +1,6 @@
-import { Keyword, Filters, RouteQuery } from './types'
-import { Vendor } from '@/models'
+import { Keyword, RouteQuery } from './types'
+import { Filters, SavedSearch, Vendor } from '@/models'
+import { LoadingStatus } from '@/store/types'
 
 export type SearchState = {
   demographics: any[]
@@ -11,6 +12,8 @@ export type SearchState = {
   practiceAreas: any[]
   keywords: Keyword[]
   keywordsLoading: boolean
+  savedSearchs: SavedSearch[]
+  savedSearchsLoading: LoadingStatus
 
   vendors: Vendor[]
   totalVendors: number
@@ -29,6 +32,8 @@ const state = () =>
     practiceAreas: [],
     keywords: [],
     keywordsLoading: false,
+    savedSearchs: [],
+    savedSearchsLoading: LoadingStatus.Unloaded,
 
     vendors: [],
     totalVendors: 0,

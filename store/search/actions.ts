@@ -1,8 +1,8 @@
 import { ActionTree } from 'vuex'
 
-import { RootState, TypedAction } from '../types'
 import { SearchState } from './state'
 import { Keyword } from './types'
+import { RootState, TypedAction } from '@/store/types'
 import { api } from '@/utils'
 
 export type SearchActions = ActionTree<SearchState, RootState>

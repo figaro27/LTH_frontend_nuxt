@@ -1,8 +1,8 @@
 import { MutationTree } from 'vuex'
 
 import { SearchState } from './state'
-import { Keyword, Filters, RouteQuery } from './types'
-import { Vendor } from '@/models'
+import { Keyword, RouteQuery } from './types'
+import { Filters, Vendor } from '@/models'
 
 const mutations: MutationTree<SearchState> = {
   SET_DEMOGRAPHICS(state: SearchState, demographics: any) {

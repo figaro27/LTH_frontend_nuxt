@@ -62,6 +62,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
     [
       'nuxt-fontawesome',
       {
@@ -75,6 +76,9 @@ export default {
       }
     ]
   ],
+  styleResources: {
+    scss: ['./assets/styles/*.scss']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
