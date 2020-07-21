@@ -1,8 +1,7 @@
 import { ActionTree } from 'vuex'
 
 import { SearchState } from './state'
-import { Keyword } from './types'
-import { RootState, TypedAction } from '@/store/types'
+import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
 
 export type SearchActions = ActionTree<SearchState, RootState>
@@ -51,31 +50,16 @@ const actions: SearchActions = {
     commit('SET_VENDORS_TOTAL', data.data.total)
   },
 
-  async loadPossibleKeywords({ commit }) {
-    commit('SET_KEYWORDS_LOADING', true)
-    const responses = await Promise.all([
-      api.get('demographics'),
-      api.get('functionalities'),
-      api.get('installations'),
-      api.get('integrations'),
-      api.get('offices'),
-      api.get('platform-languages'),
-      api.get('practice-areas')
-    ])
-    commit('SET_KEYWORDS_LOADING', false)
-    let index = 0
-    const keywords: Array<Keyword> = []
-    responses.forEach((res) => {
-      keywords.push(
-        ...res.data.map((item: { id: number; name: string }, itemIndex: number) => ({
-          ...item,
-          index: index + itemIndex,
-          table: res.config.url
-        }))
-      )
-      index = keywords.length
-    })
-    commit('SET_KEYWORDS', keywords)
+  async loadAutosuggest({ commit }, keyword: string) {
+    commit('SET_AUTOSUGGEST_ITEMS_LOADING', LoadingStatus.Loading)
+    const { data } = await api.get('vendors/autosuggest', { keyword })
+    if (data.success) {
+      commit('SET_AUTOSUGGEST_ITEMS', data.data)
+    } else {
+      commit('SET_AUTOSUGGEST_ITEMS', [])
+    }
+
+    commit('SET_AUTOSUGGEST_ITEMS_LOADING', LoadingStatus.Loaded)
   }
 }
 

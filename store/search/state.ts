@@ -1,5 +1,5 @@
-import { Keyword, RouteQuery } from './types'
-import { Filters, SavedSearch, Vendor } from '@/models'
+import { RouteQuery } from './types'
+import { Filters, Vendor } from '@/models'
 import { LoadingStatus } from '@/store/types'
 
 export type SearchState = {
@@ -10,10 +10,9 @@ export type SearchState = {
   offices: any[]
   platformLanguages: any[]
   practiceAreas: any[]
-  keywords: Keyword[]
-  keywordsLoading: boolean
-  savedSearchs: SavedSearch[]
-  savedSearchsLoading: LoadingStatus
+
+  autosuggestItems: string[]
+  autosuggestItemsLoading: LoadingStatus
 
   vendors: Vendor[]
   totalVendors: number
@@ -30,10 +29,9 @@ const state = () =>
     offices: [],
     platformLanguages: [],
     practiceAreas: [],
-    keywords: [],
-    keywordsLoading: false,
-    savedSearchs: [],
-    savedSearchsLoading: LoadingStatus.Unloaded,
+
+    autosuggestItems: [],
+    autosuggestItemsLoading: LoadingStatus.Unloaded,
 
     vendors: [],
     totalVendors: 0,

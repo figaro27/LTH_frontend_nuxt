@@ -1,10 +1,3 @@
-export type Keyword = {
-  id: number
-  name: string
-  table: string
-  index: number
-}
-
 export type RouteQuery = {
   keyword?: string
   demographics?: string

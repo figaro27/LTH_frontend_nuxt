@@ -1,8 +1,9 @@
 import { MutationTree } from 'vuex'
 
 import { SearchState } from './state'
-import { Keyword, RouteQuery } from './types'
+import { RouteQuery } from './types'
 import { Filters, Vendor } from '@/models'
+import { LoadingStatus } from '@/store/types'
 
 const mutations: MutationTree<SearchState> = {
   SET_DEMOGRAPHICS(state: SearchState, demographics: any) {
@@ -26,11 +27,12 @@ const mutations: MutationTree<SearchState> = {
   SET_PRACTICE_AREAS(state: SearchState, practiceAreas: any) {
     state.practiceAreas = practiceAreas.data
   },
-  SET_KEYWORDS(state: SearchState, keywords: Keyword[]) {
-    state.keywords = keywords
+
+  SET_AUTOSUGGEST_ITEMS(state: SearchState, items: string[]) {
+    state.autosuggestItems = items
   },
-  SET_KEYWORDS_LOADING(state: SearchState, loading: boolean) {
-    state.keywordsLoading = loading
+  SET_AUTOSUGGEST_ITEMS_LOADING(state: SearchState, loading: LoadingStatus) {
+    state.autosuggestItemsLoading = loading
   },
 
   SET_VENDORS(state: SearchState, vendors: Vendor[]) {

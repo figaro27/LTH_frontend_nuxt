@@ -12062,6 +12062,11 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.0.0.tgz#ddad8d675ee02c761a14229f0e440e219de1da1c"
   integrity sha512-arhk1wtWAfLsJyxGMoEYhoBowM87/i6HLSG2LH/03Yog6i2d9JEN1peMP0Ceis+/n9DxdenGYZZTxbPPJyHciA==
 
+vue-cool-select@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/vue-cool-select/-/vue-cool-select-3.5.2.tgz#d1ad160e6807365d351a2e5d505caefa329dba35"
+  integrity sha512-+a5dzyp0RmfiMbW1bnhHFvK2R2nTND6cAO61WkUDCGE29pJ8GbUknBHxJHsA1uZXtGNN/xLEmUQD6wA8aVbKwQ==
+
 vue-eslint-parser@^7.0.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.1.0.tgz#9cdbcc823e656b087507a1911732b867ac101e83"
