@@ -5,7 +5,7 @@
         :is="tab.tag"
         v-for="(tab, index) of tabs"
         :key="index"
-        v-tooltip="tab.isComingSoon ? { content: 'Coming Soon', show: 'true' } : undefined"
+        v-tooltip="tab.isComingSoon ? { content: 'Coming Soon', trigger: 'hover' } : undefined"
         class="search-box__tab"
         :class="`search-box__tab--${tab.id}`"
         :to="tab.to"

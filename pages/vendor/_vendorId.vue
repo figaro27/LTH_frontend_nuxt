@@ -6,7 +6,7 @@
     <template v-else-if="data">
       <div class="single-vendor__header">
         <img v-if="data.logo" alt="Vue logo" :src="data.logo" class="single-vendor__logo" />
-        <img v-else alt="Vue logo" src="@/assets/logo.jpg" class="single-vendor__logo" />
+        <img v-else alt="Vue logo" src="@/assets/logo.png" class="single-vendor__logo" />
         <span v-if="data.tool" class="single-vendor__tool">{{ data.tool }}</span>
         <span v-if="data.name" class="single-vendor__title">{{ data.name }}</span>
         <span v-if="offices" class="single-vendor__office">{{ offices }}</span>

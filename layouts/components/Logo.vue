@@ -1,6 +1,6 @@
 <template>
   <router-link class="search-page__logo" to="/">
-    <img alt="LegalTech Hub" src="@/assets/logo.jpg" />
+    <img alt="LegalTech Hub" src="@/assets/logo.png" />
   </router-link>
 </template>
 

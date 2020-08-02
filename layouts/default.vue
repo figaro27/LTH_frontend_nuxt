@@ -1,34 +1,19 @@
 <template>
   <div class="main">
-    <div class="header">
-      <logo class="header__logo" />
-      <h2 class="header__label">
-        Your legaltech needs. In your area. In your language.
-      </h2>
-      <div class="header__links">
-        <nuxt-link
-          v-for="(link, index) of links"
-          :key="index"
-          class="header__link"
-          active-class="header__link--active"
-          :to="link.to"
-        >
-          {{ link.label }}
-        </nuxt-link>
-      </div>
-    </div>
-
+    <default-header />
     <nuxt class="main__content" />
+    <default-footer />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import Logo from './Header/Logo.vue'
+import DefaultHeader from './components/Header.vue'
+import DefaultFooter from './components/Footer.vue'
 
 @Component({
   name: 'DefaultLayout',
-  components: { Logo }
+  components: { DefaultHeader, DefaultFooter }
 })
 export default class DefaultLayout extends Vue {
   get links() {
@@ -51,49 +36,5 @@ export default class DefaultLayout extends Vue {
   width: 100vw;
   min-height: 100vh;
   overflow: auto;
-}
-
-.header {
-  width: 100%;
-  @include col--center;
-  padding-top: 20px;
-}
-
-.header__logo {
-  width: 280px;
-}
-
-.header__label {
-  @include typography(xl, narrow, bold);
-  text-align: center;
-  color: $colorNavy;
-  margin-bottom: 30px;
-}
-
-.header__links {
-  @include row;
-  justify-content: center;
-}
-
-.header__link {
-  margin: 0 10px;
-  color: $colorDarkGrey;
-  @include typography(xl, narrow, bold);
-  text-decoration: none;
-
-  &:hover,
-  &:active {
-    opacity: 0.8;
-  }
-}
-
-.header__link--active {
-  color: $colorGreen;
-}
-
-.main__content {
-  width: 100%;
-  flex: 1;
-  overflow: hidden;
 }
 </style>
