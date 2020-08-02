@@ -14,7 +14,9 @@ import qs from 'qs'
  * Signs all requests with an access token, if available.
  */
 export const client = axios.create({
-  baseURL: process.env.NUXT_APP_API_URL || 'http://localhost:4000',
+  baseURL:
+    process.env.NUXT_APP_API_URL ||
+    (process.env.NODE_ENV === 'production' ? 'https://api.legaltechhub.com' : 'http://localhost:4000'),
   paramsSerializer: (params) => {
     return qs.stringify(params, { arrayFormat: 'comma' }).replace(/,/g, '%2C')
   }

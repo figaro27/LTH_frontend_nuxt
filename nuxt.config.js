@@ -5,7 +5,9 @@ export default {
    */
   mode: 'universal',
   env: {
-    apiUrl: process.env.NUXT_APP_API_URL || 'http://localhost:4000'
+    apiUrl:
+      process.env.NUXT_APP_API_URL ||
+      (process.env.NODE_ENV === 'production' ? 'https://api.legaltechhub.com' : 'http://localhost:4000')
   },
   server: {
     port: 3000,
