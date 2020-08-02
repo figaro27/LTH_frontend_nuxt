@@ -123,6 +123,7 @@ export default class DefaultFooter extends Vue {
   a {
     @include typography(md-1, default, 500);
     text-decoration: none;
+    color: $colorNavy;
 
     &:not(:last-child) {
       margin-bottom: 8px;

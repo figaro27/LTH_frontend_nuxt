@@ -1,7 +1,7 @@
 <template>
   <div class="popular-searchs">
     <h2 class="popular-searchs__title">
-      Tool Of the Week
+      Popular Searches
     </h2>
     <div class="popular-searchs__list">
       <nuxt-link v-for="(search, index) of popularSearchs" :key="index" :to="search.to">{{ search.label }}</nuxt-link>
@@ -33,6 +33,7 @@ export default class PopularSearchs extends Vue {
   padding: 10px;
   border-radius: 10px;
   min-height: 180px;
+  background: $colorBg2;
   text-align: left;
 }
 

@@ -40,7 +40,7 @@ export default class Home extends Vue {
   align-items: center;
   flex: 1;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .search-box-container {

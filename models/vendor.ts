@@ -4,6 +4,7 @@ export type PracticeArea = { id: string; name: string }
 export type PlatformLanguage = { id: string; name: string }
 export type Demographic = { id: string; name: string }
 export type Installation = { id: string; name: string }
+export type Integration = { id: string; name: string }
 export type Vendor = {
   id: string | number
   name: string
@@ -20,6 +21,7 @@ export type Vendor = {
   linguisticFunctionalities: PlatformLanguage[]
   demographics: Demographic[]
   installations: Installation[]
+  integrations: Integration[]
   createdAt: string
   updatedAt: string
 }

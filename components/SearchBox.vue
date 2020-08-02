@@ -150,6 +150,7 @@ $searchBoxHeight: 50px;
   .IZ-select__menu {
     border-radius: 0 0 10px 10px !important;
     border-color: $colorLightGreen;
+    z-index: 100;
   }
 
   .IZ-select__item {

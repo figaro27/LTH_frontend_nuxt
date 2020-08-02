@@ -73,7 +73,7 @@
         />
       </div>
       <div v-loading="loading" class="search-page__content">
-        <h4 v-if="!loading" class="search-page__content__count">
+        <h4 v-if="vendorsLoading !== 0" class="search-page__content__count">
           <span>Search result ({{ total }})</span>
           <nuxt-link v-if="showClearFilter" to="/search">
             <fa :icon="['fas', 'times-circle']" />
@@ -100,7 +100,7 @@ import SearchBox from '@/components/SearchBox.vue'
 import SelectFilter from '@/components/SelectFilter.vue'
 import VendorItem from '@/components/VendorItem.vue'
 import { Filters, Vendor, SavedSearch } from '@/models'
-import { RootState } from '@/store/types'
+import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({
   name: 'search',
@@ -117,9 +117,12 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.platformLanguages) platformLanguages!: any[]
   @State((state: RootState) => state.search.practiceAreas) practiceAreas!: any[]
   @State((state: RootState) => state.search.vendors) vendors!: Vendor[]
+  @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
   @State((state: RootState) => state.search.totalVendors) total!: number
 
-  loading: boolean = true
+  get loading() {
+    return this.vendorsLoading !== LoadingStatus.Loaded
+  }
 
   filterOptionsLoaded: boolean = false
 
@@ -275,13 +278,11 @@ export default class Search extends Vue {
   }
 
   async submitQuery() {
-    this.loading = true
     await new Promise((resolve) => {
       setTimeout(() => resolve(), 1000)
     })
     this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
     await this.$store.dispatch('search/runSearch', this.searchQuery)
-    this.loading = false
   }
 }
 </script>

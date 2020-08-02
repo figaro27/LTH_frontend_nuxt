@@ -37,4 +37,8 @@ export default class DefaultLayout extends Vue {
   min-height: 100vh;
   overflow: auto;
 }
+
+.main__content {
+  z-index: 10;
+}
 </style>
