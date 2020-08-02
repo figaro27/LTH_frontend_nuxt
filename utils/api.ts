@@ -16,7 +16,7 @@ import qs from 'qs'
 export const client = axios.create({
   baseURL:
     process.env.NUXT_APP_API_URL ||
-    (process.env.NODE_ENV === 'production' ? 'https://api.legaltechhub.com' : 'http://localhost:4000'),
+    (process.env.NODE_ENV === 'production' ? 'https://api.legaltechnologyhub.com' : 'http://localhost:4000'),
   paramsSerializer: (params) => {
     return qs.stringify(params, { arrayFormat: 'comma' }).replace(/,/g, '%2C')
   }
