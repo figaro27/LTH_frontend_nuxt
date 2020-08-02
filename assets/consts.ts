@@ -1,0 +1,1 @@
+export const DEFAULT_VENDORS_LIMIT = 20

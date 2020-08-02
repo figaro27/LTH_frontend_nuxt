@@ -73,19 +73,24 @@
         />
       </div>
       <div v-loading="loading" class="search-page__content">
-        <h4 v-if="vendorsLoading !== 0" class="search-page__content__count">
-          <span>Search result ({{ total }})</span>
-          <nuxt-link v-if="showClearFilter" to="/search">
-            <fa :icon="['fas', 'times-circle']" />
-          </nuxt-link>
-        </h4>
-        <div class="search-page__content__vendors">
-          <vendor-item
-            v-for="(vendor, index) of vendors"
-            :key="index"
-            class="search-page__content__vendor-item"
-            :data="vendor"
-          />
+        <div class="search-page__content-wrapper">
+          <h4 v-if="vendorsLoading !== 0" class="search-page__count">
+            <span>Search result ({{ total }})</span>
+            <nuxt-link v-if="showClearFilter" to="/search">
+              <fa :icon="['fas', 'times-circle']" />
+            </nuxt-link>
+          </h4>
+          <div class="search-page__vendors">
+            <vendor-item
+              v-for="(vendor, index) of vendors"
+              :key="index"
+              class="search-page__vendor-item"
+              :data="vendor"
+            />
+          </div>
+        </div>
+        <div v-if="showPagination" class="search-page__vendors-pagination">
+          <pagination :page-count="pageCount" @change="onPageChange" />
         </div>
       </div>
     </div>
@@ -96,15 +101,18 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
+import Pagination from '@/components/Pagination.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import SelectFilter from '@/components/SelectFilter.vue'
 import VendorItem from '@/components/VendorItem.vue'
+
+import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, Vendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({
   name: 'search',
-  components: { SearchBox, SelectFilter, VendorItem }
+  components: { Pagination, SearchBox, SelectFilter, VendorItem }
 })
 export default class Search extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
@@ -122,6 +130,14 @@ export default class Search extends Vue {
 
   get loading() {
     return this.vendorsLoading !== LoadingStatus.Loaded
+  }
+
+  get pageCount() {
+    return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
+  }
+
+  get showPagination() {
+    return this.pageCount > 1
   }
 
   filterOptionsLoaded: boolean = false
@@ -209,6 +225,7 @@ export default class Search extends Vue {
 
   async mounted() {
     this.filterOptionsLoaded = false
+    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', 1)
     const promises = [
       this.$store.dispatch('search/loadDemographics'),
       this.$store.dispatch('search/loadFunctionalities'),
@@ -277,6 +294,11 @@ export default class Search extends Vue {
     })
   }
 
+  async onPageChange(pageNum: number) {
+    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', pageNum)
+    await this.$store.dispatch('search/runSearch', this.searchQuery)
+  }
+
   async submitQuery() {
     await new Promise((resolve) => {
       setTimeout(() => resolve(), 1000)
@@ -289,8 +311,7 @@ export default class Search extends Vue {
 
 <style lang="scss" scoped>
 .search-page {
-  display: flex;
-  flex-direction: column;
+  @include col;
   overflow: hidden;
 }
 
@@ -341,21 +362,26 @@ export default class Search extends Vue {
 }
 
 .search-page__content {
-  display: flex;
-  flex-direction: column;
+  @include col;
   height: 100%;
   flex: 1;
   text-align: left;
   word-break: break-all;
   overflow: hidden;
   padding: 10px;
+}
+
+.search-page__content-wrapper {
+  @include col;
+  height: 100%;
   border-left: 1px solid lightgray;
 }
 
-.search-page__content__count {
+.search-page__count {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  margin-left: 20px;
   color: $colorNavy;
 
   span {
@@ -367,16 +393,22 @@ export default class Search extends Vue {
   }
 }
 
-.search-page__content__vendors {
+.search-page__vendors {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden scroll;
 }
 
-.search-page__content__vendor-item {
+.search-page__vendor-item {
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+}
+
+.search-page__vendors-pagination {
+  width: 100%;
+  @include row--center;
+  margin-top: 50px;
 }
 </style>

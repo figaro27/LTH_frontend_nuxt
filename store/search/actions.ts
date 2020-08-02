@@ -3,6 +3,7 @@ import { ActionTree } from 'vuex'
 import { SearchState } from './state'
 import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
+import { DEFAULT_VENDORS_LIMIT } from '~/assets/consts'
 
 export type SearchActions = ActionTree<SearchState, RootState>
 export type SearchAction<T, R = any> = TypedAction<SearchState, RootState, T, R>
@@ -43,10 +44,13 @@ const actions: SearchActions = {
     commit('SET_PRACTICE_AREAS', data)
   },
 
-  async runSearch({ commit }, query: any = {}) {
+  async runSearch({ commit, state }, query: any = {}) {
     commit('SET_VENDORS_LOADING', LoadingStatus.Loading)
     commit('SAVE_LAST_FILTER', query)
-    const { data } = await api.get('vendors/search', query)
+    const { data } = await api.get('vendors/search', {
+      ...query,
+      offset: (state.vendorsPage - 1) * DEFAULT_VENDORS_LIMIT
+    })
     commit('SET_VENDORS', data.data.vendors)
     commit('SET_VENDORS_TOTAL', data.data.total)
     commit('SET_VENDORS_LOADING', LoadingStatus.Loaded)

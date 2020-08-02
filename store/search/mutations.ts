@@ -44,6 +44,9 @@ const mutations: MutationTree<SearchState> = {
   SET_VENDORS_LOADING(state: SearchState, loading: LoadingStatus) {
     state.vendorsLoading = loading
   },
+  SET_VENDORS_PAGE_NUMBER(state: SearchState, pageNumber: number) {
+    state.vendorsPage = pageNumber
+  },
   SET_LAST_ROUTE_QUERY(state: SearchState, query: RouteQuery) {
     state.routeQuery = query
   },

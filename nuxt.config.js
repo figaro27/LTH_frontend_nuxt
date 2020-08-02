@@ -51,6 +51,7 @@ export default {
     { src: '@/plugins/v-tooltip.js', ssr: false },
     { src: '@/plugins/vue-cool-select.js', ssr: false },
     { src: '@/plugins/vue-multiselect.js', ssr: false },
+    { src: '@/plugins/vue-paginate.js', ssr: false },
     { src: '@/plugins/vue-text-highlight.js', ssr: false }
   ],
   /*
