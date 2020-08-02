@@ -356,9 +356,14 @@ export default class Search extends Vue {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  color: $colorNavy;
 
   span {
     margin-right: 10px;
+  }
+
+  a {
+    color: $colorGreen;
   }
 }
 
