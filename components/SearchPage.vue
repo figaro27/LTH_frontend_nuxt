@@ -2,9 +2,6 @@
   <div class="search-page">
     <div class="search-page__header">
       <div class="search-page__header__row">
-        <router-link class="search-page__logo" to="/">
-          <img alt="Vue logo" src="@/assets/logo.jpg" />
-        </router-link>
         <h1 v-if="savedSearch" class="search-page__title">{{ savedSearch.name }}</h1>
         <div class="search-box-container">
           <search-box :value="filters.keyword" @search="onKeywordSubmit" />

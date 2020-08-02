@@ -16,6 +16,7 @@ export type SearchState = {
 
   vendors: Vendor[]
   totalVendors: number
+  vendorsLoading: LoadingStatus
   vendorsLastFilter: Filters
   routeQuery: RouteQuery
 }
@@ -35,6 +36,7 @@ const state = () =>
 
     vendors: [],
     totalVendors: 0,
+    vendorsLoading: LoadingStatus.Unloaded,
     vendorsLastFilter: {
       keyword: '',
       demographics: [],

@@ -41,6 +41,9 @@ const mutations: MutationTree<SearchState> = {
   SET_VENDORS_TOTAL(state: SearchState, total: number) {
     state.totalVendors = total
   },
+  SET_VENDORS_LOADING(state: SearchState, loading: LoadingStatus) {
+    state.vendorsLoading = loading
+  },
   SET_LAST_ROUTE_QUERY(state: SearchState, query: RouteQuery) {
     state.routeQuery = query
   },

@@ -1,55 +1,98 @@
 <template>
-  <div>
-    <Nuxt />
+  <div class="main">
+    <div class="header">
+      <logo class="header__logo" />
+      <div class="header__label">
+        Your legaltech needs. In your area. In your language.
+      </div>
+      <div class="header__links">
+        <nuxt-link
+          v-for="(link, index) of links"
+          :key="index"
+          class="header__link"
+          active-class="header__link--active"
+          :to="link.to"
+        >
+          {{ link.label }}
+        </nuxt-link>
+      </div>
+    </div>
+
+    <nuxt class="main__content" />
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import Logo from './Header/Logo.vue'
+
+@Component({
+  name: 'DefaultLayout',
+  components: { Logo }
+})
+export default class DefaultLayout extends Vue {
+  get links() {
+    return [
+      { label: 'Home', to: '/' },
+      { label: 'About Us', to: '/about-us' },
+      { label: 'How LTH works', to: '/how-lth-works' },
+      { label: 'Regional Snapshots', to: '/regional-snapshots' },
+      { label: 'Add/Update your Listing', to: '/listing' },
+      { label: 'Legaltech Resources', to: '/legaltech-resources' },
+      { label: 'Contact Us', to: '/contact-us' }
+    ]
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.main {
+  @include col;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden auto;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+.header {
+  width: 100%;
+  @include col--center;
+  padding-top: 30px;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
+.header__logo {
+  width: 330px;
+}
+
+.header__label {
+  @include typography(xl-1, narrow, bold);
+  text-align: center;
+  color: $colorNavy;
+}
+
+.header__links {
+  margin-top: 45px;
+  @include row;
+  justify-content: center;
+}
+
+.header__link {
+  margin: 0 10px;
+  color: $colorDarkGrey;
+  @include typography(xl, narrow, bold);
   text-decoration: none;
-  padding: 10px 30px;
+
+  &:hover,
+  &:active {
+    opacity: 0.8;
+  }
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
+.header__link--active {
+  color: $colorGreen;
 }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.main__content {
+  width: 100%;
+  flex: 1;
 }
 </style>

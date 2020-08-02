@@ -1,8 +1,5 @@
 <template>
   <div class="home">
-    <router-link class="home__logo" to="/">
-      <img src="@/assets/logo.jpg" />
-    </router-link>
     <div class="search-box-container">
       <search-box v-model="keyword" @search="onSearch" />
     </div>
@@ -23,6 +20,10 @@ import SearchBox from '@/components/SearchBox.vue'
 export default class Home extends Vue {
   keyword = ''
 
+  get layout() {
+    return 'default'
+  }
+
   onSearch(keyword: string) {
     if (keyword) {
       this.$router.push({ name: 'search', query: { keyword } })
@@ -35,27 +36,16 @@ export default class Home extends Vue {
 
 <style lang="scss" scoped>
 .home {
-  display: flex;
-  flex-direction: column;
+  @include col;
   align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  flex: 1;
+  width: 100%;
   overflow: hidden;
-}
-
-.home__logo {
-  margin: -200px 0 20px 0;
-  cursor: pointer;
-
-  img {
-    width: 150px;
-    object-fit: contain;
-  }
 }
 
 .search-box-container {
   width: 640px;
+  margin-top: 60px;
 }
 
 .home__saved-searchs {

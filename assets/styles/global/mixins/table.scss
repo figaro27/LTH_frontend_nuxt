@@ -1,0 +1,42 @@
+/**
+ * Default table style
+ *
+ * - Rows render using flex space between.
+ * - The first row is set to grow to 5x the size of individual remaining rows.
+ * - Each cell has padding and its background is default AliceNight
+ * - Cells have margins, making them appear as a transparent border around each cell.
+ */
+@mixin table--default {
+  @include typography(md-1, default, bold);
+
+  color: $colorSecondaryLight;
+
+  tr {
+    @include row--distributed;
+  }
+
+  td,
+  th {
+    padding: 9px;
+    margin: 3px;
+    border-radius: $border-radius-default;
+    vertical-align: middle;
+
+    flex-grow: 1;
+    text-align: center;
+    width: 40px;
+  }
+
+  td {
+    background: $colorAliceBlue;
+  }
+
+  th:first-child,
+  td:first-child {
+    @include row;
+    flex-grow: 5;
+    min-width: 200px;
+    text-align: left;
+    align-items: center;
+  }
+}

@@ -31,12 +31,17 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans' },
+      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans+Narrow' },
+      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Rochester' }
+    ]
   },
   /*
    ** Global CSS
    */
-  css: ['@/assets/styles/global.scss'],
+  css: ['@/assets/styles/global/index.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -78,7 +83,7 @@ export default {
     ]
   ],
   styleResources: {
-    scss: ['./assets/styles/*.scss']
+    scss: ['./assets/styles/main.scss']
   },
   /*
    ** Axios module configuration

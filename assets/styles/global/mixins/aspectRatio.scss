@@ -1,0 +1,44 @@
+// percentages for padding-top, needed for the wrapped element to get the proper aspect ratio
+$percentages: (
+  "16:9": 56.25%,
+  "4:3": 75%,
+  "2:1": 50%,
+  "3:1": 33.33%,
+  "3:2": 66.66%,
+  "1:1": 100%
+);
+
+/**
+ * Uses a "hack" to give an element a fixed aspect ratio, while maintaining a relative width
+ * The affected element should have a wrapper, which receives this mixin
+ *
+ * <div class="wrapper">
+ *   <div class="fixed-ratio"></div>
+ * </div>
+ *
+ * .wrapper { @include aspectRatio("16:9") }
+ *
+ * .fixed-ratio element will necessarily end up with `display: block; position: absolute;`
+ */
+@mixin aspectRatio ($ratio) {
+  $paddingTop: map-get($percentages, $ratio);
+
+  display: block;
+  max-width: 100%;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    padding-top: $paddingTop;
+  }
+
+  > * {
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+}

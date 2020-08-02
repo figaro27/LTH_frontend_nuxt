@@ -1,0 +1,11 @@
+// @paramString {Number} $lines
+// @paramString {Number} $lineHeight - used to create max-height fallback for non-webkit browsers
+@mixin lineClamp($lines: 1, $lineHeight: 1em) {
+  // sass-lint:disable no-vendor-prefixes
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  display: -webkit-box;
+  max-height: $lines * $lineHeight;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

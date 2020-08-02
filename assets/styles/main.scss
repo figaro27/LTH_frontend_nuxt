@@ -1,3 +1,19 @@
+@import './global/index.scss';
+
+html {
+  font-size: 0.7rem;
+
+  @include respondFrom(lg) {
+    font-size: 0.8rem;
+  }
+  @include respondFrom(xl) {
+    font-size: 0.9rem;
+  }
+  @include respondFrom(xxl) {
+    font-size: 1rem;
+  }
+}
+
 #__nuxt {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -8,8 +24,10 @@
 
 * {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   color: #2c3e50;
   box-sizing: border-box;
   outline: none;
@@ -21,11 +39,15 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
-
-@import './fonts.scss';
-@import './spinner.scss';

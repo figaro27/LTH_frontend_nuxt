@@ -1,0 +1,19 @@
+@mixin paddingLR($padding) {
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+@mixin paddingTB($padding) {
+  padding-top: $padding;
+  padding-bottom: $padding;
+}
+
+@mixin marginLR($margin) {
+  margin-left: $margin;
+  margin-right: $margin;
+}
+
+@mixin marginTB($margin) {
+  margin-top: $margin;
+  margin-bottom: $margin;
+}

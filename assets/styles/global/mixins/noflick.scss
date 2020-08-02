@@ -1,0 +1,4 @@
+@mixin noflick {
+  // sass-lint:disable no-vendor-prefixes
+  -webkit-transform: translate3d(0, 0, 0);
+}

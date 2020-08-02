@@ -1,0 +1,82 @@
+@mixin row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin row--center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin row--right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: right;
+}
+
+@mixin row--distributed {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@mixin row--distributed--center {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin col--center {
+  @include col;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin col--left {
+  @include col;
+  justify-content: center;
+  align-items: left;
+}
+
+@mixin col--distributed {
+  @include col;
+  justify-content: space-between;
+}
+
+@mixin col--distributed--center {
+  @include col;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin sidebar-layout($sidebarColor) {
+  @include row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &__main {
+    position: relative;
+    flex: 1;
+    @include col--center;
+    max-width: 100%;
+    height: 100%;
+  }
+
+  &__sidebar-container {
+    width: 250px;
+    height: 100%;
+    padding: 33px 25px;
+    background: $sidebarColor;
+    overflow: visible;
+  }
+}

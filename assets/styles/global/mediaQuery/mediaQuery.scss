@@ -1,0 +1,22 @@
+@import "../../../../node_modules/sass-mq/mq";
+
+//$mq-breakpoints: (lg: 64em, xl: 78.75em, xxl: 90em, xxxl: 105.625em, xivl: 140em, xvl: 240em)
+$mq-breakpoints: (lg: 1024px, xl: 1300px, xxl: 1440px, xxxl: 1690px, xivl: 2240px, xvl: 3840px);
+
+@mixin respondFrom($codeOrWidth) {
+  @include mq($from: $codeOrWidth) {
+    @content;
+  }
+}
+
+@mixin respondTo($codeOrWidth) {
+  @include mq($until: $codeOrWidth) {
+    @content;
+  }
+}
+
+@mixin respondFromTo($codeOrWidthSmall, $codeOrWidthLarge) {
+  @include mq($from: $codeOrWidthSmall, $until: $codeOrWidthLarge) {
+    @content;
+  }
+}
