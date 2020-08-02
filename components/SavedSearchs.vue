@@ -1,8 +1,8 @@
 <template>
   <div v-if="savedSearchesLoaded" class="saved-searchs">
-    <router-link v-for="(item, index) of savedSearchsWithUrl" :key="index" class="saved-searchs__item" :to="item.url">
+    <nuxt-link v-for="(item, index) of savedSearchsWithUrl" :key="index" class="saved-searchs__item" :to="item.url">
       <label>{{ item.name }}</label>
-    </router-link>
+    </nuxt-link>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default class SavedSearchs extends Vue {
   get savedSearchsWithUrl() {
     return this.savedSearchs.map((item) => ({
       ...item,
-      url: `/${item.slug}`
+      url: `/search/${item.slug}`
     }))
   }
 

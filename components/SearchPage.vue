@@ -206,7 +206,7 @@ export default class Search extends Vue {
       offices: offices.length === 0 ? undefined : offices.map((item) => item.id),
       platformLanguages: platformLanguages.length === 0 ? undefined : platformLanguages.map((item) => item.id),
       practiceAreas: practiceAreas.length === 0 ? undefined : practiceAreas.map((item) => item.id),
-      savedSearchId: this.savedSearch && this.savedSearch.id
+      savedSearchId: this.savedSearch && this.savedSearch.id ? this.savedSearch.id : undefined
     }
   }
 
