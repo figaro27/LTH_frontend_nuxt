@@ -1,0 +1,57 @@
+<template>
+  <div class="tool-of-week">
+    <h2 class="tool-of-week__title">
+      Tool Of the Week
+    </h2>
+    <label class="tool-of-week__description">
+      Check out the new AI tool from Syntheia...
+    </label>
+    <div class="tool-of-week__learn-more">
+      <nuxt-link to="/search?functionalities=AI Tools">Learn more →</nuxt-link>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({ name: 'tool-of-week' })
+export default class ToolOfWeek extends Vue {
+  // TODO: Add backend support
+}
+</script>
+
+<style lang="scss" scoped>
+.tool-of-week {
+  @include col;
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 180px;
+  background: $colorBg2;
+  text-align: left;
+}
+
+.tool-of-week__title {
+  @include typography(xl, narrow, bold);
+  color: $colorGreen;
+  margin-bottom: 15px;
+}
+
+.tool-of-week__description {
+  margin-left: 5px;
+  color: $colorNavy;
+  @include typography(lg);
+  flex: 1;
+}
+
+.tool-of-week__learn-more {
+  @include row;
+  justify-content: flex-end;
+
+  a {
+    color: $colorNavy;
+    @include typography(lg);
+    text-decoration: underline;
+  }
+}
+</style>

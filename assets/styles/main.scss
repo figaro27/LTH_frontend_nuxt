@@ -19,7 +19,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $colorNavy;
 }
 
 * {
@@ -28,7 +28,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: #2c3e50;
+  color: $colorNavy;
   box-sizing: border-box;
   outline: none;
   border: none;
@@ -49,5 +49,6 @@ html {
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
+
+@import './tooltip.scss';

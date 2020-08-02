@@ -2,9 +2,9 @@
   <div class="main">
     <div class="header">
       <logo class="header__logo" />
-      <div class="header__label">
+      <h2 class="header__label">
         Your legaltech needs. In your area. In your language.
-      </div>
+      </h2>
       <div class="header__links">
         <nuxt-link
           v-for="(link, index) of links"
@@ -50,27 +50,27 @@ export default class DefaultLayout extends Vue {
   @include col;
   width: 100vw;
   min-height: 100vh;
-  overflow: hidden auto;
+  overflow: auto;
 }
 
 .header {
   width: 100%;
   @include col--center;
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .header__logo {
-  width: 330px;
+  width: 280px;
 }
 
 .header__label {
-  @include typography(xl-1, narrow, bold);
+  @include typography(xl, narrow, bold);
   text-align: center;
   color: $colorNavy;
+  margin-bottom: 30px;
 }
 
 .header__links {
-  margin-top: 45px;
   @include row;
   justify-content: center;
 }
@@ -94,5 +94,6 @@ export default class DefaultLayout extends Vue {
 .main__content {
   width: 100%;
   flex: 1;
+  overflow: hidden;
 }
 </style>

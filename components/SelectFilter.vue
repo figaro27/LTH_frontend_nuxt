@@ -53,13 +53,46 @@ export default class SelectFilter extends Vue {
 }
 
 .search-filter__label {
-  font-size: 14px;
+  @include typography(md-1, default, bold);
+  color: $colorNavy;
   margin-bottom: 5px;
   text-align: left;
 }
 
 .search-filter__select {
+  @include typography(md, default, bold);
   padding: 5px;
-  font-size: 14px;
+}
+</style>
+
+<style lang="scss">
+.search-filter {
+  .multiselect__select::before {
+    border-color: $colorNavy transparent transparent;
+  }
+  .multiselect__tag {
+    background: $colorLightGreen;
+    color: $colorDarkGrey;
+
+    span {
+      color: $colorDarkGrey;
+    }
+  }
+
+  .multiselect__tag-icon:hover {
+    background: $colorLightGreen;
+  }
+
+  .multiselect__option.multiselect__option--highlight {
+    background: $colorLightGreen;
+
+    span {
+      color: $colorDarkGrey;
+    }
+
+    &::after {
+      background: $colorLightGreen;
+    }
+  }
 }
 </style>

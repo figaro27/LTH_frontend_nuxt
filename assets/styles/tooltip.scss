@@ -1,0 +1,103 @@
+@import './global/index.scss';
+
+.tooltip {
+  @include typography(sm, default);
+  visibility: hidden;
+  z-index: 10000;
+  display: block;
+  word-break: break-word;
+  outline: none;
+
+  b {
+    @include typography(md, default, bold);
+
+    + br {
+      content: " ";
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+
+  &[x-placement^="top"] {
+    margin-bottom: 5px;
+
+    .tooltip-arrow {
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="bottom"] {
+    margin-top: 5px;
+
+    .tooltip-arrow {
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="right"] {
+    margin-left: 5px;
+
+    .tooltip-arrow {
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^="left"] {
+    margin-right: 5px;
+
+    .tooltip-arrow {
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .2s, visibility .2s;
+  }
+
+  &[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .2s, visibility .2s;
+  }
+}
+
+.tooltip-inner {
+  background: $colorNavy;
+  color: white;
+  @include typography(md, default, bold);
+  border-radius: 3px;
+  padding: 10px 10px;
+}
+
+.tooltip-arrow {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  transform: rotate(45deg);
+  background: $colorNavy;
+  z-index: -1;
+}
+
+.tooltip--no-arrow {
+  .tooltip-arrow {
+    display: none;
+  }
+}
+
+.popover {
+  outline: none;
+}

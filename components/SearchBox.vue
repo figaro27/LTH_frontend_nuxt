@@ -1,6 +1,19 @@
 <template>
-  <div id="search-box">
-    <!-- <img v-if="isKeywordsLoading" src="/img/svgs/spinner.svg" /> -->
+  <div id="search-box" class="search-box">
+    <div class="search-box__tabs">
+      <componet
+        :is="tab.tag"
+        v-for="(tab, index) of tabs"
+        :key="index"
+        v-tooltip="tab.isComingSoon ? { content: 'Coming Soon', show: 'true' } : undefined"
+        class="search-box__tab"
+        :class="`search-box__tab--${tab.id}`"
+        :to="tab.to"
+        :active-class="`search-box__tab--active search-box__tab--${tab.id}--active`"
+      >
+        {{ tab.label }}
+      </componet>
+    </div>
     <cool-select
       ref="select"
       v-model="selectedValue"
@@ -46,6 +59,14 @@ export default class SearchBox extends Vue {
 
   searchText = ''
   selectedValue = ''
+
+  get tabs() {
+    return [
+      { tag: 'nuxt-link', id: 'tools', label: 'Tools', to: '/search' },
+      { tag: 'div', id: 'events', label: 'Events', isComingSoon: true },
+      { tag: 'div', id: 'awards', label: 'Awards', isComingSoon: true }
+    ]
+  }
 
   get feedItems() {
     const items = []
@@ -103,14 +124,17 @@ export default class SearchBox extends Vue {
 </script>
 
 <style lang="scss">
+$searchBoxHeight: 50px;
+
 #search-box {
   .IZ-select {
-    height: 40px;
+    height: $searchBoxHeight;
   }
 
   .IZ-select__input {
-    border-radius: 5px 0 0 5px !important;
+    border-radius: 0 0 0 10px !important;
     border-right: none !important;
+    border-color: $colorLightGreen;
 
     input {
       font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -120,15 +144,101 @@ export default class SearchBox extends Vue {
 
   .IZ-select__input--focused {
     box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .IZ-select__menu {
+    border-radius: 0 0 10px 10px !important;
+    border-color: $colorLightGreen;
   }
 
   .IZ-select__item {
     text-align: left;
+    color: $colorNavy;
+  }
+}
+
+.search-box__search {
+  background: $colorLightGreen;
+  width: $searchBoxHeight;
+  height: $searchBoxHeight;
+  outline: none;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover,
+  &:active {
+    background: lighten($colorLightGreen, 10%);
   }
 }
 </style>
 
 <style lang="scss" scoped>
+.search-box {
+  @include col;
+}
+
+.search-box__tabs {
+  @include row;
+  margin-bottom: -1px;
+  z-index: 1;
+}
+
+.search-box__tab {
+  width: 90px;
+  height: 40px;
+  @include row--center;
+  border-width: 1px;
+  border-style: solid;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+
+  &--tools {
+    background: $colorLightGreen;
+    border-color: $colorLightGreen;
+
+    &--active {
+      color: $colorLightGreen;
+    }
+  }
+
+  &--events {
+    background: $colorLightNavy;
+    border-color: $colorLightNavy;
+  }
+
+  &--awards {
+    background: $colorLighterDarkGrey;
+    border-color: $colorLighterDarkGrey;
+  }
+
+  &--active {
+    border-bottom-color: white;
+    background: white;
+    font-weight: bold;
+  }
+
+  &:first-child {
+    border-radius: 10px 0 0 0;
+    border-right: none;
+  }
+
+  &:last-child {
+    border-radius: 0 10px 0 0;
+    border-left: none;
+  }
+
+  &:not(:first-child):not(:last-child) {
+    border-left: none;
+    border-right: none;
+  }
+}
+
 .search-box__cancel {
   position: relative;
   width: 25px;
@@ -158,24 +268,6 @@ export default class SearchBox extends Vue {
   }
   &::after {
     transform: rotate(-45deg) translate(-50%);
-  }
-}
-
-.search-box__search {
-  background: #d20038;
-  width: 40px;
-  height: 40px;
-  outline: none;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover,
-  &:active {
-    background: #d20038cc;
   }
 }
 </style>

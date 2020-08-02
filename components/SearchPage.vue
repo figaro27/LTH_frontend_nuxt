@@ -1,29 +1,26 @@
 <template>
   <div class="search-page">
     <div class="search-page__header">
-      <div class="search-page__header__row">
-        <h1 v-if="savedSearch" class="search-page__title">{{ savedSearch.name }}</h1>
-        <div class="search-box-container">
-          <search-box :value="filters.keyword" @search="onKeywordSubmit" />
-        </div>
+      <div class="search-box-container">
+        <search-box :value="filters.keyword" @search="onKeywordSubmit" />
       </div>
     </div>
     <div class="search-page__content-container">
       <div class="search-page__side-filter">
-        <select-filter
-          id="hqs"
-          v-model="filters.hqs"
-          name="hqs"
-          label="HQ"
-          :options="offices"
-          @change="onFilterUpdate"
-        />
         <select-filter
           id="functionalities"
           v-model="filters.functionalities"
           name="functionality"
           label="Functionality"
           :options="functionalities"
+          @change="onFilterUpdate"
+        />
+        <select-filter
+          id="hqs"
+          v-model="filters.hqs"
+          name="hqs"
+          label="HQ"
+          :options="offices"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -35,19 +32,19 @@
           @change="onFilterUpdate"
         />
         <select-filter
-          id="platformLanguages"
-          v-model="filters.platformLanguages"
-          name="platformLanguage"
-          label="Platform Language"
-          :options="platformLanguages"
-          @change="onFilterUpdate"
-        />
-        <select-filter
           id="practiceAreas"
           v-model="filters.practiceAreas"
           name="practiceArea"
           label="Practice Area"
           :options="practiceAreas"
+          @change="onFilterUpdate"
+        />
+        <select-filter
+          id="platformLanguages"
+          v-model="filters.platformLanguages"
+          name="platformLanguage"
+          label="Platform Language"
+          :options="platformLanguages"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -291,7 +288,6 @@ export default class Search extends Vue {
 
 <style lang="scss" scoped>
 .search-page {
-  padding: 20px 20px 0 20px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -301,18 +297,6 @@ export default class Search extends Vue {
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.search-page__header__row {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.search-page__header__row--clear {
-  min-height: 25px;
-  justify-content: flex-end;
 }
 
 .search-page__logo {
@@ -333,7 +317,8 @@ export default class Search extends Vue {
 }
 
 .search-box-container {
-  flex: 1;
+  width: calc(100% - 200px);
+  margin: 30px 170px 40px 30px;
 }
 
 .search-page__content-container {
