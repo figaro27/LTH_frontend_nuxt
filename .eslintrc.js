@@ -18,6 +18,17 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
     'comma-dangle': ['error', 'never'],
-    'vue/no-v-html': 'off'
+    'vue/no-v-html': 'off',
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: '@/**',
+            group: 'internal'
+          }
+        ]
+      }
+    ]
   }
 }
