@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading" class="single-vendor">
+  <div class="single-vendor">
     <template v-if="data">
       <div class="single-vendor__frame single-vendor__main">
         <div class="single-vendor__logo">
@@ -78,19 +78,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { State } from 'vuex-class'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 import { Vendor } from '@/models'
+import { api } from '@/utils'
 
 @Component({ name: 'single-vendor' })
 export default class SingleVendor extends Vue {
-  @State((state) => state.vendor.currentVendor) data!: Vendor
+  data!: Vendor
 
-  loading = false
-
-  get queryId() {
-    return this.$route.params.vendorId
+  async asyncData(payload: any) {
+    const res = await api.get(`vendors/${payload.params.vendorId}`)
+    return {
+      data: res.data.data
+    }
   }
 
   get logo() {
@@ -131,18 +132,6 @@ export default class SingleVendor extends Vue {
 
   get integrations() {
     return this.data.integrations.map((data) => data.name).join(', ')
-  }
-
-  @Watch('queryId', { immediate: true })
-  async onQueryId() {
-    this.loading = true
-    try {
-      await this.$store.dispatch('vendor/loadById', this.queryId)
-    } catch (err) {
-      console.error(err)
-    } finally {
-      this.loading = false
-    }
   }
 }
 </script>

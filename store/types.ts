@@ -1,7 +1,6 @@
 import { ActionContext, StoreOptions } from 'vuex'
 import { SavedSearchState } from './savedSearch/state'
 import { SearchState } from './search/state'
-import { VendorState } from './vendor/state'
 
 export type ApiResponse<T> = { data: T }
 
@@ -16,7 +15,6 @@ export type TypedAction<S, R, P, T = any> = (
 export interface RootState {
   savedSearch: SavedSearchState
   search: SearchState
-  vendor: VendorState
 }
 
 export enum LoadingStatus {

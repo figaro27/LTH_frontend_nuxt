@@ -1,3 +1,9 @@
+import axios from 'axios'
+
+const apiUrl =
+  process.env.NUXT_APP_API_URL ||
+  (process.env.NODE_ENV === 'production' ? 'https://api.legaltechnologyhub.com' : 'http://localhost:4000')
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -5,9 +11,7 @@ export default {
    */
   mode: 'universal',
   env: {
-    apiUrl:
-      process.env.NUXT_APP_API_URL ||
-      (process.env.NODE_ENV === 'production' ? 'https://api.legaltechnologyhub.com' : 'http://localhost:4000')
+    apiUrl
   },
   server: {
     port: 3000,
@@ -98,5 +102,25 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {}
+  build: {
+    babel: {
+      presets() {
+        return [['@nuxt/babel-preset-app', { loose: true }]]
+      }
+    }
+  },
+
+  generate: {
+    routes() {
+      const client = axios.create({ baseURL: apiUrl })
+      return Promise.all([
+        client.request({ method: 'GET', url: 'vendors/all' }),
+        client.request({ method: 'GET', url: 'saved-searchs' })
+      ]).then(([res1, res2]) => {
+        const vendorRoutes = res1.data.data.map((vendor) => `/vendor/${vendor.id}`)
+        const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/search/${savedSearch.slug}`)
+        return [...vendorRoutes, ...savedSearchsRoutes]
+      })
+    }
+  }
 }

@@ -72,7 +72,7 @@
           @change="onFilterUpdate"
         />
       </div>
-      <div v-loading="loading" class="search-page__content">
+      <div v-loading="vendorsLoading !== 2" class="search-page__content">
         <div class="search-page__content-wrapper">
           <h4 v-if="vendorsLoading !== 0" class="search-page__count">
             <span>Search result ({{ total }})</span>
@@ -98,8 +98,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { State } from 'vuex-class'
+import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 
 import Pagination from '@/components/Pagination.vue'
 import SearchBox from '@/components/SearchBox.vue'
@@ -127,10 +126,6 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.vendors) vendors!: Vendor[]
   @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
   @State((state: RootState) => state.search.totalVendors) total!: number
-
-  get loading() {
-    return this.vendorsLoading !== LoadingStatus.Loaded
-  }
 
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)

@@ -7,8 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { State } from 'vuex-class'
+import { Component, State, Vue } from 'nuxt-property-decorator'
 
 import { SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'

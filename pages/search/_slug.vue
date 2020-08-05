@@ -6,28 +6,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { State } from 'vuex-class'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 import SearchPage from '@/components/SearchPage.vue'
 import SearchAds from '@/components/SearchAds/SearchAds.vue'
 
 import { SavedSearch } from '@/models'
-import { RootState } from '@/store/types'
+import { api } from '@/utils'
 
 @Component({
   name: 'saved-search',
   components: { SearchPage, SearchAds }
 })
 export default class SavedSearchPage extends Vue {
-  @State((state: RootState) => state.savedSearch.currentSavedSearch) savedSearch!: SavedSearch | null
+  savedSearch!: SavedSearch
+
+  async asyncData(payload: any) {
+    const res = await api.get(`saved-searchs/${payload.params.slug}`)
+    return {
+      savedSearch: res.data
+    }
+  }
 
   get title() {
     return this.savedSearch ? this.savedSearch.name : ''
-  }
-
-  mounted() {
-    this.$store.dispatch('savedSearch/loadSingleSavedSearch', this.$route.params.slug)
   }
 }
 </script>

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import DefaultHeader from './components/Header.vue'
 import DefaultFooter from './components/Footer.vue'
 

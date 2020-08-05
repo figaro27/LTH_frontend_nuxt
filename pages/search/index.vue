@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 import SearchPage from '@/components/SearchPage.vue'
 import SearchAds from '@/components/SearchAds/SearchAds.vue'

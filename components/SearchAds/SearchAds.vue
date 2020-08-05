@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 import ToolOfWeek from './ToolOfWeek.vue'
 import PopularSearchs from './PopularSearchs.vue'

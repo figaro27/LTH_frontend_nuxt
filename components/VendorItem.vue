@@ -24,8 +24,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { Component, Getter, Prop, Vue } from 'nuxt-property-decorator'
 
 import { Vendor } from '@/models'
 
