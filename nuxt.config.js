@@ -111,6 +111,9 @@ export default {
   },
 
   generate: {
+    concurrency: 100,
+    interval: 100,
+    subFolders: false,
     routes() {
       const client = axios.create({ baseURL: apiUrl })
       return Promise.all([
