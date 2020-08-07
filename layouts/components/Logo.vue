@@ -13,10 +13,13 @@ export default class Logo extends Vue {}
 
 <style lang="scss" scoped>
 .search-page__logo {
+  overflow: hidden;
+
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    overflow: hidden;
   }
 }
 </style>

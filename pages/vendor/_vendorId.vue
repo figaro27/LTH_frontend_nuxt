@@ -95,7 +95,7 @@ export default class SingleVendor extends Vue {
   }
 
   get logo() {
-    return this.data.logo || '/img/logo-small.png'
+    return this.data.logo || '/images/logo-small.png'
   }
 
   get functionalities() {

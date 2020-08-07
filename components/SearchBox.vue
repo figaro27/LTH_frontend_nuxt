@@ -31,7 +31,7 @@
 
       <template #input-after>
         <button class="search-box__search" @click.stop="search">
-          <img src="/img/svgs/search.svg" />
+          <img src="/images/svgs/search.svg" />
         </button>
       </template>
     </cool-select>

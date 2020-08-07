@@ -11,6 +11,7 @@
         class="header__link"
         active-class="header__link--active"
         :to="link.to"
+        :exact="link.exact"
       >
         {{ link.label }}
       </nuxt-link>
@@ -29,13 +30,13 @@ import Logo from './Logo.vue'
 export default class DefaultHeader extends Vue {
   get links() {
     return [
-      { label: 'Home', to: '/' },
-      { label: 'About Us', to: '/about-us' },
-      { label: 'How LTH works', to: '/how-lth-works' },
+      { label: 'Home', to: '/', exact: true },
+      { label: 'About Us', to: '/about-us', exact: true },
+      { label: 'How LTH works', to: '/how-lth-works', exact: true },
       { label: 'Regional Snapshots', to: '/regional-snapshots' },
-      { label: 'Add/Update your Listing', to: '/listing' },
-      { label: 'Legaltech Resources', to: '/legaltech-resources' },
-      { label: 'Contact Us', to: '/contact-us' }
+      { label: 'Add/Update your Listing', to: '/listing', exact: true },
+      { label: 'Legaltech Resources', to: '/legaltech-resources', exact: true },
+      { label: 'Contact Us', to: '/contact-us', exact: true }
     ]
   }
 }
