@@ -158,8 +158,8 @@ export default class SingleVendor extends Vue {
 }
 
 .single-vendor__logo {
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   margin-bottom: 10px;
 
   img {
@@ -169,8 +169,9 @@ export default class SingleVendor extends Vue {
 }
 
 .single-vendor__tool {
-  @include typography(xl, narrow, bold);
+  @include typography(xl-2, narrow, bold);
   margin-bottom: 30px;
+  color: $colorNavy;
 }
 
 .single-vendor__details {
@@ -182,7 +183,6 @@ export default class SingleVendor extends Vue {
 .single-vendor__property {
   width: 100%;
   @include row;
-  align-items: center;
   min-height: 55px;
 
   &:not(:last-child) {
