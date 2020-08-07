@@ -1,9 +1,9 @@
 import { MutationTree } from 'vuex'
 
+import { Filters, SearchResultVendor } from '@/models'
+import { LoadingStatus } from '@/store/types'
 import { SearchState } from './state'
 import { RouteQuery } from './types'
-import { Filters, Vendor } from '@/models'
-import { LoadingStatus } from '@/store/types'
 
 const mutations: MutationTree<SearchState> = {
   SET_DEMOGRAPHICS(state: SearchState, demographics: any) {
@@ -35,7 +35,7 @@ const mutations: MutationTree<SearchState> = {
     state.autosuggestItemsLoading = loading
   },
 
-  SET_VENDORS(state: SearchState, vendors: Vendor[]) {
+  SET_VENDORS(state: SearchState, vendors: SearchResultVendor[]) {
     state.vendors = vendors
   },
   SET_VENDORS_TOTAL(state: SearchState, total: number) {

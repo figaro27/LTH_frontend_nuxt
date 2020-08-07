@@ -106,7 +106,7 @@ import SelectFilter from '@/components/SelectFilter.vue'
 import VendorItem from '@/components/VendorItem.vue'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
-import { Filters, Vendor, SavedSearch } from '@/models'
+import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({
@@ -123,7 +123,7 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.offices) offices!: any[]
   @State((state: RootState) => state.search.platformLanguages) platformLanguages!: any[]
   @State((state: RootState) => state.search.practiceAreas) practiceAreas!: any[]
-  @State((state: RootState) => state.search.vendors) vendors!: Vendor[]
+  @State((state: RootState) => state.search.vendors) vendors!: SearchResultVendor[]
   @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
   @State((state: RootState) => state.search.totalVendors) total!: number
 

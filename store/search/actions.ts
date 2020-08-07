@@ -1,9 +1,9 @@
 import { ActionTree } from 'vuex'
 
-import { SearchState } from './state'
+import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
-import { DEFAULT_VENDORS_LIMIT } from '~/assets/consts'
+import { SearchState } from './state'
 
 export type SearchActions = ActionTree<SearchState, RootState>
 export type SearchAction<T, R = any> = TypedAction<SearchState, RootState, T, R>

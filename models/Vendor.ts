@@ -25,3 +25,14 @@ export type Vendor = {
   createdAt: string
   updatedAt: string
 }
+
+export type SearchResultVendor = {
+  id: string | number
+  name: string
+  tool: string | null
+  hqs: Office[]
+  functionalities: Functionality[]
+  subFunctionalities: Functionality[]
+  platformLanguages: PlatformLanguage[]
+  demographics: Demographic[]
+}

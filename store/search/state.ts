@@ -1,6 +1,6 @@
-import { RouteQuery } from './types'
-import { Filters, Vendor } from '@/models'
+import { Filters, SearchResultVendor } from '@/models'
 import { LoadingStatus } from '@/store/types'
+import { RouteQuery } from './types'
 
 export type SearchState = {
   demographics: any[]
@@ -14,7 +14,7 @@ export type SearchState = {
   autosuggestItems: string[]
   autosuggestItemsLoading: LoadingStatus
 
-  vendors: Vendor[]
+  vendors: SearchResultVendor[]
   totalVendors: number
   vendorsLoading: LoadingStatus
   vendorsPage: number
