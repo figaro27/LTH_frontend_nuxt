@@ -9,7 +9,7 @@
     "generate": "nuxt-ts generate",
     "serve": "nuxt-ts serve",
     "lint:js": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
-    "lint": "yarn lint:js && yarn lint:style",
+    "lint": "yarn lint:js",
     "test": "jest"
   },
   "lint-staged": {

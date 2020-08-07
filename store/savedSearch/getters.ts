@@ -1,7 +1,7 @@
 import { GetterTree } from 'vuex'
 
-import { SavedSearchState } from './state'
 import { RootState } from '@/store/types'
+import { SavedSearchState } from './state'
 
 const getters: GetterTree<SavedSearchState, RootState> = {}
 
