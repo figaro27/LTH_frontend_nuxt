@@ -35,7 +35,7 @@ export default class DefaultHeader extends Vue {
       { label: 'How LTH works', to: '/how-lth-works', exact: true },
       { label: 'Regional Snapshots', to: '/regional-snapshots' },
       { label: 'Add/Update your Listing', to: '/listing', exact: true },
-      { label: 'Legaltech Resources', to: '/legaltech-resources', exact: true },
+      { label: 'Legaltech Resources', to: '/blogs', exact: true },
       { label: 'Contact Us', to: '/contact-us', exact: true }
     ]
   }

@@ -69,7 +69,7 @@ $avatar-width: 130px;
 
 .about-us__content {
   width: 100%;
-  max-width: 1140px;
+  max-width: $desktopMaxWidth;
   padding: 30px 70px;
 }
 
