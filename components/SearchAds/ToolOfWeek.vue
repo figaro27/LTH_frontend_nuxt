@@ -27,7 +27,12 @@ export default class ToolOfWeek extends Vue {
   padding: 10px;
   border-radius: 10px;
   min-height: 180px;
-  background: $colorBg2;
+  background: linear-gradient(
+    90deg,
+    rgba(210, 238, 175, 0.203929) 0%,
+    rgba(203, 239, 149, 0.084) 0%,
+    rgba(222, 236, 221, 0.42) 100%
+  );
   text-align: left;
 }
 

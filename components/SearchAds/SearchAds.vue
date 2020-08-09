@@ -20,7 +20,7 @@ export default class SearchAds extends Vue {}
 
 <style lang="scss" scoped>
 .search-ads {
-  width: 230px;
+  width: $widgetWidth;
   @include col;
 }
 

@@ -1,0 +1,70 @@
+<template>
+  <component
+    :is="tag"
+    v-tooltip="data.tooltip ? { content: data.tooltip } : undefined"
+    class="link-item"
+    :href="data.url"
+    :target="target"
+  >
+    <img class="link-item__icon" :src="data.icon" />
+    <div class="link-item__title">{{ data.title }}</div>
+  </component>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+
+export type LinkItemData = {
+  icon: string
+  title: string
+  url: string
+  tooltip?: string
+}
+
+@Component({ name: 'link-item' })
+export default class LinkItem extends Vue {
+  @Prop({ required: true }) data!: LinkItemData
+
+  get tag() {
+    return this.data.url ? 'a' : 'div'
+  }
+
+  get target() {
+    return this.data.url && this.data.url.startsWith('/') ? '' : '_blank'
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.link-item {
+  @include col--center;
+  width: 200px;
+  height: 140px;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: $colorNeutralsSnow;
+  }
+  &:active {
+    background: $colorLightGrey2;
+  }
+}
+
+.link-item__icon {
+  width: 35px;
+  object-fit: cover;
+}
+
+.link-item__title {
+  @include ellipsis(2, xl);
+  @include typography(xl, narrow);
+  height: 48px;
+  color: $colorNavy;
+  text-align: center;
+  margin: 5px 10px 0 10px;
+}
+</style>
