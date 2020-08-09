@@ -32,8 +32,8 @@
             </div>
           </div>
         </div>
+        <hr v-if="sectionIndex < blogSections.length - 1" class="blogs__divider" />
       </div>
-      <hr class="blogs__divider" />
     </div>
   </div>
 </template>
@@ -542,6 +542,8 @@ export default class Blogs extends Vue {
 
 .blogs__divider {
   width: 100%;
+  height: 1px;
   margin: 70px 0;
+  background: $colorDarkGrey;
 }
 </style>
