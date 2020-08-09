@@ -59,7 +59,7 @@
           id="installations"
           v-model="filters.installations"
           name="installation"
-          label="Installation"
+          label="Deployment"
           :options="installations"
           @change="onFilterUpdate"
         />
