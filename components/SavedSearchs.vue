@@ -20,7 +20,7 @@ export default class SavedSearchs extends Vue {
   get savedSearchsWithUrl() {
     return this.savedSearchs.map((item) => ({
       ...item,
-      url: `/search/${item.slug}`
+      url: `/regional-snapshots/${item.slug}`
     }))
   }
 
