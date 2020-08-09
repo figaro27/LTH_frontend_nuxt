@@ -55,7 +55,7 @@ export default class Blogs extends Vue {
                 name: 'legal-it-insider',
                 title: 'Legal IT Insider',
                 description:
-                  'Legal IT Insider, aka “the orange rag”, is often the first publication to scoop the latest news about legaltech launches, acquisitions and high-profile industry shifts. Written and edited by UK legal journalist Caroline Hill (Twitter: @chillmedia), this global publication is a must-follow. Sign up for the newsletter to get the news as it’s breaking.',
+                  'Legal IT Insider, aka “the orange rag”, is often the first publication to scoop the latest news about legaltech launches, acquisitions and high-profile industry shifts. Written and edited by UK legal journalist Caroline Hill (Twitter: <a href="https://twitter.com/chillmedia" target="_blank">@chillmedia</a>), this global publication is a must-follow. Sign up for the newsletter to get the news as it’s breaking.',
                 image: '/images/blogs/legal-it-insider.png',
                 type: 'big-gradient',
                 url: 'https://legaltechnology.com'
@@ -66,7 +66,7 @@ export default class Blogs extends Vue {
                 name: 'prism-legal',
                 title: 'Prism Legal',
                 description:
-                  'A blog aimed at improving law practice efficiency and law firm business operations. Written by Ron Friedmann (Twitter: @ronfriedmann), a highly respected thought leader who has spent three decades in the legal market.',
+                  'A blog aimed at improving law practice efficiency and law firm business operations. Written by Ron Friedmann (Twitter: <a href="https://twitter.com/ronfriedmann" target="_blank">@ronfriedmann</a>), a highly respected thought leader who has spent three decades in the legal market.',
                 image: '/images/blogs/prism-legal.png',
                 type: 'landscape',
                 url: 'https://prismlegal.com'
@@ -123,7 +123,7 @@ export default class Blogs extends Vue {
                 name: 'colin-levy',
                 title: 'Colin Levy',
                 description:
-                  'Colin Levy (Twitter: @clevy-law) is a lawyer and a lifelong learner who has a passion for addressing the flaws in how lawyers are educated, the culture that lawyers are embedded within and the industry that lawyers and countless other professionals work in. Colin interviews interesting people in the world of legaltech and legal innovation and publishes these conversations on his website.',
+                  'Colin Levy (Twitter: <a href="https://twitter.com/clevy-law" target="_blank">@clevy-law</a>) is a lawyer and a lifelong learner who has a passion for addressing the flaws in how lawyers are educated, the culture that lawyers are embedded within and the industry that lawyers and countless other professionals work in. Colin interviews interesting people in the world of legaltech and legal innovation and publishes these conversations on his website.',
                 image: '/images/blogs/colin-levy.png',
                 type: 'portrait',
                 url: 'https://www.colinslevy.com'
@@ -158,7 +158,7 @@ export default class Blogs extends Vue {
                 name: 'above-the-law',
                 title: 'Above the Law',
                 description:
-                  'Above the Law takes a behind-the-scenes look at the world of law. The site provides news and insights about the profession’s most colorful personalities and powerful institutions, as well as original commentary on breaking legal developments. Legaltech news is covered in a regular column by Nicole Black (Twitter: @nikiblack), New York attorney and Director of Business and Community Relations at MyCase.',
+                  'Above the Law takes a behind-the-scenes look at the world of law. The site provides news and insights about the profession’s most colorful personalities and powerful institutions, as well as original commentary on breaking legal developments. Legaltech news is covered in a regular column by Nicole Black (Twitter: <a href="https://twitter.com/nikiblack" target="_blank">@nikiblack</a>), New York attorney and Director of Business and Community Relations at MyCase.',
                 image: '/images/blogs/above-the-law.png',
                 type: 'portrait',
                 url: 'https://abovethelaw.com'
@@ -199,7 +199,7 @@ export default class Blogs extends Vue {
                 name: 'fringe-legal',
                 title: 'Fringe Legal',
                 description:
-                  'A podcast by Abhijat Saraswat (Twitter: @WholsAbs, @FringeLegal) discussing the future of the legal profession, aimed at law firm leaders and influencers. Each episode involves guest speakers discussing ideas impacting the evolution of the legal profession.',
+                  'A podcast by Abhijat Saraswat (Twitter: <a href="https://twitter.com/WholsAbs" target="_blank">@WholsAbs</a>, <a href="https://twitter.com/FringeLegal" target="_blank">@FringeLegal</a>) discussing the future of the legal profession, aimed at law firm leaders and influencers. Each episode involves guest speakers discussing ideas impacting the evolution of the legal profession.',
                 image: '/images/blogs/fringe-legal.png',
                 type: 'portrait',
                 url: 'https://www.fringelegal.com'
@@ -526,6 +526,10 @@ export default class Blogs extends Vue {
   text-align: left;
   color: $colorDarkGrey;
   margin: 20px 30px;
+
+  ::v-deep a {
+    color: $colorNavy;
+  }
 }
 
 .blog__button {
