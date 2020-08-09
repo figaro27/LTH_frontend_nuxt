@@ -9,10 +9,10 @@
           <a href="tel:+13473355458">+1 347 335 5458</a>
 
           <div class="footer__section__socials">
-            <a href="https://twitter.com/LegalTechHub1">
+            <a href="https://twitter.com/LegalTechHub1" target="_blank">
               <img src="@/assets/icons/twitter.svg" />
             </a>
-            <a href="https://www.linkedin.com/company/legal-tech-hub">
+            <a href="https://www.linkedin.com/company/legal-tech-hub" target="_blank">
               <img src="@/assets/icons/linkedin.svg" />
             </a>
           </div>
