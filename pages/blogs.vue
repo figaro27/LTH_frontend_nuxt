@@ -245,15 +245,12 @@ export default class Blogs extends Vue {
 
 <style lang="scss" scoped>
 .blogs {
-  width: 100%;
+  @include desktop-max-width-layout;
   margin-top: 50px;
   padding-bottom: 60px;
-  @include col--center;
 }
 
 .blogs__content {
-  width: 100%;
-  max-width: $desktopMaxWidth;
   padding: 30px 70px;
   @include col--center;
 }

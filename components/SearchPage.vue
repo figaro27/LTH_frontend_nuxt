@@ -346,7 +346,7 @@ export default class Search extends Vue {
 }
 
 .search-page__side-filter {
-  width: 300px;
+  width: 240px;
   display: flex;
   flex-direction: column;
   margin-right: 20px;
@@ -358,7 +358,7 @@ export default class Search extends Vue {
 
 .search-page__content {
   @include col;
-  height: 100%;
+  min-height: 100%;
   flex: 1;
   text-align: left;
   word-break: break-all;
@@ -368,7 +368,7 @@ export default class Search extends Vue {
 
 .search-page__content-wrapper {
   @include col;
-  height: 100%;
+  min-height: 100%;
   border-left: 1px solid lightgray;
 }
 

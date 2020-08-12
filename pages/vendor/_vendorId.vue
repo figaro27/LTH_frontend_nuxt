@@ -1,79 +1,92 @@
 <template>
   <div class="single-vendor">
-    <template v-if="data">
-      <div class="single-vendor__frame single-vendor__main">
-        <div class="single-vendor__logo">
-          <img :src="logo" />
-        </div>
-        <div class="single-vendor__tool">{{ data.tool }}</div>
-        <div class="single-vendor__details">
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Vendor</div>
-            <label class="single-vendor__property-value">{{ data.name }}</label>
+    <div class="single-vendor__content">
+      <template v-if="data">
+        <div class="single-vendor__row">
+          <div class="single-vendor__frame single-vendor__main">
+            <div class="single-vendor__logo">
+              <img :src="logo" />
+            </div>
+            <div class="single-vendor__tool">{{ data.tool }}</div>
+            <div class="single-vendor__details">
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Vendor</div>
+                <label class="single-vendor__property-value">{{ data.name }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Functionality</div>
+                <label class="single-vendor__property-value">{{ functionalities }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Sub-Functionality</div>
+                <label class="single-vendor__property-value">{{ subFunctionalities }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Platform Language</div>
+                <label class="single-vendor__property-value">{{ platformLanguages }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Linguistic Efficacy</div>
+                <label class="single-vendor__property-value">{{ linguisticFunctionalities }}</label>
+              </div>
+              <div v-if="features" class="single-vendor__property">
+                <div class="single-vendor__property-name">Features</div>
+                <label class="single-vendor__property-value">{{ features }}</label>
+              </div>
+              <a v-if="data.website" class="single-vendor__link" :href="data.website" target="_blank">
+                Go to Website <img src="/images/svgs/link.svg" />
+              </a>
+            </div>
           </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Functionality</div>
-            <label class="single-vendor__property-value">{{ functionalities }}</label>
-          </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Sub-Functionality</div>
-            <label class="single-vendor__property-value">{{ subFunctionalities }}</label>
-          </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Platform Language</div>
-            <label class="single-vendor__property-value">{{ platformLanguages }}</label>
-          </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Linguistic Efficacy</div>
-            <label class="single-vendor__property-value">{{ linguisticFunctionalities }}</label>
-          </div>
-          <div v-if="data.description" class="single-vendor__property">
-            <div class="single-vendor__property-name">Description</div>
-            <label class="single-vendor__property-value">{{ data.description }}</label>
-          </div>
-        </div>
-      </div>
-      <div class="single-vendor__side">
-        <div class="single-vendor__frame single-vendor__offices">
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">HQ</div>
-            <label class="single-vendor__property-value">{{ hqs }}</label>
-          </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Offices</div>
-            <label class="single-vendor__property-value">{{ offices }}</label>
-          </div>
-        </div>
-        <div class="single-vendor__frame single-vendor__others">
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Practice Area</div>
-            <label class="single-vendor__property-value">{{ practiceAreas }}</label>
-          </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Target Entity</div>
-            <div class="single-vendor__property__demographics">
-              <div
-                v-for="(demographic, index) of data.demographics"
-                :key="`demographic${index}`"
-                class="single-vendor__property__demographic"
-              >
-                {{ demographic.name }}
+          <div class="single-vendor__side">
+            <div class="single-vendor__frame single-vendor__offices">
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">HQ</div>
+                <label class="single-vendor__property-value">{{ hqs }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Offices</div>
+                <label class="single-vendor__property-value">{{ offices }}</label>
+              </div>
+            </div>
+            <div class="single-vendor__frame single-vendor__others">
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Practice Area</div>
+                <label class="single-vendor__property-value">{{ practiceAreas }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Target Entity</div>
+                <div class="single-vendor__property__demographics">
+                  <div
+                    v-for="(demographic, index) of data.demographics"
+                    :key="`demographic${index}`"
+                    class="single-vendor__property__demographic"
+                  >
+                    {{ demographic.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="single-vendor__frame single-vendor__others">
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Deployment</div>
+                <label class="single-vendor__property-value">{{ installations }}</label>
+              </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Integrations</div>
+                <label class="single-vendor__property-value">{{ integrations }}</label>
               </div>
             </div>
           </div>
         </div>
-        <div class="single-vendor__frame single-vendor__others">
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Deployment</div>
-            <label class="single-vendor__property-value">{{ installations }}</label>
-          </div>
-          <div class="single-vendor__property">
-            <div class="single-vendor__property-name">Integrations</div>
-            <label class="single-vendor__property-value">{{ integrations }}</label>
+
+        <div v-if="data.description" class="single-vendor__row">
+          <div class="single-vendor__frame single-vendor__description">
+            <div v-html="data.description" />
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -133,18 +146,32 @@ export default class SingleVendor extends Vue {
   get integrations() {
     return this.data.integrations.map((data) => data.name).join(', ')
   }
+
+  get features() {
+    return this.data.features.map((data) => data.name).join(', ')
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .single-vendor {
-  width: 100%;
-  @include row;
+  @include desktop-max-width-layout;
   padding: 40px;
   text-align: left;
+  background: white;
+}
+
+.single-vendor__row {
+  width: 100%;
+  @include row;
+
+  &:not(:first-child) {
+    margin-top: 40px;
+  }
 }
 
 .single-vendor__frame {
+  width: 100%;
   @include col--center;
   background: $colorNeutralsSnow;
   border-radius: 10px;
@@ -254,5 +281,27 @@ export default class SingleVendor extends Vue {
   padding: 0 5px;
   color: $colorDarkGrey;
   margin: 3px;
+}
+
+.single-vendor__link {
+  @include row--center;
+  @include typography(lg-1);
+  color: $colorGreen;
+  text-decoration: underline;
+  text-decoration-color: $colorGreen;
+
+  img {
+    margin-left: 10px;
+  }
+}
+
+.single-vendor__description {
+  width: 100%;
+  @include row;
+  @include typography(lg-1);
+  color: $colorDarkGrey;
+  padding: 20px 30px;
+  margin-bottom: 40px;
+  text-align: left;
 }
 </style>

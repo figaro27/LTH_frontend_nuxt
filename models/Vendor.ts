@@ -5,6 +5,7 @@ export type PlatformLanguage = { id: string; name: string }
 export type Demographic = { id: string; name: string }
 export type Installation = { id: string; name: string }
 export type Integration = { id: string; name: string }
+export type Feature = { id: string; name: string }
 export type Vendor = {
   id: string | number
   name: string
@@ -22,17 +23,12 @@ export type Vendor = {
   demographics: Demographic[]
   installations: Installation[]
   integrations: Integration[]
+  features: Feature[]
   createdAt: string
   updatedAt: string
 }
 
-export type SearchResultVendor = {
-  id: string | number
-  name: string
-  tool: string | null
-  hqs: Office[]
-  functionalities: Functionality[]
-  subFunctionalities: Functionality[]
-  platformLanguages: PlatformLanguage[]
-  demographics: Demographic[]
-}
+export type SearchResultVendor = Pick<
+  Vendor,
+  'id' | 'name' | 'tool' | 'hqs' | 'functionalities' | 'subFunctionalities' | 'platformLanguages' | 'demographics'
+>

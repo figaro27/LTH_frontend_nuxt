@@ -60,16 +60,13 @@ export default class AboutUs extends Vue {}
 $avatar-width: 130px;
 
 .about-us {
-  width: 100%;
-  background: $colorBg2;
+  @include desktop-max-width-layout;
   margin-top: 70px;
   padding-bottom: 60px;
   @include col--center;
 }
 
 .about-us__content {
-  width: 100%;
-  max-width: $desktopMaxWidth;
   padding: 30px 70px;
 }
 

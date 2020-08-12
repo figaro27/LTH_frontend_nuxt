@@ -29,18 +29,13 @@ export default class Listing extends Vue {}
 
 <style lang="scss" scoped>
 .listing {
-  width: 100%;
-  background: $colorBg2;
+  @include desktop-max-width-layout;
   margin-top: 70px;
   padding-bottom: 60px;
-  @include col--center;
 }
 
 .listing__content {
-  width: 100%;
-  max-width: $desktopMaxWidth;
   padding: 60px 70px;
-  @include col--center;
 }
 
 .listing__title {

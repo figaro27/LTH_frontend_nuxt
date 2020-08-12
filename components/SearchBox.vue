@@ -183,6 +183,7 @@ $searchBoxHeight: 50px;
 }
 
 .search-box__tabs {
+  width: 100%;
   @include row;
   margin-bottom: -1px;
   z-index: 1;

@@ -1,0 +1,11 @@
+@mixin desktop-max-width-layout {
+  width: 100%;
+  background: $colorBg2;
+  @include col--center;
+
+  &__content {
+    width: 100%;
+    max-width: $desktopMaxWidth;
+    @include col--center;
+  }
+}

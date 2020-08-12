@@ -15,19 +15,7 @@ import DefaultFooter from './components/Footer.vue'
   name: 'DefaultLayout',
   components: { DefaultHeader, DefaultFooter }
 })
-export default class DefaultLayout extends Vue {
-  get links() {
-    return [
-      { label: 'Home', to: '/' },
-      { label: 'About Us', to: '/about-us' },
-      { label: 'How LTH works', to: '/how-lth-works' },
-      { label: 'Regional Snapshots', to: '/regional-snapshots' },
-      { label: 'Add/Update your Listing', to: '/listing' },
-      { label: 'Legaltech Resources', to: '/legaltech-resources' },
-      { label: 'Contact Us', to: '/contact-us' }
-    ]
-  }
-}
+export default class DefaultLayout extends Vue {}
 </script>
 
 <style lang="scss" scoped>
@@ -39,6 +27,7 @@ export default class DefaultLayout extends Vue {
 }
 
 .main__content {
+  width: 100%;
   z-index: 10;
 }
 </style>
