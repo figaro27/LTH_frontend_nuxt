@@ -50,18 +50,20 @@ export default class SingleRegion extends Vue {
 }
 
 .region__content {
-  @include row;
   width: 100%;
+  @include row;
   padding: 20px 30px;
+  position: relative;
 }
 
 .region__search {
   flex: 1;
+  width: 100%;
 }
 
 .region__ads {
   width: $widgetWidth;
-  margin-left: 40px;
-  margin-right: 10px;
+  margin-right: 20px;
+  margin-top: 30px;
 }
 </style>

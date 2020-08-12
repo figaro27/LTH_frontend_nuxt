@@ -1,13 +1,12 @@
 <template>
-  <div class="regions-hero">
+  <div class="regions-hero" :class="{ 'regions-hero--main': isMain }">
     <div class="regions-hero__content">
       <div class="regions-hero__title-section">
-        <h1 class="regions-hero__title" :style="{ color: data.titleColor }">
+        <h1 v-if="isMain" class="regions-hero__title">Regional <span>Snapshots</span></h1>
+        <h1 v-else class="regions-hero__title" :style="{ color: data.titleColor }">
           {{ data.name }}
         </h1>
-        <p class="regions-hero__description">
-          {{ data.description }}
-        </p>
+        <p class="regions-hero__description" v-html="data.description" />
       </div>
 
       <img class="regions-hero__map" :src="data.map" />
@@ -22,31 +21,32 @@ import { SavedSearch } from '@/models'
 @Component({ name: 'regions-hero' })
 export default class RegionsHero extends Vue {
   @Prop({ required: true }) data!: SavedSearch
+  @Prop({ type: Boolean, default: false }) isMain!: boolean
 }
 </script>
 
 <style lang="scss" scoped>
 .regions-hero {
   width: 100%;
-  @include row--center;
-  padding: 80px 50px;
-  background: #f2f2f2;
+  @include row;
+  justify-content: center;
+  background: $colorBg2;
 }
 
 .regions-hero__content {
   @include row;
+  padding: 80px 50px;
   width: $desktopMaxWidth;
 }
 
 .regions-hero__title-section {
   flex: 1;
   @include col;
-  margin-right: 60px;
+  margin: 0 60px 0 0;
 }
 
 .regions-hero__title {
   @include typography(xxl-3, narrow, bold);
-  margin-bottom: 20px;
   text-align: left;
 }
 
@@ -54,11 +54,38 @@ export default class RegionsHero extends Vue {
   @include typography(lg);
   color: $colorDarkGrey;
   text-align: left;
+  margin: 20px 0 0 0;
 }
 
 .regions-hero__map {
   width: 40%;
+  height: fit-content;
   margin: 50px 0 30px;
   object-fit: contain;
+}
+
+.regions-hero--main .regions-hero__content {
+  padding: 30px 50px;
+  @include col--center;
+}
+
+.regions-hero--main .regions-hero__title-section {
+  @include col--center;
+  color: $colorNavy;
+
+  span {
+    @include typography(xxl-3, narrow, bold);
+    color: $colorGreen;
+  }
+}
+
+.regions-hero--main .regions-hero__description {
+  @include typography(xl);
+  text-align: center;
+  margin: 40px 40px 60px;
+}
+
+.regions-hero--main .regions-hero__map {
+  width: 80%;
 }
 </style>

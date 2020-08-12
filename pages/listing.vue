@@ -1,7 +1,7 @@
 <template>
   <div class="listing">
     <div class="listing__content">
-      <h1 class="listing__title">Add/Update Your Listing</h1>
+      <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
       <p class="listing__description">
         Legal professionals need relevant information on legaltech products, services and events. Help us get the right
         content to them. Click <nuxt-link to="/">here</nuxt-link> to add or update your listing.
@@ -35,19 +35,22 @@ export default class Listing extends Vue {}
 }
 
 .listing__content {
-  padding: 60px 70px;
+  padding: 30px 70px;
 }
 
 .listing__title {
-  @include typography(xxl-1, narrow, bold);
+  @include typography(xxl-3, narrow, bold);
   color: $colorNavy;
-  margin-bottom: 20px;
+
+  span {
+    color: $colorGreen;
+  }
 }
 
 .listing__description {
   @include typography(xl);
   color: $colorDarkGrey;
-  margin-bottom: 50px;
+  margin: 40px 40px 60px;
 }
 
 .listing__buttons {

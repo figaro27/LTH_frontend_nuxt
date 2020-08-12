@@ -1,7 +1,7 @@
 <template>
   <div class="about-us">
     <div class="about-us__content">
-      <h1 class="about-us__title">Our <span class="about-us__story">Story</span></h1>
+      <h1 class="about-us__title">Our <span>Story</span></h1>
       <h3 class="about-us__summary">
         We are a large law innovation & knowledge management leader and a legal industry marketer, bravely embarking on
         a joint business as spouses.
@@ -71,13 +71,14 @@ $avatar-width: 130px;
 }
 
 .about-us__title {
-  @include typography(xxl-1, narrow, bold);
+  @include typography(xxl-3, narrow, bold);
   text-align: center;
   color: $colorNavy;
-}
 
-.about-us__story {
-  color: $colorGreen;
+  span {
+    @include typography(xxl-3, narrow, bold);
+    color: $colorGreen;
+  }
 }
 
 .about-us__summary {

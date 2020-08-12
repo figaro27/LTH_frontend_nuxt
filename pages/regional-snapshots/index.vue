@@ -1,7 +1,9 @@
 <template>
   <div class="regions">
-    <regions-hero class="regions__hero" :data="heroData" />
-    <saved-searchs class="regions__saved-searchs" />
+    <regions-hero class="regions__hero" is-main :data="heroData" />
+    <div class="regions__saved-searchs-container">
+      <saved-searchs class="regions__saved-searchs" colorized />
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,7 @@ export default class RegionalSnapshots extends Vue {
     return {
       name: 'Regional Snapshots',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'Legaltech regional snapshots are an easy way to see what’s going on in a region at a glance. Click on one of these saved search buttons to see the full list of tools for the commercial legal space headquartered in any one region, and drill down into the data from there. Want to know how many document automation tools have been developed in Asia? Or how broad the legal AI market is in Latin America? Regional snapshots are a shortcut to that information. Bonus: some of our regional snapshots contain sub-regional breakdowns for notable ecosystems. Examples include the Nordics and Brazil.',
       titleColor: '#011d58',
       map: 'https://legal-uploads.s3.us-east-2.amazonaws.com/regions-map/main.png'
     }
@@ -39,6 +41,11 @@ export default class RegionalSnapshots extends Vue {
 
 .regions__hero {
   width: 100vw;
+}
+
+.regions__saved-searchs-container {
+  width: 100%;
+  @include col--center;
 }
 
 .regions__saved-searchs {

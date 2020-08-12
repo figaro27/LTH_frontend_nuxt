@@ -20,21 +20,20 @@ export default class Search extends Vue {}
 
 <style lang="scss" scoped>
 .search {
-  @include row--center;
+  @include row;
   width: 100vw;
   padding: 20px 30px;
   position: relative;
 }
 
 .search__content {
+  flex: 1;
   width: 100%;
-  max-width: $desktopMaxWidth;
 }
 
 .search__ads {
   width: $widgetWidth;
-  position: absolute;
-  right: 20px;
-  top: 30px;
+  margin-right: 20px;
+  margin-top: 30px;
 }
 </style>

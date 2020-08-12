@@ -1,7 +1,7 @@
 <template>
   <div class="lth">
     <div class="lth__content">
-      <h1 class="lth__title">How <span class="lth__story">LTH works</span></h1>
+      <h1 class="lth__title">How <span>LTH works</span></h1>
 
       <h3 class="lth__summary">
         Legaltech Hub is the global information portal for commercial legal professionals. Here, you will find tools to
@@ -256,13 +256,14 @@ $avatar-width: 130px;
 }
 
 .lth__title {
-  @include typography(xxl-1, narrow, bold);
+  @include typography(xxl-3, narrow, bold);
   text-align: center;
   color: $colorNavy;
-}
 
-.lth__story {
-  color: $colorGreen;
+  span {
+    @include typography(xxl-3, narrow, bold);
+    color: $colorGreen;
+  }
 }
 
 .lth__summary {
