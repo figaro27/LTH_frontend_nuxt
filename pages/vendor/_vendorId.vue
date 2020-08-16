@@ -284,7 +284,9 @@ export default class SingleVendor extends Vue {
 }
 
 .single-vendor__link {
-  @include row--center;
+  @include row;
+  align-items: center;
+  margin-top: 10px;
   @include typography(lg-1);
   color: $colorGreen;
   text-decoration: underline;
