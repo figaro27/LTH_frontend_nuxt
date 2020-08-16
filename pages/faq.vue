@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { FAQData } from '@/components/FAQ/FaqQuestion.vue'
 
 @Component({ name: 'faq' })
 export default class FAQ extends Vue {
