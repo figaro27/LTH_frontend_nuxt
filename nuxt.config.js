@@ -58,6 +58,7 @@ export default {
     { src: '@/plugins/vue-cool-select.js', ssr: false },
     { src: '@/plugins/vue-multiselect.js', ssr: false },
     { src: '@/plugins/vue-paginate.js', ssr: false },
+    { src: '@/plugins/vue-recaptcha-v3.js', ssr: false },
     { src: '@/plugins/vue-text-highlight.js', ssr: false }
   ],
   /*
@@ -124,6 +125,14 @@ export default {
         const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/search/${savedSearch.slug}`)
         return [...vendorRoutes, ...savedSearchsRoutes]
       })
+    }
+  },
+
+  typescript: {
+    typeCheck: {
+      eslint: {
+        files: './**/*.{ts,js,vue}'
+      }
     }
   }
 }

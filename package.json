@@ -34,8 +34,10 @@
     "qs": "^6.9.4",
     "sass-mq": "^5.0.1",
     "v-tooltip": "2.0.2",
+    "validator": "^13.1.1",
     "vue-cool-select": "^3.5.2",
     "vue-multiselect": "^2.1.6",
+    "vue-recaptcha-v3": "^1.9.0",
     "vue-text-highlight": "^2.0.10",
     "vuejs-paginate": "^2.1.0",
     "vuex": "^3.5.1"
