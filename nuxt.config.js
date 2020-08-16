@@ -48,6 +48,34 @@ export default {
    ** Global CSS
    */
   css: ['@/assets/styles/global/index.scss'],
+  postcss: {
+    'post-url': {},
+    'postcss-import': {},
+    'post-css-import': {},
+    'postcss-plugin-px2rem': {
+      rootValue: 16,
+      unitPrecision: 5,
+      propWhiteList: [],
+      propBlackList: [
+        'border',
+        'border-width',
+        'border-bottom',
+        'border-top',
+        'border-left',
+        'border-right',
+        'border-radius',
+        'border-top-left-radius',
+        'border-top-right-radius',
+        'border-bottom-left-radius',
+        'border-bottom-right-radius'
+      ],
+      selectorBlackList: [],
+      ignoreIdentifier: false,
+      replace: true,
+      mediaQuery: false,
+      minPixelValue: 3
+    }
+  },
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
