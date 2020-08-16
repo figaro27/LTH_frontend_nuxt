@@ -141,7 +141,7 @@ export default {
   },
 
   generate: {
-    concurrency: 50,
+    concurrency: 20,
     interval: 500,
     subFolders: false,
     routes() {
