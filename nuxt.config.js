@@ -55,6 +55,7 @@ export default {
   plugins: [
     { src: '@/plugins/loading.js', ssr: false },
     { src: '@/plugins/v-tooltip.js', ssr: false },
+    { src: '@/plugins/vue-carousel.js', ssr: false },
     { src: '@/plugins/vue-cool-select.js', ssr: false },
     { src: '@/plugins/vue-multiselect.js', ssr: false },
     { src: '@/plugins/vue-paginate.js', ssr: false },

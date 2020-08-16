@@ -100,18 +100,12 @@
 <script lang="ts">
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 
-import Pagination from '@/components/Pagination.vue'
-import SearchBox from '@/components/SearchBox.vue'
-import SelectFilter from '@/components/SelectFilter.vue'
-import VendorItem from '@/components/VendorItem.vue'
-
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({
-  name: 'search',
-  components: { Pagination, SearchBox, SelectFilter, VendorItem }
+  name: 'search'
 })
 export default class Search extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null

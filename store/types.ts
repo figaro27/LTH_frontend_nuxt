@@ -1,4 +1,6 @@
 import { ActionContext, StoreOptions } from 'vuex'
+import { ConsolidationState } from './consolidation/state'
+import { GraveyardState } from './graveyard/state'
 import { SavedSearchState } from './savedSearch/state'
 import { SearchState } from './search/state'
 
@@ -13,6 +15,8 @@ export type TypedAction<S, R, P, T = any> = (
 ) => ActionResponse<T>
 
 export interface RootState {
+  consolidation: ConsolidationState
+  graveyard: GraveyardState
   savedSearch: SavedSearchState
   search: SearchState
 }

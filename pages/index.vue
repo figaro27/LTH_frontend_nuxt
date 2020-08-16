@@ -37,7 +37,7 @@
     </div>
 
     <div class="home__others">
-      <nuxt-link class="home__graveyard" to="/graveyard">
+      <nuxt-link class="home__graveyard" to="/graveyards">
         <img src="/images/main/graveyard.png" />
       </nuxt-link>
       <nuxt-link class="home__consolidations" to="/consolidations">
@@ -51,17 +51,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import LinkItem from '@/components/Main/LinkItem.vue'
-import MainListingCard from '@/components/Main/MainListingCard.vue'
-import SavedSearchs from '@/components/SavedSearchs.vue'
-import SearchBox from '@/components/SearchBox.vue'
-import PopularSearchs from '@/components/SearchAds/PopularSearchs.vue'
-import ToolOfWeek from '@/components/SearchAds/ToolOfWeek.vue'
-
-@Component({
-  name: 'home',
-  components: { LinkItem, MainListingCard, SavedSearchs, SearchBox, PopularSearchs, ToolOfWeek }
-})
+@Component({ name: 'home' })
 export default class Home extends Vue {
   keyword = ''
 

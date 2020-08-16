@@ -11,17 +11,10 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import RegionsHero from '@/components/Regions/RegionsHero.vue'
-import SearchPage from '@/components/SearchPage.vue'
-import SearchAds from '@/components/SearchAds/SearchAds.vue'
-
 import { SavedSearch } from '@/models'
 import { api } from '@/utils'
 
-@Component({
-  name: 'single-region',
-  components: { RegionsHero, SearchPage, SearchAds }
-})
+@Component({ name: 'single-region' })
 export default class SingleRegion extends Vue {
   savedSearch!: SavedSearch
 

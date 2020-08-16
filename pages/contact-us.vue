@@ -80,8 +80,6 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import InputField from '@/components/Common/InputField.vue'
-import TextArea from '@/components/Common/TextArea.vue'
 import { api } from '@/utils'
 
 type ContactData = {
@@ -93,10 +91,7 @@ type ContactData = {
   message: string
 }
 
-@Component({
-  name: 'contact-us',
-  components: { InputField, TextArea }
-})
+@Component({ name: 'contact-us' })
 export default class ContactUs extends Vue {
   data: ContactData = {
     email: 'wang.minion.love@gmail.com',

@@ -8,12 +8,8 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import ToolOfWeek from './ToolOfWeek.vue'
-import PopularSearchs from './PopularSearchs.vue'
-
 @Component({
-  name: 'search-ads',
-  components: { ToolOfWeek, PopularSearchs }
+  name: 'search-ads'
 })
 export default class SearchAds extends Vue {}
 </script>

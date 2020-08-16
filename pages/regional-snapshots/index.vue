@@ -10,13 +10,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import RegionsHero from '@/components/Regions/RegionsHero.vue'
-import SavedSearchs from '@/components/SavedSearchs.vue'
-
-@Component({
-  name: 'regional-snapshots',
-  components: { RegionsHero, SavedSearchs }
-})
+@Component({ name: 'regional-snapshots' })
 export default class RegionalSnapshots extends Vue {
   get heroData() {
     return {
