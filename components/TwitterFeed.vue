@@ -1,6 +1,6 @@
 <template>
   <div class="twitter-feed">
-    <img src="/images/svgs/twitter.svg" />
+    <img class="twitter-feed__icon" src="/images/svgs/twitter.svg" />
     <a
       class="twitter-timeline"
       href="https://twitter.com/LegalTechHub1?ref_src=twsrc%5Etfw"
@@ -28,7 +28,7 @@ export default class TwitterFeed extends Vue {}
   border-radius: 10px;
 }
 
-img {
+.twitter-feed__icon {
   position: absolute;
   left: 50%;
   top: 0%;
