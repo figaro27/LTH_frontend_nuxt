@@ -17,6 +17,7 @@
 
       <div class="home__main__right-side">
         <tool-of-week class="home__tool-of-the-week" />
+        <twitter-feed class="home__twitter-feed" />
       </div>
     </div>
 
