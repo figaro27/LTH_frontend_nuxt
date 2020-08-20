@@ -8,7 +8,6 @@
       data-chrome="nofooter noscrollbar"
     >
     </a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 </template>
 
@@ -16,7 +15,13 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({ name: 'twitter-feed' })
-export default class TwitterFeed extends Vue {}
+export default class TwitterFeed extends Vue {
+  mounted() {
+    const twitterScript = document.createElement('script')
+    twitterScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+    document.head.appendChild(twitterScript)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
