@@ -50,7 +50,7 @@
     <hr class="footer__hr" />
 
     <div class="footer__copyright">
-      @ Copyright, 2020
+      @ Copyright, 2020 Babel Legal LLC
     </div>
   </footer>
 </template>
