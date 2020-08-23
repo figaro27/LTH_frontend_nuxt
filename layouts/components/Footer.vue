@@ -49,9 +49,7 @@
 
     <hr class="footer__hr" />
 
-    <div class="footer__copyright">
-      @ Copyright, 2020
-    </div>
+    <div class="footer__copyright">@ Copyright, {{ currentYear }} Babel Legal LLC</div>
   </footer>
 </template>
 
@@ -84,6 +82,10 @@ export default class DefaultFooter extends Vue {
       { label: 'Terms & Conditions', to: '/terms' },
       { label: 'Cookie Policy', to: '/cookie-policy' }
     ]
+  }
+
+  get currentYear() {
+    return new Date().getFullYear()
   }
 }
 </script>
