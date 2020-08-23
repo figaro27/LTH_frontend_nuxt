@@ -293,6 +293,9 @@ $avatar-width: 130px;
 .lth__section-green__ul li {
   @include typography(lg-1);
   margin: 10px 0;
+}
+
+.lth__section-green__ul li:first-letter {
   text-transform: capitalize;
 }
 
