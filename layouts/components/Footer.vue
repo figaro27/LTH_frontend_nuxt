@@ -20,18 +20,18 @@
       </div>
 
       <div class="footer__section">
-        <h5 class="footer__section__title">Help</h5>
+        <h5 class="footer__section__title">About Us</h5>
         <div class="footer__section__items">
-          <nuxt-link v-for="(link, index) of helpLinks" :key="`help-${index}`" class="footer__link" :to="link.to">
+          <nuxt-link v-for="(link, index) of aboutLinks" :key="`about-${index}`" class="footer__link" :to="link.to">
             {{ link.label }}
           </nuxt-link>
         </div>
       </div>
 
       <div class="footer__section">
-        <h5 class="footer__section__title">About Us</h5>
+        <h5 class="footer__section__title">Help</h5>
         <div class="footer__section__items">
-          <nuxt-link v-for="(link, index) of aboutLinks" :key="`about-${index}`" class="footer__link" :to="link.to">
+          <nuxt-link v-for="(link, index) of helpLinks" :key="`help-${index}`" class="footer__link" :to="link.to">
             {{ link.label }}
           </nuxt-link>
         </div>
@@ -64,16 +64,17 @@ import Logo from './Logo.vue'
 export default class DefaultFooter extends Vue {
   get helpLinks() {
     return [
-      { label: 'Contact Us', to: '/contact-us' },
-      { label: 'How LTH works', to: '/how-lth-works' },
-      { label: 'Regional Snapshots', to: '/regional-snapshots' },
       { label: 'Add/Update your Listing', to: '/listing' },
       { label: 'FAQ', to: '/faq' }
     ]
   }
 
   get aboutLinks() {
-    return [{ label: 'About Us', to: '/about-us' }]
+    return [
+      { label: 'Contact Us', to: '/contact-us' },
+      { label: 'How LTH works', to: '/how-lth-works' },
+      { label: 'Regional Snapshots', to: '/regional-snapshots' }
+    ]
   }
 
   get legalLinks() {
