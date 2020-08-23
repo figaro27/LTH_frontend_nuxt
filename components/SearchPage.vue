@@ -3,6 +3,12 @@
     <div class="search-page__header">
       <div class="search-box-container">
         <search-box :value="filters.keyword" @search="onKeywordSubmit" />
+        <div v-if="filters.keyword" class="search-box__keywords">
+          <div class="search-box__keyword">
+            <span>{{ filters.keyword }}</span>
+            <i class="search-box__keyword__close" @click.stop="onKeywordCancelClick" />
+          </div>
+        </div>
       </div>
     </div>
     <div class="search-page__content-container">
@@ -76,7 +82,7 @@
         <div class="search-page__content-wrapper">
           <h4 v-if="vendorsLoading !== 0" class="search-page__count">
             <span>Search result ({{ total }})</span>
-            <nuxt-link v-if="showClearFilter" to="/search">
+            <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" to="/search">
               <fa :icon="['fas', 'times-circle']" />
             </nuxt-link>
           </h4>
@@ -247,6 +253,10 @@ export default class Search extends Vue {
     this.updateRouteQuery()
   }
 
+  onKeywordCancelClick() {
+    this.onKeywordSubmit('')
+  }
+
   updatedSelectedValueFromRouteParam(id: keyof Filters, options: any[] = []) {
     const queryValue = this.$route.query[id] as string
     if (id === 'keyword') {
@@ -277,8 +287,10 @@ export default class Search extends Vue {
     if (!this.$route.name) {
       return
     }
+    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', 1)
     this.$router.push({
       name: this.$route.name,
+      params: this.$route.params,
       query: this.searchRouteQuery
     })
   }
@@ -332,6 +344,70 @@ export default class Search extends Vue {
   margin: 30px 170px 40px 30px;
 }
 
+.search-box__keywords {
+  width: 100%;
+  margin-top: 20px;
+  @include row;
+}
+
+.search-box__keyword {
+  position: relative;
+  display: inline-block;
+  padding: 4px 26px 4px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: $colorDarkGrey;
+  line-height: 1;
+  background: $colorLightGreen;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+
+  span {
+    @include typography(md-1, default, 700);
+    line-height: 14px;
+    color: $colorDarkGrey;
+    cursor: pointer;
+  }
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.search-box__keyword__close {
+  cursor: pointer;
+  margin-left: 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-weight: 700;
+  font-style: normal;
+  width: 22px;
+  text-align: center;
+  line-height: 22px;
+  transition: all 0.2s ease;
+  border-radius: 5px;
+
+  &::after {
+    content: '\D7';
+    color: #266d4d;
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  &:hover {
+    background: $colorLightGreen;
+
+    &::after {
+      color: white;
+    }
+  }
+}
+
 .search-page__content-container {
   flex: 1;
   display: flex;
@@ -356,13 +432,13 @@ export default class Search extends Vue {
   flex: 1;
   text-align: left;
   word-break: break-all;
-  overflow: hidden;
+  overflow: visible;
   padding: 10px;
 }
 
 .search-page__content-wrapper {
   @include col;
-  min-height: 100%;
+  height: 100%;
   border-left: 1px solid lightgray;
 }
 

@@ -39,7 +39,7 @@ export default class Listing extends Vue {}
 }
 
 .listing__title {
-  @include typography(xxl-3, narrow, bold);
+  @include typography(xxl-1, narrow, bold);
   color: $colorNavy;
 
   span {

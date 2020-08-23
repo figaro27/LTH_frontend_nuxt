@@ -383,7 +383,7 @@ export default class CookiePolicy extends Vue {}
 }
 
 .cookie-policy__title {
-  @include typography(xxl-3, narrow, bold);
+  @include typography(xxl-1, narrow, bold);
   color: $colorDarkGrey;
   margin-bottom: 10px;
 }

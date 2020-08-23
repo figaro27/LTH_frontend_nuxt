@@ -108,6 +108,7 @@ export default class SearchBox extends Vue {
   cancelSearch() {
     this.$refs.select.setSearchData('')
     this.selectedValue = ''
+    this.$emit('search', '')
   }
 
   select(selectedItem: { index: number; label: string; value: string }) {

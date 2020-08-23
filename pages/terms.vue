@@ -301,7 +301,7 @@ export default class Terms extends Vue {}
 }
 
 .terms__title {
-  @include typography(xxl-3, narrow, bold);
+  @include typography(xxl-1, narrow, bold);
   color: $colorDarkGrey;
   margin-bottom: 10px;
 }

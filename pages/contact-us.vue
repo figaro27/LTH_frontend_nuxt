@@ -94,12 +94,12 @@ type ContactData = {
 @Component({ name: 'contact-us' })
 export default class ContactUs extends Vue {
   data: ContactData = {
-    email: 'wang.minion.love@gmail.com',
-    firstName: 'Chris',
-    lastName: 'Wang',
+    email: '',
+    firstName: '',
+    lastName: '',
     companyName: '',
     country: '',
-    message: 'Test Message'
+    message: ''
   }
 
   get disabled() {
@@ -108,10 +108,8 @@ export default class ContactUs extends Vue {
   }
 
   async submit() {
-    console.log('submit: ', this.data)
     await this.$recaptchaLoaded()
-    const token: string = await this.$recaptcha('contact-us')
-    console.log('token: ', token)
+    const token: string = await this.$recaptcha('contact_us')
     const params = {
       ...this.data,
       token
@@ -144,12 +142,12 @@ export default class ContactUs extends Vue {
 }
 
 .contact-us__title {
-  @include typography(xxl-3, narrow, bold);
+  @include typography(xxl-1, narrow, bold);
   text-align: center;
   color: $colorNavy;
 
   span {
-    @include typography(xxl-3, narrow, bold);
+    @include typography(xxl-1, narrow, bold);
     color: $colorGreen;
   }
 }
@@ -185,6 +183,7 @@ export default class ContactUs extends Vue {
   align-items: center;
   margin: 5px 0;
   text-decoration: none;
+  cursor: pointer;
 
   img {
     width: 40px;
@@ -202,16 +201,22 @@ export default class ContactUs extends Vue {
   width: fit-content;
   margin-top: 20px;
   background: $colorBg1;
-  color: $colorLighterDarkGrey;
+  color: $colorNavy;
   @include typography(lg-1, default, bold);
   padding: 10px 20px;
   cursor: pointer;
 
-  &:hover {
-    opacity: 0.8;
+  &:disabled {
+    color: $colorLighterDarkGrey;
   }
-  &:active {
-    opacity: 0.9;
+
+  &:not(:disabled) {
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.9;
+    }
   }
 }
 </style>

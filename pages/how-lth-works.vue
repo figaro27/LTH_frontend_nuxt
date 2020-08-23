@@ -256,12 +256,12 @@ $avatar-width: 130px;
 }
 
 .lth__title {
-  @include typography(xxl-3, narrow, bold);
+  @include typography(xxl-1, narrow, bold);
   text-align: center;
   color: $colorNavy;
 
   span {
-    @include typography(xxl-3, narrow, bold);
+    @include typography(xxl-1, narrow, bold);
     color: $colorGreen;
   }
 }

@@ -46,7 +46,7 @@ export default class RegionsHero extends Vue {
 }
 
 .regions-hero__title {
-  @include typography(xxl-3, narrow, bold);
+  @include typography(xxl-1, narrow, bold);
   text-align: left;
 }
 
@@ -74,7 +74,7 @@ export default class RegionsHero extends Vue {
   color: $colorNavy;
 
   span {
-    @include typography(xxl-3, narrow, bold);
+    @include typography(xxl-1, narrow, bold);
     color: $colorGreen;
   }
 }
