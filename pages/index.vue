@@ -97,7 +97,6 @@ export default class Home extends Vue {
 .home__main-section {
   position: relative;
   width: 100vw;
-  height: calc(100vh - 200px);
   @include row;
   justify-content: center;
 }
