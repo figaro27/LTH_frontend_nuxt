@@ -4,7 +4,15 @@
       <h1 class="faq__title">Frequently <span>Asked Questions</span></h1>
 
       <div class="faq__questions">
-        <faq-question v-for="(faq, index) of faqs" :key="index" :data="faq" class="faq__question" />
+        <faq-question
+          v-for="(faq, index) of faqs"
+          :key="index"
+          :pkey="index"
+          :data="faq"
+          :opened="index === openedItem"
+          class="faq__question"
+          @onToggleOpen="onToggleOpen"
+        />
       </div>
     </div>
   </div>
@@ -16,6 +24,7 @@ import { FAQData } from '@/components/FAQ/FaqQuestion.vue'
 
 @Component({ name: 'faq' })
 export default class FAQ extends Vue {
+  openedItem: number | null = null
   get faqs(): FAQData[] {
     return [
       {
@@ -76,6 +85,10 @@ export default class FAQ extends Vue {
           'Yes. Our mission is to make Legaltech Hub free to commercial legal professionals in law firms and in-house departments on an ongoing basis. Vendors are also able to have their tools listed on Legaltech Hub free-of-charge. We are monetizing the platform through ads and premium listings. This may evolve over time, but access to the core information on Legaltech Hub will continue to be free.'
       }
     ]
+  }
+
+  onToggleOpen(pkey: number) {
+    this.openedItem = pkey
   }
 }
 </script>

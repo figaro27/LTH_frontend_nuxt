@@ -1,5 +1,5 @@
 <template>
-  <div class="faq-question" :class="{ 'faq-question--open': isOpen }" @click="toggleOpen">
+  <div class="faq-question" :class="{ 'faq-question--open': opened }" @click="toggleOpen">
     <div class="faq-question__title">
       <label>{{ data.title }}</label>
       <img :src="openImageUrl" />
@@ -21,15 +21,19 @@ export type FAQData = {
 @Component({ name: 'faq-question' })
 export default class FAQQuestion extends Vue {
   @Prop({ required: true }) data!: FAQData
-
-  isOpen: boolean = false
+  @Prop({ required: true }) pkey!: number
+  @Prop({ required: true }) opened!: boolean
 
   get openImageUrl() {
-    return this.isOpen ? '/images/faq/chevron-closed.svg' : '/images/faq/chevron-opened.svg'
+    return this.opened ? '/images/faq/chevron-closed.svg' : '/images/faq/chevron-opened.svg'
   }
 
   toggleOpen() {
-    this.isOpen = !this.isOpen
+    if (this.opened) {
+      this.$emit('onToggleOpen', null)
+    } else {
+      this.$emit('onToggleOpen', this.pkey)
+    }
   }
 }
 </script>
