@@ -52,10 +52,11 @@ export default class SavedSearchs extends Vue {
 
 .saved-searchs__item {
   background: #ebf1ff;
-  border-radius: 20px;
+  border-radius: 16px;
+  min-width: 80px;
   @include typography(lg, narrow, bold);
-  margin: 10px;
-  padding: 7px 10px;
+  margin: 8px;
+  padding: 8px 24px;
   color: $colorDarkGrey;
   text-decoration: none;
   cursor: pointer;
