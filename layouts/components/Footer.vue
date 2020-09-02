@@ -106,7 +106,7 @@ export default class DefaultFooter extends Vue {
 
 .footer__sections {
   @include row;
-  margin: 50px 50px 30px 220px;
+  margin: 50px 50px 30px 200px;
 }
 
 .footer__section {

@@ -119,10 +119,11 @@ export default class Home extends Vue {
 }
 
 .home__main__left-side {
-  width: $widgetWidth;
+  width: 16%;
+  max-width: 210px;
   margin: 20px;
   z-index: 1;
-  margin-left: 50px;
+  margin-left: 40px;
 }
 
 .home__main__content {
@@ -134,18 +135,18 @@ export default class Home extends Vue {
 }
 
 .home__main__right-side {
-  width: $widgetWidth;
+  width: 210px;
   margin: 20px;
   z-index: 1;
   margin-right: 30px;
 }
 
 .home__main__search-box {
-  width: 65%;
+  width: 80%;
 }
 
 .home__saved-searchs {
-  width: 50%;
+  width: 85%;
   margin-top: 20px;
 }
 

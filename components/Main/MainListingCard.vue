@@ -50,11 +50,11 @@ export default class MainListingCard extends Vue {}
   width: 100%;
   @include row;
   align-items: center;
+  margin-top: 15px;
 }
 
 .listing-card__icon {
-  width: 90px;
-  height: 80px;
+  width: 110px;
   @include row--center;
   border-radius: 50%;
   background: $colorTransGreen;
@@ -75,8 +75,8 @@ export default class MainListingCard extends Vue {}
 }
 
 .listing-card__button {
-  width: 200px;
-  height: 54px;
+  width: 110px;
+  height: 40px;
   @include row--center;
   @include typography(lg, narrow, bold);
   border-radius: 27px;
