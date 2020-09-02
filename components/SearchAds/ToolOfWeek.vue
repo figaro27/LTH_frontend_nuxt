@@ -24,6 +24,7 @@ export default class ToolOfWeek extends Vue {
 <style lang="scss" scoped>
 .tool-of-week {
   @include col;
+  margin-top: 20px;
   padding: 10px;
   border-radius: 10px;
   min-height: 180px;
