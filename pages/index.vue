@@ -62,16 +62,20 @@ export default class Home extends Vue {
 
   get links() {
     return [
-      { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', url: '/' },
       { title: 'Legaltech Jobs', icon: '/images/svgs/main/jobs.svg', url: 'https://legaltechjobs.com' },
-      { title: 'Recommended Legaltech Resources', icon: '/images/svgs/main/resources.svg', url: '/blogs' },
+      { title: 'Nominate your Team for an Award', icon: '/images/svgs/main/award.svg', tooltip: 'Coming soon' },
+      { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', url: '/' },
       {
         title: 'Legal Innovation and Design Resources (LID)',
         icon: '/images/svgs/main/innovation.svg',
         tooltip: 'Coming soon'
       },
-      { title: 'Nominate your Team for an Award', icon: '/images/svgs/main/award.svg', tooltip: 'Coming soon' },
-      { title: 'Interested in Studying Legal Technology?', icon: '/images/svgs/main/study.svg', tooltip: 'Coming soon' }
+      {
+        title: 'Interested in Studying Legal Technology?',
+        icon: '/images/svgs/main/study.svg',
+        tooltip: 'Coming soon'
+      },
+      { title: 'Recommended Legaltech Resources', icon: '/images/svgs/main/resources.svg', url: '/blogs' }
     ]
   }
 
