@@ -6,6 +6,7 @@
 
       <div class="home__main__left-side">
         <popular-searchs class="home__popular-searchs" />
+        <tool-of-week class="home__tool-of-the-week" />
       </div>
 
       <div class="home__main__content">
@@ -16,7 +17,6 @@
       </div>
 
       <div class="home__main__right-side">
-        <tool-of-week class="home__tool-of-the-week" />
         <twitter-feed class="home__twitter-feed" />
       </div>
     </div>
@@ -95,6 +95,7 @@ export default class Home extends Vue {
 }
 
 .home__main-section {
+  margin-top: 40px;
   position: relative;
   width: 100vw;
   @include row;
@@ -117,6 +118,7 @@ export default class Home extends Vue {
   width: $widgetWidth;
   margin: 20px;
   z-index: 1;
+  margin-left: 50px;
 }
 
 .home__main__content {
@@ -131,14 +133,15 @@ export default class Home extends Vue {
   width: $widgetWidth;
   margin: 20px;
   z-index: 1;
+  margin-right: 30px;
 }
 
 .home__main__search-box {
-  width: 640px;
+  width: 65%;
 }
 
 .home__saved-searchs {
-  width: 640px;
+  width: 50%;
   margin-top: 20px;
 }
 
@@ -158,7 +161,7 @@ export default class Home extends Vue {
   line-height: 83px;
   color: $colorNavy;
   margin-bottom: 20px;
-  text-align: left;
+  text-align: center;
   z-index: 1;
 }
 
@@ -166,8 +169,12 @@ export default class Home extends Vue {
   @include typography(xxl-3, narrow);
   color: $colorNavy;
   margin-bottom: 30px;
-  text-align: left;
+  text-align: center;
   z-index: 1;
+  font-size: 38px;
+  width: 775px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .home__summary__links {
@@ -196,7 +203,7 @@ export default class Home extends Vue {
 }
 
 .home__summary-listing__card {
-  width: 100%;
+  width: 70%;
   height: 100%;
   z-index: 1;
 }
@@ -229,7 +236,8 @@ export default class Home extends Vue {
 
   img {
     width: 100%;
-    object-fit: contain;
+    height: 300px;
+    object-fit: fill;
   }
 }
 
@@ -241,7 +249,7 @@ export default class Home extends Vue {
   position: absolute;
   top: 0;
   font-family: $fontRochester;
-  font-size: 72px;
+  font-size: 50px;
   color: #694c3f;
 }
 </style>

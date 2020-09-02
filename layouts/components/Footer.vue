@@ -101,12 +101,12 @@ export default class DefaultFooter extends Vue {
 }
 
 .footer__logo {
-  width: 190px;
+  width: 210px;
 }
 
 .footer__sections {
   @include row;
-  margin: 50px 50px 30px 50px;
+  margin: 50px 50px 30px 220px;
 }
 
 .footer__section {
@@ -118,6 +118,7 @@ export default class DefaultFooter extends Vue {
   @include typography(lg);
   color: $colorNavy;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .footer__section__items {

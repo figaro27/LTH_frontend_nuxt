@@ -21,9 +21,9 @@ export default class DefaultLayout extends Vue {}
 <style lang="scss" scoped>
 .main {
   @include col;
-  width: 100vw;
   min-height: 100vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .main__content {

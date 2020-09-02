@@ -39,7 +39,7 @@ export default class LinkItem extends Vue {
 .link-item {
   @include col--center;
   width: 200px;
-  height: 140px;
+  height: 180px;
   border-radius: 30px;
   background: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
@@ -55,7 +55,7 @@ export default class LinkItem extends Vue {
 }
 
 .link-item__icon {
-  width: 35px;
+  width: 65%;
   object-fit: cover;
 }
 

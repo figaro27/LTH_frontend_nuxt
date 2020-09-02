@@ -49,11 +49,11 @@ export default class MainListingCard extends Vue {}
 .listing-card__content {
   width: 100%;
   @include row;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .listing-card__icon {
-  width: 80px;
+  width: 90px;
   height: 80px;
   @include row--center;
   border-radius: 50%;
