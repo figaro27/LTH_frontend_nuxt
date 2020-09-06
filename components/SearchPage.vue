@@ -73,7 +73,7 @@
           id="integrations"
           v-model="filters.integrations"
           name="integrations"
-          label="Integration"
+          label="Integrations"
           :options="integrations"
           @change="onFilterUpdate"
         />
@@ -417,6 +417,7 @@ export default class Search extends Vue {
 
 .search-page__side-filter {
   width: 240px;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   margin-right: 20px;

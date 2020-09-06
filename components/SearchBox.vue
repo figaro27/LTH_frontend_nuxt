@@ -19,7 +19,7 @@
       v-model="selectedValue"
       item-text="label"
       item-value="value"
-      placeholder="Search..."
+      placeholder="Search for legaltech tools..."
       :items="feedItems"
       :loading="isKeywordsLoading"
       :search-text.sync="searchText"

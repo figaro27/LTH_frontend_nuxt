@@ -107,6 +107,11 @@ export default class SingleVendor extends Vue {
     }
   }
 
+  async mounted() {
+    const { data } = await api.get(`vendors/${this.$route.params.vendorId}`)
+    this.data = data.data
+  }
+
   get logo() {
     return this.data.logo || '/images/logo-small.png'
   }

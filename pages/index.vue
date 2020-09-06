@@ -130,15 +130,16 @@ export default class Home extends Vue {
   flex: 1;
   @include col;
   align-items: center;
-  margin-top: 120px;
+  margin-top: 80px;
   z-index: 1;
 }
 
 .home__main__right-side {
-  width: 210px;
-  margin: 20px;
+  width: 270px;
+  min-width: 270px;
+  margin: 0 20px 20px 20px;
   z-index: 1;
-  margin-right: 30px;
+  padding-right: 30px;
 }
 
 .home__main__search-box {
