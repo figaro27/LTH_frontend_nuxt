@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue, Watch } from 'nuxt-property-decorator'
 
 import { Vendor } from '@/models'
 import { api } from '@/utils'
@@ -107,7 +107,8 @@ export default class SingleVendor extends Vue {
     }
   }
 
-  async mounted() {
+  @Watch('$route.params.vendorId', { immediate: true })
+  async onVendorIdChange() {
     const { data } = await api.get(`vendors/${this.$route.params.vendorId}`)
     this.data = data.data
   }
@@ -310,5 +311,20 @@ export default class SingleVendor extends Vue {
   padding: 20px 30px;
   margin-bottom: 40px;
   text-align: left;
+  overflow: hidden;
+}
+</style>
+
+<style lang="scss">
+.single-vendor__description {
+  & > div {
+    width: 100%;
+    overflow: hidden;
+
+    & > * {
+      width: 100%;
+      overflow: hidden;
+    }
+  }
 }
 </style>

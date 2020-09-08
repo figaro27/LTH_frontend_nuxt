@@ -39,7 +39,7 @@ export default class LinkItem extends Vue {
 .link-item {
   @include col--center;
   width: 200px;
-  height: 180px;
+  height: 200px;
   border-radius: 30px;
   background: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
@@ -60,7 +60,6 @@ export default class LinkItem extends Vue {
 }
 
 .link-item__title {
-  @include ellipsis(2, xl);
   @include typography(xl, narrow);
   height: 48px;
   color: $colorNavy;

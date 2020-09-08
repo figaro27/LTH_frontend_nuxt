@@ -196,7 +196,7 @@ $searchBoxHeight: 50px;
   @include row--center;
   border-width: 1px;
   border-style: solid;
-  color: white;
+  color: $colorNavy;
   text-decoration: none;
   cursor: pointer;
 

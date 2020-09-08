@@ -5,7 +5,7 @@
       <img :src="openImageUrl" />
     </div>
     <div class="faq-question__answer">
-      <p v-html="data.answer" />
+      <div v-html="data.answer" />
     </div>
   </div>
 </template>
@@ -82,7 +82,7 @@ export default class FAQQuestion extends Vue {
   transition: height 0.2s;
   overflow: hidden;
 
-  p {
+  & > div {
     width: 100%;
     color: $colorDarkGrey;
     @include typography(lg);

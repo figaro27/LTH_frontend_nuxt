@@ -27,7 +27,7 @@
               <div class="blog__image">
                 <img class="blog__image__img" :src="blog.image" />
               </div>
-              <p class="blog__description" v-html="blog.description" />
+              <div class="blog__description" v-html="blog.description" />
               <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
             </div>
           </div>
@@ -55,7 +55,7 @@ export default class Blogs extends Vue {
                 name: 'legal-it-insider',
                 title: 'Legal IT Insider',
                 description:
-                  'Legal IT Insider, aka “the orange rag”, is often the first publication to scoop the latest news about legaltech launches, acquisitions and high-profile industry shifts. Written and edited by UK legal journalist Caroline Hill (Twitter: <a href="https://twitter.com/chillmedia" target="_blank">@chillmedia</a>), this global publication is a must-follow. Sign up for the newsletter to get the news as it’s breaking.',
+                  'Legal IT Insider, aka "the orange rag", is often the first publication to scoop the latest news about legaltech launches, acquisitions and high-profile industry shifts. Written and edited by UK legal journalist Caroline Hill (Twitter: <a href="https://twitter.com/chillmedia" target="_blank">@chillmedia</a>), this global publication is a must-follow. Sign up for the newsletter to get the news as it’s breaking.',
                 image: '/images/blogs/legal-it-insider.png',
                 type: 'big-gradient',
                 url: 'https://legaltechnology.com'
@@ -145,7 +145,7 @@ export default class Blogs extends Vue {
                 name: 'dewey-b-strategic',
                 title: 'Dewey B Strategic',
                 description:
-                  'Dewey B Strategic is a blog that was created by editor and author Jean P. O’Grady in 2011, and covers topics from legal research to legaltech and innovation. ',
+                  'Dewey B Strategic is a blog that was created by editor and author Jean P. O’Grady in 2011, and covers topics from legal research to legaltech and innovation.',
                 image: '/images/blogs/dewey-b-strategic.png',
                 type: 'portrait',
                 url: 'https://www.deweybstrategic.com'
@@ -180,7 +180,7 @@ export default class Blogs extends Vue {
                 name: 'the-time-blawg',
                 title: 'The Time Blawg',
                 description:
-                  'Brian Inkster, founder and CEO of Inksters Solicitors and ‘Maverick’ of the Scottish legal profession, writes to express his views on the past, present and future practice of law. Brian’s intelligent yet often irreverent view of developments in the industry provide a refreshing counter-balance to other legaltech blogs. ',
+                  'Brian Inkster, founder and CEO of Inksters Solicitors and ‘Maverick’ of the Scottish legal profession, writes to express his views on the past, present and future practice of law. Brian’s intelligent yet often irreverent view of developments in the industry provide a refreshing counter-balance to other legaltech blogs.',
                 image: '/images/blogs/the-time-blawg.png',
                 type: 'portrait',
                 url: 'http://thetimeblawg.com'
