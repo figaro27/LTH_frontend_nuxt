@@ -5,7 +5,9 @@
       <img :src="openImageUrl" />
     </div>
     <div class="faq-question__answer">
-      <div v-html="data.answer" />
+      <client-only>
+        <div v-html="data.answer" />
+      </client-only>
     </div>
   </div>
 </template>

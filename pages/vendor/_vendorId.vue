@@ -82,7 +82,9 @@
 
         <div v-if="data.description" class="single-vendor__row">
           <div class="single-vendor__frame single-vendor__description">
-            <div v-html="data.description" />
+            <client-only>
+              <div v-html="data.description" />
+            </client-only>
           </div>
         </div>
       </template>

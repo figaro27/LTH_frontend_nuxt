@@ -27,7 +27,9 @@
               <div class="blog__image">
                 <img class="blog__image__img" :src="blog.image" />
               </div>
-              <div class="blog__description" v-html="blog.description" />
+              <client-only>
+                <div class="blog__description" v-html="blog.description" />
+              </client-only>
               <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
             </div>
           </div>

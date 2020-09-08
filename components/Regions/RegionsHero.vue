@@ -6,7 +6,9 @@
         <h1 v-else class="regions-hero__title" :style="{ color: data.titleColor }">
           {{ data.name }}
         </h1>
-        <div class="regions-hero__description" v-html="data.description" />
+        <client-only>
+          <div class="regions-hero__description" v-html="data.description" />
+        </client-only>
       </div>
 
       <img class="regions-hero__map" :src="data.map" />
