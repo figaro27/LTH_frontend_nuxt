@@ -102,10 +102,15 @@ import { api } from '@/utils'
 export default class SingleVendor extends Vue {
   data!: Vendor
 
-  async asyncData(payload: any) {
-    const res = await api.get(`vendors/${payload.params.vendorId}`)
-    return {
-      data: res.data.data
+  async asyncData(data: { params: any; error: any; payload: any }) {
+    const { params, payload } = data
+    if (payload) {
+      return { data: payload }
+    } else {
+      const res = await api.get(`vendors/${params.vendorId}`)
+      return {
+        data: res.data.data
+      }
     }
   }
 
