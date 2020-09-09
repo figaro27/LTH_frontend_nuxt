@@ -152,7 +152,7 @@ export default {
         client.request({ method: 'GET', url: 'saved-searchs' })
       ]).then(([res1, res2]) => {
         const vendorRoutes = res1.data.data.map((vendor) => `/vendor/${vendor.id}`)
-        const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/search/${savedSearch.slug}`)
+        const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/regional-snapshots/${savedSearch.slug}`)
         return [...vendorRoutes, ...savedSearchsRoutes]
       })
     }

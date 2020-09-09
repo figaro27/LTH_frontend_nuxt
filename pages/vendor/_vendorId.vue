@@ -101,20 +101,25 @@ import { api } from '@/utils'
 @Component({
   name: 'single-vendor',
   async asyncData(ctx) {
-    const { params, payload } = ctx
-    if (payload) {
-      return { data: payload }
-    } else {
-      const res = await api.get(`vendors/${params.vendorId}`)
-      console.log('res: ', res.data.data)
-      return {
-        data: res.data.data
-      }
+    const { params } = ctx
+    const res = await api.get(`vendors/${params.vendorId}`)
+    console.info('params: ', params.vendorId, res.data.data.id)
+    return {
+      data: res.data.data
     }
   }
 })
 export default class SingleVendor extends Vue {
-  data!: Vendor
+  data: Vendor | null = null
+
+  async mounted() {
+    console.info('mounted: ', this.data)
+    if (this.data) {
+      return
+    }
+    const res = await api.get(`vendors/${this.$route.params.vendorId}`)
+    this.data = res.data.data
+  }
 
   @Watch('$route.params.vendorId', { immediate: true })
   async onVendorIdChange() {
@@ -123,46 +128,57 @@ export default class SingleVendor extends Vue {
   }
 
   get logo() {
+    if (!this.data) return '/images/logo-small.png'
     return this.data.logo || '/images/logo-small.png'
   }
 
   get functionalities() {
+    if (!this.data) return ''
     return this.data.functionalities.map((data) => data.name).join(', ')
   }
 
   get subFunctionalities() {
+    if (!this.data) return ''
     return this.data.subFunctionalities.map((data) => data.name).join(', ')
   }
 
   get platformLanguages() {
+    if (!this.data) return ''
     return this.data.platformLanguages.map((data) => data.name).join(', ')
   }
 
   get linguisticFunctionalities() {
+    if (!this.data) return ''
     return this.data.linguisticFunctionalities.map((data) => data.name).join(', ')
   }
 
   get hqs() {
+    if (!this.data) return ''
     return this.data.hqs.map((data) => data.name).join(', ')
   }
 
   get offices() {
+    if (!this.data) return ''
     return this.data.offices.map((data) => data.name).join(', ')
   }
 
   get practiceAreas() {
+    if (!this.data) return ''
     return this.data.practiceAreas.map((data) => data.name).join(', ')
   }
 
   get installations() {
+    if (!this.data) return ''
     return this.data.installations.map((data) => data.name).join(', ')
   }
 
   get integrations() {
+    if (!this.data) return ''
     return this.data.integrations.map((data) => data.name).join(', ')
   }
 
   get features() {
+    if (!this.data) return ''
     return this.data.features.map((data) => data.name).join(', ')
   }
 }

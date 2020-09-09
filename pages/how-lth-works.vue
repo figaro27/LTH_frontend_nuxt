@@ -227,15 +227,22 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { api } from '@/utils'
 import { Functionality } from '~/models'
 
-@Component({ name: 'how-lth-works' })
-export default class HowLthWorks extends Vue {
-  functionalities!: Functionality[]
-
+@Component({
+  name: 'how-lth-works',
   async asyncData() {
     const res = await api.get('functionalities')
     return {
       functionalities: res.data
     }
+  }
+})
+export default class HowLthWorks extends Vue {
+  functionalities: Functionality[] = []
+
+  async mounted() {
+    if (this.functionalities.length > 0) return
+    const res = await api.get('functionalities')
+    this.functionalities = res.data
   }
 }
 </script>

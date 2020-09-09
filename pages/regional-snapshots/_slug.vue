@@ -14,15 +14,25 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { SavedSearch } from '@/models'
 import { api } from '@/utils'
 
-@Component({ name: 'single-region' })
-export default class SingleRegion extends Vue {
-  savedSearch!: SavedSearch
-
-  async asyncData(payload: any) {
-    const res = await api.get(`saved-searchs/${payload.params.slug}`)
+@Component({
+  name: 'single-region',
+  async asyncData(ctx) {
+    const { params } = ctx
+    const res = await api.get(`saved-searchs/${params.slug}`)
     return {
       savedSearch: res.data.data
     }
+  }
+})
+export default class SingleRegion extends Vue {
+  savedSearch: SavedSearch | null = null
+
+  async mounted() {
+    if (this.savedSearch) {
+      return
+    }
+    const res = await api.get(`vendors/${this.$route.params.slug}`)
+    this.savedSearch = res.data.data
   }
 
   get title() {
