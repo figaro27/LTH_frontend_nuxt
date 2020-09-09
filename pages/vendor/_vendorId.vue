@@ -1,7 +1,7 @@
 <template>
   <div class="single-vendor">
     <div class="single-vendor__content">
-      <template>
+      <template v-if="data">
         <div class="single-vendor__row">
           <div class="single-vendor__frame single-vendor__main">
             <div class="single-vendor__logo">
