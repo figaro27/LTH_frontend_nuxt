@@ -98,21 +98,23 @@ import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { Vendor } from '@/models'
 import { api } from '@/utils'
 
-@Component({ name: 'single-vendor' })
-export default class SingleVendor extends Vue {
-  data!: Vendor
-
-  async asyncData(data: { params: any; error: any; payload: any }) {
-    const { params, payload } = data
+@Component({
+  name: 'single-vendor',
+  async asyncData(ctx) {
+    const { params, payload } = ctx
     if (payload) {
       return { data: payload }
     } else {
       const res = await api.get(`vendors/${params.vendorId}`)
+      console.log('res: ', res.data.data)
       return {
         data: res.data.data
       }
     }
   }
+})
+export default class SingleVendor extends Vue {
+  data!: Vendor
 
   @Watch('$route.params.vendorId', { immediate: true })
   async onVendorIdChange() {
