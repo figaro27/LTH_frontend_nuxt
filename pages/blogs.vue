@@ -250,7 +250,7 @@ export default class Blogs extends Vue {
         row.forEach((col: any, colIndex: number) => {
           col.forEach((item: any, itemIndex: number) => {
             const element = document.getElementById(`blog_${sectionIndex}_${rowIndex}_${colIndex}_${itemIndex}`)
-            if (typeof element !== 'undefined' && element != null) {
+            if (typeof element !== 'undefined' && element !== null) {
               element.innerHTML = item.description
             }
           })
