@@ -17,7 +17,7 @@
             class="blogs__section__col"
           >
             <div
-              v-for="(blog, itemIndex) of blogsCol"
+              v-for="blog of blogsCol"
               :key="blog.name"
               class="blog"
               :class="`blog--${blog.type} blog--${blog.name}`"
@@ -28,11 +28,7 @@
                 <img class="blog__image__img" :src="blog.image" />
               </div>
               <client-only>
-                <p
-                  :key="`blog_${sectionIndex}_${rowIndex}_${colIndex}_${itemIndex}`"
-                  class="blog__description"
-                  v-html="blog.description"
-                />
+                <div v-html="blog.description" />
               </client-only>
               <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
             </div>
