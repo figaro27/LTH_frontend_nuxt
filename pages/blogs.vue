@@ -27,9 +27,9 @@
               <div class="blog__image">
                 <img class="blog__image__img" :src="blog.image" />
               </div>
-              <ClientOnly>
+              <no-ssr>
                 <div :id="`blog_${sectionIndex}_${rowIndex}_${colIndex}_${itemIndex}`" class="blog__description" />
-              </ClientOnly>
+              </no-ssr>
               <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
             </div>
           </div>
