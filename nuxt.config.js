@@ -145,6 +145,9 @@ export default {
     concurrency: 20,
     interval: 500,
     subFolders: false,
+    minify: {
+      collapseWhitespace: false
+    },
     routes() {
       const client = axios.create({ baseURL: apiUrl })
       return Promise.all([
