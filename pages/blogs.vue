@@ -17,7 +17,7 @@
             class="blogs__section__col"
           >
             <div
-              v-for="blog of blogsCol"
+              v-for="(blog, itemIndex) of blogsCol"
               :key="blog.name"
               class="blog"
               :class="`blog--${blog.type} blog--${blog.name}`"
@@ -28,7 +28,7 @@
                 <img class="blog__image__img" :src="blog.image" />
               </div>
               <client-only>
-                <div class="blog__description" v-html="blog.description" />
+                <div :id="`blog_${sectionIndex}_${rowIndex}_${colIndex}_${itemIndex}`" class="blog__description" />
               </client-only>
               <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
             </div>
@@ -241,6 +241,22 @@ export default class Blogs extends Vue {
         ]
       }
     ]
+  }
+
+  updated() {
+    const blogs = this.blogSections
+    blogs.forEach((section: any, sectionIndex: number) => {
+      section.blogs.forEach((row: any, rowIndex: number) => {
+        row.forEach((col: any, colIndex: number) => {
+          col.forEach((item: any, itemIndex: number) => {
+            const element = document.getElementById(`blog_${sectionIndex}_${rowIndex}_${colIndex}_${itemIndex}`)
+            if (typeof element !== 'undefined' && element !== null) {
+              element.innerHTML = item.description
+            }
+          })
+        })
+      })
+    })
   }
 }
 </script>
