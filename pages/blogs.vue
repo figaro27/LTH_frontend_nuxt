@@ -1,41 +1,41 @@
 <template>
   <div class="blogs">
     <div class="blogs__content">
-      <div v-for="(section, sectionIndex) of blogSections" :key="`section${sectionIndex}`" class="blogs__section">
-        <div class="blogs__title">
-          <img class="blogs__title-image" :src="section.icon" />
-          <h2 class="blogs__title-text">{{ section.title }}</h2>
-        </div>
-        <div
-          v-for="(blogsRow, rowIndex) of section.blogs"
-          :key="`${sectionIndex}-row${rowIndex}`"
-          class="blogs__section__row"
-        >
+      <client-only>
+        <div v-for="(section, sectionIndex) of blogSections" :key="`section${sectionIndex}`" class="blogs__section">
+          <div class="blogs__title">
+            <img class="blogs__title-image" :src="section.icon" />
+            <h2 class="blogs__title-text">{{ section.title }}</h2>
+          </div>
           <div
-            v-for="(blogsCol, colIndex) of blogsRow"
-            :key="`${sectionIndex}-col${rowIndex}-${colIndex}`"
-            class="blogs__section__col"
+            v-for="(blogsRow, rowIndex) of section.blogs"
+            :key="`${sectionIndex}-row${rowIndex}`"
+            class="blogs__section__row"
           >
             <div
-              v-for="blog of blogsCol"
-              :key="blog.name"
-              class="blog"
-              :class="`blog--${blog.type} blog--${blog.name}`"
+              v-for="(blogsCol, colIndex) of blogsRow"
+              :key="`${sectionIndex}-col${rowIndex}-${colIndex}`"
+              class="blogs__section__col"
             >
-              <h3 class="blog__title">{{ blog.title }}</h3>
-              <span class="blog__title-border" />
-              <div class="blog__image">
-                <img class="blog__image__img" :src="blog.image" />
-              </div>
-              <client-only>
+              <div
+                v-for="blog of blogsCol"
+                :key="blog.name"
+                class="blog"
+                :class="`blog--${blog.type} blog--${blog.name}`"
+              >
+                <h3 class="blog__title">{{ blog.title }}</h3>
+                <span class="blog__title-border" />
+                <div class="blog__image">
+                  <img class="blog__image__img" :src="blog.image" />
+                </div>
                 <div class="blog__description" v-html="blog.description" />
-              </client-only>
-              <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
+                <a class="blog__button" :href="blog.url" target="_blank">Visit Website</a>
+              </div>
             </div>
           </div>
+          <hr v-if="sectionIndex < blogSections.length - 1" class="blogs__divider" />
         </div>
-        <hr v-if="sectionIndex < blogSections.length - 1" class="blogs__divider" />
-      </div>
+      </client-only>
     </div>
   </div>
 </template>
