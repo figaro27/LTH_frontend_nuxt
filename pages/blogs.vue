@@ -242,22 +242,6 @@ export default class Blogs extends Vue {
       }
     ]
   }
-
-  updated() {
-    const blogs = this.blogSections
-    blogs.forEach((section: any, sectionIndex: number) => {
-      section.blogs.forEach((row: any, rowIndex: number) => {
-        row.forEach((col: any, colIndex: number) => {
-          col.forEach((item: any, itemIndex: number) => {
-            const element = document.getElementById(`blog_${sectionIndex}_${rowIndex}_${colIndex}_${itemIndex}`)
-            if (typeof element !== 'undefined' && element !== null) {
-              element.innerHTML = item.description
-            }
-          })
-        })
-      })
-    })
-  }
 }
 </script>
 
