@@ -463,7 +463,7 @@ export default class Search extends Vue {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden scroll;
+  overflow: hidden;
 }
 
 .search-page__vendor-item {
