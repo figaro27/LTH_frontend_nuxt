@@ -16,6 +16,17 @@
               <img :src="logo" />
             </div>
             <div class="single-vendor__tool">{{ data.tool }}</div>
+            <div v-if="JSON.stringify(data.graveyardData) !== '{}'" class="single-vendor__state">
+              <img src="/images/svgs/graveyard.svg" />
+              <label class="single-vendor__graveyard"> {{ data.graveyardData.date }} </label>
+            </div>
+            <div v-if="JSON.stringify(data.consolidationData) !== '{}'" class="single-vendor__state">
+              <img src="/images/svgs/consolidation.svg" />
+              <label class="single-vendor__consolidation"
+                >Acquired by {{ data.consolidationData.consolidatedWith }}
+              </label>
+              <label class="single-vendor__consolidation"> {{ data.consolidationData.date }} </label>
+            </div>
             <div class="single-vendor__details">
               <div class="single-vendor__property">
                 <div class="single-vendor__property-name">Vendor</div>
@@ -112,6 +123,8 @@ import { api } from '@/utils'
     const { params } = ctx
     const res = await api.get(`vendors/${params.vendorId}`)
     console.info('params: ', params.vendorId, res.data.data.id)
+    console.log('datac:', res.data.data.consolidationData)
+    console.log('datag:', res.data.data.graveyardData)
     return {
       data: res.data.data
     }
@@ -254,8 +267,28 @@ export default class SingleVendor extends Vue {
 
 .single-vendor__tool {
   @include typography(xl-2, narrow, bold);
-  margin-bottom: 30px;
+  margin-bottom: 8px;
   color: $colorNavy;
+}
+
+.single-vendor__state {
+  display: flex;
+  margin-bottom: 32px;
+  @include col;
+}
+
+.single-vendor__graveyard {
+  color: #546e7a;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.single-vendor__consolidation {
+  color: #fbb540;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .single-vendor__details {
