@@ -2,6 +2,14 @@
   <div class="single-vendor">
     <div class="single-vendor__content">
       <template v-if="data">
+        <div class="single-vendor__header">
+          <a class="single-vendor-header__link" href="/" target="_blank">
+            <img src="/images/svgs/home.svg" />
+          </a>
+          <a href="/" class="single-vendor-header__link"> HOME </a>
+          <label class="single-vendor-header__link">&gt;</label>
+          <div class="single-vendor__name">{{ data.name }}</div>
+        </div>
         <div class="single-vendor__row">
           <div class="single-vendor__frame single-vendor__main">
             <div class="single-vendor__logo">
@@ -185,6 +193,24 @@ export default class SingleVendor extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.single-vendor__header {
+  width: 100%;
+  background-color: #cbef95;
+  padding: 16px;
+  display: flex;
+  .single-vendor-header__link {
+    margin-left: 16px;
+    color: #979797;
+    text-decoration: none;
+  }
+
+  .single-vendor__name {
+    margin-left: 16px;
+    font-size: 1.125rem;
+    color: #011d58;
+  }
+}
+
 .single-vendor {
   @include desktop-max-width-layout;
   padding: 40px;
