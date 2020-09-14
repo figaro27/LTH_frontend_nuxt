@@ -1,8 +1,8 @@
 <template>
   <nuxt-link v-if="data.graveyardData" class="graveyard-item" :to="`/vendor/${data.id}`">
     <img class="graveyard-item__background" src="./assets/background.svg" />
-    <span class="graveyard-item__rip">R.I.P.</span>
     <div class="graveyard-item__content">
+      <span class="graveyard-item__rip">RIP</span>
       <label class="graveyard-item__title">{{ name }}</label>
       <label class="graveyard-item__date">{{ date }}</label>
     </div>
@@ -33,6 +33,7 @@ export default class GraveyardItem extends Vue {
   position: relative;
   width: 100%;
   @include col--center;
+  padding: 2.5rem;
 }
 
 .graveyard-item__background {
@@ -40,10 +41,10 @@ export default class GraveyardItem extends Vue {
 }
 
 .graveyard-item__rip {
-  position: absolute;
-  top: 30px;
   @include typography(xl-1, narrow, bold);
-  color: $colorLightGrey2;
+  color: #979797;
+  font-size: 3rem;
+  margin-bottom: 16px;
 }
 
 .graveyard-item__content {
@@ -64,6 +65,6 @@ export default class GraveyardItem extends Vue {
 
 .graveyard-item__date {
   @include typography(xl, narrow, bold);
-  color: $colorLightGrey2;
+  color: #979797;
 }
 </style>
