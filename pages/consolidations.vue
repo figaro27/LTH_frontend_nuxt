@@ -1,27 +1,19 @@
 <template>
   <div class="consolidations">
-    <div class="consolidations__hero">
-      <img class="consolidations__hero-image" src="/images/consolidations/hero.png" />
-      <label class="consolidations__hero-title">Consolidations</label>
-    </div>
-
     <div class="consolidations__carousel-container">
       <div class="consolidations__carousel">
-        <carousel
-          :per-page-custom="[
-            [768, 2],
-            [1024, 3],
-            [1148, 4]
-          ]"
-        >
-          <slide v-for="index in halfLength" :key="index">
-            <div class="consolidation-pair">
-              <consolidation-item class="consolidation__item" :data="consolidations[(index - 1) * 2]" />
-              <consolidation-item
-                v-if="consolidations[(index - 1) * 2 + 1]"
-                class="consolidation__item"
-                :data="consolidations[(index - 1) * 2 + 1]"
-              />
+        <div class="consolidations__hero">
+          <img class="consolidations__hero-image" src="/images/consolidations/consolidation_banner.svg" />
+        </div>
+        <carousel :per-page="1" :navigate-to="-1">
+          <slide v-for="slideIndex in slideCount" :key="slideIndex" :navigate-to="0">
+            <div class="consolidation-slide">
+              <div v-for="index in 12" :key="index" class="consolidation__item">
+                <consolidation-item
+                  v-if="consolidations[(slideIndex - 1) * 12 + index - 1]"
+                  :data="consolidations[(slideIndex - 1) * 12 + index - 1]"
+                />
+              </div>
             </div>
           </slide>
         </carousel>
@@ -40,8 +32,8 @@ export default class Consolidations extends Vue {
   @State((state: RootState) => state.consolidation.consolidations) consolidations!: Array<Vendor>
   @State((state: RootState) => state.consolidation.consolidationsLoading) consolidationsLoading!: LoadingStatus
 
-  get halfLength() {
-    return Math.ceil(this.consolidations.length / 2)
+  get slideCount() {
+    return Math.ceil(this.consolidations.length / 12)
   }
 
   mounted() {
@@ -61,8 +53,6 @@ export default class Consolidations extends Vue {
 
 .consolidations__hero {
   width: 100%;
-  height: calc(100vh - 270px);
-  padding: 60px;
   @include col--center;
   background: #b3dce0;
   overflow: hidden;
@@ -70,7 +60,7 @@ export default class Consolidations extends Vue {
 
 .consolidations__hero-image {
   flex: 1;
-  height: calc(100% - 160px);
+  width: 100%;
   object-fit: contain;
 }
 
@@ -83,8 +73,7 @@ export default class Consolidations extends Vue {
 .consolidations__carousel-container {
   max-width: $desktopMaxWidth;
   width: $desktopMaxWidth;
-  margin: 100px 0;
-  padding: 100px 50px;
+  margin: 32px 0;
   background: $colorBg2;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -105,8 +94,12 @@ export default class Consolidations extends Vue {
   }
 }
 
+.consolidation-slide {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .consolidation__item {
-  width: 100%;
-  padding: 20px;
+  width: 25%;
 }
 </style>
