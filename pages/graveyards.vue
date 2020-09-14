@@ -1,26 +1,19 @@
 <template>
   <div class="graveyards">
-    <div class="graveyards__hero">
-      <img class="graveyards__hero-image" src="/images/graveyards/hero.png" />
-    </div>
-
     <div class="graveyards__carousel-container">
       <div class="graveyards__carousel">
-        <carousel
-          :per-page-custom="[
-            [768, 2],
-            [1024, 3],
-            [1148, 4]
-          ]"
-        >
-          <slide v-for="index in halfLength" :key="index">
-            <div class="graveyard-pair">
-              <graveyard-item class="graveyard__item" :data="graveyards[(index - 1) * 2]" />
-              <graveyard-item
-                v-if="graveyards[(index - 1) * 2 + 1]"
-                class="graveyard__item"
-                :data="graveyards[(index - 1) * 2 + 1]"
-              />
+        <div class="graveyards__hero">
+          <img class="graveyards__hero-image" src="/images/graveyards/graveyards_banner.png" />
+        </div>
+        <carousel :per-page="1" :navigate-to="-1">
+          <slide v-for="slideIndex in slideCount" :key="slideIndex" :navigate-to="0">
+            <div class="graveyard-slide">
+              <div v-for="index in 12" :key="index" class="graveyard__item">
+                <graveyard-item
+                  v-if="graveyards[(slideIndex - 1) * 12 + index - 1]"
+                  :data="graveyards[(slideIndex - 1) * 12 + index - 1]"
+                />
+              </div>
             </div>
           </slide>
         </carousel>
@@ -39,8 +32,8 @@ export default class Graveyards extends Vue {
   @State((state: RootState) => state.graveyard.graveyards) graveyards!: Array<Vendor>
   @State((state: RootState) => state.graveyard.graveyardsLoading) graveyardsLoading!: LoadingStatus
 
-  get halfLength() {
-    return Math.ceil(this.graveyards.length / 2)
+  get slideCount() {
+    return Math.ceil(this.graveyards.length / 12)
   }
 
   mounted() {
@@ -54,13 +47,12 @@ export default class Graveyards extends Vue {
   @include col;
   align-items: center;
   width: 100%;
-  margin-top: 70px;
+  margin-top: 32px;
   padding-bottom: 60px;
 }
 
 .graveyards__hero {
   width: 100%;
-  height: calc(100vh - 270px);
   @include col--center;
   background: #b3dce0;
   overflow: hidden;
@@ -81,8 +73,8 @@ export default class Graveyards extends Vue {
 .graveyards__carousel-container {
   max-width: $desktopMaxWidth;
   width: $desktopMaxWidth;
-  margin: 100px 0;
-  padding: 100px 50px;
+  margin: 32px 0;
+  padding: 0px 0px;
   background: $colorBg2;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -95,16 +87,12 @@ export default class Graveyards extends Vue {
   overflow: hidden;
 }
 
-.graveyard-pair {
-  @include col;
-
-  & > *:not(:first-child) {
-    margin-top: 100px;
-  }
+.graveyard-slide {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .graveyard__item {
-  width: 100%;
-  padding: 20px;
+  width: 25%;
 }
 </style>
