@@ -26,7 +26,7 @@ export default class TwitterFeed extends Vue {
 
 <style lang="scss" scoped>
 .twitter-feed {
-  margin-top: 15px;
+  margin-top: 32px;
   padding: 25px 10px 10px 10px;
   background-color: #f9f9fb;
   position: relative;

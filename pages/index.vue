@@ -6,7 +6,6 @@
 
       <div class="home__main__left-side">
         <popular-searchs class="home__popular-searchs" />
-        <tool-of-week class="home__tool-of-the-week" />
       </div>
 
       <div class="home__main__content">
@@ -17,6 +16,7 @@
       </div>
 
       <div class="home__main__right-side">
+        <tool-of-week class="home__tool-of-the-week" />
         <twitter-feed class="home__twitter-feed" />
       </div>
     </div>
@@ -140,6 +140,14 @@ export default class Home extends Vue {
   margin: 0 20px 20px 20px;
   z-index: 1;
   padding-right: 30px;
+}
+
+.home__tool-of-the-week {
+  margin-bottom: 16px;
+}
+
+.home__twitter-feed {
+  margin-top: 16px;
 }
 
 .home__main__search-box {
