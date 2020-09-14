@@ -3,7 +3,7 @@
     <img class="consolidation-item__background" src="./assets/background.svg" />
     <div class="consolidation-item__content">
       <label class="consolidation-item__title">{{ name }}</label>
-      <span class="consolidation-item__plus">+</span>
+      <img class="consolidation-item__icon" src="./assets/consolidation_item.svg" />
       <label class="consolidation-item__with">{{ consolidatedWith }}</label>
       <label class="consolidation-item__date">{{ date }}</label>
     </div>
@@ -37,6 +37,8 @@ export default class ConsolidationItem extends Vue {
 .consolidation-item {
   position: relative;
   width: 100%;
+  @include col--center;
+  padding: 2.5rem;
 }
 
 .consolidation-item__background {
@@ -45,7 +47,7 @@ export default class ConsolidationItem extends Vue {
 
 .consolidation-item__content {
   position: absolute;
-  top: 0;
+  top: 30px;
   left: 0;
   bottom: 0;
   right: 0;
@@ -55,18 +57,23 @@ export default class ConsolidationItem extends Vue {
 }
 
 .consolidation-item__title {
-  @include typography(xl-2, narrow, bold);
-}
-
-.consolidation-item__plus {
-  @include typography(xl-2, narrow, bold);
+  @include typography(xl-1, narrow, bold);
+  color: #8ea5bb;
 }
 
 .consolidation-item__with {
-  @include typography(xl-2, narrow, bold);
+  @include typography(xl-1, narrow, bold);
+  color: #8ea5bb;
+}
+
+.consolidation-item__icon {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 .consolidation-item__date {
-  @include typography(xl, narrow, bold);
+  @include typography(lg, narrow, bold);
+  color: #8ea5bb;
+  margin-top: 4px;
 }
 </style>
