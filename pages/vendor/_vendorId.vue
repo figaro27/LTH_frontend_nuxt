@@ -52,7 +52,16 @@
                 <div class="single-vendor__property-name">Features</div>
                 <label class="single-vendor__property-value">{{ features }}</label>
               </div>
-              <a v-if="data.website" class="single-vendor__link" :href="data.website" target="_blank">
+              <a
+                v-if="
+                  data.website &&
+                  JSON.stringify(data.consolidationData) === '{}' &&
+                  JSON.stringify(data.graveyardData) === '{}'
+                "
+                class="single-vendor__link"
+                :href="data.website"
+                target="_blank"
+              >
                 Go to Website <img src="/images/svgs/link.svg" />
               </a>
             </div>
@@ -123,8 +132,6 @@ import { api } from '@/utils'
     const { params } = ctx
     const res = await api.get(`vendors/${params.vendorId}`)
     console.info('params: ', params.vendorId, res.data.data.id)
-    console.log('datac:', res.data.data.consolidationData)
-    console.log('datag:', res.data.data.graveyardData)
     return {
       data: res.data.data
     }
