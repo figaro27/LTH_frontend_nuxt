@@ -1,7 +1,7 @@
 <template>
   <div class="tool-of-week">
     <h2 class="tool-of-week__title">
-      Tool Of the Week
+      Tool Of the Month
     </h2>
     <label class="tool-of-week__description">
       Check out the new AI tool from Syntheia...
