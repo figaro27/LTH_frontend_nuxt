@@ -28,7 +28,9 @@
         is where legal professionals find the right legaltech tools, events and more, anywhere in the world.
       </h2>
       <div class="home__summary__links">
-        <link-item v-for="(item, index) of links" :key="index" class="home__summary__link" :data="item" />
+        <div v-for="(item, index) of links" :key="index" class="home__summary__link-container">
+          <link-item class="home__summary__link" :data="item" />
+        </div>
       </div>
       <div class="home__summary-listing">
         <main-listing-card class="home__summary-listing__card" />
@@ -38,12 +40,13 @@
     </div>
 
     <div class="home__others">
-      <nuxt-link class="home__graveyard" to="/graveyards">
-        <img src="/images/main/graveyard.png" />
+      <nuxt-link class="link-item home__summary__link" to="/graveyards">
+        <img class="link-item__icon" :src="others[0].icon" />
+        <div class="link-item__title">{{ others[0].title }}</div>
       </nuxt-link>
-      <nuxt-link class="home__consolidations" to="/consolidations">
-        <label class="home__consolidations-title">Consolidations</label>
-        <img src="/images/main/consolidations.png" />
+      <nuxt-link class="link-item home__summary__link" to="/consolidations">
+        <img class="link-item__icon" :src="others[1].icon" />
+        <div class="link-item__title">{{ others[1].title }}</div>
       </nuxt-link>
     </div>
   </div>
@@ -62,20 +65,24 @@ export default class Home extends Vue {
 
   get links() {
     return [
+      { title: 'Global Directory of Legaltech Tools', icon: '/images/svgs/main/tools.svg', url: 'Coming soon' },
       { title: 'Legaltech Jobs', icon: '/images/svgs/main/jobs.svg', url: 'https://legaltechjobs.com' },
+      { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', url: 'Coming soon' },
+      { title: 'Recommended Legaltech R esources', icon: '/images/svgs/main/resources.svg', url: '/blogs' },
       { title: 'Nominate your Team for an Award', icon: '/images/svgs/main/award.svg', tooltip: 'Coming soon' },
-      { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', url: '/' },
       {
         title: 'Legal Innovation and Design Resources (LID)',
         icon: '/images/svgs/main/innovation.svg',
         tooltip: 'Coming soon'
       },
-      {
-        title: 'Interested in Studying Legal Technology?',
-        icon: '/images/svgs/main/study.svg',
-        tooltip: 'Coming soon'
-      },
-      { title: 'Recommended Legaltech Resources', icon: '/images/svgs/main/resources.svg', url: '/blogs' }
+      { title: 'Interested in Studying Legal Technology?', icon: '/images/svgs/main/study.svg', tooltip: 'Coming soon' }
+    ]
+  }
+
+  get others() {
+    return [
+      { title: 'Graveyard', icon: '/images/svgs/main/graveyard.svg', url: '/graveyards' },
+      { title: 'Consolidations', icon: '/images/svgs/main/consolidation.svg', url: '/consolidations' }
     ]
   }
 
@@ -131,7 +138,7 @@ export default class Home extends Vue {
   @include col;
   align-items: center;
   margin-top: 80px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .home__main__right-side {
@@ -193,14 +200,20 @@ export default class Home extends Vue {
 
 .home__summary__links {
   align-self: center;
-  width: 680px;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   z-index: 1;
 }
 
+.home__summary__link-container {
+  width: 25%;
+  padding: 8px;
+}
+
 .home__summary__link {
-  margin: 20px;
+  margin: 8px;
 }
 
 .home__summary__background-icon {
@@ -265,5 +278,36 @@ export default class Home extends Vue {
   font-family: $fontRochester;
   font-size: 50px;
   color: #694c3f;
+}
+
+.link-item {
+  @include col--center;
+  width: 300px;
+  height: 300px;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: $colorNeutralsSnow;
+  }
+  &:active {
+    background: $colorLightGrey2;
+  }
+}
+
+.link-item__icon {
+  width: 100%;
+  object-fit: cover;
+}
+
+.link-item__title {
+  @include typography(xl-1, narrow, bold);
+  height: 48px;
+  color: #546e7a;
+  text-align: center;
+  margin: 16px 8px 16px 8px;
 }
 </style>
