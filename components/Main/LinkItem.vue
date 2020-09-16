@@ -38,7 +38,7 @@ export default class LinkItem extends Vue {
 <style lang="scss" scoped>
 .link-item {
   @include col--center;
-  width: 200px;
+  width: 100%;
   height: 200px;
   border-radius: 30px;
   background: white;
@@ -55,15 +55,15 @@ export default class LinkItem extends Vue {
 }
 
 .link-item__icon {
-  width: 65%;
+  width: 100%;
   object-fit: cover;
 }
 
 .link-item__title {
-  @include typography(xl, narrow);
+  @include typography(lg, narrow, bold);
   height: 48px;
   color: $colorNavy;
   text-align: center;
-  margin: 5px 10px 0 10px;
+  margin: 0px 8px 16px 8px;
 }
 </style>
