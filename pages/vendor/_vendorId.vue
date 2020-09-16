@@ -3,10 +3,23 @@
     <div class="single-vendor__content">
       <template v-if="data">
         <div class="single-vendor__header">
-          <a class="single-vendor-header__link" href="/" target="_blank">
-            <img src="/images/svgs/home.svg" />
+          <a
+            v-if="JSON.stringify(data.consolidationData) !== '{}'"
+            href="#"
+            class="single-vendor-header__link"
+            @click="historyBack()"
+          >
+            Consolidations
           </a>
-          <a href="/" class="single-vendor-header__link"> HOME </a>
+          <a
+            v-else-if="JSON.stringify(data.graveyardData) !== '{}'"
+            href="#"
+            class="single-vendor-header__link"
+            @click="historyBack()"
+          >
+            Graveyards
+          </a>
+          <a v-else href="#" class="single-vendor-header__link" @click="historyBack()">Search Results</a>
           <label class="single-vendor-header__link">&gt;</label>
           <div class="single-vendor__name">{{ data.name }}</div>
         </div>
@@ -141,7 +154,6 @@ export default class SingleVendor extends Vue {
   data: Vendor | null = null
 
   async mounted() {
-    console.info('mounted: ', this.data)
     if (this.data) {
       return
     }
@@ -208,6 +220,10 @@ export default class SingleVendor extends Vue {
   get features() {
     if (!this.data) return ''
     return this.data.features.map((data) => data.name).join(', ')
+  }
+
+  historyBack() {
+    window.history.back()
   }
 }
 </script>
