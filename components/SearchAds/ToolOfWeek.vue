@@ -7,7 +7,7 @@
       Check out the new AI tool from Syntheia...
     </label>
     <div class="tool-of-week__learn-more">
-      <nuxt-link to="/search?functionalities=AI Tools">Learn more →</nuxt-link>
+      <nuxt-link to="/vendor/1020">Learn more →</nuxt-link>
     </div>
   </div>
 </template>
