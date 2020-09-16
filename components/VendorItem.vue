@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link class="vendor-item" :to="url" target="_blank">
+  <nuxt-link class="vendor-item" :to="url">
     <div class="vendor-item__row">
       <h4 v-if="data.name" class="vendor-item__title">
         <text-highlight :queries="highlightQueries">{{ `${data.tool}, ${data.name}` }}</text-highlight>
