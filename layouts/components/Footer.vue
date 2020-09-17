@@ -98,6 +98,10 @@ export default class DefaultFooter extends Vue {
   @include col;
   background: $colorNeutralsSnow;
   text-align: left;
+
+  @media (max-width: 640px) {
+    padding: 20px;
+  }
 }
 
 .footer__logo {
@@ -107,6 +111,10 @@ export default class DefaultFooter extends Vue {
 .footer__sections {
   @include row;
   margin: 50px 50px 30px 200px;
+
+  @media (max-width: 640px) {
+    margin: 20px 0px 0px 0px;
+  }
 }
 
 .footer__section {

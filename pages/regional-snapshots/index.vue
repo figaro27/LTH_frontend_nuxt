@@ -43,7 +43,10 @@ export default class RegionalSnapshots extends Vue {
 }
 
 .regions__saved-searchs {
-  width: 640px;
   margin: 40px 0 0;
+
+  @media (min-width: 640px) {
+    width: 640px;
+  }
 }
 </style>
