@@ -45,6 +45,10 @@ export default class RegionsHero extends Vue {
   flex: 1;
   @include col;
   margin: 0 60px 0 0;
+
+  @media (max-width: 640px) {
+    margin: 0;
+  }
 }
 
 .regions-hero__title {
