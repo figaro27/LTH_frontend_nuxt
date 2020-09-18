@@ -117,6 +117,10 @@
                 <div class="single-vendor__property-name">Integrations</div>
                 <label class="single-vendor__property-value">{{ integrations }}</label>
               </div>
+              <div class="single-vendor__property">
+                <div class="single-vendor__property-name">Existing Customers</div>
+                <label class="single-vendor__property-value">{{ integrations }}</label>
+              </div>
             </div>
           </div>
         </div>
@@ -144,6 +148,7 @@ import { api } from '@/utils'
   async asyncData(ctx) {
     const { params } = ctx
     const res = await api.get(`vendors/${params.vendorId}`)
+    console.info(res.data)
     console.info('params: ', params.vendorId, res.data.data.id)
     return {
       data: res.data.data
