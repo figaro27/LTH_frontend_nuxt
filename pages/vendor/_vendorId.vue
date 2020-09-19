@@ -31,7 +31,7 @@
             <div class="single-vendor__tool">{{ data.tool }}</div>
             <div v-if="JSON.stringify(data.graveyardData) !== '{}'" class="single-vendor__state">
               <img src="/images/svgs/graveyard.svg" />
-              <label class="single-vendor__graveyard"> {{ data.graveyardData.date }} </label>
+              <label class="single-vendor__graveyard">Died {{ data.graveyardData.date }} </label>
             </div>
             <div v-if="JSON.stringify(data.consolidationData) !== '{}'" class="single-vendor__state">
               <img src="/images/svgs/consolidation.svg" />
@@ -65,7 +65,7 @@
                 <div class="single-vendor__property-name">Features</div>
                 <label class="single-vendor__property-value">{{ features }}</label>
               </div>
-              <a
+              <!-- <a
                 v-if="
                   data.website &&
                   JSON.stringify(data.consolidationData) === '{}' &&
@@ -75,7 +75,7 @@
                 :href="data.website"
                 target="_blank"
               >
-                Go to Website <img src="/images/svgs/link.svg" />
+                Go to Website <img src="/images/svgs/link.svg" /> -->
               </a>
             </div>
           </div>
