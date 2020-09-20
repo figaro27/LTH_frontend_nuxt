@@ -65,17 +65,13 @@
                 <div class="single-vendor__property-name">Features</div>
                 <label class="single-vendor__property-value">{{ features }}</label>
               </div>
-              <!-- <a
-                v-if="
-                  data.website &&
-                  JSON.stringify(data.consolidationData) === '{}' &&
-                  JSON.stringify(data.graveyardData) === '{}'
-                "
+              <a
+                v-if="data.website && data.type !== 'consolidation'"
                 class="single-vendor__link"
                 :href="data.website"
                 target="_blank"
               >
-                Go to Website <img src="/images/svgs/link.svg" /> -->
+                Go to Website <img src="/images/svgs/link.svg" />
               </a>
             </div>
           </div>
@@ -148,8 +144,6 @@ import { api } from '@/utils'
   async asyncData(ctx) {
     const { params } = ctx
     const res = await api.get(`vendors/${params.vendorId}`)
-    console.info(res.data)
-    console.info('params: ', params.vendorId, res.data.data.id)
     return {
       data: res.data.data
     }
