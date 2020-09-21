@@ -9,6 +9,10 @@
       </div>
 
       <div class="home__main__content">
+        <div class="home__main__title">
+          <h1>Find Legatech Tools, Events and more</h1>
+          <h3>Search across our global directories</h3>
+        </div>
         <div class="home__main__search-box">
           <search-box v-model="keyword" @search="onSearch" />
         </div>
@@ -17,7 +21,6 @@
 
       <div class="home__main__right-side">
         <tool-of-week class="home__tool-of-the-week" />
-        <twitter-feed class="home__twitter-feed" />
       </div>
     </div>
 
@@ -25,11 +28,16 @@
       <img class="home__summary__background-icon" src="/images/svgs/main/summary.svg" />
       <h1 class="home__summary__title">LegaltechHub</h1>
       <h2 class="home__summary">
-        is where legal professionals find the right legaltech tools, events and more, anywhere in the world.
+        is where legal professionals find the right resources, anywhere in the world.
       </h2>
-      <div class="home__summary__links">
-        <div v-for="(item, index) of links" :key="index" class="home__summary__link-container">
-          <link-item class="home__summary__link" :data="item" />
+      <div class="home__summary__content">
+        <div class="home__summary__links">
+          <div v-for="(item, index) of links" :key="index" class="home__summary__link-container">
+            <link-item class="home__summary__link" :data="item" />
+          </div>
+        </div>
+        <div class="home__summary__twitter">
+          <twitter-feed class="home__twitter-feed" />
         </div>
       </div>
       <div class="home__summary-listing">
@@ -69,13 +77,17 @@ export default class Home extends Vue {
       { title: 'Legaltech Jobs', icon: '/images/svgs/main/jobs.svg', url: 'https://legaltechjobs.com' },
       { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', url: 'Coming soon' },
       { title: 'Recommended Legaltech R esources', icon: '/images/svgs/main/resources.svg', url: '/blogs' },
-      { title: 'Nominate your Team for an Award', icon: '/images/svgs/main/award.svg', tooltip: 'Coming soon' },
       {
         title: 'Legal Innovation and Design Resources (LID)',
         icon: '/images/svgs/main/innovation.svg',
         tooltip: 'Coming soon'
       },
-      { title: 'Interested in Studying Legal Technology?', icon: '/images/svgs/main/study.svg', tooltip: 'Coming soon' }
+      {
+        title: 'Interested in Studying Legal Technology?',
+        icon: '/images/svgs/main/study.svg',
+        tooltip: 'Coming soon'
+      },
+      { title: 'Nominate your Team for an Award', icon: '/images/svgs/main/award.svg', tooltip: 'Coming soon' }
     ]
   }
 
@@ -137,7 +149,7 @@ export default class Home extends Vue {
   flex: 1;
   @include col;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 16px;
   z-index: 2;
 }
 
@@ -154,10 +166,20 @@ export default class Home extends Vue {
 }
 
 .home__twitter-feed {
-  margin-top: 16px;
+  width: 243px;
+  min-width: 215px;
+  margin: 0 50px 20px 20px;
+  z-index: 1;
+}
+
+.home__main__title {
+  width: 80%;
+  text-align: left;
+  color: $colorNavy;
 }
 
 .home__main__search-box {
+  margin-top: 20px;
   width: 80%;
 }
 
@@ -172,12 +194,12 @@ export default class Home extends Vue {
   @include col;
   position: relative;
   background: rgba(249, 249, 251, 0.5);
-  padding: 46px 95px 40px;
+  padding: 46px 0px 40px;
 }
 
 .home__summary__title {
   font-family: $fontPTSansNarrow;
-  font-size: 64px;
+  font-size: 48px;
   font-weight: bold;
   line-height: 83px;
   color: $colorNavy;
@@ -192,10 +214,16 @@ export default class Home extends Vue {
   margin-bottom: 30px;
   text-align: center;
   z-index: 1;
-  font-size: 38px;
-  width: 775px;
+  font-size: 32px;
+  width: 678px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.home__summary__content {
+  display: flex;
+  justify-content: space-between;
+  padding-left: calc(50% - 400px);
 }
 
 .home__summary__links {
