@@ -179,7 +179,7 @@ export default class Home extends Vue {
 }
 
 .home__main__search-box {
-  margin-top: 20px;
+  margin-top: 40px;
   width: 80%;
 }
 
