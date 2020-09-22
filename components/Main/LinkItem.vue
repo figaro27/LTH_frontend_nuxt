@@ -64,6 +64,6 @@ export default class LinkItem extends Vue {
   height: 48px;
   color: $colorNavy;
   text-align: center;
-  margin: 0px 8px 16px 8px;
+  margin: 8px;
 }
 </style>

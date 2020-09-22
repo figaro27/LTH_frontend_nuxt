@@ -76,11 +76,11 @@ export default class Home extends Vue {
       { title: 'Global Directory of Legaltech Tools', icon: '/images/svgs/main/tools.svg', url: 'Coming soon' },
       { title: 'Legaltech Jobs', icon: '/images/svgs/main/jobs.svg', url: 'https://legaltechjobs.com' },
       { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', url: 'Coming soon' },
-      { title: 'Recommended Legaltech R esources', icon: '/images/svgs/main/resources.svg', url: '/blogs' },
+      { title: 'Recommended Legaltech Resources', icon: '/images/svgs/main/resources.svg', url: '/blogs' },
       {
         title: 'Legal Innovation and Design Resources (LID)',
         icon: '/images/svgs/main/innovation.svg',
-        tooltip: 'Coming soon'
+        url: 'https://www.innovatinglegal.com'
       },
       {
         title: 'Interested in Studying Legal Technology?',
