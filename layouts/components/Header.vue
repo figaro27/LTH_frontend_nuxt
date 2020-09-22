@@ -10,10 +10,25 @@
         :key="index"
         class="header__link"
         active-class="header__link--active"
-        :to="link.to"
+        :to="link.path"
         :exact="link.exact"
+        @click.native="collapseItem(index, link)"
       >
-        {{ link.label }}
+        {{ link.text }}
+        <div
+          v-if="link.children && link.children.length"
+          class="header__link--icon"
+          :class="{ 'header__link--icon-active': link.path === selectedMenu }"
+        ></div>
+        <transition v-if="link.children && link.children.length && selectedMenu === link.path" name="slide-fade">
+          <ul v-if="openedItems[index]" class="header__links__nested">
+            <li v-for="(child, childIndex) in link.children" :key="childIndex" class="header__links__nested--item">
+              <router-link :to="child.path" @click.stop>
+                {{ child.text }}
+              </router-link>
+            </li>
+          </ul>
+        </transition>
       </nuxt-link>
     </div>
     <div class="header__popup-menu" @click="showMenu()">
@@ -21,12 +36,7 @@
     </div>
     <div v-if="isPopupMenuClicked" v-on-clickaway="away" class="sidebar">
       <ul class="sidebar__menu">
-        <li
-          v-for="(item, index) in nestedLinks"
-          :key="index"
-          class="sidebar__menu__item"
-          @click="collapseItem(index, item)"
-        >
+        <li v-for="(item, index) in links" :key="index" class="sidebar__menu__item" @click="collapseItem(index, item)">
           <router-link :to="item.path">
             <p class="sidebar__menu__item--name" :class="{ 'header__link--active': item.path === selectedMenu }">
               {{ item.text }}
@@ -72,79 +82,81 @@ import Logo from './Logo.vue'
 export default class DefaultHeader extends Vue {
   openedItems: Record<number, boolean> = {}
   isPopupMenuClicked: boolean = false
-  selectedMenu: string | null | undefined
+  selectedMenu: string = 'home'
 
   get links() {
     return [
-      { label: 'Home', to: '/', exact: true },
-      { label: 'About Us', to: '/about-us', exact: true },
-      { label: 'How LTH works', to: '/how-lth-works', exact: true },
-      { label: 'Regional Snapshots', to: '/regional-snapshots' },
-      { label: 'Legaltech Resources', to: '/blogs', exact: true },
-      { label: 'Add/Update your Listing', to: '/listing', exact: true },
-      { label: 'Contact Us', to: '/contact-us', exact: true }
-    ]
-  }
-
-  get nestedLinks() {
-    return [
       {
         text: 'Home',
-        path: '/'
+        path: '/',
+        exact: true
       },
       {
         text: 'About Us',
-        path: '/about-us'
+        path: '/about-us',
+        exact: true
       },
       {
         text: 'How LTH works',
-        path: '/how-lth-works'
+        path: '/how-lth-works',
+        exact: true
       },
       {
         text: 'Regional Snapshots',
         path: '/regional-snapshots',
+        exact: true,
         children: [
           {
             text: 'USA & Canada',
-            path: '/regional-snapshots/us-canada'
+            path: '/regional-snapshots/us-canada',
+            exact: true
           },
           {
             text: 'UK & Ireland',
-            path: '/regional-snapshots/uk-ireland'
+            path: '/regional-snapshots/uk-ireland',
+            exact: true
           },
           {
             text: 'Europe',
-            path: '/regional-snapshots/europe'
+            path: '/regional-snapshots/europe',
+            exact: true
           },
           {
             text: 'LatAm & Carib',
-            path: '/regional-snapshots/latam-carib'
+            path: '/regional-snapshots/latam-carib',
+            exact: true
           },
           {
             text: 'Asia & Middle East',
-            path: '/regional-snapshots/asia-middle-east'
+            path: '/regional-snapshots/asia-middle-east',
+            exact: true
           },
           {
             text: 'Africa',
-            path: '/regional-snapshots/africa'
+            path: '/regional-snapshots/africa',
+            exact: true
           },
           {
             text: 'Australia & NZ',
-            path: '/regional-snapshots/australia-nz'
+            path: '/regional-snapshots/australia-nz',
+            exact: true
           }
         ]
       },
       {
         text: 'Legaltech Resources',
-        path: '/blogs'
+        path: '/blogs',
+        exact: true
       },
       {
         text: 'Add/Update your Listing',
-        path: '/listing'
+        path: '/listing',
+        exact: true
       },
       {
         text: 'Contact Us',
-        path: '/contact-us'
+        path: '/contact-us',
+        exact: true
       }
     ]
   }
@@ -158,9 +170,16 @@ export default class DefaultHeader extends Vue {
   }
 
   collapseItem(index: number, item: any) {
+    this.openedItems[index] = !this.openedItems[index]
+    this.$forceUpdate()
+
+    for (const i in this.openedItems) {
+      if (parseInt(i) !== index) {
+        this.openedItems[i] = false
+      }
+    }
+
     if (item.children != null) {
-      this.openedItems[index] = !this.openedItems[index]
-      this.$forceUpdate()
       this.selectedMenu = item.path
     } else {
       this.hideMenu(item)
@@ -210,11 +229,6 @@ export default class DefaultHeader extends Vue {
   color: $colorDarkGrey;
   @include typography(xl, narrow, bold);
   text-decoration: none;
-
-  &:hover,
-  &:active {
-    opacity: 0.8;
-  }
 }
 
 .header__link--active {
@@ -228,7 +242,6 @@ export default class DefaultHeader extends Vue {
 }
 
 a {
-  color: white;
   text-decoration: none;
 }
 
@@ -279,7 +292,12 @@ ul li {
   padding-bottom: 10px;
 }
 
-.sidebar__menu__item--icon {
+.sidebar__menu__item a {
+  color: white;
+}
+
+.sidebar__menu__item--icon,
+.header__link--icon {
   width: 25px;
   height: 10px;
   padding-top: 5px;
@@ -293,8 +311,15 @@ ul li {
   -webkit-mask: url(/images/svgs/arrow-down.svg) no-repeat center / contain;
 }
 
-.sidebar__menu__item--icon-active {
-  background-color: $colorGreen;
+.sidebar__menu__item--icon-active,
+.header__link--icon-active {
+  background-color: $colorGreen !important;
+}
+
+.header__link--icon {
+  margin-top: 8px;
+  float: right;
+  background-color: $colorDarkGrey;
 }
 
 .sidebar__menu__item--name {
@@ -304,17 +329,45 @@ ul li {
   @include typography(lg, narrow);
 }
 
-.sidebar__menu__child {
+.sidebar__menu__child,
+.header__links__nested {
   padding-top: 36px;
   padding-left: 0;
   font-size: 12px;
 }
 
-.sidebar__menu__child--item {
+.sidebar__menu__child--item,
+.header__links__nested--item {
   padding-bottom: 15px;
   white-space: nowrap;
   text-align: left;
+  color: white;
   @include typography(md-1, narrow);
+}
+
+.header__links__nested--item {
+  padding-bottom: 0;
+}
+
+.header__links__nested {
+  z-index: 9999;
+  position: absolute;
+  padding-top: 1em;
+  background-color: white;
+  box-shadow: 0 0 black;
+  width: 150px;
+}
+
+.header__links__nested--item a {
+  display: block;
+  border-bottom: 1px solid #d8d8d8;
+  width: 100%;
+  padding: 12px;
+  color: #092c4c;
+}
+
+.header__links__nested--item:last-child a {
+  border: none;
 }
 
 .slide-fade-enter-active {
