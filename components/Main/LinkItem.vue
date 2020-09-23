@@ -73,7 +73,6 @@ export default class LinkItem extends Vue {
 .link-item__icon__img {
   object-fit: cover;
   width: 100%;
-  // width: 55px;
 }
 
 .link-item__title {
