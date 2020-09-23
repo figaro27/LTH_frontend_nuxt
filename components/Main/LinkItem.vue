@@ -6,7 +6,9 @@
     :href="data.url"
     :target="target"
   >
-    <img class="link-item__icon" :src="data.icon" />
+    <div class="link-item__icon">
+      <img class="link-item__icon__img" :src="data.icon" />
+    </div>
     <div class="link-item__title">{{ data.title }}</div>
   </component>
 </template>
@@ -45,6 +47,8 @@ export default class LinkItem extends Vue {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
   cursor: pointer;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     background: $colorNeutralsSnow;
@@ -52,11 +56,24 @@ export default class LinkItem extends Vue {
   &:active {
     background: $colorLightGrey2;
   }
+
+  @media (max-width: 640px) {
+    height: 110px;
+    border-radius: 15px;
+  }
 }
 
 .link-item__icon {
   width: 100%;
+
+  position: absolute;
+  top: 0;
+}
+
+.link-item__icon__img {
   object-fit: cover;
+  width: 100%;
+  // width: 55px;
 }
 
 .link-item__title {
@@ -64,6 +81,16 @@ export default class LinkItem extends Vue {
   height: 48px;
   color: $colorNavy;
   text-align: center;
-  margin: 8px;
+  padding: 8px;
+  width: 100%;
+  position: absolute;
+  bottom: 1em;
+  background-color: white;
+
+  @media (max-width: 640px) {
+    @include typography(sm, narrow, bold);
+    height: auto;
+    bottom: 0;
+  }
 }
 </style>

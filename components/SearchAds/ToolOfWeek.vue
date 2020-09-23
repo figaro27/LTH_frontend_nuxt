@@ -35,6 +35,11 @@ export default class ToolOfWeek extends Vue {
     rgba(222, 236, 221, 0.42) 100%
   );
   text-align: left;
+
+  @media (max-width: 640px) {
+    margin-top: 60px;
+    min-height: 120px;
+  }
 }
 
 .tool-of-week__title {
