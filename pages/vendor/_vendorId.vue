@@ -76,30 +76,32 @@
             </div>
           </div>
           <div class="single-vendor__side">
-            <div class="single-vendor__frame single-vendor__offices">
-              <div class="single-vendor__property">
-                <div class="single-vendor__property-name">HQ</div>
-                <label class="single-vendor__property-value">{{ hqs }}</label>
+            <div class="single-vender__side__left">
+              <div class="single-vendor__frame single-vendor__offices">
+                <div class="single-vendor__property">
+                  <div class="single-vendor__property-name">HQ</div>
+                  <label class="single-vendor__property-value">{{ hqs }}</label>
+                </div>
+                <div class="single-vendor__property">
+                  <div class="single-vendor__property-name">Offices</div>
+                  <label class="single-vendor__property-value">{{ offices }}</label>
+                </div>
               </div>
-              <div class="single-vendor__property">
-                <div class="single-vendor__property-name">Offices</div>
-                <label class="single-vendor__property-value">{{ offices }}</label>
-              </div>
-            </div>
-            <div class="single-vendor__frame single-vendor__others">
-              <div class="single-vendor__property">
-                <div class="single-vendor__property-name">Practice Area</div>
-                <label class="single-vendor__property-value">{{ practiceAreas }}</label>
-              </div>
-              <div class="single-vendor__property">
-                <div class="single-vendor__property-name">Target Entity</div>
-                <div class="single-vendor__property__demographics">
-                  <div
-                    v-for="(demographic, index) of data.demographics"
-                    :key="`demographic${index}`"
-                    class="single-vendor__property__demographic"
-                  >
-                    {{ demographic.name }}
+              <div class="single-vendor__frame single-vendor__others">
+                <div class="single-vendor__property">
+                  <div class="single-vendor__property-name">Practice Area</div>
+                  <label class="single-vendor__property-value">{{ practiceAreas }}</label>
+                </div>
+                <div class="single-vendor__property">
+                  <div class="single-vendor__property-name">Target Entity</div>
+                  <div class="single-vendor__property__demographics">
+                    <div
+                      v-for="(demographic, index) of data.demographics"
+                      :key="`demographic${index}`"
+                      class="single-vendor__property__demographic"
+                    >
+                      {{ demographic.name }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -260,6 +262,10 @@ export default class SingleVendor extends Vue {
   &:not(:first-child) {
     margin-top: 40px;
   }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 }
 
 .single-vendor__frame {
@@ -351,6 +357,21 @@ export default class SingleVendor extends Vue {
   & > *:not(:last-child) {
     margin-bottom: 20px;
   }
+
+  @media (max-width: 640px) {
+    flex-flow: row;
+    margin-top: 20px;
+  }
+}
+
+.single-vender__side__left {
+  @media (max-width: 640px) {
+    margin-right: 15px;
+    margin-bottom: 0px !important;
+    .single-vendor__others {
+      margin-top: 20px;
+    }
+  }
 }
 
 .single-vendor__offices {
@@ -359,6 +380,8 @@ export default class SingleVendor extends Vue {
   .single-vendor__property-name {
     min-width: 100px;
   }
+
+  margin-bottom: 20px;
 }
 
 .single-vendor__others {
@@ -377,6 +400,8 @@ export default class SingleVendor extends Vue {
   .single-vendor__property-name {
     margin-bottom: 5px;
   }
+
+
 }
 
 .single-vendor__property__demographics {

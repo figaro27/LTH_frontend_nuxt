@@ -79,6 +79,10 @@ export default class Graveyards extends Vue {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   overflow: hidden;
+
+  @media (max-width: 640px) {
+    width: 90%;
+  }
 }
 
 .graveyards__carousel {
@@ -94,5 +98,8 @@ export default class Graveyards extends Vue {
 
 .graveyard__item {
   width: 25%;
+  @media (max-width: 640px) {
+    width: 33%;
+  }
 }
 </style>

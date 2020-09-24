@@ -34,6 +34,10 @@ export default class GraveyardItem extends Vue {
   width: 100%;
   @include col--center;
   padding: 2.5rem;
+
+  @media (max-width: 640px) {
+    padding: 0.5rem;
+  }
 }
 
 .graveyard-item__background {
@@ -45,6 +49,11 @@ export default class GraveyardItem extends Vue {
   color: #979797;
   font-size: 3rem;
   margin-bottom: 16px;
+
+  @media (max-width: 640px) {
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
 }
 
 .graveyard-item__content {
@@ -61,10 +70,19 @@ export default class GraveyardItem extends Vue {
   @include typography(xxl, narrow, bold);
   margin-bottom: 10px;
   color: $colorNavy;
+  @media (max-width: 640px) {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
 }
 
 .graveyard-item__date {
   @include typography(xl, narrow, bold);
   color: #979797;
+
+  @media (max-width: 640px) {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+  }
 }
 </style>

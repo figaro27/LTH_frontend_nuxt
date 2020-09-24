@@ -39,6 +39,9 @@ export default class ConsolidationItem extends Vue {
   width: 100%;
   @include col--center;
   padding: 2.5rem;
+  @media (max-width: 640px) {
+    padding: 0.5rem;
+  }
 }
 
 .consolidation-item__background {
@@ -54,16 +57,26 @@ export default class ConsolidationItem extends Vue {
   @include col--center;
   color: #546e7a;
   z-index: 1;
+
+  @media (max-width: 640px) {
+    top: 0;
+  }
 }
 
 .consolidation-item__title {
   @include typography(xl-1, narrow, bold);
   color: #8ea5bb;
+  @media (max-width: 640px) {
+    font-size: 1.25rem;
+  }
 }
 
 .consolidation-item__with {
   @include typography(xl-1, narrow, bold);
   color: #8ea5bb;
+  @media (max-width: 640px) {
+    font-size: 1.25rem;
+  }
 }
 
 .consolidation-item__icon {
