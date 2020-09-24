@@ -70,14 +70,13 @@ $input-height: 33px;
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  background: $colorBg1;
 }
 
 .text-area__label {
   @include typography(md-1, default);
   color: $colorNavy;
   margin-bottom: 7px;
-
+  text-align: left;
   &--focus {
     font-weight: bold;
   }
@@ -90,14 +89,18 @@ $input-height: 33px;
   border: none;
   color: $colorNavy;
   padding: 15px 20px;
-  background: $colorBg1;
   resize: none;
-
+  border: 1px solid $colorDarkGrey;
+  border-radius: 5px;
   &:valid,
   &:focus,
   &:active {
-    border: none;
     outline: none !important;
+  }
+
+  &:focus,
+  &:active {
+    border: 1px solid $colorGreen;
   }
 
   &::placeholder {

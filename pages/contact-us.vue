@@ -10,16 +10,16 @@
             v-model="data.email"
             class="contact-us__input"
             name="email"
-            placeholder="Email Address *"
             type="email"
             required="required"
+            label="Email Address *"
           />
           <input-field
             id="firstName"
             v-model="data.firstName"
             class="contact-us__input"
             name="firstName"
-            placeholder="First Name *"
+            label="First Name *"
             required="required"
           />
           <input-field
@@ -27,7 +27,7 @@
             v-model="data.lastName"
             class="contact-us__input"
             name="lastName"
-            placeholder="Last Name *"
+            label="Last Name *"
             required="required"
           />
           <input-field
@@ -35,21 +35,15 @@
             v-model="data.companyName"
             class="contact-us__input"
             name="companyName"
-            placeholder="Company Name"
+            label="Company Name"
           />
-          <input-field
-            id="country"
-            v-model="data.country"
-            class="contact-us__input"
-            name="country"
-            placeholder="Country"
-          />
+          <input-field id="country" v-model="data.country" class="contact-us__input" name="country" label="Country" />
           <text-area
             id="message"
             v-model="data.message"
             class="contact-us__input"
             name="message"
-            placeholder="Message *"
+            label="Message *"
             required="required"
           />
 
@@ -135,10 +129,18 @@ export default class ContactUs extends Vue {
   margin-top: 70px;
   padding-bottom: 60px;
   @include col--center;
+
+  @media (max-width: 640px) {
+    background: none;
+  }
 }
 
 .contact-us__content {
   padding: 30px 70px;
+
+  @media (max-width: 640px) {
+    padding: 30px 10px;
+  }
 }
 
 .contact-us__title {
@@ -160,11 +162,21 @@ export default class ContactUs extends Vue {
   background: $colorBg2;
   box-shadow: 0px 8px 40px rgba(9, 44, 76, 0.16);
   box-shadow: 5px;
+
+  @media (max-width: 640px) {
+    width: 95%;
+    padding: 25px;
+    flex-direction: column;
+  }
 }
 
 .contact-us__form {
   flex: 3;
   @include col--center;
+
+  @media (max-width: 640px) {
+    width: 70%;
+  }
 }
 
 .contact-us__input {
@@ -176,6 +188,11 @@ export default class ContactUs extends Vue {
   flex: 2;
   margin-left: 50px;
   @include col;
+
+  @media (max-width: 640px) {
+    margin-left: 0;
+    margin-top: 20px;
+  }
 }
 
 .contact-us__information {
@@ -205,7 +222,7 @@ export default class ContactUs extends Vue {
   @include typography(lg-1, default, bold);
   padding: 10px 20px;
   cursor: pointer;
-
+  border-radius: 10px;
   &:disabled {
     color: $colorLighterDarkGrey;
   }
