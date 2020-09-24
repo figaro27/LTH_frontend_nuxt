@@ -18,6 +18,10 @@ export default class SearchAds extends Vue {}
 .search-ads {
   width: $widgetWidth;
   @include col;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .search-ads__tool-of-the-week {

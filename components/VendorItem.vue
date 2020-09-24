@@ -11,19 +11,16 @@
     </div>
     <div class="vendor-item__row">
       <span v-if="functionality" class="vendor-item__property">
-        <strong>Functionality:</strong> <text-highlight :queries="highlightQueries">{{ functionality }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ functionality }}</text-highlight>
       </span>
       <span v-if="subFunctionality" class="vendor-item__property">
-        <strong>Sub-Functionality:</strong>
         <text-highlight :queries="highlightQueries">{{ subFunctionality }}</text-highlight>
       </span>
-    </div>
-    <div class="vendor-item__row">
       <span v-if="targetEntity" class="vendor-item__property">
-        <strong>Target Entity:</strong> <text-highlight :queries="highlightQueries">{{ targetEntity }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ targetEntity }}</text-highlight>
       </span>
       <span v-if="platformLanguage" class="vendor-item__property">
-        <strong>Language:</strong> <text-highlight :queries="highlightQueries">{{ platformLanguage }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ platformLanguage }}</text-highlight>
       </span>
     </div>
   </nuxt-link>
@@ -94,6 +91,10 @@ export default class VendorItem extends Vue {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   color: $colorNavy;
+
+  @media (max-width: 640px) {
+    width: 90%;
+  }
 }
 
 .vendor-item__title {
@@ -106,6 +107,10 @@ export default class VendorItem extends Vue {
   @include typography(lg, default, bold);
   color: $colorNeutralsGrey;
   margin: 0 5px;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .vendor-item__hq {
@@ -117,20 +122,30 @@ export default class VendorItem extends Vue {
 .vendor-item__row {
   width: 100%;
   @include row;
+  @media (max-width: 640px) {
+    flex-wrap: wrap;
+    &:first-child {
+      flex-direction: column;
+    }
+  }
 }
 
 .vendor-item__property {
   @include typography(md-1);
   color: $colorDarkGrey;
-  @include ellipsis(1, md-1);
-
-  &:first-child {
-    width: 40%;
-    margin-right: 10px;
+  padding: 0px 5px;
+  &:not(:last-child) {
+    border-right: 1px solid;
   }
 
-  &:nth-child(2) {
-    width: 60%;
+  @media (min-width: 640px) {
+    @include ellipsis(1, md-1);
+  }
+
+  @media (max-width: 640px) {
+    font-size: 12px;
+    line-height: 1.125rem;
+    white-space: nowrap;
   }
 }
 </style>

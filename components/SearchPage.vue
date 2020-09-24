@@ -342,6 +342,11 @@ export default class Search extends Vue {
 .search-box-container {
   width: calc(100% - 200px);
   margin: 30px 170px 40px 30px;
+
+  @media (max-width: 640px) {
+    margin: 30px 0;
+    width: 100%;
+  }
 }
 
 .search-box__keywords {
@@ -425,6 +430,12 @@ export default class Search extends Vue {
   & > * {
     margin: 5px 0;
   }
+
+  @media (max-width: 640px) {
+    width: 40%;
+    min-width: 35%;
+    margin-right: 0;
+  }
 }
 
 .search-page__content {
@@ -435,6 +446,10 @@ export default class Search extends Vue {
   word-break: break-all;
   overflow: visible;
   padding: 10px;
+
+  @media (max-width: 640px) {
+    width: 50%;
+  }
 }
 
 .search-page__content-wrapper {
@@ -476,5 +491,9 @@ export default class Search extends Vue {
   width: 100%;
   @include row--center;
   margin-top: 50px;
+
+  @media (max-width: 640px) {
+    width: 300px;
+  }
 }
 </style>
