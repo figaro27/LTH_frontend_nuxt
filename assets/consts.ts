@@ -1,1 +1,2 @@
 export const DEFAULT_VENDORS_LIMIT = 20
+export const MOBILE_VENDORS_LIMIT = 5
