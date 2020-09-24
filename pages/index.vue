@@ -18,7 +18,16 @@
         </div>
         <saved-searchs class="home__saved-searchs" />
       </div>
-
+      <div class="home__main__popular-searchs">
+        <nuxt-link
+          v-for="(item, index) of popularSearchs"
+          :key="index"
+          class="home__main__popular-searchs__item"
+          :to="item.to"
+        >
+          <label>{{ item.label }}</label>
+        </nuxt-link>
+      </div>
       <div class="home__main__right-side">
         <tool-of-week class="home__tool-of-the-week" />
       </div>
@@ -105,6 +114,16 @@ export default class Home extends Vue {
       this.$router.push({ name: 'search' })
     }
   }
+
+  get popularSearchs() {
+    return [
+      { label: 'AI Tools', to: '/search?keyword=AI Tools' },
+      { label: 'Contract Automation', to: '/search?keyword=Contract Automation' },
+      { label: 'Data Analytics', to: '/search?keyword=Data Analytics' },
+      { label: 'eDiscovery', to: '/search?keyword=eDiscovery' },
+      { label: 'Practice Management', to: '/search?keyword=Practice Management' }
+    ]
+  }
 }
 </script>
 
@@ -118,23 +137,33 @@ export default class Home extends Vue {
 }
 
 .home__main-section {
+  display: flex;
   margin-top: 40px;
   position: relative;
   width: 100vw;
   @include row;
   justify-content: center;
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 }
 
 .home__top-bubbles {
   position: absolute;
   top: 0;
   left: 0;
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .home__bottom-bubbles {
   position: absolute;
   bottom: -20px;
   right: 0;
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .home__main__left-side {
@@ -143,6 +172,10 @@ export default class Home extends Vue {
   margin: 20px;
   z-index: 1;
   margin-left: 40px;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .home__main__content {
@@ -159,6 +192,13 @@ export default class Home extends Vue {
   margin: 0 20px 20px 20px;
   z-index: 1;
   padding-right: 30px;
+
+  @media (max-width: 640px) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    padding-right: 0;
+  }
 }
 
 .home__tool-of-the-week {
@@ -188,6 +228,33 @@ export default class Home extends Vue {
   margin-top: 20px;
 }
 
+.home__main__popular-searchs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (min-width: 640px) {
+    display: none;
+  }
+}
+
+.home__main__popular-searchs__item {
+  background: #f2f8ee;
+  border-radius: 16px;
+  min-width: 80px;
+  @include typography(lg, narrow, bold);
+  margin: 8px;
+  padding: 8px 24px;
+  color: $colorDarkGrey;
+  text-decoration: none;
+  cursor: pointer;
+
+  label {
+    cursor: pointer;
+  }
+}
+
 .home__summary-section {
   width: 100vw;
   min-height: 100vh;
@@ -195,6 +262,10 @@ export default class Home extends Vue {
   position: relative;
   background: rgba(249, 249, 251, 0.5);
   padding: 46px 0px 40px;
+
+  @media (max-width: 640px) {
+    min-height: auto;
+  }
 }
 
 .home__summary__title {
@@ -218,6 +289,10 @@ export default class Home extends Vue {
   width: 678px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 640px) {
+    width: auto;
+  }
 }
 
 .home__summary__content {
@@ -240,8 +315,10 @@ export default class Home extends Vue {
   padding: 8px;
 }
 
-.home__summary__link {
-  margin: 8px;
+.home__summary__twitter {
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .home__summary__background-icon {
@@ -255,12 +332,22 @@ export default class Home extends Vue {
   position: relative;
   padding: 0 40px;
   @include row--center;
+
+  @media (max-width: 640px) {
+    margin: 20px 0 0;
+    padding: 0;
+  }
 }
 
 .home__summary-listing__card {
   width: 70%;
   height: 100%;
   z-index: 1;
+
+  @media (max-width: 640px) {
+    width: 90%;
+    padding: 1.1875rem 5rem 0.875rem !important;
+  }
 }
 
 .home__summary-listing__left-bubbles {
@@ -317,12 +404,19 @@ export default class Home extends Vue {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
   cursor: pointer;
   text-decoration: none;
-
+  overflow: hidden;
+  margin-right: 10px;
   &:hover {
     background: $colorNeutralsSnow;
   }
   &:active {
     background: $colorLightGrey2;
+  }
+
+  @media (max-width: 640px) {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
   }
 }
 

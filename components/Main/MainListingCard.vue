@@ -93,5 +93,9 @@ export default class MainListingCard extends Vue {}
   &:active {
     background: $colorLightGrey2;
   }
+
+  @media (max-width: 640px) {
+    margin-top: 10px;
+  }
 }
 </style>
