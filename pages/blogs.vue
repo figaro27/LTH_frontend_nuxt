@@ -82,9 +82,7 @@ export default class Blogs extends Vue {
                 type: 'landscape',
                 url: 'https://www.lawsitesblog.com'
               }
-            ]
-          ],
-          [
+            ],
             [
               {
                 name: 'artificial-lawyer',
@@ -117,9 +115,7 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://legal-tech-blog.de'
               }
-            ]
-          ],
-          [
+            ],
             [
               {
                 name: 'colin-levy',
@@ -152,9 +148,7 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://www.deweybstrategic.com'
               }
-            ]
-          ],
-          [
+            ],
             [
               {
                 name: 'above-the-law',
@@ -250,11 +244,19 @@ export default class Blogs extends Vue {
   @include desktop-max-width-layout;
   margin-top: 50px;
   padding-bottom: 60px;
+
+  @media (max-width: 640px) {
+    background-color: white;
+  }
 }
 
 .blogs__content {
   padding: 30px 70px;
   @include col--center;
+
+  @media (max-width: 640px) {
+    padding: 10px 10px;
+  }
 }
 
 .blogs__section {
@@ -266,6 +268,10 @@ export default class Blogs extends Vue {
   @include row;
   align-items: center;
   margin-bottom: 40px;
+
+  @media (max-width: 640px) {
+    margin-left: 20px;
+  }
 }
 
 .blogs__title-image {
@@ -283,11 +289,12 @@ export default class Blogs extends Vue {
   width: 100%;
   @include row;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .blogs__section__col {
-  flex: 1;
-  max-width: 50%;
+  max-width: 33%;
+  padding: 15px;
   @include col;
 
   &:not(:first-child) {
@@ -296,6 +303,10 @@ export default class Blogs extends Vue {
 
   &:not(:last-child) {
     padding-right: 10px;
+  }
+
+  @media (max-width: 640px) {
+    max-width: 50%;
   }
 }
 
@@ -316,12 +327,26 @@ export default class Blogs extends Vue {
     @include row;
     flex-direction: row-reverse;
     padding: 60px 0 50px 0;
+    @media (max-width: 640px) {
+      flex-direction: column;
+    }
+    &:last-child {
+      .blog__image__img {
+        @media (max-width: 640px) {
+          height: 50%;
+        }
+      }
+    }
 
     .blog__image {
       width: 40%;
       height: auto;
       max-height: 80%;
       margin-right: 10px;
+      @media (max-width: 640px) {
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
 
     .blog__description {
@@ -335,6 +360,9 @@ export default class Blogs extends Vue {
       width: 140px;
       height: 40px;
       margin: 10px;
+      @media (max-width: 640px) {
+        height: 24px;
+      }
     }
   }
 
@@ -511,6 +539,9 @@ export default class Blogs extends Vue {
   width: 100%;
   height: 200px;
   @include row--center;
+  @media (max-width: 640px) {
+    height: auto;
+  }
 }
 
 .blog__image__img {
@@ -528,6 +559,9 @@ export default class Blogs extends Vue {
 
   ::v-deep a {
     color: $colorNavy;
+  }
+  @media (max-width: 640px) {
+    margin: 0.25rem 0.875rem 1rem;
   }
 }
 
