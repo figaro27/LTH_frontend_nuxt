@@ -33,12 +33,21 @@ export default class RegionsHero extends Vue {
   @include row;
   justify-content: center;
   background: $colorBg2;
+
+  @media (max-width: 640px) {
+    background: none;
+  }
 }
 
 .regions-hero__content {
   @include row;
   padding: 80px 50px;
   width: $desktopMaxWidth;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    padding: 20px 50px;
+  }
 }
 
 .regions-hero__title-section {
@@ -54,6 +63,10 @@ export default class RegionsHero extends Vue {
 .regions-hero__title {
   @include typography(xxl-1, narrow, bold);
   text-align: left;
+
+  @media (max-width: 640px) {
+    text-align: center;
+  }
 }
 
 .regions-hero__description {
@@ -68,6 +81,10 @@ export default class RegionsHero extends Vue {
   height: fit-content;
   margin: 50px 0 30px;
   object-fit: contain;
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 }
 
 .regions-hero--main .regions-hero__content {
