@@ -216,6 +216,10 @@ export default class Home extends Vue {
   width: 80%;
   text-align: left;
   color: $colorNavy;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .home__main__search-box {
