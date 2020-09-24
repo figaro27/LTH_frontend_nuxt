@@ -400,8 +400,6 @@ export default class SingleVendor extends Vue {
   .single-vendor__property-name {
     margin-bottom: 5px;
   }
-
-
 }
 
 .single-vendor__property__demographics {
