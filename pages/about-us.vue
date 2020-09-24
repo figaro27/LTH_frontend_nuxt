@@ -64,10 +64,18 @@ $avatar-width: 130px;
   margin-top: 70px;
   padding-bottom: 60px;
   @include col--center;
+
+  @media (max-width: 640px) {
+    background: none;
+  }
 }
 
 .about-us__content {
   padding: 30px 70px;
+
+  @media (max-width: 640px) {
+    padding: 20px 20px;
+  }
 }
 
 .about-us__title {
@@ -86,6 +94,9 @@ $avatar-width: 130px;
   text-align: center;
   color: $colorDarkGrey;
   margin: 40px 40px 60px;
+  @media (max-width: 640px) {
+    margin: 40px 55px 60px;
+  }
 }
 
 .about-us__member {
