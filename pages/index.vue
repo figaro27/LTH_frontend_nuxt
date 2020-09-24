@@ -366,6 +366,7 @@ export default class Home extends Vue {
 .home__others {
   @include row--center;
   margin: 80px 0;
+  z-index: 1;
 }
 
 .home__graveyard,
