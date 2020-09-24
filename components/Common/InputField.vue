@@ -142,14 +142,13 @@ $input-height: 36px;
   position: relative;
   @include col;
   width: 100%;
-  background: $colorBg1;
 }
 
 .inputfield__label {
   @include typography(md-1, default);
   color: $colorNavy;
   margin-bottom: 7px;
-
+  text-align: left;
   &--focus {
     color: $colorNavy;
   }
@@ -164,16 +163,15 @@ $input-height: 36px;
 .inputfield__input {
   width: 100%;
   height: $input-height;
-  border: none;
+  border: 1px solid $colorDarkGrey;
   border-radius: 5px;
   @include typography(lg, default);
   color: $colorNavy;
   padding: 6px 9px;
-  background: $colorBg1;
 
   &:focus,
   &:active {
-    border: none;
+    border: 1px solid $colorGreen;
     outline: none !important;
   }
 
