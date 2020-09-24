@@ -4,7 +4,7 @@ import { DEFAULT_VENDORS_LIMIT, MOBILE_VENDORS_LIMIT } from '@/assets/consts'
 import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
 import { SearchState } from './state'
-import { isMobile } from 'mobile-device-detect';
+import { isMobile } from 'mobile-device-detect'
 
 export type SearchActions = ActionTree<SearchState, RootState>
 export type SearchAction<T, R = any> = TypedAction<SearchState, RootState, T, R>
