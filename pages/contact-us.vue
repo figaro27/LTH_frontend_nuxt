@@ -235,5 +235,10 @@ export default class ContactUs extends Vue {
       opacity: 0.9;
     }
   }
+
+  @media (max-width: 640px) {
+    background: $colorNavy;
+    color: $colorBg1;
+  }
 }
 </style>
