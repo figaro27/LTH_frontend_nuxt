@@ -1,9 +1,10 @@
 import { ActionTree } from 'vuex'
 
-import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
+import { DEFAULT_VENDORS_LIMIT, MOBILE_VENDORS_LIMIT } from '@/assets/consts'
 import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
 import { SearchState } from './state'
+import { isMobile } from 'mobile-device-detect';
 
 export type SearchActions = ActionTree<SearchState, RootState>
 export type SearchAction<T, R = any> = TypedAction<SearchState, RootState, T, R>
@@ -47,9 +48,11 @@ const actions: SearchActions = {
   async runSearch({ commit, state }, query: any = {}) {
     commit('SET_VENDORS_LOADING', LoadingStatus.Loading)
     commit('SAVE_LAST_FILTER', query)
+    const limit = isMobile ? MOBILE_VENDORS_LIMIT : DEFAULT_VENDORS_LIMIT
     const { data } = await api.get('vendors/search', {
       ...query,
-      offset: (state.vendorsPage - 1) * DEFAULT_VENDORS_LIMIT
+      offset: (state.vendorsPage - 1) * limit,
+      limit
     })
     commit('SET_VENDORS', data.data.vendors)
     commit('SET_VENDORS_TOTAL', data.data.total)
