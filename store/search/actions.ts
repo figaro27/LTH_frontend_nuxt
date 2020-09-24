@@ -3,8 +3,8 @@ import { ActionTree } from 'vuex'
 import { DEFAULT_VENDORS_LIMIT, MOBILE_VENDORS_LIMIT } from '@/assets/consts'
 import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
-import { SearchState } from './state'
 import { isMobile } from 'mobile-device-detect'
+import { SearchState } from './state'
 
 export type SearchActions = ActionTree<SearchState, RootState>
 export type SearchAction<T, R = any> = TypedAction<SearchState, RootState, T, R>
