@@ -74,6 +74,10 @@ export default class Pagination extends Vue {
     color: #ffffff;
     background-color: $colorLightGreen;
   }
+
+  @media (max-width: 640px) {
+    padding: 6px 8px;
+  }
 }
 
 .pagination-item.active > a,

@@ -95,10 +95,13 @@
             />
           </div>
         </div>
-        <div v-if="showPagination" class="search-page__vendors-pagination">
+        <div v-if="showPagination && !isMobile" class="search-page__vendors-pagination">
           <pagination :page-count="pageCount" @change="onPageChange" />
         </div>
       </div>
+    </div>
+    <div v-if="showPagination && isMobile" class="search-page__vendors-pagination">
+      <pagination :page-count="pageCount" @change="onPageChange" />
     </div>
   </div>
 </template>
@@ -109,6 +112,7 @@ import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
+import { isMobile } from 'mobile-device-detect'
 
 @Component({
   name: 'search'
@@ -126,7 +130,6 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.vendors) vendors!: SearchResultVendor[]
   @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
   @State((state: RootState) => state.search.totalVendors) total!: number
-
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
   }
@@ -135,6 +138,7 @@ export default class Search extends Vue {
     return this.pageCount > 1
   }
 
+  isMobile: boolean = false
   filterOptionsLoaded: boolean = false
 
   filters: Filters = {
@@ -220,6 +224,7 @@ export default class Search extends Vue {
 
   async mounted() {
     this.filterOptionsLoaded = false
+    this.isMobile = isMobile
     this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', 1)
     const promises = [
       this.$store.dispatch('search/loadDemographics'),
@@ -493,7 +498,7 @@ export default class Search extends Vue {
   margin-top: 50px;
 
   @media (max-width: 640px) {
-    width: 300px;
+    width: 100%;
   }
 }
 </style>
