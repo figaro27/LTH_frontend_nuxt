@@ -382,7 +382,7 @@ $avatar-width: 130px;
   border: 1px solid $colorDarkGrey;
   border-radius: 4px;
   color: $colorDarkGrey;
-  @include typography(lg);
+  @include typography(md-1);
   @include ellipsis(1, lg);
 }
 </style>
