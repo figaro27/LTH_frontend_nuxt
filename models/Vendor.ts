@@ -5,6 +5,7 @@ export type PlatformLanguage = { id: string; name: string }
 export type Demographic = { id: string; name: string }
 export type Installation = { id: string; name: string }
 export type Integration = { id: string; name: string }
+export type ExistingCustomer = { id: string; name: string }
 export type Feature = { id: string; name: string }
 
 export type VendorType = 'default' | 'consolidation' | 'graveyard'
@@ -38,6 +39,7 @@ export type Vendor = {
   demographics: Demographic[]
   installations: Installation[]
   integrations: Integration[]
+  existingCustomers: ExistingCustomer[]
   features: Feature[]
   createdAt: string
   updatedAt: string

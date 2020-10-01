@@ -1,5 +1,7 @@
 <template>
   <div class="blogs">
+    <ad class="blogs__left-ad" direction="vertical" />
+
     <div class="blogs__content">
       <client-only>
         <div v-for="(section, sectionIndex) of blogSections" :key="`section${sectionIndex}`" class="blogs__section">
@@ -37,6 +39,8 @@
         </div>
       </client-only>
     </div>
+
+    <ad class="blogs__right-ad" direction="vertical" />
   </div>
 </template>
 
@@ -244,14 +248,33 @@ export default class Blogs extends Vue {
   @include desktop-max-width-layout;
   margin-top: 50px;
   padding-bottom: 60px;
+  position: relative;
 
   @media (max-width: 640px) {
     background-color: white;
   }
 }
 
+$adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
+
+.blogs__left-ad {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  width: 200px;
+  max-width: $adMaxWidth;
+}
+
+.blogs__right-ad {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  width: 200px;
+  max-width: $adMaxWidth;
+}
+
 .blogs__content {
-  padding: 30px 70px;
+  padding: 30px 30px;
   @include col--center;
 
   @media (max-width: 640px) {

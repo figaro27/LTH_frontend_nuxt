@@ -6,6 +6,7 @@
 
       <div class="home__main__left-side">
         <popular-searchs class="home__popular-searchs" />
+        <ad direction="vertical" type="home" />
       </div>
 
       <div class="home__main__content">
@@ -30,6 +31,7 @@
       </div>
       <div class="home__main__right-side">
         <tool-of-week class="home__tool-of-the-week" />
+        <ad direction="vertical" type="home" />
       </div>
     </div>
 
@@ -66,6 +68,8 @@
         <div class="link-item__title">{{ others[1].title }}</div>
       </nuxt-link>
     </div>
+
+    <ad class="home__horizontal-ad" direction="horizontal" type="home" />
   </div>
 </template>
 
@@ -178,6 +182,10 @@ export default class Home extends Vue {
   }
 }
 
+.home__popular-searchs {
+  margin-bottom: 10px;
+}
+
 .home__main__content {
   flex: 1;
   @include col;
@@ -202,7 +210,7 @@ export default class Home extends Vue {
 }
 
 .home__tool-of-the-week {
-  margin-bottom: 16px;
+  margin-bottom: 5px;
 }
 
 .home__twitter-feed {
@@ -436,5 +444,13 @@ export default class Home extends Vue {
   color: #546e7a;
   text-align: center;
   margin: 16px 8px 16px 8px;
+}
+
+.home__horizontal-ad {
+  width: 70%;
+
+  @media (max-width: 640px) {
+    width: 90%;
+  }
 }
 </style>

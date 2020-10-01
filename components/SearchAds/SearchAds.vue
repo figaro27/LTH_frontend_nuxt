@@ -2,6 +2,8 @@
   <div class="search-ads">
     <tool-of-week class="search-ads__tool-of-the-week" />
     <popular-searchs class="search-ads__popular-searchs" />
+
+    <ad class="search-ads__ad" direction="vertical" />
   </div>
 </template>
 
@@ -30,6 +32,10 @@ export default class SearchAds extends Vue {}
 }
 
 .search-ads__popular-searchs {
+  width: 100%;
+}
+
+.search-ads__ad {
   width: 100%;
 }
 </style>

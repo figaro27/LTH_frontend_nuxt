@@ -1,5 +1,7 @@
 <template>
   <div class="regions-hero" :class="{ 'regions-hero--main': isMain }">
+    <ad class="regions-hero__left-ad" direction="vertical" />
+
     <div class="regions-hero__content">
       <div class="regions-hero__title-section">
         <h1 v-if="isMain" class="regions-hero__title">Regional <span>Snapshots</span></h1>
@@ -13,6 +15,8 @@
 
       <img class="regions-hero__map" :src="data.map" />
     </div>
+
+    <ad class="regions-hero__right-ad" direction="vertical" />
   </div>
 </template>
 
@@ -33,10 +37,29 @@ export default class RegionsHero extends Vue {
   @include row;
   justify-content: center;
   background: $colorBg2;
+  position: relative;
 
   @media (max-width: 640px) {
     background: none;
   }
+}
+
+$adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
+
+.regions-hero__left-ad {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  width: 200px;
+  max-width: $adMaxWidth;
+}
+
+.regions-hero__right-ad {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  width: 200px;
+  max-width: $adMaxWidth;
 }
 
 .regions-hero__content {

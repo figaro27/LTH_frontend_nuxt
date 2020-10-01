@@ -11,6 +11,7 @@
         </div>
       </div>
     </div>
+
     <div class="search-page__content-container">
       <div class="search-page__side-filter">
         <select-filter
@@ -77,6 +78,8 @@
           :options="integrations"
           @change="onFilterUpdate"
         />
+
+        <ad class="search-page__left-ad" direction="vertical" />
       </div>
       <div v-loading="vendorsLoading !== 2" class="search-page__content">
         <div class="search-page__content-wrapper">
@@ -88,7 +91,16 @@
           </h4>
           <div class="search-page__vendors">
             <vendor-item
-              v-for="(vendor, index) of vendors"
+              v-for="(vendor, index) of vendors.slice(0, 10)"
+              :key="index"
+              class="search-page__vendor-item"
+              :data="vendor"
+            />
+
+            <ad class="search-page__vendors__ad" direction="horizontal" />
+
+            <vendor-item
+              v-for="(vendor, index) of vendors.slice(10)"
               :key="index"
               class="search-page__vendor-item"
               :data="vendor"
@@ -443,6 +455,10 @@ export default class Search extends Vue {
   }
 }
 
+.search-page__left-ad {
+  width: 100%;
+}
+
 .search-page__content {
   @include col;
   min-height: 100%;
@@ -484,6 +500,11 @@ export default class Search extends Vue {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.search-page__vendors__ad {
+  width: 100%;
+  padding: 0 20px;
 }
 
 .search-page__vendor-item {

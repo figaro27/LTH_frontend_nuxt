@@ -1,6 +1,8 @@
 <template>
   <div class="single-vendor">
     <div class="single-vendor__content">
+      <ad class="single-vendor__left-ad" direction="vertical" />
+
       <template v-if="data">
         <div class="single-vendor__header">
           <a
@@ -117,7 +119,7 @@
               </div>
               <div class="single-vendor__property">
                 <div class="single-vendor__property-name">Existing Customers</div>
-                <label class="single-vendor__property-value">{{ integrations }}</label>
+                <label class="single-vendor__property-value">{{ existingCustomers }}</label>
               </div>
             </div>
           </div>
@@ -131,6 +133,8 @@
           </div>
         </div>
       </template>
+
+      <ad class="single-vendor__right-ad" direction="vertical" />
     </div>
   </div>
 </template>
@@ -218,6 +222,11 @@ export default class SingleVendor extends Vue {
     return this.data.integrations.map((data) => data.name).join(', ')
   }
 
+  get existingCustomers() {
+    if (!this.data) return ''
+    return this.data.existingCustomers.map((data) => data.name).join(', ')
+  }
+
   get features() {
     if (!this.data) return ''
     return this.data.features.map((data) => data.name).join(', ')
@@ -235,6 +244,7 @@ export default class SingleVendor extends Vue {
   background-color: #cbef95;
   padding: 16px;
   display: flex;
+
   .single-vendor-header__link {
     margin-left: 16px;
     color: #979797;
@@ -253,6 +263,25 @@ export default class SingleVendor extends Vue {
   padding: 40px;
   text-align: left;
   background: white;
+  position: relative;
+}
+
+$adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
+
+.single-vendor__left-ad {
+  position: absolute;
+  top: 110px;
+  left: 20px;
+  width: 200px;
+  max-width: $adMaxWidth;
+}
+
+.single-vendor__right-ad {
+  position: absolute;
+  top: 110px;
+  right: 20px;
+  width: 200px;
+  max-width: $adMaxWidth;
 }
 
 .single-vendor__row {
