@@ -4,7 +4,7 @@
       v-for="(item, index) of savedSearchsWithUrl"
       :key="index"
       class="saved-searchs__item"
-      :style="{ background: colorized ? item.titleColor : '#ebf1ff' }"
+      :style="{ background: colorized ? getOpacityColor(item.titleColor) : '#ebf1ff' }"
       :to="item.url"
     >
       <label>{{ item.name }}</label>
@@ -24,6 +24,11 @@ export default class SavedSearchs extends Vue {
 
   @State((state: RootState) => state.savedSearch.savedSearchs) savedSearchs!: Array<SavedSearch>
   @State((state: RootState) => state.savedSearch.savedSearchsLoading) savedSearchsLoading!: LoadingStatus
+
+  getOpacityColor(color: string) {
+    const newColor = color.replace('rgb', 'rgba')
+    return newColor.substring(0, newColor.length - 1) + ', 0.25)'
+  }
 
   get savedSearchsWithUrl() {
     return this.savedSearchs.map((item) => ({
