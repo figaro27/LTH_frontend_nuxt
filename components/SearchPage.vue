@@ -101,7 +101,7 @@
 
             <vendor-item
               v-for="(vendor, index) of vendors.slice(10)"
-              :key="index"
+              :key="10 + index"
               class="search-page__vendor-item"
               :data="vendor"
             />
