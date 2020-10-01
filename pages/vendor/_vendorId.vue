@@ -21,7 +21,7 @@
           </a>
           <a v-else href="#" class="single-vendor-header__link" @click="historyBack()">Search Results</a>
           <label class="single-vendor-header__link">&gt;</label>
-          <div class="single-vendor__name">{{ data.name }}</div>
+          <div class="single-vendor__name">{{ data.tool }}</div>
         </div>
         <div class="single-vendor__row">
           <div class="single-vendor__frame single-vendor__main">
