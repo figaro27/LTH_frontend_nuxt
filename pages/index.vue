@@ -10,7 +10,7 @@
 
       <div class="home__main__content">
         <div class="home__main__title">
-          <h1>Find Legatech Tools, Events and more</h1>
+          <h1>Find Legaltech Tools, Events and more</h1>
           <h3>Search across our global directories</h3>
         </div>
         <div class="home__main__search-box">
