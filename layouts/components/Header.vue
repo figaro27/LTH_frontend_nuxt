@@ -84,7 +84,34 @@ export default class DefaultHeader extends Vue {
       {
         text: 'Home',
         path: '/',
-        exact: true
+        exact: true,
+        children: [
+          {
+            text: 'Tools',
+            path: '/search',
+            exact: true
+          },
+          {
+            text: 'Events',
+            path: '/',
+            exact: true
+          },
+          {
+            text: 'Awards',
+            path: '/',
+            exact: true
+          },
+          {
+            text: 'Graveyard',
+            path: '/graveyards',
+            exact: true
+          },
+          {
+            text: 'Consolidations',
+            path: '/consolidations',
+            exact: true
+          }
+        ]
       },
       {
         text: 'About Us',
