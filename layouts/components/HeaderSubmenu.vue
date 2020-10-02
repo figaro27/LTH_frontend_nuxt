@@ -1,21 +1,23 @@
 <template>
-  <v-popover trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
-    <span class="header__link__text" @mouseover="open = true">
-      {{ link.text }} <span class="header__link__chevron" />
-    </span>
-    <template #popover>
-      <div v-on-clickaway="closeMenu" class="header__link-sub-menus" @click="closeMenu">
-        <router-link
-          v-for="(child, idx) in link.children"
-          :key="`child${idx}`"
-          :to="child.path"
-          class="header__link-sub-menu"
-        >
-          {{ child.text }}
-        </router-link>
-      </div>
-    </template>
-  </v-popover>
+  <client-only>
+    <v-popover trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
+      <span class="header__link__text" @mouseover="open = true">
+        {{ link.text }} <span class="header__link__chevron" />
+      </span>
+      <template #popover>
+        <div v-on-clickaway="closeMenu" class="header__link-sub-menus" @click="closeMenu">
+          <router-link
+            v-for="(child, idx) in link.children"
+            :key="`child${idx}`"
+            :to="child.path"
+            class="header__link-sub-menu"
+          >
+            {{ child.text }}
+          </router-link>
+        </div>
+      </template>
+    </v-popover>
+  </client-only>
 </template>
 
 <script lang="ts">
