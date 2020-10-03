@@ -48,10 +48,10 @@
                 >
                   <nuxt-link
                     :to="child.path"
-                    @click.stop
+                    :exact="child.exact"
                     class="header__link"
                     active-class="header__link--active"
-                    :exact="child.exact"
+                    @click.stop
                   >
                     {{ child.text }}
                   </nuxt-link>
