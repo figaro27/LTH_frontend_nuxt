@@ -25,7 +25,7 @@
     <div v-if="isPopupMenuClicked" v-on-clickaway="away" class="sidebar">
       <ul class="sidebar__menu">
         <li v-for="(item, index) in links" :key="index" class="sidebar__menu__item" @click="collapseItem(index, item)">
-          <router-link :to="item.path">
+          <nuxt-link :to="item.path">
             <span
               class="sidebar__menu__item-name"
               :class="{ 'sidebar__menu__item-name--active': item.path === selectedMenu }"
@@ -46,13 +46,19 @@
                   class="sidebar__menu__child--item"
                   @click="hideMenu(child)"
                 >
-                  <router-link :to="child.path" @click.stop>
+                  <nuxt-link
+                    :to="child.path"
+                    @click.stop
+                    class="header__link"
+                    active-class="header__link--active"
+                    :exact="child.exact"
+                  >
                     {{ child.text }}
-                  </router-link>
+                  </nuxt-link>
                 </li>
               </ul>
             </transition>
-          </router-link>
+          </nuxt-link>
         </li>
       </ul>
     </div>
@@ -359,10 +365,13 @@ ul li {
   white-space: nowrap;
   text-align: left;
   color: white;
-
   a {
     text-decoration: none;
   }
+}
+
+li a {
+  text-decoration: none;
 }
 
 .slide-fade-enter-active {
