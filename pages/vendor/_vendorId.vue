@@ -102,7 +102,7 @@
                       :key="`demographic${index}`"
                       class="single-vendor__property__demographic"
                     >
-                      {{ demographic.name }}
+                      {{ index &lt; data.demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
                     </div>
                   </div>
                 </div>
@@ -439,10 +439,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 .single-vendor__property__demographic {
   @include row--center;
   @include typography(sm);
-  background: #d8d8d8;
-  border-radius: 20px;
   height: 20px;
-  padding: 0 5px;
   color: $colorDarkGrey;
   margin: 3px;
 }
