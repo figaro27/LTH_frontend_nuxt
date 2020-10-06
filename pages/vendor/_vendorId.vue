@@ -480,6 +480,10 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
       width: 100%;
       overflow: hidden;
     }
+
+    & > p:not(:last-child) {
+      margin-bottom: 20px;
+    }
   }
 }
 </style>
