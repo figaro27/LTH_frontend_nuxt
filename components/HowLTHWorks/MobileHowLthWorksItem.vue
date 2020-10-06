@@ -29,9 +29,7 @@
             {{ item.name }}
           </div>
         </div>
-        <client-only>
-          <div v-html="data.answer"></div>
-        </client-only>
+        <div>{{ data.answer }}</div>
       </div>
       <div v-if="pkey === 4">
         <div v-for="(subtitle, idx) of data.subtitles" :key="idx">
