@@ -10,9 +10,11 @@
           <li v-for="(answer, index) of data.answers" :key="index">{{ answer.answer }}</li>
         </ul>
       </div>
+
       <div v-if="pkey === 1">
         <div>{{ data.answer }}</div>
       </div>
+
       <div v-if="pkey === 2">
         <div>{{ data.subtitle }}</div>
         <ul>
@@ -20,6 +22,7 @@
         </ul>
         <img src="/images/lth-tools.png" height="152px" width="173px" />
       </div>
+
       <div v-if="pkey === 3">
         <div class="lth__functionalities">
           <div v-for="(item, index) of functionalities" :key="index" class="lth__functionality">
@@ -44,28 +47,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { api } from '@/utils'
 import { Functionality } from '~/models'
-@Component({
-  name: 'mobile-how-lth-works-item',
-  async asyncData() {
-    const res = await api.get('functionalities')
-    return {
-      functionalities: res.data
-    }
-  }
-})
+
+@Component({ name: 'mobile-how-lth-works-item' })
 export default class MobileHowLTHWorksItem extends Vue {
   @Prop({ required: true }) data!: any
   @Prop({ required: true }) pkey!: number
   @Prop({ required: true }) opened!: boolean
-  functionalities: Functionality[] = []
-
-  async mounted() {
-    if (this.functionalities.length > 0) return
-    const res = await api.get('functionalities')
-    this.functionalities = res.data
-  }
+  @Prop({ required: true }) functionalities!: Functionality[]
 
   get openImageUrl() {
     return this.opened ? '/images/faq/chevron-closed.svg' : '/images/faq/chevron-opened.svg'

@@ -16,6 +16,7 @@
           :pkey="index"
           :data="explain"
           :opened="index === openedItem"
+          :functionalities="functionalities"
           class="faq__question"
           @onToggleOpen="onToggleOpen"
         />
@@ -25,10 +26,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+
+import { Functionality } from '~/models'
 
 @Component({ name: 'mobile-how-lth-works' })
 export default class MobileHowLTHWorks extends Vue {
+  @Prop({ required: true }) functionalities!: Functionality[]
+
   openedItem: number | null = null
   get explains() {
     return [
