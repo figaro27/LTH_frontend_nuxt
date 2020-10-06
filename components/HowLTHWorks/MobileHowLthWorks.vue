@@ -10,16 +10,18 @@
     </h3>
     <div class="lth__title">
       <div class="lth__content">
-        <mobile-how-lth-works-item
-          v-for="(explain, index) of explains"
-          :key="index"
-          :pkey="index"
-          :data="explain"
-          :opened="index === openedItem"
-          :functionalities="functionalities"
-          class="faq__question"
-          @onToggleOpen="onToggleOpen"
-        />
+        <client-only>
+          <mobile-how-lth-works-item
+            v-for="(explain, index) of explains"
+            :key="index"
+            :pkey="index"
+            :data="explain"
+            :opened="index === openedItem"
+            :functionalities="functionalities"
+            class="faq__question"
+            @onToggleOpen="onToggleOpen"
+          />
+        </client-only>
       </div>
     </div>
   </div>
