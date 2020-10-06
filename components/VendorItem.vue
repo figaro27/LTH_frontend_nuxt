@@ -2,7 +2,7 @@
   <nuxt-link class="vendor-item" :to="url">
     <div class="vendor-item__row">
       <h4 v-if="data.name" class="vendor-item__title">
-        <text-highlight :queries="highlightQueries">{{ `${data.tool}, ${data.name}` }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ title }}</text-highlight>
       </h4>
       <span class="vendor-item__dash">-</span>
       <h5 v-if="hq" class="vendor-item__hq">
@@ -35,6 +35,14 @@ import { SearchResultVendor } from '@/models'
 export default class VendorItem extends Vue {
   @Prop({ required: true }) data!: SearchResultVendor
   @Getter('highlightQueries', { namespace: 'search' }) highlightQueries!: string[]
+
+  get title() {
+    let title = ''
+    const { name, tool } = this.data
+    if (tool) title += `${tool}, `
+    if (name) title += name
+    return title
+  }
 
   get hq() {
     return this.data.hqs.map((item) => item.name).join(',')
