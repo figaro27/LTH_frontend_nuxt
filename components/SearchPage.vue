@@ -315,6 +315,7 @@ export default class Search extends Vue {
   async onPageChange(pageNum: number) {
     this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', pageNum)
     await this.$store.dispatch('search/runSearch', this.searchQuery)
+    window.scrollTo(0, 0)
   }
 
   async submitQuery() {
