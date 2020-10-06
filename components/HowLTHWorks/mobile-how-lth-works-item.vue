@@ -87,16 +87,19 @@ export default class MobileHowLTHWorksItem extends Vue {
   margin: 10px 0;
   display: flex;
   flex-wrap: wrap;
+  background: #e0e0e0;
 }
 
 .lth__functionality {
-  width: calc(20% - 20px);
+  width: calc(50% - 20px);
   height: 50px;
   margin: 5px 10px;
   @include row--center;
-  border: 1px solid $colorDarkGrey;
-  border-radius: 4px;
-  color: $colorDarkGrey;
+  color: #000000;
+  border: 1px solid #bdbdbd;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   @include typography(md-1);
   @include ellipsis(1, lg);
 }
@@ -163,7 +166,7 @@ export default class MobileHowLTHWorksItem extends Vue {
 
   .faq-question__answer {
     height: auto;
-    padding: 20px 40px;
+    padding: 20px 10px;
   }
 }
 </style>
