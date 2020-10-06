@@ -1,45 +1,47 @@
 <template>
   <div class="faq-question" :class="{ 'faq-question--open': opened }" @click="toggleOpen">
-    <div class="faq-question__title">
-      <label>{{ data.title }}</label>
-      <img :src="openImageUrl" />
-    </div>
-    <div class="faq-question__answer">
-      <div v-if="pkey === 0">
-        <ul>
-          <li v-for="(answer, index) of data.answers" :key="index">{{ answer.answer }}</li>
-        </ul>
+    <client-only>
+      <div class="faq-question__title">
+        <label>{{ data.title }}</label>
+        <img :src="openImageUrl" />
       </div>
-
-      <div v-if="pkey === 1">
-        <div>{{ data.answer }}</div>
-      </div>
-
-      <div v-if="pkey === 2">
-        <div>{{ data.subtitle }}</div>
-        <ul>
-          <li v-for="(answer, index) of data.answers" :key="index">{{ answer.answer }}</li>
-        </ul>
-        <img src="/images/lth-tools.png" height="152px" width="173px" />
-      </div>
-
-      <div v-if="pkey === 3">
-        <div class="lth__functionalities">
-          <div v-for="(item, index) of functionalities" :key="index" class="lth__functionality">
-            {{ item.name }}
-          </div>
-        </div>
-        <div>{{ data.answer }}</div>
-      </div>
-      <div v-if="pkey === 4">
-        <div v-for="(subtitle, idx) of data.subtitles" :key="idx">
-          <div>{{ subtitle.title }}</div>
+      <div class="faq-question__answer">
+        <div v-if="pkey === 0">
           <ul>
-            <li v-for="(item, i) of subtitle.answers" :key="i">{{ item.answer }}</li>
+            <li v-for="(answer, index) of data.answers" :key="index">{{ answer.answer }}</li>
           </ul>
         </div>
+
+        <div v-if="pkey === 1">
+          <div>{{ data.answer }}</div>
+        </div>
+
+        <div v-if="pkey === 2">
+          <div>{{ data.subtitle }}</div>
+          <ul>
+            <li v-for="(answer, index) of data.answers" :key="index">{{ answer.answer }}</li>
+          </ul>
+          <img src="/images/lth-tools.png" height="152px" width="173px" />
+        </div>
+
+        <div v-if="pkey === 3">
+          <div class="lth__functionalities">
+            <div v-for="(item, index) of functionalities" :key="index" class="lth__functionality">
+              {{ item.name }}
+            </div>
+          </div>
+          <div>{{ data.answer }}</div>
+        </div>
+        <div v-if="pkey === 4">
+          <div v-for="(subtitle, idx) of data.subtitles" :key="idx">
+            <div>{{ subtitle.title }}</div>
+            <ul>
+              <li v-for="(item, i) of subtitle.answers" :key="i">{{ item.answer }}</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+    </client-only>
   </div>
 </template>
 
