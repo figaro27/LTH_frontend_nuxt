@@ -101,7 +101,6 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .regions-hero__map {
   width: 40%;
-  height: fit-content;
   margin: 50px 0 30px;
   object-fit: contain;
 
