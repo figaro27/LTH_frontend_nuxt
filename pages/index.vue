@@ -75,6 +75,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { CONSTS } from '@/utils'
 
 @Component({ name: 'home' })
 export default class Home extends Vue {
@@ -113,7 +114,12 @@ export default class Home extends Vue {
 
   onSearch(keyword: string) {
     if (keyword) {
-      this.$router.push({ name: 'search', query: { keyword } })
+      const polishedKeyword = keyword.toLowerCase().replace(/ /g, '_')
+      if (CONSTS.keywordLinkMap[polishedKeyword]) {
+        this.$router.push(CONSTS.keywordLinkMap[polishedKeyword])
+      } else {
+        this.$router.push({ name: 'search', query: { keyword } })
+      }
     } else {
       this.$router.push({ name: 'search' })
     }

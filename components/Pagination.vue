@@ -1,10 +1,9 @@
 <template>
   <paginate
-    v-model="page"
+    v-model="_page"
     :page-count="pageCount"
     :margin-pages="2"
     :page-range="5"
-    :page="page"
     container-class="pagination"
     page-class="pagination-item"
     prev-class="prev-item"
@@ -14,17 +13,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 @Component({ name: 'pagination' })
 export default class Pagination extends Vue {
   @Prop({ required: true }) pageCount!: number
-
   @Prop({ required: true }) page!: number
 
-  @Watch('page')
-  onPage() {
-    this.$emit('change', this.page)
+  get _page() {
+    return this.page
+  }
+
+  set _page(page: number) {
+    this.$emit('change', page)
   }
 }
 </script>

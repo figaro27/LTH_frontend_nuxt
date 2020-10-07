@@ -113,18 +113,18 @@
       </div>
     </div>
     <div v-if="showPagination && isMobile" class="search-page__vendors-pagination">
-      <pagination :page-count="pageCount" @change="onPageChange" />
+      <pagination :page-count="pageCount" :page="curPageNum" @change="onPageChange" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
+import { isMobile } from 'mobile-device-detect'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
-import { isMobile } from 'mobile-device-detect'
 
 @Component({
   name: 'search'
