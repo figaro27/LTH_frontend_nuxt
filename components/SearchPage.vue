@@ -108,7 +108,7 @@
           </div>
         </div>
         <div v-if="showPagination && !isMobile" class="search-page__vendors-pagination">
-          <pagination :page-count="pageCount" @change="onPageChange" />
+          <pagination :page-count="pageCount" :page="curPageNum" @change="onPageChange" />
         </div>
       </div>
     </div>
@@ -142,6 +142,9 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.vendors) vendors!: SearchResultVendor[]
   @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
   @State((state: RootState) => state.search.totalVendors) total!: number
+  @State((state: RootState) => state.search.vendorsLastFilter) lastSearch!: Filters
+  @State((state: RootState) => state.search.vendorsPage) curPageNum!: Filters
+
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
   }
@@ -237,7 +240,9 @@ export default class Search extends Vue {
   async mounted() {
     this.filterOptionsLoaded = false
     this.isMobile = isMobile
-    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', 1)
+
+    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', this.curPageNum)
+
     const promises = [
       this.$store.dispatch('search/loadDemographics'),
       this.$store.dispatch('search/loadFunctionalities'),

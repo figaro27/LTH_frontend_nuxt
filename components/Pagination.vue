@@ -4,6 +4,7 @@
     :page-count="pageCount"
     :margin-pages="2"
     :page-range="5"
+    :page="page"
     container-class="pagination"
     page-class="pagination-item"
     prev-class="prev-item"
@@ -19,7 +20,7 @@ import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
 export default class Pagination extends Vue {
   @Prop({ required: true }) pageCount!: number
 
-  page: number = 0
+  @Prop({ required: true }) page!: number
 
   @Watch('page')
   onPage() {
