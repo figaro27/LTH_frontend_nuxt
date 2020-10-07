@@ -1,6 +1,9 @@
 <template>
   <header class="header">
     <logo class="header__logo" />
+    <h3 class="header__label__small">
+      Democratizing Legal Technology
+    </h3>
     <h2 class="header__label">
       Your legaltech needs. In your area. In your language.
     </h2>
@@ -241,6 +244,13 @@ export default class DefaultHeader extends Vue {
   text-align: center;
   color: $colorNavy;
   margin-bottom: 30px;
+}
+
+.header__label__small {
+  @include typography(lg, narrow, bold);
+  text-align: center;
+  color: $colorNavy;
+  margin-top: 4px;
 }
 
 .header__links {
