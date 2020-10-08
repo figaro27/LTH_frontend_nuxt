@@ -1,8 +1,8 @@
 import { ActionTree } from 'vuex'
 
 import { RootState, TypedAction } from '@/store/types'
-import { api } from '@/utils'
 import { AdsState } from './state'
+import { api } from '~/utils'
 
 export type AdActions = ActionTree<AdsState, RootState>
 export type AdAction<T, R = any> = TypedAction<AdsState, RootState, T, R>
