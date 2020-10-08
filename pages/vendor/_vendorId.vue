@@ -30,7 +30,13 @@
             <div class="single-vendor__logo">
               <img :src="logo" />
             </div>
-            <div class="single-vendor__tool">{{ data.tool }}</div>
+            <div class="single-vendor__tool">
+              {{
+                JSON.stringify(data.graveyardData) === '{}' && JSON.stringify(data.consolidationData) === '{}'
+                  ? `${data.tool} by ${data.name}`
+                  : data.tool
+              }}
+            </div>
             <div v-if="JSON.stringify(data.graveyardData) !== '{}'" class="single-vendor__state">
               <img src="/images/svgs/graveyard.svg" />
               <label class="single-vendor__graveyard">Died {{ data.graveyardData.date }} </label>
