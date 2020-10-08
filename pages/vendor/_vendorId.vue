@@ -132,6 +132,8 @@
             </client-only>
           </div>
         </div>
+
+        <similar-vendors :vendor-id="vendorId" class="single-vendor__similar-results" />
       </template>
 
       <ad class="single-vendor__right-ad" direction="vertical" />
@@ -162,13 +164,17 @@ export default class SingleVendor extends Vue {
     if (this.data) {
       return
     }
-    const res = await api.get(`vendors/${this.$route.params.vendorId}`)
+    const res = await api.get(`vendors/${this.vendorId}`)
     this.data = res.data.data
   }
 
-  @Watch('$route.params.vendorId', { immediate: true })
+  get vendorId() {
+    return this.$route.params.vendorId
+  }
+
+  @Watch('vendorId', { immediate: true })
   async onVendorIdChange() {
-    const { data } = await api.get(`vendors/${this.$route.params.vendorId}`)
+    const { data } = await api.get(`vendors/${this.vendorId}`)
     this.data = data.data
   }
 
@@ -467,6 +473,11 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   margin-bottom: 40px;
   text-align: left;
   overflow: hidden;
+}
+
+.single-vendor__similar-results {
+  width: 100%;
+  margin: 20px 0;
 }
 </style>
 

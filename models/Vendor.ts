@@ -49,3 +49,5 @@ export type SearchResultVendor = Pick<
   Vendor,
   'id' | 'name' | 'tool' | 'hqs' | 'functionalities' | 'subFunctionalities' | 'platformLanguages' | 'demographics'
 >
+
+export type SimilarVendor = Pick<Vendor, 'id' | 'name' | 'tool' | 'logo'>
