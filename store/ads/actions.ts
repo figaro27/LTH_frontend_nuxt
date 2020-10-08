@@ -10,7 +10,6 @@ export type AdAction<T, R = any> = TypedAction<AdsState, RootState, T, R>
 const actions: AdActions = {
   async loadActiveAd({ commit }) {
     const { data } = await api.get('ad')
-    console.log(data)
     commit('SET_ACTIVE_AD', data.data)
   }
 }
