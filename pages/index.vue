@@ -6,7 +6,7 @@
 
       <div class="home__main__left-side">
         <popular-searchs class="home__popular-searchs" />
-        <ad direction="vertical" type="home" />
+        <ad v-if="!isMobile" direction="vertical" type="home" />
       </div>
 
       <div class="home__main__content">
@@ -18,6 +18,7 @@
           <search-box v-model="keyword" @search="onSearch" />
         </div>
         <saved-searchs class="home__saved-searchs" />
+        <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
       </div>
       <div class="home__main__popular-searchs">
         <nuxt-link
@@ -31,7 +32,7 @@
       </div>
       <div class="home__main__right-side">
         <tool-of-week class="home__tool-of-the-week" />
-        <ad direction="vertical" type="home" />
+        <ad v-if="!isMobile" direction="vertical" type="home" />
       </div>
     </div>
 
@@ -69,17 +70,19 @@
       </nuxt-link>
     </div>
 
-    <ad class="home__horizontal-ad" direction="horizontal" type="home" />
+    <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { CONSTS } from '@/utils'
+import { isMobile } from 'mobile-device-detect'
 
 @Component({ name: 'home' })
 export default class Home extends Vue {
   keyword = ''
+  isMobile = isMobile
 
   get layout() {
     return 'default'

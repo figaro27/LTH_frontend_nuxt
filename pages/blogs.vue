@@ -35,6 +35,7 @@
               </div>
             </div>
           </div>
+          <ad v-if="isMobile" class="blogs__horizontal-ad" direction="horizontal" />
           <hr v-if="sectionIndex < blogSections.length - 1" class="blogs__divider" />
         </div>
       </client-only>
@@ -605,5 +606,13 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   height: 1px;
   margin: 70px 0;
   background: $colorDarkGrey;
+}
+
+.blogs__horizontal-ad {
+  width: 70%;
+
+  @media (max-width: 640px) {
+    width: 90%;
+  }
 }
 </style>
