@@ -73,6 +73,10 @@ export default class SimilarVendors extends Vue {
   padding: 35px 10px 20px;
   @include row;
   overflow-x: auto;
+
+  @include respondTo(mobile) {
+    @include col;
+  }
 }
 
 .similar-vendors__vendor {
@@ -81,6 +85,15 @@ export default class SimilarVendors extends Vue {
 
   &:not(:last-child) {
     margin-right: 9.5%;
+  }
+
+  @include respondTo(mobile) {
+    width: 100%;
+
+    &:not(:last-child) {
+      margin-right: 0;
+      margin-bottom: 30px;
+    }
   }
 }
 </style>
