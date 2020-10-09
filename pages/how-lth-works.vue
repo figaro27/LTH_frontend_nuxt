@@ -18,6 +18,18 @@ import { Functionality } from '~/models'
     return {
       functionalities: res.data
     }
+  },
+  head() {
+    return {
+      title: 'Contact Us --- Legaltech Hub',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Contact Us --- Legatech Hub'
+        }
+      ]
+    }
   }
 })
 export default class HowLthWorks extends Vue {
