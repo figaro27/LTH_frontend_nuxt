@@ -22,6 +22,18 @@ import { api } from '@/utils'
     return {
       savedSearch: res.data.data
     }
+  },
+  head() {
+    return {
+      title: `${this.$data.savedSearch.name} - Legaltech Hub`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.$data.savedSearch.name} - Legaltech Hub`
+        }
+      ]
+    }
   }
 })
 export default class SingleRegion extends Vue {

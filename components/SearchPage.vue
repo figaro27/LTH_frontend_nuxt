@@ -126,21 +126,7 @@ import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 
-@Component({
-  name: 'search',
-  head() {
-    return {
-      title: 'Legaltech Hub',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Legatech Hub'
-        }
-      ]
-    }
-  }
-})
+@Component({ name: 'search' })
 export default class Search extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
 
