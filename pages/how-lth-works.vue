@@ -21,12 +21,12 @@ import { Functionality } from '~/models'
   },
   head() {
     return {
-      title: 'Contact Us --- Legaltech Hub',
+      title: 'How LTH Works --- Legaltech Hub',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'Contact Us --- Legatech Hub'
+          content: 'How LTH Works --- Legatech Hub'
         }
       ]
     }

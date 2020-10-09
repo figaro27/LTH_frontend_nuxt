@@ -89,12 +89,12 @@ type ContactData = {
   name: 'contact-us',
   head() {
     return {
-      title: 'How LTH Works --- Legaltech Hub',
+      title: 'Contact Us --- Legaltech Hub',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'How LTH Works --- Legatech Hub'
+          content: 'Contact Us --- Legatech Hub'
         }
       ]
     }
