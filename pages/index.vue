@@ -79,7 +79,21 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { CONSTS } from '@/utils'
 import { isMobile } from 'mobile-device-detect'
 
-@Component({ name: 'home' })
+@Component({
+  name: 'home',
+  head() {
+    return {
+      title: 'Legaltech Hub',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Legatech Hub'
+        }
+      ]
+    }
+  }
+})
 export default class Home extends Vue {
   keyword = ''
   isMobile = isMobile

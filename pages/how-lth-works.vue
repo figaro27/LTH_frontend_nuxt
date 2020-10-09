@@ -18,6 +18,18 @@ import { Functionality } from '~/models'
     return {
       functionalities: res.data
     }
+  },
+  head() {
+    return {
+      title: 'How LTH Works --- Legaltech Hub',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'How LTH Works --- Legatech Hub'
+        }
+      ]
+    }
   }
 })
 export default class HowLthWorks extends Vue {

@@ -85,7 +85,21 @@ type ContactData = {
   message: string
 }
 
-@Component({ name: 'contact-us' })
+@Component({
+  name: 'contact-us',
+  head() {
+    return {
+      title: 'Contact Us --- Legaltech Hub',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Contact Us --- Legatech Hub'
+        }
+      ]
+    }
+  }
+})
 export default class ContactUs extends Vue {
   data: ContactData = {
     email: '',

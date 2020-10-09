@@ -154,8 +154,21 @@ import { api } from '@/utils'
   async asyncData(ctx) {
     const { params } = ctx
     const res = await api.get(`vendors/${params.vendorId}`)
+    const temp: Vendor = res.data.data
     return {
-      data: res.data.data
+      data: temp
+    }
+  },
+  head() {
+    return {
+      title: `${this.$data.data.name} - Legaltech Hub`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.$data.data.name} - Legatech Hub`
+        }
+      ]
     }
   }
 })

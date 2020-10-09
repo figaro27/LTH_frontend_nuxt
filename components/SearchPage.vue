@@ -127,7 +127,19 @@ import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({
-  name: 'search'
+  name: 'search',
+  head() {
+    return {
+      title: 'Legaltech Hub',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Legatech Hub'
+        }
+      ]
+    }
+  }
 })
 export default class Search extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
