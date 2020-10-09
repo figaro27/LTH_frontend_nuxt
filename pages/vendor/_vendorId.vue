@@ -33,7 +33,7 @@
             <div class="single-vendor__tool">
               {{
                 JSON.stringify(data.graveyardData) === '{}' && JSON.stringify(data.consolidationData) === '{}'
-                  ? `${data.tool} by ${data.name}`
+                  ? tool
                   : data.tool
               }}
             </div>
@@ -49,10 +49,6 @@
               <label class="single-vendor__consolidation"> {{ data.consolidationData.date }} </label>
             </div>
             <div class="single-vendor__details">
-              <div class="single-vendor__property">
-                <div class="single-vendor__property-name">Vendor</div>
-                <label class="single-vendor__property-value">{{ data.name }}</label>
-              </div>
               <div class="single-vendor__property">
                 <div class="single-vendor__property-name">Functionality</div>
                 <label class="single-vendor__property-value">{{ functionalities }}</label>
@@ -176,6 +172,18 @@ export default class SingleVendor extends Vue {
 
   get vendorId() {
     return this.$route.params.vendorId
+  }
+
+  get tool() {
+    if (this.data === null) {
+      return null
+    }
+    if (this.data.tool === null) {
+      return this.data.name
+    } else if (this.data.tool !== this.data.name) {
+      return `${this.data.tool} by ${this.data.name}`
+    }
+    return this.data.name
   }
 
   @Watch('vendorId', { immediate: true })
@@ -362,6 +370,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .single-vendor__details {
   width: 100%;
+  margin-top: 16px;
   flex: 1;
   @include col;
 }
