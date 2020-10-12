@@ -11,6 +11,7 @@
       <nuxt-link
         v-for="(link, index) of links"
         :key="index"
+        v-tooltip="{ content: index === 5 ? 'Coming soon' : '' }"
         class="header__link"
         active-class="header__link--active"
         :to="link.path"
