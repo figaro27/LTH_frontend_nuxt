@@ -1,9 +1,6 @@
 import axios from 'axios'
 
-const apiUrl =
-  process.env.NUXT_APP_API_URL ||
-  (process.env.NODE_ENV === 'production' ? 'https://api.legaltechnologyhub.com' : 'http://localhost:4000')
-
+const apiUrl = process.env.NUXT_APP_API_URL || 'http://localhost:4000'
 export default {
   /*
    ** Nuxt rendering mode
@@ -11,7 +8,7 @@ export default {
    */
   mode: 'universal',
   env: {
-    apiUrl
+    baseURL: apiUrl
   },
   server: {
     port: 3000,
