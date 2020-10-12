@@ -39,8 +39,11 @@ export default class VendorItem extends Vue {
   get title() {
     let title = ''
     const { name, tool } = this.data
-    if (tool) title += `${tool}, `
-    if (name) title += name
+    if (tool) {
+      title = tool !== name ? `${tool} by ${name}` : `${tool}`
+    } else {
+      title = `${name}`
+    }
     return title
   }
 
