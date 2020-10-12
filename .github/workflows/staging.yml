@@ -3,7 +3,7 @@ on:
   push:
     branches: [ staging ]
 jobs:
-  build:
+  staging:
     runs-on: ubuntu-latest
     strategy:
       matrix:
