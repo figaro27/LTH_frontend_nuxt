@@ -472,9 +472,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .single-vendor__property__demographic {
   @include row--center;
-  @include typography(sm);
+  @include typography(lg, default);
   height: 20px;
-  color: $colorDarkGrey;
+  color: $colorLightGrey;
   margin: 3px;
 }
 
