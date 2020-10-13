@@ -28,7 +28,11 @@ export default class ad extends Vue {
     const { adPositions } = activeAd
     if (isMobile) {
       if (direction === 'horizontal') {
-        return adPositions.mobileCommonHorizontalAd
+        if (type === 'home') {
+          return adPositions.mobileHomeHorizontalAd
+        } else {
+          return adPositions.mobileCommonHorizontalAd
+        }
       } else {
         return position === 'left' ? adPositions.mobileCommonLeftVerticalAd : adPositions.mobileCommonRightVerticalAd
       }
