@@ -103,7 +103,7 @@ export default class VendorItem extends Vue {
   text-decoration: none;
   color: $colorNavy;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }
@@ -119,7 +119,7 @@ export default class VendorItem extends Vue {
   color: $colorNeutralsGrey;
   margin: 0 5px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -133,7 +133,7 @@ export default class VendorItem extends Vue {
 .vendor-item__row {
   width: 100%;
   @include row;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-wrap: wrap;
     &:first-child {
       flex-direction: column;
@@ -153,7 +153,7 @@ export default class VendorItem extends Vue {
     @include ellipsis(1, md-1);
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     font-size: 12px;
     line-height: 1.125rem;
     white-space: nowrap;

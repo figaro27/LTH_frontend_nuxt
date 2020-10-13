@@ -106,7 +106,7 @@ export default class MainListingCard extends Vue {}
     background: $colorLightGrey2;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-top: 10px;
   }
 }

@@ -138,7 +138,7 @@ export default class ContactUs extends Vue {
   padding-bottom: 60px;
   @include col--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background: none;
   }
 }
@@ -146,7 +146,7 @@ export default class ContactUs extends Vue {
 .contact-us__content {
   padding: 30px 70px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 30px 10px;
   }
 }
@@ -171,7 +171,7 @@ export default class ContactUs extends Vue {
   box-shadow: 0px 8px 40px rgba(9, 44, 76, 0.16);
   box-shadow: 5px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 95%;
     padding: 25px;
     flex-direction: column;
@@ -182,7 +182,7 @@ export default class ContactUs extends Vue {
   flex: 3;
   @include col--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 70%;
   }
 }
@@ -197,7 +197,7 @@ export default class ContactUs extends Vue {
   margin-left: 50px;
   @include col;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-left: 0;
     margin-top: 20px;
   }
@@ -244,7 +244,7 @@ export default class ContactUs extends Vue {
     }
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background: $colorNavy;
     color: $colorBg1;
   }

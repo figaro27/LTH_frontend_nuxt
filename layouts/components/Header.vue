@@ -239,8 +239,9 @@ export default class DefaultHeader extends Vue {
   width: 20%;
   margin-left: 100px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 50%;
+    margin-left: 0;
   }
 }
 
@@ -268,7 +269,7 @@ export default class DefaultHeader extends Vue {
     width: 80%;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -300,7 +301,7 @@ ul li {
   top: 35px;
   left: 35px;
   display: none;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: block;
   }
 }

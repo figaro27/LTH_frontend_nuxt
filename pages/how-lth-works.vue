@@ -45,7 +45,7 @@ export default class HowLthWorks extends Vue {
   padding-bottom: 60px;
   text-align: left;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none !important;
   }
 }

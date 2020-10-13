@@ -164,7 +164,7 @@ export default class Home extends Vue {
   width: 100vw;
   @include row;
   justify-content: center;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-direction: column;
   }
 }
@@ -173,7 +173,7 @@ export default class Home extends Vue {
   position: absolute;
   top: 0;
   left: 0;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -182,7 +182,7 @@ export default class Home extends Vue {
   position: absolute;
   bottom: -20px;
   right: 0;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -194,7 +194,7 @@ export default class Home extends Vue {
   z-index: 1;
   margin-left: 40px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -218,7 +218,7 @@ export default class Home extends Vue {
   z-index: 1;
   padding-right: 30px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
@@ -242,7 +242,7 @@ export default class Home extends Vue {
   text-align: left;
   color: $colorNavy;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -292,7 +292,7 @@ export default class Home extends Vue {
   background: rgba(249, 249, 251, 0.5);
   padding: 46px 0px 40px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     min-height: auto;
   }
 }
@@ -319,7 +319,7 @@ export default class Home extends Vue {
   margin-left: auto;
   margin-right: auto;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: auto;
   }
 }
@@ -345,7 +345,7 @@ export default class Home extends Vue {
 }
 
 .home__summary__twitter {
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -362,7 +362,7 @@ export default class Home extends Vue {
   padding: 0 40px;
   @include row--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin: 20px 0 0;
     padding: 0;
   }
@@ -373,7 +373,7 @@ export default class Home extends Vue {
   height: 100%;
   z-index: 1;
   background: #eef7ff;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
     padding: 1.1875rem 5rem 0.875rem !important;
   }
@@ -443,7 +443,7 @@ export default class Home extends Vue {
     background: $colorLightGrey2;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 200px;
     height: 200px;
     border-radius: 15px;
@@ -466,7 +466,7 @@ export default class Home extends Vue {
 .home__horizontal-ad {
   width: 70%;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }

@@ -77,7 +77,7 @@ export default class Pagination extends Vue {
     background-color: $colorLightGreen;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 6px 8px;
   }
 }

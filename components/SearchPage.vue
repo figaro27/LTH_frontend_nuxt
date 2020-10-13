@@ -364,7 +364,7 @@ export default class Search extends Vue {
   width: calc(100% - 200px);
   margin: 30px 170px 40px 30px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin: 30px 0;
     width: 100%;
   }
@@ -452,7 +452,7 @@ export default class Search extends Vue {
     margin: 5px 0;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 40%;
     min-width: 35%;
     margin-right: 0;
@@ -472,7 +472,7 @@ export default class Search extends Vue {
   overflow: visible;
   padding: 10px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 50%;
   }
 }
@@ -522,7 +522,7 @@ export default class Search extends Vue {
   @include row--center;
   margin-top: 50px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 100%;
   }
 }

@@ -88,7 +88,7 @@ export default class Consolidations extends Vue {
   border-radius: 20px;
   overflow: hidden;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }
@@ -115,7 +115,7 @@ export default class Consolidations extends Vue {
 .consolidation__item {
   width: 25%;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 33%;
   }
 }

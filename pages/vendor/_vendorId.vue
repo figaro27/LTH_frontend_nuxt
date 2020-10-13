@@ -320,7 +320,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     margin-top: 40px;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-direction: column;
   }
 }
@@ -416,14 +416,14 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     margin-bottom: 20px;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-flow: row;
     margin-top: 20px;
   }
 }
 
 .single-vender__side__left {
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-right: 15px;
     margin-bottom: 0px !important;
     .single-vendor__others {

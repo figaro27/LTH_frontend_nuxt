@@ -89,7 +89,7 @@ export default class Graveyards extends Vue {
   border-radius: 20px;
   overflow: hidden;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }
@@ -107,7 +107,7 @@ export default class Graveyards extends Vue {
 
 .graveyard__item {
   width: 25%;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 33%;
   }
 }

@@ -36,7 +36,7 @@ export default class ToolOfWeek extends Vue {
   );
   text-align: left;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-top: 60px;
     min-height: 120px;
   }
