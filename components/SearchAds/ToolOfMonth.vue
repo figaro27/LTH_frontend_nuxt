@@ -10,7 +10,7 @@
         Tool Of the Month
       </h2>
       <div class="tool-of-month__description">
-        Check our the Enterprise Search tool by Ilves
+        Check out the Enterprise Search tool by Ilves
       </div>
       <div class="tool-of-month__learn-more">
         <nuxt-link class="tool-of-month__learn-more__link" to="/vendor/914" @click.native="onLearnMore">
