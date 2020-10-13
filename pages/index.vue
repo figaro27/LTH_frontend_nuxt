@@ -18,7 +18,7 @@
           <search-box v-model="keyword" @search="onSearch" />
         </div>
         <saved-searchs class="home__saved-searchs" />
-        <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
+        <!-- <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" /> -->
       </div>
       <div class="home__main__popular-searchs">
         <nuxt-link
@@ -54,9 +54,9 @@
           </div>
         </div>
       </div>
-      <div class="home__summary-listing">
+      <!-- <div class="home__summary-listing">
         <ad class="home__horizontal-ad" direction="horizontal" type="home" />
-      </div>
+      </div> -->
       <div class="home__summary-listing">
         <main-listing-card class="home__summary-listing__card" />
         <img src="/images/svgs/bubbles.svg" class="home__summary-listing__left-bubbles" />
