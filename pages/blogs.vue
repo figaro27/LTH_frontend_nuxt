@@ -46,6 +46,7 @@
 </template>
 
 <script lang="ts">
+import { isMobile } from 'mobile-device-detect'
 import { Component, Vue } from 'nuxt-property-decorator'
 import { buildMeta } from '~/utils'
 
@@ -59,6 +60,7 @@ import { buildMeta } from '~/utils'
   }
 })
 export default class Blogs extends Vue {
+  readonly isMobile = isMobile
   get blogSections() {
     return [
       {
@@ -79,6 +81,15 @@ export default class Blogs extends Vue {
             ],
             [
               {
+                name: 'law-sites',
+                title: 'LawSites',
+                description:
+                  'A blog by legal journalist Bob Ambrogi, who has been writing and speaking about legal technology, legal practice and legal ethics for more than two decades.',
+                image: '/images/blogs/law-site.png',
+                type: 'landscape',
+                url: 'https://www.lawsitesblog.com'
+              },
+              {
                 name: 'prism-legal',
                 title: 'Prism Legal',
                 description:
@@ -86,17 +97,10 @@ export default class Blogs extends Vue {
                 image: '/images/blogs/prism-legal.png',
                 type: 'landscape',
                 url: 'https://prismlegal.com'
-              },
-              {
-                name: 'law-site',
-                title: 'LawSite',
-                description:
-                  'A blog by legal journalist Bob Ambrogi, who has been writing and speaking about legal technology, legal practice and legal ethics for more than two decades.',
-                image: '/images/blogs/law-site.png',
-                type: 'landscape',
-                url: 'https://www.lawsitesblog.com'
               }
-            ],
+            ]
+          ],
+          [
             [
               {
                 name: 'artificial-lawyer',
@@ -129,7 +133,9 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://legal-tech-blog.de'
               }
-            ],
+            ]
+          ],
+          [
             [
               {
                 name: 'colin-levy',
@@ -162,7 +168,9 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://www.deweybstrategic.com'
               }
-            ],
+            ]
+          ],
+          [
             [
               {
                 name: 'above-the-law',
@@ -322,11 +330,10 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   width: 100%;
   @include row;
   margin-bottom: 40px;
-  flex-wrap: wrap;
 }
 
 .blogs__section__col {
-  max-width: 33%;
+  flex: 1;
   padding: 15px;
   @include col;
 
@@ -339,6 +346,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 
   @media (max-width: 640px) {
+    flex: none;
     max-width: 50%;
   }
 }
@@ -421,10 +429,21 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     .blog__image {
       margin: 110px 30px 20px 30px;
       width: calc(100% - 60px);
+      @media (max-width: 640px) {
+        margin-bottom: 40px;
+      }
     }
 
     .blog__description {
       color: white;
+    }
+  }
+
+  &--prism-legal {
+    .blog__image {
+      @media (max-width: 640px) {
+        width: 100%;
+      }
     }
   }
 
