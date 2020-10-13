@@ -1,7 +1,7 @@
 <template>
   <div class="single-vendor">
     <div class="single-vendor__content">
-      <ad class="single-vendor__left-ad" direction="vertical" />
+      <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
       <template v-if="data">
         <div class="single-vendor__header">
@@ -138,7 +138,7 @@
         <similar-vendors :vendor-id="vendorId" class="single-vendor__similar-results" />
       </template>
 
-      <ad class="single-vendor__right-ad" direction="vertical" />
+      <ad class="single-vendor__right-ad" position="right" direction="vertical" />
     </div>
   </div>
 </template>
@@ -147,7 +147,7 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 
 import { Vendor } from '@/models'
-import { api } from '@/utils'
+import { api, buildMeta } from '@/utils'
 
 @Component({
   name: 'single-vendor',
@@ -160,16 +160,11 @@ import { api } from '@/utils'
     }
   },
   head() {
-    return {
-      title: `${this.$data.data.name} - Legaltech Hub`,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.$data.data.name} - Legatech Hub`
-        }
-      ]
-    }
+    const { name } = this.$data.data
+    return buildMeta({
+      title: `${name} - Legaltech Hub`,
+      description: `${name} - Legaltech Hub`
+    })
   }
 })
 export default class SingleVendor extends Vue {
@@ -325,7 +320,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     margin-top: 40px;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-direction: column;
   }
 }
@@ -421,14 +416,14 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     margin-bottom: 20px;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-flow: row;
     margin-top: 20px;
   }
 }
 
 .single-vender__side__left {
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-right: 15px;
     margin-bottom: 0px !important;
     .single-vendor__others {

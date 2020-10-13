@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import { api } from '@/utils'
+import { api, buildMeta } from '@/utils'
 import { Functionality } from '~/models'
 
 @Component({
@@ -20,16 +20,10 @@ import { Functionality } from '~/models'
     }
   },
   head() {
-    return {
-      title: 'How LTH Works --- Legaltech Hub',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'How LTH Works --- Legatech Hub'
-        }
-      ]
-    }
+    return buildMeta({
+      title: 'How LTH Works - Legaltech Hub',
+      description: 'How LTH Works - Legaltech Hub'
+    })
   }
 })
 export default class HowLthWorks extends Vue {
@@ -51,7 +45,7 @@ export default class HowLthWorks extends Vue {
   padding-bottom: 60px;
   text-align: left;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none !important;
   }
 }

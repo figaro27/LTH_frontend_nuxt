@@ -1,6 +1,6 @@
 <template>
   <div class="regions-hero" :class="{ 'regions-hero--main': isMain }">
-    <ad class="regions-hero__left-ad" direction="vertical" />
+    <ad class="regions-hero__left-ad" direction="vertical" position="left" />
 
     <div class="regions-hero__content">
       <div class="regions-hero__title-section">
@@ -16,7 +16,7 @@
       <img class="regions-hero__map" :src="data.map" />
     </div>
 
-    <ad class="regions-hero__right-ad" direction="vertical" />
+    <ad class="regions-hero__right-ad" direction="vertical" position="right" />
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default class RegionsHero extends Vue {
   background: $colorBg2;
   position: relative;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background: none;
   }
 }
@@ -67,7 +67,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   padding: 80px 50px;
   width: $desktopMaxWidth;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-direction: column;
     padding: 20px 50px;
   }
@@ -78,7 +78,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include col;
   margin: 0 60px 0 0;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin: 0;
   }
 }
@@ -87,7 +87,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include typography(xxl-1, narrow, bold);
   text-align: left;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     text-align: center;
   }
 }
@@ -104,7 +104,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   margin: 50px 0 30px;
   object-fit: contain;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 100%;
   }
 }

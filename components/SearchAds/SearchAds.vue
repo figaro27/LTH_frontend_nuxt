@@ -1,9 +1,9 @@
 <template>
   <div class="search-ads">
-    <tool-of-week class="search-ads__tool-of-the-week" />
+    <tool-of-month class="search-ads__tool-of-the-month" />
     <popular-searchs class="search-ads__popular-searchs" />
 
-    <ad class="search-ads__ad" direction="vertical" />
+    <ad class="search-ads__ad" direction="vertical" position="right" />
   </div>
 </template>
 
@@ -21,12 +21,12 @@ export default class SearchAds extends Vue {}
   width: $widgetWidth;
   @include col;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
 
-.search-ads__tool-of-the-week {
+.search-ads__tool-of-the-month {
   width: 100%;
   margin-bottom: 40px;
 }

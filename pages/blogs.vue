@@ -1,6 +1,6 @@
 <template>
   <div class="blogs">
-    <ad class="blogs__left-ad" direction="vertical" />
+    <ad class="blogs__left-ad" direction="vertical" position="left" />
 
     <div class="blogs__content">
       <client-only>
@@ -41,15 +41,26 @@
       </client-only>
     </div>
 
-    <ad class="blogs__right-ad" direction="vertical" />
+    <ad class="blogs__right-ad" direction="vertical" position="right" />
   </div>
 </template>
 
 <script lang="ts">
+import { isMobile } from 'mobile-device-detect'
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'blogs' })
+@Component({
+  name: 'blogs',
+  head() {
+    return buildMeta({
+      title: 'Legaltech Resources - Legaltech Hub',
+      description: 'Legaltech Resources - Legaltech Hub'
+    })
+  }
+})
 export default class Blogs extends Vue {
+  readonly isMobile = isMobile
   get blogSections() {
     return [
       {
@@ -70,6 +81,15 @@ export default class Blogs extends Vue {
             ],
             [
               {
+                name: 'law-sites',
+                title: 'LawSites',
+                description:
+                  'A blog by legal journalist Bob Ambrogi, who has been writing and speaking about legal technology, legal practice and legal ethics for more than two decades.',
+                image: '/images/blogs/law-site.png',
+                type: 'landscape',
+                url: 'https://www.lawsitesblog.com'
+              },
+              {
                 name: 'prism-legal',
                 title: 'Prism Legal',
                 description:
@@ -77,17 +97,10 @@ export default class Blogs extends Vue {
                 image: '/images/blogs/prism-legal.png',
                 type: 'landscape',
                 url: 'https://prismlegal.com'
-              },
-              {
-                name: 'law-site',
-                title: 'LawSite',
-                description:
-                  'A blog by legal journalist Bob Ambrogi, who has been writing and speaking about legal technology, legal practice and legal ethics for more than two decades.',
-                image: '/images/blogs/law-site.png',
-                type: 'landscape',
-                url: 'https://www.lawsitesblog.com'
               }
-            ],
+            ]
+          ],
+          [
             [
               {
                 name: 'artificial-lawyer',
@@ -120,7 +133,9 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://legal-tech-blog.de'
               }
-            ],
+            ]
+          ],
+          [
             [
               {
                 name: 'colin-levy',
@@ -153,7 +168,9 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://www.deweybstrategic.com'
               }
-            ],
+            ]
+          ],
+          [
             [
               {
                 name: 'above-the-law',
@@ -187,6 +204,54 @@ export default class Blogs extends Vue {
                 url: 'http://thetimeblawg.com'
               }
             ]
+          ],
+          [
+            [
+              {
+                name: 'legal-ai-blog',
+                title: 'Legal AI Blog',
+                description:
+                  'A Nordic blog that stays on top of the latest trends and developments in the sphere of legal AI. The team behind Legal AI Blog comprises lawyers, software developers, and entrepreneurs. Expect coverage of the most recent legal AI advancements, interview leading experts in the field, and publish our own views on the subject.',
+                image: '/images/blogs/legal-ai-blog.png',
+                type: 'portrait',
+                url: 'https://legalaiblog.com'
+              }
+            ],
+            [
+              {
+                name: 'indian-legal-tech',
+                title: 'Indian Legal Tech (ILT)',
+                description:
+                  'Indian Legal Tech (ILT) is an independent blog focused on covering India’s legal technology sector. The blog was started in November 2019 by Namit Oberoy.',
+                image: '/images/blogs/indian-legal-tech.png',
+                type: 'portrait',
+                url: 'https://www.indianlegaltech.com'
+              }
+            ],
+            [
+              {
+                name: 'lawtomated',
+                title: 'Lawtomated',
+                description:
+                  'Lawtomated is a collaborative legaltech learning resource. It’s aimed at lawyer and non-lawyer alike interested in, using or wanting to understand legaltech.',
+                image: '/images/blogs/lawtomated.png',
+                type: 'portrait',
+                url: 'https://lawtomated.com'
+              }
+            ]
+          ],
+          [
+            [
+              {
+                name: 'dennis-kennedy',
+                title: 'Dennis Kennedy',
+                description:
+                  'Dennis Kennedy is a well-known legal tech and innovation advisor, adjunct law professor, infotech lawyer, professional speaker, author, and podcaster. This is his blog',
+                image: '/images/blogs/dennis-kennedy.png',
+                type: 'portrait',
+                url: 'https://www.denniskennedy.com'
+              }
+            ]
           ]
         ]
       },
@@ -194,6 +259,30 @@ export default class Blogs extends Vue {
         title: 'Listen',
         icon: '/images/blogs/listen.png',
         blogs: [
+          [
+            [
+              {
+                name: 'law-next',
+                title: 'LawNext',
+                description:
+                  'LawNext is a weekly podcast hosted by Bob Ambrogi, publisher of LawSites. Each week, Bob interviews the innovators and entrepreneurs who are driving what’s next in the legal industry. From legal technology startups to new law firm business models to enhancing access to justice, Bob and his guests explore the future of law and legal practice.',
+                image: '/images/blogs/law-next.png',
+                type: 'portrait',
+                url: 'https://lawnext.libsyn.com'
+              }
+            ],
+            [
+              {
+                name: 'the-modern-lawyer',
+                title: 'The Modern Lawyer',
+                description:
+                  'Join Anand Upadhye of Casetext as he chats with giants in the American legal industry about the changes we are seeing in the practice of law, legal technology, and knowledge management.',
+                image: '/images/blogs/the-modern-lawyer.png',
+                type: 'portrait',
+                url: 'https://casetext.com/podcast'
+              }
+            ]
+          ],
           [
             [
               {
@@ -208,13 +297,50 @@ export default class Blogs extends Vue {
             ],
             [
               {
-                name: 'the-modern-lawyer',
-                title: 'The Modern Lawyer',
+                name: 'ilta-podcast',
+                title: 'ILTA podcast',
                 description:
-                  'Join Anand Upadhye of Casetext as he chats with giants in the American legal industry about the changes we are seeing in the practice of law, legal technology, and knowledge management.',
-                image: '/images/blogs/the-modern-lawyer.png',
+                  'This ILTA podcast hosted by Nicola Shaver features speakers located across the globe... who are doing things differently. These guests offer unique perspectives on what the state of legal innovation looks like in different countries, towns, and cities, and speak about the most innovative projects they are seeing in their regions.',
+                image: '/images/blogs/ilta-podcast.png',
                 type: 'portrait',
-                url: 'https://casetext.com/podcast'
+                url: 'https://ilta.podbean.com'
+              }
+            ]
+          ],
+          [
+            [
+              {
+                name: 'law-technology-now',
+                title: 'Law Technology Now',
+                description:
+                  'Law Technology Now explores the latest in legal technology and innovation. Key players in the legal technology community join the hosts to highlight the top trends and developments in the legal world. Tune in to hear conversations about innovative ways to improve the practice of law, providing greater access to justice, and making legal services more affordable.',
+                image: '/images/blogs/law-technology-now.png',
+                type: 'portrait',
+                url: 'https://legaltalknetwork.com/podcasts/law-technology-now'
+              }
+            ],
+            [
+              {
+                name: 'legaltech-tapas',
+                title: 'Legaltech Tapas',
+                description:
+                  'Legaltech Tapas is a regular podcast that serves up bite sized summaries of the latest legal tools, what they do, and why you might use them. Each episode discusses a different legal tool, and includes an interview with a guest from that company so you can hear directly from the horses mouth why you should be using their product.',
+                image: '/images/blogs/legaltech-tapas.png',
+                type: 'portrait',
+                url: 'https://legaltechtapas.substack.com'
+              }
+            ]
+          ],
+          [
+            [
+              {
+                name: 'evolve-the-law',
+                title: 'Evolve the Law',
+                description:
+                  'The Evolve the Law podcast covers the latest topics, trends and tech in the legal industry. Host Ian Connett and the Evolve the Law team interview members of Evolve the Law, noted technologists, thought leaders, and legal practitioners - sharing their insights about the future of the legal industry. Subscribe and listen to stay on top of developments in this competitive marketplace.',
+                image: '/images/blogs/evolve-the-law.png',
+                type: 'portrait',
+                url: 'https://abovethelaw.com/legal-innovation-center/category/podcast'
               }
             ]
           ]
@@ -251,7 +377,7 @@ export default class Blogs extends Vue {
   padding-bottom: 60px;
   position: relative;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background-color: white;
   }
 }
@@ -278,7 +404,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   padding: 30px 30px;
   @include col--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 10px 10px;
   }
 }
@@ -293,7 +419,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   align-items: center;
   margin-bottom: 40px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-left: 20px;
   }
 }
@@ -313,11 +439,11 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   width: 100%;
   @include row;
   margin-bottom: 40px;
-  flex-wrap: wrap;
 }
 
 .blogs__section__col {
-  max-width: 33%;
+  flex: 1;
+  max-width: 50%;
   padding: 15px;
   @include col;
 
@@ -329,7 +455,8 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     padding-right: 10px;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
+    flex: none;
     max-width: 50%;
   }
 }
@@ -351,12 +478,12 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     @include row;
     flex-direction: row-reverse;
     padding: 60px 0 50px 0;
-    @media (max-width: 640px) {
+    @include respondTo(mobile) {
       flex-direction: column;
     }
     &:last-child {
       .blog__image__img {
-        @media (max-width: 640px) {
+        @include respondTo(mobile) {
           height: 50%;
         }
       }
@@ -367,7 +494,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
       height: auto;
       max-height: 80%;
       margin-right: 10px;
-      @media (max-width: 640px) {
+      @include respondTo(mobile) {
         margin-left: auto;
         margin-right: auto;
       }
@@ -384,7 +511,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
       width: 140px;
       height: 40px;
       margin: 10px;
-      @media (max-width: 640px) {
+      @include respondTo(mobile) {
         height: 24px;
       }
     }
@@ -395,6 +522,10 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
       padding: 70px 0 20px;
       margin-right: 0;
       background: $colorLightGrey2;
+
+      @include respondTo(mobile) {
+        height: 150px;
+      }
     }
   }
 
@@ -412,10 +543,21 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     .blog__image {
       margin: 110px 30px 20px 30px;
       width: calc(100% - 60px);
+      @include respondTo(mobile) {
+        margin-bottom: 40px;
+      }
     }
 
     .blog__description {
       color: white;
+    }
+  }
+
+  &--prism-legal {
+    .blog__image {
+      @include respondTo(mobile) {
+        width: 100%;
+      }
     }
   }
 
@@ -490,6 +632,62 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     }
   }
 
+  &--legal-ai-blog,
+  &--indian-legal-tech,
+  &--lawtomated,
+  &--dennis-kennedy {
+    .blog__title {
+      color: white;
+    }
+
+    .blog__title-border {
+      background: white;
+    }
+  }
+
+  &--legal-ai-blog {
+    .blog__image {
+      background: #296266;
+    }
+  }
+
+  &--indian-legal-tech {
+    .blog__image {
+      background: #000000;
+    }
+
+    .blog__image__img {
+      height: auto;
+
+      @include respondTo(mobile) {
+        height: 100%;
+      }
+    }
+  }
+
+  &--lawtomated {
+    .blog__image {
+      background: #d8d8d8;
+    }
+  }
+
+  &--dennis-kennedy {
+    width: 67%;
+
+    .blog__image {
+      background: #000000;
+    }
+
+    .blog__image__img {
+      width: 85%;
+      margin-right: 15%;
+    }
+
+    @include respondTo(mobile) {
+      width: 100%;
+    }
+  }
+
   &--fringe-legal {
     .blog__title {
       color: white;
@@ -507,6 +705,35 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   &--the-modern-lawyer {
     .blog__image {
       background: white;
+    }
+  }
+
+  &--legaltech-tapas {
+    .blog__image {
+      background: #ecf5fa;
+    }
+  }
+
+  &--law-technology-now {
+    .blog__title {
+      color: white;
+    }
+
+    .blog__title-border {
+      background: white;
+    }
+
+    .blog__image {
+      padding: 0;
+    }
+
+    .blog__image__img {
+      height: auto;
+
+      @include respondTo(mobile) {
+        width: auto;
+        height: 100%;
+      }
     }
   }
 
@@ -563,7 +790,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   width: 100%;
   height: 200px;
   @include row--center;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     height: auto;
   }
 }
@@ -584,8 +811,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   ::v-deep a {
     color: $colorNavy;
   }
-  @media (max-width: 640px) {
-    margin: 0.25rem 0.875rem 1rem;
+
+  @include respondTo(mobile) {
+    margin: 1rem 0.875rem;
   }
 }
 
@@ -606,12 +834,16 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   height: 1px;
   margin: 70px 0;
   background: $colorDarkGrey;
+
+  @include respondTo(mobile) {
+    margin: 20px 0;
+  }
 }
 
 .blogs__horizontal-ad {
   width: 70%;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }

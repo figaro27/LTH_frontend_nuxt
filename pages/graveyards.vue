@@ -26,8 +26,17 @@
 import { Component, Vue, State } from 'nuxt-property-decorator'
 import { RootState, LoadingStatus } from '@/store/types'
 import { Vendor } from '@/models'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'graveyards' })
+@Component({
+  name: 'graveyards',
+  head() {
+    return buildMeta({
+      title: 'Graveyards - Legaltech Hub',
+      description: 'Graveyards - Legaltech Hub'
+    })
+  }
+})
 export default class Graveyards extends Vue {
   @State((state: RootState) => state.graveyard.graveyards) graveyards!: Array<Vendor>
   @State((state: RootState) => state.graveyard.graveyardsLoading) graveyardsLoading!: LoadingStatus
@@ -80,7 +89,7 @@ export default class Graveyards extends Vue {
   border-radius: 20px;
   overflow: hidden;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }
@@ -98,7 +107,7 @@ export default class Graveyards extends Vue {
 
 .graveyard__item {
   width: 25%;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 33%;
   }
 }

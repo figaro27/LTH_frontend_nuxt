@@ -1,12 +1,8 @@
 <template>
   <header class="header">
-    <logo class="header__logo" />
-    <h3 class="header__label__small">
-      Democratizing Legal Technology
-    </h3>
-    <h2 class="header__label">
-      Your legaltech needs. In your area. In your language.
-    </h2>
+    <div class="header__logo">
+      <logo-label />
+    </div>
     <div class="header__links">
       <nuxt-link
         v-for="(link, index) of links"
@@ -75,13 +71,13 @@ import { mixin as ClickAway } from 'vue-clickaway'
 import { ComponentOptions } from 'vue'
 
 import HeaderSubmenu from './HeaderSubmenu.vue'
-import Logo from './Logo.vue'
+import LogoLabel from './LogoLabel.vue'
 
 import { HeaderLink } from './types'
 
 @Component({
   name: 'default-header',
-  components: { HeaderSubmenu, Logo },
+  components: { HeaderSubmenu, LogoLabel },
   mixins: [ClickAway as ComponentOptions<Vue>]
 })
 export default class DefaultHeader extends Vue {
@@ -232,12 +228,21 @@ export default class DefaultHeader extends Vue {
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  @include col--center;
   padding-top: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header__logo {
-  width: 280px;
+  width: 20%;
+  margin-left: 100px;
+
+  @include respondTo(mobile) {
+    width: 50%;
+    margin-left: 0;
+  }
 }
 
 .header__label {
@@ -246,19 +251,25 @@ export default class DefaultHeader extends Vue {
   color: $colorNavy;
   margin-bottom: 30px;
 }
-
 .header__label__small {
   @include typography(lg, narrow, bold);
-  text-align: center;
+  text-align: left;
   color: $colorNavy;
   margin-top: 4px;
+  margin-left: 35%;
 }
-
 .header__links {
   @include row;
+  width: 70%;
+  margin-right: 10%;
   justify-content: center;
 
-  @media (max-width: 640px) {
+  @media (max-width: 1150px) {
+    margin-right: 0;
+    width: 80%;
+  }
+
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -290,7 +301,7 @@ ul li {
   top: 35px;
   left: 35px;
   display: none;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: block;
   }
 }

@@ -7,8 +7,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'search' })
+@Component({
+  name: 'search',
+  head() {
+    return buildMeta({
+      title: 'Legaltech Hub',
+      description: 'Legaltech Hub'
+    })
+  }
+})
 export default class Search extends Vue {}
 </script>
 

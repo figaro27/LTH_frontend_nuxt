@@ -280,8 +280,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'terms' })
+@Component({
+  name: 'terms',
+  head() {
+    return buildMeta({
+      title: 'Terms Of Use - Legaltech Hub',
+      description: 'Terms Of Use - Legaltech Hub'
+    })
+  }
+})
 export default class Terms extends Vue {}
 </script>
 

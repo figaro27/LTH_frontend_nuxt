@@ -51,6 +51,7 @@
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-config-typescript": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@types/qs": "^6.9.3",
     "@types/validator": "^13.1.0",
     "@types/vue-clickaway": "^2.2.0",

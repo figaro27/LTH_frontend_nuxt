@@ -51,8 +51,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'about-us' })
+@Component({
+  name: 'about-us',
+  head() {
+    return buildMeta({
+      title: 'About Us - Legaltech Hub',
+      description: 'About Us - Legaltech Hub'
+    })
+  }
+})
 export default class AboutUs extends Vue {}
 </script>
 
@@ -65,7 +74,7 @@ $avatar-width: 130px;
   padding-bottom: 60px;
   @include col--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background: none;
   }
 }
@@ -73,7 +82,7 @@ $avatar-width: 130px;
 .about-us__content {
   padding: 30px 70px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 20px 20px;
   }
 }
@@ -94,7 +103,7 @@ $avatar-width: 130px;
   text-align: center;
   color: $colorDarkGrey;
   margin: 40px 40px 60px;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin: 40px 55px 60px;
   }
 }

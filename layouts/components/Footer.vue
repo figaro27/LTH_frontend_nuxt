@@ -99,7 +99,7 @@ export default class DefaultFooter extends Vue {
   background: $colorNeutralsSnow;
   text-align: left;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 20px;
   }
 }
@@ -112,7 +112,7 @@ export default class DefaultFooter extends Vue {
   @include row;
   margin: 50px 50px 30px 200px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin: 20px 0px 0px 0px;
   }
 }

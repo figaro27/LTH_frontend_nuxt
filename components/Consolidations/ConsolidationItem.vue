@@ -39,7 +39,7 @@ export default class ConsolidationItem extends Vue {
   width: 100%;
   @include col--center;
   padding: 2.5rem;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 0.5rem;
   }
 }
@@ -58,7 +58,7 @@ export default class ConsolidationItem extends Vue {
   color: #546e7a;
   z-index: 1;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     top: 0;
   }
 }
@@ -66,7 +66,7 @@ export default class ConsolidationItem extends Vue {
 .consolidation-item__title {
   @include typography(xl-1, narrow, bold);
   color: #8ea5bb;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     font-size: 1.25rem;
   }
 }
@@ -74,7 +74,7 @@ export default class ConsolidationItem extends Vue {
 .consolidation-item__with {
   @include typography(xl-1, narrow, bold);
   color: #8ea5bb;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     font-size: 1.25rem;
   }
 }

@@ -1,20 +1,24 @@
 <template>
   <div class="listing-card">
-    <h3 class="listing-card__title">Add/Update Your Listing</h3>
+    <h3 class="listing-card__title">Edit Your Listing</h3>
     <div class="listing-card__title-border" />
     <div class="listing-card__content">
-      <div class="listing-card__icon">
-        <img src="/images/svgs/main/pencil.svg" />
-      </div>
-
       <p class="listing-card__description">
         Legaltech professionals need relevant information on products, services and events. Help us get the right
         content to them. Click here to add or update your listing.
       </p>
     </div>
-    <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
-      Add
-    </button>
+    <div class="listing-card__button__container">
+      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
+        Add
+      </button>
+      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
+        Update
+      </button>
+      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
+        Upgrade
+      </button>
+    </div>
   </div>
 </template>
 
@@ -28,15 +32,15 @@ export default class MainListingCard extends Vue {}
 <style lang="scss" scoped>
 .listing-card {
   @include col--center;
-  padding: 35px 80px 30px;
+  padding: 35px 30px 30px;
   border-radius: 20px;
-  background: #ffffff;
+  background: #eef7ff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .listing-card__title {
   @include typography(xl, narrow, bold);
-  color: $colorDarkGrey;
+  color: #212353;
   margin-bottom: 5px;
 }
 
@@ -74,17 +78,25 @@ export default class MainListingCard extends Vue {}
   text-align: left;
 }
 
+.listing-card__button__container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+}
+
 .listing-card__button {
   width: 110px;
   height: 40px;
   @include row--center;
   @include typography(lg, narrow, bold);
   border-radius: 27px;
-  border: 1px solid $colorGreen;
-  color: $colorGreen;
+  border: 1px solid #bed7fc;
+  color: #212353;
   outline: none;
-  background: white;
-  align-self: flex-end;
+  background: #00000000;
+  align-self: flex-center;
+  margin-right: 8px;
+  margin-left: 8px;
   cursor: pointer;
 
   &:hover {
@@ -94,7 +106,7 @@ export default class MainListingCard extends Vue {}
     background: $colorLightGrey2;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-top: 10px;
   }
 }
