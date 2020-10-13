@@ -76,22 +76,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { CONSTS } from '@/utils'
 import { isMobile } from 'mobile-device-detect'
+import { buildMeta, CONSTS } from '@/utils'
 
 @Component({
   name: 'home',
   head() {
-    return {
+    return buildMeta({
       title: 'Legaltech Hub',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Legatech Hub'
-        }
-      ]
-    }
+      description: 'Legaltech Hub'
+    })
   }
 })
 export default class Home extends Vue {

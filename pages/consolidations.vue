@@ -26,8 +26,17 @@
 import { Component, Vue, State } from 'nuxt-property-decorator'
 import { RootState, LoadingStatus } from '@/store/types'
 import { Vendor } from '@/models'
+import { buildMeta } from '@/utils'
 
-@Component({ name: 'consolidations' })
+@Component({
+  name: 'consolidations',
+  head() {
+    return buildMeta({
+      title: 'Consolidations - Legaltech Hub',
+      description: 'Consolidations - Legaltech Hub'
+    })
+  }
+})
 export default class Consolidations extends Vue {
   @State((state: RootState) => state.consolidation.consolidations) consolidations!: Array<Vendor>
   @State((state: RootState) => state.consolidation.consolidationsLoading) consolidationsLoading!: LoadingStatus

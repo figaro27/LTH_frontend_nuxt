@@ -74,7 +74,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-import { api } from '@/utils'
+import { api, buildMeta } from '@/utils'
 
 type ContactData = {
   email: string
@@ -88,16 +88,10 @@ type ContactData = {
 @Component({
   name: 'contact-us',
   head() {
-    return {
-      title: 'Contact Us --- Legaltech Hub',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Contact Us --- Legatech Hub'
-        }
-      ]
-    }
+    return buildMeta({
+      title: 'Contact Us - Legaltech Hub',
+      description: 'Contact Us - Legaltech Hub'
+    })
   }
 })
 export default class ContactUs extends Vue {

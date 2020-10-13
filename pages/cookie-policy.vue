@@ -362,8 +362,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '@/utils'
 
-@Component({ name: 'coolie-policy' })
+@Component({
+  name: 'coolie-policy',
+  head() {
+    return buildMeta({
+      title: 'Cookie Policy - Legaltech Hub',
+      description: 'Cookie Policy - Legaltech Hub'
+    })
+  }
+})
 export default class CookiePolicy extends Vue {}
 </script>
 

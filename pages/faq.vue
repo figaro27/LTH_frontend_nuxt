@@ -21,8 +21,17 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { FAQData } from '@/components/FAQ/FaqQuestion.vue'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'faq' })
+@Component({
+  name: 'faq',
+  head() {
+    return buildMeta({
+      title: 'FAQ - Legaltech Hub',
+      description: 'FAQ - Legaltech Hub'
+    })
+  }
+})
 export default class FAQ extends Vue {
   openedItem: number | null = null
   get faqs(): FAQData[] {

@@ -26,8 +26,17 @@
 import { Component, Vue, State } from 'nuxt-property-decorator'
 import { RootState, LoadingStatus } from '@/store/types'
 import { Vendor } from '@/models'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'graveyards' })
+@Component({
+  name: 'graveyards',
+  head() {
+    return buildMeta({
+      title: 'Graveyards - Legaltech Hub',
+      description: 'Graveyards - Legaltech Hub'
+    })
+  }
+})
 export default class Graveyards extends Vue {
   @State((state: RootState) => state.graveyard.graveyards) graveyards!: Array<Vendor>
   @State((state: RootState) => state.graveyard.graveyardsLoading) graveyardsLoading!: LoadingStatus

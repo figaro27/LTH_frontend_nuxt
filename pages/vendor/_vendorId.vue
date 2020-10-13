@@ -147,7 +147,7 @@
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 
 import { Vendor } from '@/models'
-import { api } from '@/utils'
+import { api, buildMeta } from '@/utils'
 
 @Component({
   name: 'single-vendor',
@@ -160,16 +160,11 @@ import { api } from '@/utils'
     }
   },
   head() {
-    return {
-      title: `${this.$data.data.name} - Legaltech Hub`,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.$data.data.name} - Legatech Hub`
-        }
-      ]
-    }
+    const { name } = this.$data.data
+    return buildMeta({
+      title: `${name} - Legaltech Hub`,
+      description: `${name} - Legaltech Hub`
+    })
   }
 })
 export default class SingleVendor extends Vue {

@@ -47,8 +47,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'blogs' })
+@Component({
+  name: 'blogs',
+  head() {
+    return buildMeta({
+      title: 'Legaltech Resources - Legaltech Hub',
+      description: 'Legaltech Resources - Legaltech Hub'
+    })
+  }
+})
 export default class Blogs extends Vue {
   get blogSections() {
     return [
