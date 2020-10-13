@@ -6,7 +6,7 @@
 
       <div class="home__main__left-side">
         <popular-searchs class="home__popular-searchs" />
-        <ad v-if="!isMobile" direction="vertical" type="home" position="left" />
+        <ad v-if="!isMobile" class="home__left-ad" direction="vertical" type="home" position="left" />
       </div>
 
       <div class="home__main__content">
@@ -32,7 +32,12 @@
       </div>
       <div class="home__main__right-side">
         <tool-of-month class="home__tool-of-the-month" />
-        <ad v-if="!isMobile" direction="vertical" position="right" type="home" />
+        <div class="home__main__right-side__absolute">
+          <ad v-if="!isMobile" class="home__right-ad" direction="vertical" position="right" type="home" />
+          <div class="home__summary__twitter">
+            <twitter-feed class="home__twitter-feed" />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -47,9 +52,6 @@
           <div v-for="(item, index) of links" :key="index" class="home__summary__link-container">
             <link-item class="home__summary__link" :data="item" />
           </div>
-        </div>
-        <div class="home__summary__twitter">
-          <twitter-feed class="home__twitter-feed" />
         </div>
       </div>
       <div class="home__summary-listing">
@@ -164,6 +166,7 @@ export default class Home extends Vue {
   width: 100vw;
   @include row;
   justify-content: center;
+
   @include respondTo(mobile) {
     flex-direction: column;
   }
@@ -188,8 +191,10 @@ export default class Home extends Vue {
 }
 
 .home__main__left-side {
+  position: relative;
   width: 16%;
   max-width: 210px;
+  height: fit-content;
   margin: 20px;
   z-index: 1;
   margin-left: 40px;
@@ -203,6 +208,13 @@ export default class Home extends Vue {
   margin-bottom: 10px;
 }
 
+.home__left-ad {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
 .home__main__content {
   flex: 1;
   @include col;
@@ -212,8 +224,10 @@ export default class Home extends Vue {
 }
 
 .home__main__right-side {
+  position: relative;
   width: 270px;
   min-width: 270px;
+  height: fit-content;
   margin: 0 20px 20px 20px;
   z-index: 1;
   padding-right: 30px;
@@ -222,6 +236,7 @@ export default class Home extends Vue {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
+    height: auto;
     padding-right: 0;
   }
 }
@@ -230,11 +245,30 @@ export default class Home extends Vue {
   margin-bottom: 5px;
 }
 
+.home__main__right-side__absolute {
+  @include col;
+
+  @include respondFrom(mobile) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 30px;
+  }
+}
+
+.home__right-ad {
+  width: 100%;
+}
+
 .home__twitter-feed {
   width: 243px;
   min-width: 215px;
-  margin: 0 50px 20px 20px;
+  margin: 10px 0 0 0;
   z-index: 1;
+
+  @include respondTo(mobile) {
+    margin: 0 50px 20px 20px;
+  }
 }
 
 .home__main__title {
@@ -369,7 +403,7 @@ export default class Home extends Vue {
 }
 
 .home__summary-listing__card {
-  width: 70%;
+  width: 65%;
   height: 100%;
   z-index: 1;
   background: #eef7ff;
