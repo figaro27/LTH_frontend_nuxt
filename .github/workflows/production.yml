@@ -25,7 +25,7 @@ jobs:
         NUXT_APP_API_URL=https://api.legaltechnologyhub.com yarn build
     - name: Yarn Generate
       run: |
-        NUXT_APP_API_URL=https://api.legaltechnologyhub.com yarn build
+        NUXT_APP_API_URL=https://api.legaltechnologyhub.com yarn generate
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
