@@ -228,7 +228,6 @@ export default class DefaultHeader extends Vue {
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  // @include col--center;
   padding-top: 20px;
 
   display: flex;
@@ -238,9 +237,8 @@ export default class DefaultHeader extends Vue {
 
 .header__logo {
   width: 20%;
-  // max-width: 20em;
-  // padding-left: 3em;
-  // padding-right: 0;
+  margin-left: 100px;
+
   @media (max-width: 640px) {
     width: 50%;
   }
