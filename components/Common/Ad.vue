@@ -1,5 +1,5 @@
 <template>
-  <a v-if="adImage" class="ad" :href="adRedirectUrl" target="_blank">
+  <a v-if="adImage" class="ad" :href="adRedirectUrl" target="_blank" @click="onClick">
     <img :src="adImage" />
   </a>
 </template>
@@ -61,6 +61,11 @@ export default class ad extends Vue {
       this.$store.dispatch('ads/loadActiveAd')
     }
   }
+
+  onClick() {
+    if (!this.adPosition) return
+    this.$ga.event('ad', 'click', this.adPosition.name)
+  }
 }
 </script>
 
@@ -68,12 +73,13 @@ export default class ad extends Vue {
 .ad {
   overflow: hidden;
   text-decoration: none;
-  margin: 25px 0;
 
   img {
     width: 100%;
+    margin: 25px 0;
     overflow: hidden;
     object-fit: contain;
+    box-shadow: 0px 0 4px 2px rgba(0, 0, 0, 0.13);
   }
 }
 </style>

@@ -67,7 +67,18 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/google-analytics'],
+  googleAnalytics: {
+    id: 'G-CYMGED3VD7',
+    set: [{ field: 'anonymizeIp', value: true }],
+    autoTracking: {
+      exception: true
+    },
+    debug: {
+      enabled: process.env.NODE_ENV === 'development',
+      sendHitTask: true
+    }
+  },
   /*
    ** Nuxt.js modules
    */

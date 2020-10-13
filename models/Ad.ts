@@ -1,4 +1,5 @@
 export type AdPosition = {
+  name: string
   image: string
   redirectUrl: string
 }
