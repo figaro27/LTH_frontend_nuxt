@@ -18,7 +18,7 @@
           <search-box v-model="keyword" @search="onSearch" />
         </div>
         <saved-searchs class="home__saved-searchs" />
-        <!-- <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" /> -->
+        <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
       </div>
       <div class="home__main__popular-searchs">
         <nuxt-link
@@ -74,7 +74,7 @@
       </nuxt-link>
     </div>
 
-    <ad class="home__horizontal-ad" direction="horizontal" type="home" />
+    <ad class="home__horizontal-ad" direction="horizontal" :type="isMobile ? 'common' : 'home'" />
   </div>
 </template>
 

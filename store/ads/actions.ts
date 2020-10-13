@@ -33,6 +33,13 @@ const actions: AdActions = {
           redirectUrl: 'https://www.litera.com/?utm_source=legaltechhub&utm_medium=banner&utm_campaign=lthublaunch'
         },
 
+        mobileHomeHorizontalAd: {
+          name: 'iManage',
+          image: 'https://legal-uploads.s3.us-east-2.amazonaws.com/ads/samples/KU25_Mobile-Home-Horizontal-Ad.gif',
+          redirectUrl:
+            'https://imanage.com/solution/knowledge-unlocked/?utm_medium=display&utm_source=media-partner&utm_campaign=legaltech-hub-advertising&vertical=all'
+        },
+
         desktopHomeLeftVerticalAd: {
           name: 'iManage',
           image: 'https://legal-uploads.s3.us-east-2.amazonaws.com/ads/samples/KU25_Home-Vertical-Ad_460x800.gif',

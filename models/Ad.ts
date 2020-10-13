@@ -13,6 +13,8 @@ export type Ad = {
     desktopCommonHorizontalAd: AdPosition
     mobileCommonHorizontalAd: AdPosition
 
+    mobileHomeHorizontalAd: AdPosition
+
     desktopHomeLeftVerticalAd: AdPosition
     desktopCommonLeftVerticalAd: AdPosition
     mobileCommonLeftVerticalAd: AdPosition
