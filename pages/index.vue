@@ -18,7 +18,7 @@
           <search-box v-model="keyword" @search="onSearch" />
         </div>
         <saved-searchs class="home__saved-searchs" />
-        <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
+        <!-- <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" /> -->
       </div>
       <div class="home__main__popular-searchs">
         <nuxt-link
@@ -54,13 +54,15 @@
           </div>
         </div>
       </div>
+      <!-- <div class="home__summary-listing">
+        <ad class="home__horizontal-ad" direction="horizontal" type="home" />
+      </div> -->
       <div class="home__summary-listing">
         <main-listing-card class="home__summary-listing__card" />
         <img src="/images/svgs/bubbles.svg" class="home__summary-listing__left-bubbles" />
         <img src="/images/svgs/bubbles2.svg" class="home__summary-listing__right-bubbles" />
       </div>
     </div>
-
     <div class="home__others">
       <nuxt-link class="link-item home__summary__link" to="/graveyards">
         <img class="link-item__icon" :src="others[0].icon" />
@@ -72,7 +74,7 @@
       </nuxt-link>
     </div>
 
-    <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
+    <ad class="home__horizontal-ad" direction="horizontal" type="home" />
   </div>
 </template>
 
