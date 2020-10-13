@@ -1,6 +1,6 @@
 <template>
   <div class="regions-hero" :class="{ 'regions-hero--main': isMain }">
-    <ad class="regions-hero__left-ad" direction="vertical" />
+    <ad class="regions-hero__left-ad" direction="vertical" position="left" />
 
     <div class="regions-hero__content">
       <div class="regions-hero__title-section">
@@ -16,7 +16,7 @@
       <img class="regions-hero__map" :src="data.map" />
     </div>
 
-    <ad class="regions-hero__right-ad" direction="vertical" />
+    <ad class="regions-hero__right-ad" direction="vertical" position="right" />
   </div>
 </template>
 

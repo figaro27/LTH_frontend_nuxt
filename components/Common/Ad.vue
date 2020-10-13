@@ -1,5 +1,5 @@
 <template>
-  <a v-if="activeAd" class="ad" :href="activeAd.redirectUrl" target="_blank">
+  <a v-if="adImage" class="ad" :href="adRedirectUrl" target="_blank">
     <img :src="adImage" />
   </a>
 </template>
@@ -14,29 +14,46 @@ import { RootState } from '~/store/types'
 @Component({ name: 'ad' })
 export default class ad extends Vue {
   @Prop({ required: true }) direction!: 'vertical' | 'horizontal'
+  @Prop({ required: false, default: 'right' }) position!: 'right' | 'left'
   @Prop({ required: false, default: 'common' }) type!: 'home' | 'common'
+
   @State((state: RootState) => state.ads.activeAd) activeAd!: Ad | null
 
-  get adImage() {
-    const { activeAd, direction, type } = this
+  get adPosition() {
+    const { activeAd, direction, position, type } = this
     if (!activeAd) {
       return null
     }
 
+    const { adPositions } = activeAd
     if (isMobile) {
       if (direction === 'horizontal') {
-        return activeAd.mobileCommonHorizontalAd
+        return adPositions.mobileCommonHorizontalAd
       } else {
-        return activeAd.mobileCommonVerticalAd
+        return position === 'left' ? adPositions.mobileCommonLeftVerticalAd : adPositions.mobileCommonRightVerticalAd
       }
     }
     if (type === 'home') {
-      if (direction === 'horizontal') return activeAd.desktopHomeHorizontalAd
-      else return activeAd.desktopHomeVerticalAd
+      if (direction === 'horizontal') {
+        return adPositions.desktopHomeHorizontalAd
+      } else {
+        return position === 'left' ? adPositions.desktopHomeLeftVerticalAd : adPositions.desktopHomeRightVerticalAd
+      }
     }
 
-    if (direction === 'horizontal') return activeAd.desktopCommonHorizontalAd
-    else return activeAd.desktopCommonVerticalAd
+    if (direction === 'horizontal') {
+      return adPositions.desktopCommonHorizontalAd
+    } else {
+      return position === 'left' ? adPositions.desktopCommonLeftVerticalAd : adPositions.desktopCommonRightVerticalAd
+    }
+  }
+
+  get adImage() {
+    return this.adPosition && this.adPosition.image
+  }
+
+  get adRedirectUrl() {
+    return this.adPosition && this.adPosition.redirectUrl
   }
 
   mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div class="blogs">
-    <ad class="blogs__left-ad" direction="vertical" />
+    <ad class="blogs__left-ad" direction="vertical" position="left" />
 
     <div class="blogs__content">
       <client-only>
@@ -41,7 +41,7 @@
       </client-only>
     </div>
 
-    <ad class="blogs__right-ad" direction="vertical" />
+    <ad class="blogs__right-ad" direction="vertical" position="right" />
   </div>
 </template>
 

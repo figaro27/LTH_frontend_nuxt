@@ -3,7 +3,7 @@
     <tool-of-month class="search-ads__tool-of-the-month" />
     <popular-searchs class="search-ads__popular-searchs" />
 
-    <ad class="search-ads__ad" direction="vertical" />
+    <ad class="search-ads__ad" direction="vertical" position="right" />
   </div>
 </template>
 

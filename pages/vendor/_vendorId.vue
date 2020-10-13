@@ -1,7 +1,7 @@
 <template>
   <div class="single-vendor">
     <div class="single-vendor__content">
-      <ad class="single-vendor__left-ad" direction="vertical" />
+      <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
       <template v-if="data">
         <div class="single-vendor__header">
@@ -138,7 +138,7 @@
         <similar-vendors :vendor-id="vendorId" class="single-vendor__similar-results" />
       </template>
 
-      <ad class="single-vendor__right-ad" direction="vertical" />
+      <ad class="single-vendor__right-ad" position="right" direction="vertical" />
     </div>
   </div>
 </template>

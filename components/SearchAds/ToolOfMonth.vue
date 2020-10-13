@@ -1,6 +1,10 @@
 <template>
   <div class="tool-of-month">
     <img class="tool-of-month-image" src="https://legal-uploads.s3.us-east-2.amazonaws.com/ads/ilves.svg" />
+    <img
+      class="tool-of-month-image--mobile"
+      src="https://legal-uploads.s3.us-east-2.amazonaws.com/ads/ilves-mobile.svg"
+    />
     <div class="tool-of-month-content">
       <h2 class="tool-of-month__title">
         Tool Of the Month
@@ -49,6 +53,19 @@ export default class ToolOfWeek extends Vue {
 
 .tool-of-month-image {
   width: 100%;
+
+  @include respondTo(mobile) {
+    display: none;
+  }
+}
+
+.tool-of-month-image--mobile {
+  width: 100%;
+  display: none;
+
+  @include respondTo(mobile) {
+    display: block;
+  }
 }
 
 .tool-of-month-content {
@@ -56,12 +73,25 @@ export default class ToolOfWeek extends Vue {
   right: 10px;
   bottom: 10px;
   left: 10px;
+
+  @include respondTo(mobile) {
+    max-width: 35%;
+    left: auto;
+    top: 10px;
+    @include col;
+    align-items: flex-end;
+  }
 }
 
 .tool-of-month__title {
   @include typography(xl, narrow, bold);
   color: $colorLightNavy;
   margin-bottom: 5px;
+
+  @include respondTo(mobile) {
+    text-align: right;
+    @include typography(lg-1, narrow, bold);
+  }
 }
 
 .tool-of-month__description {
@@ -70,6 +100,13 @@ export default class ToolOfWeek extends Vue {
   margin-bottom: 10px;
   color: $colorLightBlue;
   flex: 1;
+
+  @include respondTo(mobile) {
+    @include typography(md);
+    max-width: 80%;
+    margin: 0;
+    text-align: right;
+  }
 }
 
 .tool-of-month__learn-more {
@@ -89,6 +126,10 @@ export default class ToolOfWeek extends Vue {
 
   &:hover {
     text-decoration: underline;
+  }
+
+  @include respondTo(mobile) {
+    @include typography(md-1, default, bold);
   }
 }
 </style>

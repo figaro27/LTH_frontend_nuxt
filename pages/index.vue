@@ -6,7 +6,7 @@
 
       <div class="home__main__left-side">
         <popular-searchs class="home__popular-searchs" />
-        <ad v-if="!isMobile" direction="vertical" type="home" />
+        <ad v-if="!isMobile" direction="vertical" type="home" position="left" />
       </div>
 
       <div class="home__main__content">
@@ -32,7 +32,7 @@
       </div>
       <div class="home__main__right-side">
         <tool-of-month class="home__tool-of-the-month" />
-        <ad v-if="!isMobile" direction="vertical" type="home" />
+        <ad v-if="!isMobile" direction="vertical" position="right" type="home" />
       </div>
     </div>
 

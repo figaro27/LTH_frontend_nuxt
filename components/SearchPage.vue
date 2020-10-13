@@ -79,7 +79,7 @@
           @change="onFilterUpdate"
         />
 
-        <ad class="search-page__left-ad" direction="vertical" />
+        <ad class="search-page__left-ad" direction="vertical" position="left" />
       </div>
       <div v-loading="vendorsLoading !== 2" class="search-page__content">
         <div class="search-page__content-wrapper">
