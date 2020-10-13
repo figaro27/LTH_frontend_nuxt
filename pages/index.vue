@@ -31,7 +31,7 @@
         </nuxt-link>
       </div>
       <div class="home__main__right-side">
-        <tool-of-week class="home__tool-of-the-week" />
+        <tool-of-month class="home__tool-of-the-month" />
         <ad v-if="!isMobile" direction="vertical" type="home" />
       </div>
     </div>
@@ -226,7 +226,7 @@ export default class Home extends Vue {
   }
 }
 
-.home__tool-of-the-week {
+.home__tool-of-the-month {
   margin-bottom: 5px;
 }
 
