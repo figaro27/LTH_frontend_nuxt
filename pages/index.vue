@@ -11,8 +11,8 @@
 
       <div class="home__main__content">
         <div class="home__main__title">
-          <h1>Find Legaltech Tools, Events and more</h1>
-          <h3>Search across our global directories</h3>
+          <h2>Find LegalTech tools, events and more, in your area, in your language,</h2>
+          <h2>by searching across our global directories.</h2>
         </div>
         <div class="home__main__search-box">
           <search-box v-model="keyword" @search="onSearch" />
@@ -378,7 +378,7 @@ export default class Home extends Vue {
   width: 70%;
   height: 100%;
   z-index: 1;
-
+  background: #eef7ff;
   @media (max-width: 640px) {
     width: 90%;
     padding: 1.1875rem 5rem 0.875rem !important;
