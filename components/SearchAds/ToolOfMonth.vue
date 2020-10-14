@@ -13,7 +13,7 @@
         Check out the Enterprise Search tool by Ilves
       </div>
       <div class="tool-of-month__learn-more">
-        <nuxt-link class="tool-of-month__learn-more__link" to="/vendor/914" @click.native="onLearnMore">
+        <nuxt-link class="tool-of-month__learn-more__link" to="/vendor/914">
           Learn more <img src="@/assets/icons/chevron-right.svg" />
         </nuxt-link>
       </div>
@@ -27,10 +27,6 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component({ name: 'tool-of-month' })
 export default class ToolOfWeek extends Vue {
   // TODO: Add backend support
-
-  onLearnMore() {
-    this.$ga.event('tool_of_month', 'click_learn_more')
-  }
 }
 </script>
 
