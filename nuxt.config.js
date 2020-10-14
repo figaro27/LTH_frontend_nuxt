@@ -39,7 +39,8 @@ export default {
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans' },
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans+Narrow' },
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Rochester' }
-    ]
+    ],
+    script: [{ src: 'https://www.googletagmanager.com/gtag/js?id=G-KJZ26BZ4WK', async: true }, { src: '/js/gtag.js' }]
   },
   /*
    ** Global CSS
@@ -67,18 +68,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxt/typescript-build', '@nuxtjs/google-analytics'],
-  googleAnalytics: {
-    id: 'G-CYMGED3VD7',
-    set: [{ field: 'anonymizeIp', value: true }],
-    autoTracking: {
-      exception: true
-    },
-    debug: {
-      enabled: process.env.NODE_ENV === 'development',
-      sendHitTask: true
-    }
-  },
+  buildModules: ['@nuxt/typescript-build'],
   /*
    ** Nuxt.js modules
    */
