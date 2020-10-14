@@ -43,7 +43,6 @@ export default class SimilarVendors extends Vue {
     try {
       res = await api.get(`vendors/${this.vendorId}/similar`)
     } catch (err) {
-      console.error(err)
       this.loadingStatus = LoadingStatus.Loaded
       return
     }

@@ -253,7 +253,6 @@ export default class Search extends Vue {
     try {
       await Promise.all(promises)
     } catch (err) {
-      console.error(err)
       this.filterOptionsLoaded = true
       return
     }
