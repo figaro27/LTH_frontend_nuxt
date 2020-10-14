@@ -22,10 +22,10 @@ jobs:
         yarn lint
     - name: Yarn Build
       run: |
-        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com yarn build
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NODE_ENV=staging yarn build
     - name: Yarn Generate
       run: |
-        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com yarn generate
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NODE_ENV=staging yarn generate
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
