@@ -40,7 +40,10 @@ export default {
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans+Narrow' },
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Rochester' }
     ],
-    script: [{ src: 'https://www.googletagmanager.com/gtag/js?id=G-KJZ26BZ4WK', async: true }, { src: '/js/gtag.js' }]
+    script:
+      process.env.NODE_ENV === 'production'
+        ? [{ src: 'https://www.googletagmanager.com/gtag/js?id=G-KJZ26BZ4WK', async: true }, { src: '/js/gtag.js' }]
+        : []
   },
   /*
    ** Global CSS
