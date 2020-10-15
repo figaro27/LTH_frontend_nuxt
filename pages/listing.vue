@@ -3,19 +3,15 @@
     <div class="listing__content">
       <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
       <p class="listing__description">
-        Legal professionals need relevant information on legaltech products, services and events. Help us get the right
-        content to them. Click <nuxt-link to="/">here</nuxt-link> to add or update your listing.
+        Thanks for sending. Our team will verify this info and we will send you an email with how your listing looks
+        when we post.
       </p>
-      <div class="listing__buttons">
-        <nuxt-link class="listing__button" to="/">
-          <div class="listing__button__icon"><img src="/images/listings/plus.svg" /></div>
-          <label class="listing__button__label"> Add a new Listing </label>
-        </nuxt-link>
-        <nuxt-link class="listing__button" to="/">
-          <div class="listing__button__icon"><img src="/images/listings/pencil.svg" /></div>
-          <label class="listing__button__label"> Update Listing </label>
-        </nuxt-link>
-      </div>
+      <img class="listing__image" src="/images/listings/listing.svg" />
+      <p class="listing__description-guide">
+        Remember that you have the option of supercharging your presence with an enhanced listing for a small annual
+        fee. &nbsp;<nuxt-link class="listing__description-link" to="/contact-us">Contact Us</nuxt-link> to find out
+        more.
+      </p>
     </div>
   </div>
 </template>
@@ -39,6 +35,7 @@ export default class Listing extends Vue {}
 <style lang="scss" scoped>
 .listing {
   @include desktop-max-width-layout;
+  background: #effadf;
   margin-top: 70px;
   padding-bottom: 60px;
 }
@@ -56,10 +53,25 @@ export default class Listing extends Vue {}
   }
 }
 
+.listing__image {
+  width: 100%;
+}
+
 .listing__description {
-  @include typography(xl);
-  color: $colorDarkGrey;
+  @include typography(xl-1, narrow, bold);
+  color: $colorNavy;
   margin: 40px 40px 60px;
+}
+
+.listing__description-guide {
+  @include typography(xl-1, narrow);
+  color: $colorNavy;
+  margin: 40px 40px 60px;
+}
+
+.listing__description-link {
+  @include typography(xl-1, narrow);
+  color: $colorNavy;
 }
 
 .listing__buttons {
