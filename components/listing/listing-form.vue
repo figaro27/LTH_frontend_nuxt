@@ -266,7 +266,6 @@ export default class ListingForm extends Vue {
   background: #dbf4bc;
   align-self: flex-center;
   margin-right: 8px;
-  margin-left: 8px;
   cursor: pointer;
   @include respondTo(mobile) {
     padding-right: 8px;
@@ -287,16 +286,16 @@ export default class ListingForm extends Vue {
   align-self: flex-center;
   margin-right: 8px;
   cursor: pointer;
+  @include respondTo(mobile) {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
 
   &:hover {
     background: $colorNeutralsSnow;
   }
   &:active {
     background: $colorLightGrey2;
-  }
-
-  @include respondTo(mobile) {
-    margin-top: 10px;
   }
 }
 
@@ -313,11 +312,15 @@ export default class ListingForm extends Vue {
   @include typography(xl, narrow);
   color: #80c41c;
   margin-left: 8px;
+  @include respondTo(mobile) {
+    @include typography(lg, narrow);
+  }
 }
 
 .listing-form__header {
   margin-right: auto;
   padding-left: 12px;
+  margin-top: 24px;
 }
 
 .listing-form__function {
