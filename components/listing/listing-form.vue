@@ -4,18 +4,30 @@
     <div class="listing-form__header">
       <p class="listing__label">I want to</p>
       <div class="listing-action__group">
-        <div class="listing-action__container">
-          <img src="/images/listings/listing-form-pencil.svg" />
-          <label class="listing-action__label">Update an existing list</label>
-        </div>
-        <div class="listing-action__container">
-          <img src="/images/listings/listing-form-add.svg" />
-          <label class="listing-action__label">Add a new listing</label>
-        </div>
+        <button
+          :class="!isAddSelected ? 'listing-action__container' : 'listing-action__container__selected'"
+          @click="updateSelection(true)"
+        >
+          <img :src="!isAddSelected ? '/images/listings/add.svg' : '/images/listings/add_selected.svg'" />
+          <label :class="!isAddSelected ? 'listing-action__label' : 'listing-action__label__selected'"
+            >Add a new listing</label
+          >
+        </button>
+        <button
+          :class="!isUpdateSelected ? 'listing-action__container' : 'listing-action__container__selected'"
+          @click="updateSelection(false)"
+        >
+          <img
+            :src="!isUpdateSelected ? '/images/listings/form-pencil.svg' : '/images/listings/form-pencil_selected.svg'"
+          />
+          <label :class="!isUpdateSelected ? 'listing-action__label' : 'listing-action__label__selected'"
+            >Update an existing listing</label
+          >
+        </button>
       </div>
     </div>
 
-    <div class="listing-form__function">
+    <form class="listing-form__function" @submit="submit">
       <div class="listing-form__input">
         <label class="listing__label">Vendor Name *</label>
         <input class="listing-action__container" />
@@ -113,7 +125,7 @@
         <textarea class="listing-action__container" />
         <label class="listing__label__placeholder">0/500</label>
       </div>
-    </div>
+    </form>
     <button class="listing-form__button">Submit</button>
   </div>
 </template>
@@ -140,6 +152,9 @@ export default class ListingForm extends Vue {
   @State((state: RootState) => state.search.totalVendors) total!: number
   @State((state: RootState) => state.search.vendorsLastFilter) lastSearch!: Filters
   @State((state: RootState) => state.search.vendorsPage) curPageNum!: Filters
+
+  isAddSelected: boolean = false
+  isUpdateSelected: boolean = false
 
   filterOptionsLoaded: boolean = false
 
@@ -178,6 +193,13 @@ export default class ListingForm extends Vue {
     }
     this.filterOptionsLoaded = true
   }
+
+  updateSelection(isAdd: boolean) {
+    this.isAddSelected = isAdd
+    this.isUpdateSelected = !isAdd
+  }
+
+  submit() {}
 }
 </script>
 
@@ -228,6 +250,23 @@ export default class ListingForm extends Vue {
   flex-direction: row;
   margin-top: 16px;
 }
+
+.listing-action__container__selected {
+  min-width: 200px;
+  padding-right: 16px;
+  padding-left: 16px;
+  height: 48px;
+  @include row--center;
+  @include typography(lg, narrow, bold);
+  border-radius: 8px;
+  border: 1px solid #80c41c;
+  outline: none;
+  background: #dbf4bc;
+  align-self: flex-center;
+  margin-right: 8px;
+  margin-left: 8px;
+  cursor: pointer;
+}
 .listing-action__container {
   min-width: 200px;
   padding-right: 16px;
@@ -262,6 +301,12 @@ export default class ListingForm extends Vue {
   margin-left: 8px;
 }
 
+.listing-action__label__selected {
+  @include typography(xl, narrow);
+  color: #80c41c;
+  margin-left: 8px;
+}
+
 .listing-form__header {
   margin-right: auto;
   padding-left: 12px;
@@ -277,12 +322,31 @@ export default class ListingForm extends Vue {
     text-align: left;
     padding: 0px 12px;
 
-    .search-filter__label {
+    ::v-deep .search-filter__label {
       @include typography(xl, narrow, bold);
       color: #546e7a;
       text-align: left;
-      margin-left: 37px;
+      margin-left: 12px;
       margin-bottom: 8px;
+    }
+
+    ::v-deep .multiselect {
+      padding-right: 4px;
+      padding-left: 4px;
+      border-radius: 8px;
+      background: #00000000;
+      border: 1px solid #546e7a;
+      span {
+        color: $colorDarkGrey;
+      }
+    }
+
+    ::v-deep .multiselect__tags {
+      .multiselect__input {
+        background: #00000000;
+      }
+      background: #00000000;
+      border: 0px solid #00000000;
     }
   }
   .listing-form__input {
