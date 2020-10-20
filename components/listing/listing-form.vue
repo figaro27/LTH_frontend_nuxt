@@ -331,6 +331,7 @@ export default class ListingForm extends Vue {
     }
 
     ::v-deep .multiselect {
+      margin-left: 12px;
       padding-right: 4px;
       padding-left: 4px;
       border-radius: 8px;
