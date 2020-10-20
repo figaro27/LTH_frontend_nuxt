@@ -57,6 +57,7 @@ export default class SelectFilter extends Vue {
   color: $colorNavy;
   margin-bottom: 5px;
   text-align: left;
+  padding: 5px;
 }
 
 .search-filter__select {
