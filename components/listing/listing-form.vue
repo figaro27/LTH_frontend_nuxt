@@ -215,9 +215,8 @@ export default class ListingForm extends Vue {
   }
 
   @include respondTo(mobile) {
-    width: 40%;
+    width: 100%;
     min-width: 35%;
-    margin-right: 0;
   }
 }
 
@@ -243,6 +242,9 @@ export default class ListingForm extends Vue {
   color: #546e7a;
   text-align: left;
   margin-left: 12px;
+  @include respondTo(mobile) {
+    @include typography(md, narrow);
+  }
 }
 
 .listing-action__group {
@@ -266,6 +268,10 @@ export default class ListingForm extends Vue {
   margin-right: 8px;
   margin-left: 8px;
   cursor: pointer;
+  @include respondTo(mobile) {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
 }
 .listing-action__container {
   min-width: 200px;
@@ -280,7 +286,6 @@ export default class ListingForm extends Vue {
   background: #00000000;
   align-self: flex-center;
   margin-right: 8px;
-  margin-left: 8px;
   cursor: pointer;
 
   &:hover {
@@ -299,6 +304,9 @@ export default class ListingForm extends Vue {
   @include typography(xl, narrow);
   color: #546e7a;
   margin-left: 8px;
+  @include respondTo(mobile) {
+    @include typography(lg, narrow);
+  }
 }
 
 .listing-action__label__selected {
@@ -321,7 +329,9 @@ export default class ListingForm extends Vue {
     width: 50%;
     text-align: left;
     padding: 0px 12px;
-
+    @include respondTo(mobile) {
+      padding: 0px 6px;
+    }
     ::v-deep .search-filter__label {
       @include typography(xl, narrow, bold);
       color: #546e7a;
@@ -331,7 +341,6 @@ export default class ListingForm extends Vue {
     }
 
     ::v-deep .multiselect {
-      margin-left: 12px;
       padding-right: 4px;
       padding-left: 4px;
       border-radius: 8px;
@@ -354,6 +363,9 @@ export default class ListingForm extends Vue {
     width: 50%;
     text-align: left;
     padding: 12px;
+    @include respondTo(mobile) {
+      padding: 6px;
+    }
     .listing-action__container {
       width: 100%;
       margin-top: 8px;
