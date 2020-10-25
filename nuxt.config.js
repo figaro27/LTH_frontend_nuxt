@@ -61,7 +61,9 @@ export default {
     { src: '@/plugins/vue-multiselect.js', ssr: false },
     { src: '@/plugins/vue-paginate.js', ssr: false },
     { src: '@/plugins/vue-recaptcha-v3.js', ssr: false },
-    { src: '@/plugins/vue-text-highlight.js', ssr: false }
+    { src: '@/plugins/vue-text-highlight.js', ssr: false },
+    { src: '@/plugins/vue-avatar.js', ssr: false },
+    { src: '@/plugins/vue-youtube.js', ssr: false }
   ],
   /*
    ** Auto import components
