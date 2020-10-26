@@ -1,116 +1,91 @@
 <template>
-  <div>
+  <v-popover trigger="click" popover-class="popover--usecase">
     <div class="use-case">
       <label class="use-case__caption">Browse by Use Case</label>
-      <img src="/images/faq/chevron-opened.svg" v-on:click="showMenu" />
+      <img src="/images/faq/chevron-opened.svg" />
     </div>
-    <div v-if="isPopupMenuClicked" v-on-click="away" class="sidebar">
-      <ul class="sidebar__menu">
-        <li v-for="(item, index) in menus" :key="index" class="sidebar__menu__item" @click="collapseItem(index, item)">
-          <router-link :to="{ path: '/search', query: { functionalities: item.filter.functionalities.join(',') } }">
-            <span>{{ item.name }}</span>
+
+    <template #popover>
+      <div class="use-cases__menu">
+        <template v-for="(item, index) in menus">
+          <div :key="`parent-${index}`" class="use-cases__menu-item">
+            <router-link
+              class="use-cases__menu-item__link"
+              :to="{ path: '/search', query: { functionalities: item.filter.functionalities.join(',') } }"
+            >
+              {{ item.name }}
+            </router-link>
             <div
-              v-if="item.filter && item.filter.functionalities.length"
-              class="sidebar__menu__item-icon"
-              :class="{ 'sidebar__menu__item-icon--active': item.name === selectedMenu }"
-            />
-            <transition name="slide-fade">
-              <ul v-if="openedItems[index]" class="sidebar__menu__child">
-                <li
-                  v-for="(child, childIndex) in item.filter.functionalities"
-                  :key="childIndex"
-                  class="sidebar__menu__child--item"
-                  @click="hideMenu(child)"
-                >
-                  <router-link
-                    :to="{ path: '/search', query: { functionalities: child } }"
-                    class="header__link"
-                    active-class="header__link--active"
-                    @click.stop
-                  >
-                    {{ child.text }}
-                  </router-link>
-                </li>
-              </ul>
-            </transition>
-          </router-link>
-        </li>
-      </ul>
-    </div>
-  </div>
+              class="use-cases__menu-item__icon"
+              :class="{ 'use-cases__menu-item__icon--active': selectedMenuIndex === index }"
+              @click="onMenu(index)"
+            >
+              <img v-if="item.filter && item.filter.functionalities.length" src="/images/faq/chevron-opened.svg" />
+            </div>
+          </div>
+
+          <div v-if="selectedMenuIndex === index" :key="`child-${index}`" class="use-cases__menu__children">
+            <router-link
+              v-for="(child, childIndex) of item.filter.functionalities"
+              :key="childIndex"
+              :to="{ path: '/search', query: { functionalities: child } }"
+              class="use-cases__menu__child"
+              @click.stop
+            >
+              {{ child }}
+            </router-link>
+          </div>
+        </template>
+      </div>
+    </template>
+  </v-popover>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { mixin as ClickAway } from 'vue-clickaway'
-import { ComponentOptions } from 'vue'
-import { api } from '~/utils'
+import { Usecase } from '@/store/types'
+import { api } from '@/utils'
 
-@Component({ name: 'use-cases', mixins: [ClickAway as ComponentOptions<Vue>] })
+@Component({ name: 'use-cases' })
 export default class UseCases extends Vue {
-  open: boolean = false
-  openedItems: Record<number, boolean> = {}
-  isPopupMenuClicked: boolean = false
-  selectedMenu: string = ''
-  menus: any
+  menus: Array<Usecase> = []
+  selectedMenuIndex: number | null = null
+
   async getUseCases() {
     let res
     try {
-      res = await api.get(`usecases/`)
+      res = await api.get(`usecases`)
     } catch (err) {
       return
     }
-    this.menus = res.data.data
+    this.menus = res.data.data as Array<Usecase>
   }
 
   mounted() {
     this.getUseCases()
   }
 
-  away() {
-    this.isPopupMenuClicked = false
-  }
-
-  collapseItem(index: number, item: any) {
-    this.openedItems[index] = !this.openedItems[index]
-    this.$forceUpdate()
-
-    for (const i in this.openedItems) {
-      if (parseInt(i) !== index) {
-        this.openedItems[i] = false
-      }
-    }
-
-    if (item != null) {
-      this.selectedMenu = item
+  onMenu(index: number) {
+    if (this.selectedMenuIndex === index) {
+      this.selectedMenuIndex = null
     } else {
-      this.hideMenu(item)
+      this.selectedMenuIndex = index
     }
-  }
-
-  hideMenu(item: any) {
-    this.isPopupMenuClicked = false
-    this.selectedMenu = item
-  }
-
-  showMenu() {
-    this.isPopupMenuClicked = !this.isPopupMenuClicked
-    console.log(this.menus)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .use-case {
-  display: flex;
+  @include row--center;
   min-width: 210px;
   min-height: 42px;
   padding: 10px 16px;
   border: 1px solid #e6f3d2;
   border-radius: 24px;
   background: #e6f3d2;
-  justify-content: center;
-  align-items: center;
+  cursor: pointer;
+
   img {
     margin-left: 8px;
   }
@@ -119,112 +94,92 @@ export default class UseCases extends Vue {
 .use-case__caption {
   display: flex;
   flex-direction: row;
-  @include typography(xl, none, bold);
-  color: #011d58;
+  @include typography(lg-1, default, bold);
+  color: $colorNavy;
   align-items: center;
 }
 
-.sidebar {
-  background: $colorNavy;
-  top: 62px;
-  left: 35px;
-  width: 240px;
-  position: absolute;
-  z-index: 9999;
-  color: #ffffff;
-  display: grid;
-  grid-template-columns: 45px 155px 30px 45px;
-  grid-template-areas: '. items . ';
+.use-cases__menu {
+  @include col;
+  max-height: 50vh;
+  overflow-y: auto;
+}
 
-  @media (min-width: 640px) {
-    display: none;
+.use-cases__menu-item {
+  @include row--center;
+  padding: 4px 10px;
+
+  &:hover {
+    background: rgba(203, 239, 149, 0.2);
   }
 }
 
-.sidebar__menu {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  grid-area: items;
-  margin-left: -70px;
-  display: flex;
-  flex-direction: column;
+.use-cases__menu-item__link {
+  flex: 1;
+  @include typography(md);
+  color: $colorNavy;
+  text-decoration: none;
+  text-align: left;
 }
 
-.sidebar__menu__item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  padding-bottom: 10px;
+.use-cases__menu-item__icon {
+  width: 20px;
+  height: 20px;
+  @include row--center;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: $colorNeutralsSnow;
+  cursor: pointer;
+
+  &:hover {
+    background: $colorLightGrey2;
+  }
+
+  img {
+    width: 10px;
+    height: 10px;
+  }
 }
 
-.sidebar__menu__item a {
-  color: white;
+.use-cases__menu-item__icon--active {
+  img {
+    transform: rotateX(180deg);
+  }
 }
 
-.sidebar__menu__item-icon {
-  width: 25px;
-  height: 10px;
-  grid-area: item-icon;
-  float: left;
-  margin-left: 2px;
-  background-color: white; /* defines the background color of the image */
-  mask: url(/images/svgs/arrow-down.svg) no-repeat center / contain;
-  -webkit-mask: url(/images/svgs/arrow-down.svg) no-repeat center / contain;
+.use-cases__menu__children {
+  @include col;
 }
 
-.sidebar__menu__item-icon {
-  padding-top: 5px;
-  padding-right: 15px;
-  margin-top: 4px;
-}
-
-.sidebar__menu__item-icon--active {
-  background-color: $colorGreen !important;
-}
-
-.sidebar__menu__item-name {
-  grid-area: item-name;
-  position: static;
-  float: left;
-  @include typography(lg, narrow);
-}
-
-.sidebar__menu__item-name--active {
-  color: $colorGreen;
-}
-
-.sidebar__menu__child {
-  padding-top: 36px;
-  padding-left: 0;
-  font-size: 12px;
-}
-
-.sidebar__menu__child--item {
-  @include typography(md-1, narrow);
-  padding-bottom: 15px;
+.use-cases__menu__child {
+  @include typography(md);
+  text-decoration: none;
+  color: $colorDarkGrey;
+  padding: 4px 10px 4px 14px;
   white-space: nowrap;
   text-align: left;
-  color: white;
-  a {
-    text-decoration: none;
+
+  &:hover {
+    background: $colorLightGrey2;
   }
 }
+</style>
 
-li a {
-  text-decoration: none;
-}
+<style lang="scss">
+.popover--usecase {
+  background: white;
+  box-shadow: 0 0 black;
+  margin: 0;
 
-.slide-fade-enter-active {
-  transition: all 0.8s ease;
-}
+  .popover-inner {
+    background: white;
+    width: 240px;
+    overflow: hidden;
+    padding: 0;
+  }
 
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(0.5, 1, 0.8, 1);
-}
-
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateY(-10px);
-  opacity: 0;
+  .popover-arrow {
+    display: none;
+  }
 }
 </style>

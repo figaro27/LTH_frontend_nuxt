@@ -23,6 +23,11 @@ export interface RootState {
   search: SearchState
 }
 
+export type Usecase = {
+  name: string
+  filter: Object
+}
+
 export enum LoadingStatus {
   Unloaded,
   Loading,
