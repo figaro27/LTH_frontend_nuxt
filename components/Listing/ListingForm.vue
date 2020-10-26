@@ -41,7 +41,7 @@
         :error="errors.name"
         label="Vendor Name *"
         name="name"
-        placeholder="The name of the tool"
+        placeholder="The organization that produces the tool"
         required
       />
       <listing-form-input
@@ -49,7 +49,7 @@
         :error="errors.tool"
         label="Tool *"
         name="tool"
-        placeholder="The organization that produces the tool"
+        placeholder="The name of the tool"
         required
       />
       <select-filter
@@ -158,7 +158,6 @@
         :error="errors.website"
         label="Website *"
         name="website"
-        placeholder="The area(s) of law to which the tool is targeted"
         required
       />
       <listing-form-input
