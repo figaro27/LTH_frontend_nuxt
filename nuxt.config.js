@@ -141,7 +141,8 @@ export default {
           minPixelValue: 3
         }
       }
-    }
+    },
+    transpile: ['lodash', 'validator']
   },
 
   generate: {
