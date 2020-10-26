@@ -47,7 +47,7 @@ export default class ListingSubmitted extends Vue {}
 }
 
 .listing__image {
-  width: 100%;
+  width: 300px;
 }
 
 .listing__description {
