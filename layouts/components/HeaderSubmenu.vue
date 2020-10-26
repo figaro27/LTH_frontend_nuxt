@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <v-popover trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
-      <span class="header__link__text" @mouseover="open = true">
+      <span class="header__link__text" @mouseover="onMouseover">
         {{ link.text }} <span class="header__link__chevron" />
       </span>
       <template #popover>
@@ -35,6 +35,12 @@ export default class HeaderSubmenu extends Vue {
   @Prop({ required: true }) link!: HeaderLink
 
   open: boolean = false
+
+  onMouseover() {
+    setTimeout(() => {
+      this.open = true
+    }, 200)
+  }
 
   closeMenu() {
     this.open = false
