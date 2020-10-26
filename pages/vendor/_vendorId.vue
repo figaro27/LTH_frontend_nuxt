@@ -1,7 +1,7 @@
 <template>
   <div>
     <common-vendor v-if="!isEnhancedVendor" :data="data" />
-    <enhanced-vendor v-if="isEnhancedVendor" :data="data" />
+    <enhanced-vendor v-else :data="data" />
   </div>
 </template>
 
@@ -29,14 +29,13 @@ import { api, buildMeta } from '@/utils'
 })
 export default class SingleVendor extends Vue {
   data: Vendor | null = null
-  isEnhancedVendor: boolean = true
+  isEnhancedVendor: boolean = false
   async mounted() {
     if (this.data) {
       return
     }
     const res = await api.get(`vendors/${this.vendorId}`)
     this.data = res.data.data
-    this.isEnhancedVendor = true
   }
 
   get vendorId() {
