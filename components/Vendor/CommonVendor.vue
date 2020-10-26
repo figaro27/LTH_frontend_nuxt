@@ -144,39 +144,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 import { Vendor } from '@/models'
-import { api, buildMeta } from '@/utils'
 
 @Component({
-  name: 'single-vendor',
-  async asyncData(ctx) {
-    const { params } = ctx
-    const res = await api.get(`vendors/${params.vendorId}`)
-    const temp: Vendor = res.data.data
-    return {
-      data: temp
-    }
-  },
-  head() {
-    const { name } = this.$data.data
-    return buildMeta({
-      title: `${name} - Legaltech Hub`,
-      description: `${name} - Legaltech Hub`
-    })
-  }
+  name: 'common-vendor'
 })
-export default class SingleVendor extends Vue {
-  data: Vendor | null = null
-
-  async mounted() {
-    if (this.data) {
-      return
-    }
-    const res = await api.get(`vendors/${this.vendorId}`)
-    this.data = res.data.data
-  }
+export default class CommonVendor extends Vue {
+  @Prop({ required: true }) data!: Vendor
+  mounted() {}
 
   get vendorId() {
     return this.$route.params.vendorId
@@ -192,12 +169,6 @@ export default class SingleVendor extends Vue {
       return `${this.data.tool} by ${this.data.name}`
     }
     return this.data.name
-  }
-
-  @Watch('vendorId', { immediate: true })
-  async onVendorIdChange() {
-    const { data } = await api.get(`vendors/${this.vendorId}`)
-    this.data = data.data
   }
 
   get logo() {
