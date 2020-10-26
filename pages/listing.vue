@@ -1,5 +1,6 @@
 <template>
-  <listing-form class="listing-form__container" />
+  <listing-form v-if="!submitted" class="listing-form__container" @submitted="onSubmitted" />
+  <listing-submitted v-else class="listing-form__container" />
 </template>
 
 <script lang="ts">
@@ -15,7 +16,13 @@ import { buildMeta } from '~/utils'
     })
   }
 })
-export default class Listing extends Vue {}
+export default class Listing extends Vue {
+  submitted: boolean = false
+
+  onSubmitted() {
+    this.submitted = true
+  }
+}
 </script>
 
 <style lang="scss" scoped>

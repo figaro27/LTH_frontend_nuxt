@@ -18,7 +18,7 @@
           id="functionalities"
           v-model="filters.functionalities"
           name="functionality"
-          label="Functionality"
+          label="Functionality:"
           :options="functionalities"
           @change="onFilterUpdate"
         />
@@ -26,7 +26,7 @@
           id="hqs"
           v-model="filters.hqs"
           name="hqs"
-          label="HQ"
+          label="HQ:"
           :options="offices"
           @change="onFilterUpdate"
         />
@@ -34,7 +34,7 @@
           id="offices"
           v-model="filters.offices"
           name="offices"
-          label="Office"
+          label="Office:"
           :options="offices"
           @change="onFilterUpdate"
         />
@@ -42,7 +42,7 @@
           id="practiceAreas"
           v-model="filters.practiceAreas"
           name="practiceArea"
-          label="Practice Area"
+          label="Practice Area:"
           :options="practiceAreas"
           @change="onFilterUpdate"
         />
@@ -50,7 +50,7 @@
           id="platformLanguages"
           v-model="filters.platformLanguages"
           name="platformLanguage"
-          label="Platform Language"
+          label="Platform Language:"
           :options="platformLanguages"
           @change="onFilterUpdate"
         />
@@ -58,7 +58,7 @@
           id="demographics"
           v-model="filters.demographics"
           name="demographic"
-          label="Target Entity"
+          label="Target Entity:"
           :options="demographics"
           @change="onFilterUpdate"
         />
@@ -66,7 +66,7 @@
           id="installations"
           v-model="filters.installations"
           name="installation"
-          label="Deployment"
+          label="Deployment:"
           :options="installations"
           @change="onFilterUpdate"
         />
@@ -74,7 +74,7 @@
           id="integrations"
           v-model="filters.integrations"
           name="integrations"
-          label="Integrations"
+          label="Integrations:"
           :options="integrations"
           @change="onFilterUpdate"
         />
