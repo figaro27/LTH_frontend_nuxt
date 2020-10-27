@@ -100,6 +100,7 @@ export default class UseCases extends Vue {
   @include typography(lg-1, default, bold);
   color: $colorNavy;
   align-items: center;
+  cursor: pointer;
 }
 
 .use-cases__menu {
