@@ -97,7 +97,7 @@ export default class UseCases extends Vue {
 .use-case__caption {
   display: flex;
   flex-direction: row;
-  @include typography(lg-1, default, bold);
+  @include typography(lg, default, bold);
   color: $colorNavy;
   align-items: center;
   cursor: pointer;
