@@ -21,6 +21,7 @@ export default class Listing extends Vue {
 
   onSubmitted() {
     this.submitted = true
+    window.scrollTo(0, 0)
   }
 }
 </script>
