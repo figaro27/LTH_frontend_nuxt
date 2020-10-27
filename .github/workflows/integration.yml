@@ -17,7 +17,7 @@ jobs:
         npm install
     - name: Yarn Lint
       run: |
-        npm lint
+        npm run lint
     - name: Yarn Build
       run: |
-        npm build
+        npm run build
