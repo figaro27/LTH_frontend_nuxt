@@ -8,7 +8,8 @@ export default {
    */
   mode: 'universal',
   env: {
-    baseURL: apiUrl
+    baseURL: apiUrl,
+    environment: process.env.NODE_ENV
   },
   server: {
     port: 3000,
@@ -139,7 +140,8 @@ export default {
           minPixelValue: 3
         }
       }
-    }
+    },
+    transpile: ['lodash', 'validator']
   },
 
   generate: {

@@ -1,9 +1,9 @@
 <template>
-  <div class="search-filter">
-    <label v-if="label" class="search-filter__label" :for="id"> {{ label }} </label>
+  <div class="editable-filter">
+    <label v-if="label" class="editable-filter__label" :for="id"> {{ label }} </label>
     <multiselect
       v-model="selectedVal"
-      class="search-filter__select"
+      class="editable-filter__select"
       label="name"
       hide-selected
       multiple
@@ -12,9 +12,10 @@
       :tag-placeholder="`Select ${label}`"
       track-by="id"
       :options="options"
+      @tag="addTag"
     />
-    <label v-if="error" class="search-filter__error"> {{ error }}</label>
-    <label v-else-if="belowText" class="search-filter__below"> {{ belowText }}</label>
+    <label v-if="error" class="editable-filter__error"> {{ error }}</label>
+    <label v-else-if="belowText" class="editable-filter__below"> {{ belowText }}</label>
   </div>
 </template>
 
@@ -22,22 +23,23 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 export type Option = {
-  id: string | number
+  id: number
   name: string
   [key: string]: any
 }
 
 @Component({
-  name: 'select-filter'
+  name: 'editable-filter'
 })
-export default class SelectFilter extends Vue {
+export default class EditableFilter extends Vue {
   @Prop({ required: true }) id!: string
   @Prop({ required: true }) name!: string
   @Prop({ required: true }) value!: Option[]
-  @Prop({ required: true }) options!: Option[]
   @Prop({ default: null }) error!: string | null
   @Prop({ default: '' }) label!: string
   @Prop({ default: '' }) belowText!: string
+
+  options: Option[] = []
 
   get selectedVal() {
     return this.value
@@ -47,16 +49,26 @@ export default class SelectFilter extends Vue {
     this.$emit('input', newVal)
     this.$emit('change', { id: this.id, value: newVal })
   }
+
+  addTag(newTag: string) {
+    const newId = Math.min(...this.options.map((op) => op.id), 0)
+    const newOption = {
+      id: newId - 1,
+      name: newTag
+    }
+    this.options.push(newOption)
+    this.$emit('input', [...this.value, newOption])
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.search-filter {
+.editable-filter {
   display: flex;
   flex-direction: column;
 }
 
-.search-filter__label {
+.editable-filter__label {
   @include typography(md-1, default, bold);
   color: $colorNavy;
   margin-bottom: 5px;
@@ -64,19 +76,19 @@ export default class SelectFilter extends Vue {
   padding: 5px;
 }
 
-.search-filter__select {
+.editable-filter__select {
   @include typography(md, default, bold);
   padding: 5px;
 }
 
-.search-filter__error {
+.editable-filter__error {
   @include typography(md-1);
   color: $colorRed;
   margin-top: 5px;
   text-align: left;
 }
 
-.search-filter__below {
+.editable-filter__below {
   @include typography(md-1);
   color: $colorNavy;
   margin-top: 5px;
@@ -85,7 +97,7 @@ export default class SelectFilter extends Vue {
 </style>
 
 <style lang="scss">
-.search-filter {
+.editable-filter {
   .multiselect__select::before {
     border-color: $colorNavy transparent transparent;
   }

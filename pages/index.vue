@@ -17,6 +17,9 @@
         <div class="home__main__search-box">
           <search-box v-model="keyword" @search="onSearch" />
         </div>
+        <div class="home__main__usecase">
+          <use-cases />
+        </div>
         <saved-searchs class="home__saved-searchs" />
         <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
       </div>
@@ -286,6 +289,10 @@ export default class Home extends Vue {
 .home__main__search-box {
   margin-top: 40px;
   width: 80%;
+}
+
+.home__main__usecase {
+  margin-top: 40px;
 }
 
 .home__saved-searchs {

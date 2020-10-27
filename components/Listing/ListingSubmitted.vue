@@ -1,39 +1,36 @@
 <template>
-  <listing-form v-if="!submitted" class="listing-form__container" @submitted="onSubmitted" />
-  <listing-submitted v-else class="listing-form__container" />
+  <div class="listing">
+    <div class="listing__content">
+      <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
+      <p class="listing__description">
+        Thanks for sending. Our team will verify this info and we will send you an email with how your listing looks
+        when we post.
+      </p>
+      <img class="listing__image" src="/images/listings/listing.svg" />
+      <p class="listing__description-guide">
+        Remember that you have the option of supercharging your presence with an enhanced listing for a small annual
+        fee. &nbsp;<nuxt-link class="listing__description-link" to="/contact-us">Contact Us</nuxt-link> to find out
+        more.
+      </p>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { buildMeta } from '~/utils'
 
 @Component({
-  name: 'listing',
-  head() {
-    return buildMeta({
-      title: 'Add/Update Listings - Legaltech Hub',
-      description: 'Add/Update Listings - Legaltech Hub'
-    })
-  }
+  name: 'listing-submitted'
 })
-export default class Listing extends Vue {
-  submitted: boolean = false
-
-  onSubmitted() {
-    this.submitted = true
-    window.scrollTo(0, 0)
-  }
-}
+export default class ListingSubmitted extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-.listing-form__container {
-  margin: 70px auto;
-  padding: 24px 24px 36px 24px;
-  width: 60%;
-  @include respondTo(mobile) {
-    padding: 24px 8px 36px 8px;
-  }
+.listing {
+  @include desktop-max-width-layout;
+  background: #effadf;
+  margin-top: 70px;
+  padding-bottom: 60px;
 }
 
 .listing__content {
@@ -50,7 +47,7 @@ export default class Listing extends Vue {
 }
 
 .listing__image {
-  width: 100%;
+  width: 300px;
 }
 
 .listing__description {

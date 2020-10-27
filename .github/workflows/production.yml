@@ -16,16 +16,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Yarn Install
       run: |
-        yarn install
+        npm install
     - name: Yarn Lint
       run: |
-        yarn lint
+        npm run lint
     - name: Yarn Build
       run: |
-        NUXT_APP_API_URL=https://api.legaltechnologyhub.com NODE_ENV=production yarn build
+        NUXT_APP_API_URL=https://api.legaltechnologyhub.com NODE_ENV=production npm run build
     - name: Yarn Generate
       run: |
-        NUXT_APP_API_URL=https://api.legaltechnologyhub.com NODE_ENV=production yarn generate
+        NUXT_APP_API_URL=https://api.legaltechnologyhub.com NODE_ENV=production npm run generate
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
