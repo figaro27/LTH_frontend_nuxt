@@ -326,7 +326,7 @@ export default class Search extends Vue {
     })
     this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
 
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.environment === 'production') {
       if (this.searchQuery.keyword) {
         // eslint-disable-next-line no-undef
         gtag('event', 'search', { event_label: this.searchQuery.keyword })
