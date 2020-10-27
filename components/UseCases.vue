@@ -1,44 +1,46 @@
 <template>
-  <v-popover trigger="click" popover-class="popover--usecase">
-    <div class="use-case">
-      <label class="use-case__caption">Browse by Use Case</label>
-      <img src="/images/faq/chevron-opened.svg" />
-    </div>
-
-    <template #popover>
-      <div class="use-cases__menu">
-        <template v-for="(item, index) in menus">
-          <div :key="`parent-${index}`" class="use-cases__menu-item">
-            <router-link
-              class="use-cases__menu-item__link"
-              :to="{ path: '/search', query: { functionalities: item.filter.functionalities.join(',') } }"
-            >
-              {{ item.name }}
-            </router-link>
-            <div
-              class="use-cases__menu-item__icon"
-              :class="{ 'use-cases__menu-item__icon--active': selectedMenuIndex === index }"
-              @click="onMenu(index)"
-            >
-              <img v-if="item.filter && item.filter.functionalities.length" src="/images/faq/chevron-opened.svg" />
-            </div>
-          </div>
-
-          <div v-if="selectedMenuIndex === index" :key="`child-${index}`" class="use-cases__menu__children">
-            <router-link
-              v-for="(child, childIndex) of item.filter.functionalities"
-              :key="childIndex"
-              :to="{ path: '/search', query: { functionalities: child } }"
-              class="use-cases__menu__child"
-              @click.stop
-            >
-              {{ child }}
-            </router-link>
-          </div>
-        </template>
+  <client-only>
+    <v-popover trigger="click" popover-class="popover--usecase">
+      <div class="use-case">
+        <label class="use-case__caption">Browse by Use Case</label>
+        <img src="/images/faq/chevron-opened.svg" />
       </div>
-    </template>
-  </v-popover>
+
+      <template #popover>
+        <div class="use-cases__menu">
+          <template v-for="(item, index) in usecases">
+            <div :key="`parent-${index}`" class="use-cases__menu-item">
+              <nuxt-link
+                class="use-cases__menu-item__link"
+                :to="{ path: '/search', query: { functionalities: item.filter.functionalities.join(',') } }"
+              >
+                {{ item.name }}
+              </nuxt-link>
+              <div
+                class="use-cases__menu-item__icon"
+                :class="{ 'use-cases__menu-item__icon--active': selectedMenuIndex === index }"
+                @click="onMenu(index)"
+              >
+                <img v-if="item.filter && item.filter.functionalities.length" src="/images/faq/chevron-opened.svg" />
+              </div>
+            </div>
+
+            <div v-if="selectedMenuIndex === index" :key="`child-${index}`" class="use-cases__menu__children">
+              <nuxt-link
+                v-for="(child, childIndex) of item.filter.functionalities"
+                :key="childIndex"
+                :to="{ path: '/search', query: { functionalities: child } }"
+                class="use-cases__menu__child"
+                @click.stop
+              >
+                {{ child }}
+              </nuxt-link>
+            </div>
+          </template>
+        </div>
+      </template>
+    </v-popover>
+  </client-only>
 </template>
 
 <script lang="ts">
@@ -48,21 +50,22 @@ import { api } from '@/utils'
 
 @Component({ name: 'use-cases' })
 export default class UseCases extends Vue {
-  menus: Array<Usecase> = []
+  usecases: Array<Usecase> = []
+
   selectedMenuIndex: number | null = null
 
-  async getUseCases() {
+  async loadUseCases() {
     let res
     try {
       res = await api.get(`usecases`)
     } catch (err) {
       return
     }
-    this.menus = res.data.data as Array<Usecase>
+    this.usecases = res.data.data as Array<Usecase>
   }
 
-  mounted() {
-    this.getUseCases()
+  async mounted() {
+    await this.loadUseCases()
   }
 
   onMenu(index: number) {

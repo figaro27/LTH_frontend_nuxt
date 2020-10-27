@@ -18,7 +18,7 @@
           <search-box v-model="keyword" @search="onSearch" />
         </div>
         <div class="home__main__usecase">
-          <use-cases> </use-cases>
+          <use-cases />
         </div>
         <saved-searchs class="home__saved-searchs" />
         <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
