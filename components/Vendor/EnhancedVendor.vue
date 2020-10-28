@@ -2,6 +2,17 @@
   <div class="single-vendor">
     <div class="single-vendor__content">
       <vendor-detail :data="data" />
+      <div class="single-vendor__frame">
+        <div class="single-vendor__row">
+          <no-ssr placeholder="Loading...">
+            <youtube class="single-vendor__enhanced-video" ref="youtube" video-id="lG0Ys-2d4MA"></youtube>
+          </no-ssr>
+          <div class="single-vendor__enhanced-title">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.
+          </div>
+        </div>
+      </div>
       <div class="single-vendor__row">
         <div class="single-vendor__enhanced-description">
           <p>
@@ -28,16 +39,6 @@
           </p>
         </div>
         <div class="single-vendor__enhanced-side">
-          <div class="single-vendor__enhanced-frame">
-            <no-ssr placeholder="Loading...">
-              <youtube ref="youtube" video-id="lG0Ys-2d4MA"></youtube>
-            </no-ssr>
-            <div class="single-vendor__enhanced-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </div>
-          </div>
-
           <div class="single-vendor__enhanced-frame">
             <img
               class="single-vendor__enhanced-icon"
@@ -193,6 +194,14 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
+.single-vendor__frame {
+  width: 100%;
+  @include col--center;
+  background: $colorNeutralsSnow;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .single-vendor__enhanced-description {
   width: 100%;
   background: $colorNeutralsSnow;
@@ -219,6 +228,11 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   text-align: center;
   align-items: center;
   margin: 16px 8px 16px 8px;
+  margin: auto;
+  @include respondTo(mobile) {
+    @include typography(md, narrow, bold);
+    margin: 8px 4px 8px 4px;
+  }
 }
 
 .single-vendor__enhanced-avatar {
@@ -245,6 +259,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 .single-vendor__enhanced-side {
   flex: 1;
   @include col;
+  justify-content: center;
   & > *:not(:last-child) {
     margin-bottom: 20px;
   }

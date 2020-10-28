@@ -29,7 +29,7 @@ import { api, buildMeta } from '@/utils'
 })
 export default class SingleVendor extends Vue {
   data: Vendor | null = null
-  isEnhancedVendor: boolean = false
+  isEnhancedVendor: boolean = true
   async mounted() {
     if (this.data) {
       return
