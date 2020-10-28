@@ -6,14 +6,14 @@
       </span>
       <template #popover>
         <div v-on-clickaway="closeMenu" class="header__link-sub-menus" @click="closeMenu">
-          <router-link
+          <nuxt-link
             v-for="(child, idx) in link.children"
             :key="`child${idx}`"
             :to="child.path"
             class="header__link-sub-menu"
           >
             {{ child.text }}
-          </router-link>
+          </nuxt-link>
         </div>
       </template>
     </v-popover>

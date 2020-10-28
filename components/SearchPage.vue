@@ -325,12 +325,15 @@ export default class Search extends Vue {
       setTimeout(() => resolve(), 1000)
     })
     this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
-    if (this.searchQuery.keyword) {
-      // eslint-disable-next-line no-undef
-      gtag('event', 'search', { event_label: this.searchQuery.keyword })
-    } else {
-      // eslint-disable-next-line no-undef
-      gtag('event', 'search', { event_label: '' })
+
+    if (process.env.environment === 'production') {
+      if (this.searchQuery.keyword) {
+        // eslint-disable-next-line no-undef
+        gtag('event', 'search', { event_label: this.searchQuery.keyword })
+      } else {
+        // eslint-disable-next-line no-undef
+        gtag('event', 'search', { event_label: '' })
+      }
     }
     await this.$store.dispatch('search/runSearch', this.searchQuery)
   }
