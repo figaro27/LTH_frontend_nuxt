@@ -119,11 +119,13 @@
 </template>
 
 <script lang="ts">
+import { isEqual } from 'lodash'
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
+import { RouteQuery } from '@/store/search/types'
 import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({ name: 'search' })
@@ -142,6 +144,8 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.totalVendors) total!: number
   @State((state: RootState) => state.search.vendorsLastFilter) lastSearch!: Filters
   @State((state: RootState) => state.search.vendorsPage) curPageNum!: Filters
+
+  @State((state: RootState) => state.search.routeQuery) lastSearchQuery!: RouteQuery
 
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
@@ -229,9 +233,8 @@ export default class Search extends Vue {
 
   @Watch('routeQuery', { immediate: true })
   async onRouteChange() {
-    if (this.filterOptionsLoaded) {
-      this.updateFromRouteQuery()
-    }
+    if (!this.filterOptionsLoaded) return
+    this.updateFromRouteQuery()
     await this.submitQuery()
   }
 
@@ -258,6 +261,7 @@ export default class Search extends Vue {
     }
     this.updateFromRouteQuery()
     this.filterOptionsLoaded = true
+    await this.submitQuery()
   }
 
   onFilterUpdate() {
@@ -321,9 +325,8 @@ export default class Search extends Vue {
   }
 
   async submitQuery() {
-    await new Promise((resolve) => {
-      setTimeout(() => resolve(), 1000)
-    })
+    if (isEqual(this.searchQuery, this.lastSearchQuery)) return
+
     this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
 
     if (process.env.environment === 'production') {
