@@ -2,11 +2,11 @@
   <div class="single-vendor">
     <div class="single-vendor__content">
       <vendor-detail :data="data" />
-      <div class="single-vendor__frame">
-        <div class="single-vendor__row">
-          <no-ssr placeholder="Loading...">
-            <youtube class="single-vendor__enhanced-video" ref="youtube" video-id="lG0Ys-2d4MA"></youtube>
-          </no-ssr>
+      <div class="single-vendor__row">
+        <div class="single-vendor__frame-video">
+          <div class="single-vendor__enhanced-video">
+            <youtube ref="youtube" video-id="lG0Ys-2d4MA"></youtube>
+          </div>
           <div class="single-vendor__enhanced-title">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua.
@@ -202,6 +202,19 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.single-vendor__frame-video {
+  width: 100%;
+  @include col--center;
+  background: $colorNeutralsSnow;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  @include respondTo(mobile) {
+    flex-direction: column;
+  }
+}
+
 .single-vendor__enhanced-description {
   width: 100%;
   background: $colorNeutralsSnow;
@@ -223,12 +236,10 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .single-vendor__enhanced-title {
   @include typography(lg, narrow, bold);
-  height: 100%;
   color: #546e7a;
   text-align: center;
-  align-items: center;
   margin: 16px 8px 16px 8px;
-  margin: auto;
+  padding: 8px 4px;
   @include respondTo(mobile) {
     @include typography(md, narrow, bold);
     margin: 8px 4px 8px 4px;
@@ -237,15 +248,26 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .single-vendor__enhanced-avatar {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direct: row;
   padding: 24px 36px 16px 16px;
+  align-items: center;
+
+  @include respondTo(mobile) {
+    padding: 24px 8px 16px 4px;
+  }
 }
 
 .single-vendor__enhanced-username {
   @include col--center;
   @include typography(xl, none, bold);
   margin-left: 24px;
+
+  @include respondTo(mobile) {
+    @include typography(md, none, bold);
+    margin-left: 12px;
+  }
 }
 
 .single-vendor__enhanced-link {
@@ -289,8 +311,28 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 
   @include respondTo(mobile) {
-    width: 200px;
-    height: 200px;
+    width: 40%;
+    height: 40%;
+    border-radius: 15px;
+  }
+}
+
+.single-vendor__enhanced-video {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  overflow: hidden;
+  &:hover {
+    background: $colorNeutralsSnow;
+  }
+  &:active {
+    background: $colorLightGrey2;
+  }
+
+  @include respondTo(mobile) {
+    width: 100%;
+    height: auto;
     border-radius: 15px;
   }
 }
@@ -318,6 +360,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   height: 360px;
   margin-top: 36px;
 }
+
 .single-vendor__enhanced-others-frame {
   width: 50%;
   @include col--center;
@@ -329,9 +372,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   margin-right: 10px;
   padding: 64px 64px 0px 64px;
   @include respondTo(mobile) {
-    width: 150px;
-    height: 150px;
-    padding: 32px;
+    padding: 16px;
     border-radius: 16px;
   }
 }
@@ -343,6 +384,11 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   margin-left: 8px;
   margin-right: auto;
   margin-bottom: 16px;
+  @include respondTo(mobile) {
+    @include typography(xl, none);
+    padding: 16px;
+    border-radius: 16px;
+  }
 }
 
 .single-vendor_enhanced-social-text {
@@ -359,6 +405,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include col--left;
   @include typography(lg, none);
   color: #4b5d68;
+  @include respondTo(mobile) {
+    @include typography(md, none);
+  }
 }
 
 .single-vendor_enhanced-social-container {
@@ -371,6 +420,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 .single-vendor_enhanced-social-icon {
   margin-left: 8px;
   margin-right: 8px;
+  @include respondTo(mobile) {
+    margin: 0px 4px;
+  }
 }
 
 .single-vendor__similar-results {
