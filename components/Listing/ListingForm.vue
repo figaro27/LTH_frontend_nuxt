@@ -197,6 +197,7 @@ type VendorRequestErrors = {
   offices?: string
   platformLanguages?: string
   practiceAreas?: string
+  website?: string
 }
 
 @Component({
@@ -243,6 +244,7 @@ export default class ListingForm extends Vue {
     if (isEmpty(data.tool)) errors.tool = 'Tool Name cannot be empty'
     if (!isEmail(data.email)) errors.email = 'Should be a valid email'
     if (isEmpty(data.description)) errors.description = 'Description cannot be empty'
+    if (isEmpty(data.website)) errors.website = 'Website cannot be empty'
     else if (data.description.length > 500) errors.description = 'You can only add descriptions up to 500 characters'
     if (!data.demographics || data.demographics.length === 0) {
       errors.demographics = 'At least one target entity required'
