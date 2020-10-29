@@ -18,6 +18,7 @@ export type VendorRequest = {
   platformLanguages?: Array<TaxonomyInput>
   practiceAreas?: Array<TaxonomyInput>
   subFunctionalities?: Array<TaxonomyInput>
+  website: string
   token?: string
 }
 
@@ -38,5 +39,6 @@ export const getEmptyVendorRequest = (): VendorRequest => ({
   offices: [],
   platformLanguages: [],
   practiceAreas: [],
-  subFunctionalities: []
+  subFunctionalities: [],
+  website: ''
 })
