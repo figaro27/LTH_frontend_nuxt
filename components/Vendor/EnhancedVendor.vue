@@ -67,39 +67,21 @@
           Articles | Reviews | Testimonials
         </div>
         <div class="single-vendor_reviews-container">
-          <div class="single-vendor__enhanced-frame">
-            <div class="single-vendor__enhanced-avatar">
-              <avatar username="Jane Doe" :rounded="true"></avatar>
-              <p class="single-vendor__enhanced-username">Jane Doe</p>
-            </div>
-            <div class="single-vendor__enhanced-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </div>
-            <p class="single-vendor__enhanced-link">Read more ...</p>
-          </div>
-          <div class="single-vendor__enhanced-frame">
-            <div class="single-vendor__enhanced-avatar">
-              <avatar username="Jane Doe" :rounded="true"></avatar>
-              <p class="single-vendor__enhanced-username">Jane Doe</p>
-            </div>
-            <div class="single-vendor__enhanced-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </div>
-            <p class="single-vendor__enhanced-link">Read more ...</p>
-          </div>
-          <div class="single-vendor__enhanced-frame">
-            <div class="single-vendor__enhanced-avatar">
-              <avatar username="Jane Doe" :rounded="true"></avatar>
-              <p class="single-vendor__enhanced-username">Jane Doe</p>
-            </div>
-            <div class="single-vendor__enhanced-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </div>
-            <p class="single-vendor__enhanced-link">Read more ...</p>
-          </div>
+          <carousel :per-page="perPage" :navigate-to="-1">
+            <slide v-for="slideIndex in slideCount" :key="slideIndex" :navigate-to="0">
+              <div class="single-vendor__enhanced-frame">
+                <div class="single-vendor__enhanced-avatar">
+                  <avatar username="Jane Doe" :rounded="true"></avatar>
+                  <p class="single-vendor__enhanced-username">Jane Doe</p>
+                </div>
+                <div class="single-vendor__enhanced-title">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua.
+                </div>
+                <p class="single-vendor__enhanced-link">Read more ...</p>
+              </div>
+            </slide>
+          </carousel>
         </div>
       </div>
       <div class="single-vendor__enhanced-others-container">
@@ -138,7 +120,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
-
+import { isMobile } from 'mobile-device-detect'
 import { Vendor } from '@/models'
 
 @Component({
@@ -151,6 +133,14 @@ export default class EnhancedVendor extends Vue {
   playing() {}
 
   async mounted() {}
+
+  get slideCount() {
+    return 4
+  }
+
+  get perPage() {
+    return isMobile ? 2 : 3
+  }
 
   get vendorId() {
     return this.$route.params.vendorId
@@ -294,15 +284,13 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .single-vendor__enhanced-frame {
   @include col--center;
-  width: 300px;
-  height: 300px;
   border-radius: 16px;
   background: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
   cursor: pointer;
   text-decoration: none;
   overflow: hidden;
-  margin-right: 10px;
+  margin: 8px 10px;
   &:hover {
     background: $colorNeutralsSnow;
   }
@@ -311,8 +299,6 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 
   @include respondTo(mobile) {
-    width: 40%;
-    height: 40%;
     border-radius: 15px;
   }
 }
