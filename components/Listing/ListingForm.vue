@@ -1,40 +1,40 @@
 <template>
   <div class="listing">
-    <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
-    <div class="listing-form__header">
-      <label class="listing-form__tip">I want to</label>
-      <div class="listing-action__group">
-        <button
-          class="listing-action__container"
-          :class="{ 'listing-action__container--selected': vendorRequest.type === 'create' }"
-          @click="vendorRequest.type = 'create'"
-        >
-          <img
-            :src="vendorRequest.type === 'create' ? '/images/listings/add_selected.svg' : '/images/listings/add.svg'"
-          />
-          <label class="listing-action__label">
-            Add a new listing
-          </label>
-        </button>
-        <button
-          class="listing-action__container"
-          :class="{ 'listing-action__container--selected': vendorRequest.type === 'update' }"
-          @click="vendorRequest.type = 'update'"
-        >
-          <img
-            :src="
-              vendorRequest.type === 'update'
-                ? '/images/listings/form-pencil_selected.svg'
-                : '/images/listings/form-pencil.svg'
-            "
-          />
-          <label class="listing-action__label">
-            Update an existing listing
-          </label>
-        </button>
-      </div>
-    </div>
     <client-only>
+      <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
+      <div class="listing-form__header">
+        <label class="listing-form__tip">I want to</label>
+        <div class="listing-action__group">
+          <button
+            class="listing-action__container"
+            :class="{ 'listing-action__container--selected': vendorRequest.type === 'create' }"
+            @click="vendorRequest.type = 'create'"
+          >
+            <img
+              :src="vendorRequest.type === 'create' ? '/images/listings/add_selected.svg' : '/images/listings/add.svg'"
+            />
+            <label class="listing-action__label">
+              Add a new listing
+            </label>
+          </button>
+          <button
+            class="listing-action__container"
+            :class="{ 'listing-action__container--selected': vendorRequest.type === 'update' }"
+            @click="vendorRequest.type = 'update'"
+          >
+            <img
+              :src="
+                vendorRequest.type === 'update'
+                  ? '/images/listings/form-pencil_selected.svg'
+                  : '/images/listings/form-pencil.svg'
+              "
+            />
+            <label class="listing-action__label">
+              Update an existing listing
+            </label>
+          </button>
+        </div>
+      </div>
       <form class="listing-form" @submit.prevent="submit">
         <listing-form-input
           v-model="vendorRequest.name"
