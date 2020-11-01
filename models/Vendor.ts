@@ -7,6 +7,7 @@ export type Installation = { id: string; name: string }
 export type Integration = { id: string; name: string }
 export type ExistingCustomer = { id: string; name: string }
 export type Feature = { id: string; name: string }
+export type Testimonial = { avatar: string; displayName: string; content: string; link: string }
 
 export type VendorType = 'default' | 'consolidation' | 'graveyard'
 
@@ -17,6 +18,10 @@ export type ConsolidationData = {
 
 export type GraveyardData = {
   date: string
+}
+
+export type EnhancedVendorData = {
+  testimonials: Testimonial[]
 }
 
 export type Vendor = {
@@ -43,6 +48,7 @@ export type Vendor = {
   features: Feature[]
   createdAt: string
   updatedAt: string
+  enhancedVendorData: EnhancedVendorData
 }
 
 export type SearchResultVendor = Pick<
