@@ -65,14 +65,35 @@
             <div class="single-vendor__property-name">Features</div>
             <label class="single-vendor__property-value">{{ features }}</label>
           </div>
-          <a
-            v-if="data.website && data.type !== 'consolidation'"
-            class="single-vendor__link"
-            :href="data.website"
-            target="_blank"
-          >
-            Go to Website <img src="/images/svgs/link.svg" />
-          </a>
+          <div v-if="data.enhancedListingEnabled && !!data.enhancedListingData" class="single-vendor__enhanced-links">
+            <a
+              v-if="data.website && data.type !== 'consolidation'"
+              class="single-vendor__enhanced-website"
+              :href="data.website"
+              target="_blank"
+            >
+              Visit Website
+            </a>
+
+            <a
+              v-if="data.enhancedListingData.demoUrl"
+              class="single-vendor__enhanced-link"
+              :href="data.enhancedListingData.demoUrl"
+              target="_blank"
+            >
+              Request Demo <img src="/images/svgs/link.svg" />
+            </a>
+          </div>
+          <template v-else>
+            <a
+              v-if="data.website && data.type !== 'consolidation'"
+              class="single-vendor__link"
+              :href="data.website"
+              target="_blank"
+            >
+              Go to Website <img src="/images/svgs/link.svg" />
+            </a>
+          </template>
         </div>
       </div>
       <div class="single-vendor__side">
@@ -440,11 +461,44 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 .single-vendor__link {
   @include row;
   align-items: center;
-  margin-top: 10px;
+  margin: 10px 0 0 10px;
   @include typography(lg-1);
   color: $colorGreen;
   text-decoration: underline;
   text-decoration-color: $colorGreen;
+
+  img {
+    margin-left: 10px;
+  }
+}
+
+.single-vendor__enhanced-links {
+  @include row;
+  margin: 10px 10px 0 0;
+}
+
+.single-vendor__enhanced-website {
+  @include row--center;
+  height: 40px;
+  padding: 5px 15px;
+  @include typography(lg-1);
+  background: rgba(203, 239, 149, 0.4);
+  text-decoration: none;
+  color: $colorNavy;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+
+.single-vendor__enhanced-link {
+  @include row--center;
+  height: 40px;
+  padding: 5px 10px;
+  @include typography(lg-1);
+  color: $colorNavy;
+  text-decoration: none;
+  background: white;
+  box-shadow: 0px 5px 5px rgba(75, 93, 104, 0.1);
+  border-radius: 50px;
 
   img {
     margin-left: 10px;
