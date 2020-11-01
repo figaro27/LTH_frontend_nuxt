@@ -15,7 +15,7 @@
     <div class="enhanced-vendor__row">
       <client-only>
         <div class="enhanced-vendor__description" v-html="enhancedData.enhancedDescription" />
-        <div class="enhanced-vendor__side">
+        <div class="enhanced-vendor__pictures">
           <div class="enhanced-vendor__picture">
             <img class="enhanced-vendor__picture__img" :src="enhancedData.picture1.imageUrl" />
             <div class="enhanced-vendor__title" v-html="enhancedData.picture1.description" />
@@ -160,9 +160,9 @@ export default class EnhancedVendor extends Vue {
   overflow: hidden;
 
   @include respondTo(mobile) {
+    @include col;
     width: 100%;
     height: auto;
-    border-radius: 15px;
   }
 }
 
@@ -176,6 +176,10 @@ export default class EnhancedVendor extends Vue {
   p {
     @include typography(lg, normal);
     color: $colorDarkGrey;
+  }
+
+  @include respondTo(mobile) {
+    width: 100%;
   }
 }
 
@@ -245,7 +249,7 @@ export default class EnhancedVendor extends Vue {
   padding: 24px;
 }
 
-.enhanced-vendor__side {
+.enhanced-vendor__pictures {
   flex: 1;
   @include col;
   justify-content: center;
@@ -280,6 +284,11 @@ export default class EnhancedVendor extends Vue {
 
   @include respondTo(mobile) {
     border-radius: 15px;
+
+    &:not(:last-child) {
+      margin-bottom: 0;
+      margin-right: 20px;
+    }
   }
 }
 
@@ -333,15 +342,18 @@ export default class EnhancedVendor extends Vue {
 }
 
 .enhanced-vendor__others-container {
-  display: flex;
-  flex-direction: row;
+  @include row;
   width: 100%;
   height: 360px;
   margin-top: 36px;
+
+  @include respondTo(mobile) {
+    @include col;
+  }
 }
 
 .enhanced-vendor__others-frame {
-  width: 50%;
+  flex: 1;
   @include col--center;
   border-radius: 32px;
   background: #f2f9e8;
@@ -350,9 +362,11 @@ export default class EnhancedVendor extends Vue {
   overflow: hidden;
   margin-right: 10px;
   padding: 64px 64px 0px 64px;
+
   @include respondTo(mobile) {
     padding: 16px;
     border-radius: 16px;
+    margin-bottom: 20px;
   }
 }
 
@@ -376,6 +390,7 @@ export default class EnhancedVendor extends Vue {
   @include typography(xl);
   text-align: center;
   color: #4b5d68;
+
   @include respondTo(mobile) {
     @include typography(md);
   }
@@ -386,9 +401,14 @@ export default class EnhancedVendor extends Vue {
   @include typography(xl);
   width: 100%;
   color: #4b5d68;
+
+  @include respondTo(mobile) {
+    @include typography(md);
+  }
 }
 
 .enhanced-vendor_social-container {
+  width: 100%;
   @include col--center;
   display: flex;
   flex-direction: row;
@@ -398,8 +418,9 @@ export default class EnhancedVendor extends Vue {
 .enhanced-vendor_social-icon {
   margin-left: 8px;
   margin-right: 8px;
+
   @include respondTo(mobile) {
-    margin: 0px 4px;
+    flex: 1;
   }
 }
 </style>

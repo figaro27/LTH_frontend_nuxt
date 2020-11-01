@@ -87,6 +87,15 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   max-width: $adMaxWidth;
 }
 
+.single-vendor__main {
+  width: 100%;
+  @include col;
+
+  @include respondTo(mobile) {
+    @include col;
+  }
+}
+
 .single-vendor__enhanced {
   margin-bottom: 40px;
 }

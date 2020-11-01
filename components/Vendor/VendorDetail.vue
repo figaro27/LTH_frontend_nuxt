@@ -309,18 +309,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   flex: 3;
   padding: 20px 30px;
   margin-right: 40px;
-}
 
-.single-vendor__side {
-  flex: 2;
-  @include col;
-  & > *:not(:last-child) {
-    margin-bottom: 20px;
-  }
-
-  @include respondTo(mobile) {
-    flex-flow: row;
-    margin-top: 20px;
+  .single-vendor__property-name {
+    min-width: 240px;
   }
 }
 
@@ -388,29 +379,23 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   color: $colorLightGrey;
 }
 
-.single-vendor__main {
-  .single-vendor__property-name {
-    min-width: 240px;
-  }
-}
-
 .single-vendor__side {
   flex: 1;
   @include col;
+
   & > *:not(:last-child) {
     margin-bottom: 20px;
   }
 
   @include respondTo(mobile) {
-    flex-flow: row;
     margin-top: 20px;
   }
 }
 
 .single-vender__side__left {
   @include respondTo(mobile) {
-    margin-right: 15px;
-    margin-bottom: 0px !important;
+    flex: 2;
+
     .single-vendor__others {
       margin-top: 20px;
     }
@@ -428,9 +413,13 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 }
 
 .single-vendor__others {
+  @include col;
+  align-items: center;
   padding: 15px;
+  overflow: hidden;
 
   .single-vendor__property {
+    width: 100%;
     @include col;
     align-items: flex-start;
     justify-content: flex-start;
@@ -442,6 +431,11 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
   .single-vendor__property-name {
     margin-bottom: 5px;
+  }
+
+  @include respondTo(mobile) {
+    flex: 1;
+    align-items: center;
   }
 }
 
