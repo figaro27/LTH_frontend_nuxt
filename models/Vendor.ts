@@ -20,8 +20,37 @@ export type GraveyardData = {
   date: string
 }
 
-export type EnhancedVendorData = {
-  testimonials: Testimonial[]
+export type EnhancedListingPictureData = {
+  imageUrl: string
+  description: string
+}
+
+export type EnhancedListingTestimonialData = {
+  avatar: string
+  displayName: string
+  content: string
+  link: string
+}
+
+export type EnhancedListingPOCData = {
+  title: string
+  description: string
+  url: string
+}
+
+export type EnhancedListingData = {
+  demoUrl: string
+  videoUrl: string
+  videoDescription: string
+  enhancedDescription: string
+  picture1: EnhancedListingPictureData
+  picture2: EnhancedListingPictureData
+  testimonials: Array<EnhancedListingTestimonialData>
+  poc: EnhancedListingPOCData
+  linkedin?: string
+  facebook?: string
+  twitter?: string
+  instagram?: string
 }
 
 export type Vendor = {
@@ -34,6 +63,8 @@ export type Vendor = {
   type: VendorType
   consolidationData?: ConsolidationData
   graveyardData?: GraveyardData
+  enhancedListingEnabled: boolean
+  enhancedListingData?: EnhancedListingData
   hqs: Office[]
   offices: Office[]
   functionalities: Functionality[]
@@ -48,7 +79,6 @@ export type Vendor = {
   features: Feature[]
   createdAt: string
   updatedAt: string
-  enhancedVendorData: EnhancedVendorData
 }
 
 export type SearchResultVendor = Pick<

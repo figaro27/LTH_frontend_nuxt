@@ -55,16 +55,16 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    { src: '@/plugins/loading.js', ssr: false },
-    { src: '@/plugins/v-tooltip.js', ssr: false },
-    { src: '@/plugins/vue-carousel.js', ssr: false },
-    { src: '@/plugins/vue-cool-select.js', ssr: false },
-    { src: '@/plugins/vue-multiselect.js', ssr: false },
-    { src: '@/plugins/vue-paginate.js', ssr: false },
-    { src: '@/plugins/vue-recaptcha-v3.js', ssr: false },
-    { src: '@/plugins/vue-text-highlight.js', ssr: false },
-    { src: '@/plugins/vue-avatar.js', ssr: false },
-    { src: '@/plugins/vue-youtube.js', ssr: false }
+    { src: '@/plugins/loading.js', mode: 'client' },
+    { src: '@/plugins/v-tooltip.js', mode: 'client' },
+    { src: '@/plugins/vue-carousel.js', mode: 'client' },
+    { src: '@/plugins/vue-cool-select.js', mode: 'client' },
+    { src: '@/plugins/vue-multiselect.js', mode: 'client' },
+    { src: '@/plugins/vue-paginate.js', mode: 'client' },
+    { src: '@/plugins/vue-recaptcha-v3.js', mode: 'client' },
+    { src: '@/plugins/vue-text-highlight.js', mode: 'client' },
+    { src: '@/plugins/vue-avatar.js', mode: 'client' },
+    { src: '@/plugins/vue-youtube.js', mode: 'client' }
   ],
   /*
    ** Auto import components
@@ -143,7 +143,7 @@ export default {
         }
       }
     },
-    transpile: ['lodash', 'validator']
+    transpile: ['get-youtube-id', 'lodash', 'validator']
   },
 
   generate: {

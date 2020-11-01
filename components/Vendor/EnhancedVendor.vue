@@ -1,119 +1,82 @@
 <template>
-  <div class="single-vendor">
-    <div class="single-vendor__content">
-      <vendor-detail :data="data" />
-      <div class="single-vendor__row">
-        <div class="single-vendor__frame-video">
-          <div class="single-vendor__enhanced-video">
-            <youtube ref="youtube" video-id="lG0Ys-2d4MA"></youtube>
-          </div>
-          <div class="single-vendor__enhanced-title">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-          </div>
+  <div v-if="enhancedData" class="enhanced-vendor">
+    <div class="enhanced-vendor__row">
+      <div class="enhanced-vendor__frame-video">
+        <div class="enhanced-vendor__video">
+          <client-only>
+            <youtube :video-id="youtubeVideoID" />
+          </client-only>
         </div>
+        <client-only>
+          <div class="enhanced-vendor__video-description" v-html="enhancedData.videoDescription" />
+        </client-only>
       </div>
-      <div class="single-vendor__row">
-        <div class="single-vendor__enhanced-description">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur metus vitae malesuada interdum.
-            Proin Proin leo lacus, eleifend ut libero quis, faucibus tincidunt elit. Quisque imperdiet vulputate
-            vehicula, viverra augue at, ornare quam. Aenean a erat eu libero tristique molestie eget a turpis. Nulla
-            scelerisque lorem eget risus iaculis, non congue nulla ultrices. Nam pharetra neque sit amet viverra Aenean
-            Aenean luctus odio ac mauris blandit, et sodales nunc egestas. Sed imperdiet ut libero non dignissim.
-            Curabitur pellentesque dolor vitae nibh venenatis, quis tempus elit elementum. Morbi hendrerit, neque vitae
-            vitae imperdiet aliquet, velit massa cursus nisl, eget tincidunt est enim elementum nulla. Donec porta
-            ornare sem ornare sem hendrerit. Maecenas nunc ipsum, finibus non tellus vitae, ullamcorper bibendum lectus.
-            lectus. Ut elit quis erat eget, iaculis commodo nisi. Quisque diam neque, fermentum id tellus vitae, egestas
-            egestas sollicitudin sollicitudin lectus. Sed tristique felis et blandit porttitor. Duis ac erat id purus
-            sollicitudin tincidunt. Aliquam ligula nisi, facilisis sed lacus vel, ornare imperdiet nibh. Praesent arcu
-            nisi, dapibus in volutpat quis, vulputate a odio. Sed quis accumsan ipsum, eget consectetur nisi. Etiam sem
-            sem nisi, porta non venenatis ac, consectetur in est. Vivamus ultrices, augue malesuada rhoncus blandit,
-            magna nisi bibendum nunc, consequat mollis enim mauris volutpat lectus. Nulla fermentum vitae ex vel
-            efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam
-            finibus quam euismod dolor fringilla, ut mollis elit feugiat. Sed sollicitudin venenatis pellentesque. Etiam
-            Etiam vehicula hendrerit urna non sagittis. Nunc non dignissim diam. Aliquam congue sodales neque sed
-            sollicitudin. Vivamus sed odio mattis ante vulputate molestie. Duis sit amet malesuada elit. Class aptent
-            taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus id gravida arcu. Cras
-            Cras tincidunt efficitur augue id rhoncus. Nam mollis magna vitae mauris vehicula, in egestas.
-          </p>
-        </div>
-        <div class="single-vendor__enhanced-side">
-          <div class="single-vendor__enhanced-frame">
-            <img
-              class="single-vendor__enhanced-icon"
-              src="https://static.wixstatic.com/media/e49d9d_ab983c917c1341dfadc5ad8482125f62~mv2_d_5934_3961_s_4_2.jpg"
-            />
-            <div class="single-vendor__enhanced-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </div>
+    </div>
+    <div class="enhanced-vendor__row">
+      <client-only>
+        <div class="enhanced-vendor__description" v-html="enhancedData.enhancedDescription" />
+        <div class="enhanced-vendor__side">
+          <div class="enhanced-vendor__picture">
+            <img class="enhanced-vendor__picture__img" :src="enhancedData.picture1.imageUrl" />
+            <div class="enhanced-vendor__title" v-html="enhancedData.picture1.description" />
           </div>
 
-          <div class="single-vendor__enhanced-frame">
-            <img
-              class="single-vendor__enhanced-icon"
-              src="https://static.wixstatic.com/media/e49d9d_ab983c917c1341dfadc5ad8482125f62~mv2_d_5934_3961_s_4_2.jpg"
-            />
-            <div class="single-vendor__enhanced-title">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </div>
+          <div class="enhanced-vendor__picture">
+            <img class="enhanced-vendor__picture__img" :src="enhancedData.picture2.imageUrl" />
+            <div class="enhanced-vendor__title" v-html="enhancedData.picture2.description" />
           </div>
         </div>
+      </client-only>
+    </div>
+    <div class="enhanced-vendor__reviews">
+      <div class="enhanced-vendor__reviews-title">
+        Articles | Reviews | Testimonials
       </div>
-      <div class="single-vendor__enhanced-reviews">
-        <div class="single-vendor__reviews-title">
-          Articles | Reviews | Testimonials
-        </div>
-        <div class="single-vendor_reviews-container">
+      <div class="enhanced-vendor_reviews-container">
+        <client-only>
           <carousel :per-page="perPage" :navigate-to="-1">
-            <slide v-for="slideIndex in slideCount" :key="slideIndex" :navigate-to="0">
-              <div class="single-vendor__enhanced-frame">
-                <div class="single-vendor__enhanced-avatar">
-                  <avatar username="Jane Doe" :rounded="true"></avatar>
-                  <p class="single-vendor__enhanced-username">Jane Doe</p>
+            <slide v-for="(testimonial, index) in testimonials" :key="index" :navigate-to="0">
+              <div class="enhanced-vendor__frame">
+                <div class="enhanced-vendor__avatar">
+                  <avatar :username="testimonial.displayName" rounded />
+                  <p class="enhanced-vendor__username">{{ testimonial.displayName }}</p>
                 </div>
-                <div class="single-vendor__enhanced-title">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
-                </div>
-                <p class="single-vendor__enhanced-link">Read more ...</p>
+                <div class="enhanced-vendor__testimonial-content" v-html="testimonial.content" />
+                <a class="enhanced-vendor__link" :href="testimonial.link" target="_blank">Read more ...</a>
               </div>
             </slide>
           </carousel>
+        </client-only>
+      </div>
+    </div>
+    <div class="enhanced-vendor__others-container">
+      <div class="enhanced-vendor__others-frame">
+        <p class="enhanced-vendor__others-title">{{ enhancedData.poc.title }}</p>
+        <p class="enhanced-vendor__others-text" v-html="enhancedData.poc.description" />
+        <a class="enhanced-vendor__link" :href="enhancedData.poc.url" target="_blank">Read more ...</a>
+      </div>
+      <div class="enhanced-vendor__others-frame">
+        <p class="enhanced-vendor__others-title">
+          Social
+        </p>
+        <p class="enhanced-vendor__social-text">
+          Follow Us on Social Media
+        </p>
+        <div class="enhanced-vendor_social-container">
+          <a v-if="enhancedData.linkedin" :href="enhancedData.linkedin" target="_blank">
+            <img class="enhanced-vendor_social-icon" src="/images/svgs/listing/linkedin.svg" />
+          </a>
+          <a v-if="enhancedData.facebook" :href="enhancedData.facebook" target="_blank">
+            <img class="enhanced-vendor_social-icon" src="/images/svgs/listing/facebook.svg" />
+          </a>
+          <a v-if="enhancedData.twitter" :href="enhancedData.twitter" target="_blank">
+            <img class="enhanced-vendor_social-icon" src="/images/svgs/listing/twitter.svg" />
+          </a>
+          <a v-if="enhancedData.instagram" :href="enhancedData.instagram" target="_blank">
+            <img class="enhanced-vendor_social-icon" src="/images/svgs/listing/instagram.svg" />
+          </a>
         </div>
       </div>
-      <div class="single-vendor__enhanced-others-container">
-        <div class="single-vendor__enhanced-others-frame">
-          <p class="single-vendor_enhanced-others-title">
-            Pilot | POC
-          </p>
-          <p class="single-vendor_enhanced-others-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at ante tortor. Vivamus elementum vulputate ex
-            ex eu auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos Aliquam
-            Aliquam faucibus rutrum arcu vel cursus. Fusce fringilla felis et sapien porttitor maximus.
-          </p>
-          <p class="single-vendor__enhanced-link">Read more ...</p>
-        </div>
-        <div class="single-vendor__enhanced-others-frame">
-          <p class="single-vendor_enhanced-others-title">
-            Social
-          </p>
-          <p class="single-vendor_enhanced-social-text">
-            Follow Us on Social Media
-          </p>
-          <div class="single-vendor_enhanced-social-container">
-            <img class="single-vendor_enhanced-social-icon" src="/images/svgs/listing/linkedin.svg" />
-            <img class="single-vendor_enhanced-social-icon" src="/images/svgs/listing/facebook.svg" />
-            <img class="single-vendor_enhanced-social-icon" src="/images/svgs/listing/twitter.svg" />
-            <img class="single-vendor_enhanced-social-icon" src="/images/svgs/listing/instagram.svg" />
-          </div>
-        </div>
-      </div>
-      <similar-vendors :vendor-id="vendorId" class="single-vendor__similar-results" />
-
-      <ad class="single-vendor__right-ad" position="right" direction="vertical" />
     </div>
   </div>
 </template>
@@ -121,6 +84,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
+import getIdFromUrl from 'get-youtube-id'
+
 import { Vendor } from '@/models'
 
 @Component({
@@ -128,11 +93,19 @@ import { Vendor } from '@/models'
 })
 export default class EnhancedVendor extends Vue {
   @Prop({ required: true }) data!: Vendor
-  videoData: any = null
 
-  playing() {}
+  get enhancedData() {
+    return this.data.enhancedListingData!
+  }
 
-  async mounted() {}
+  get youtubeVideoID() {
+    const videoId = getIdFromUrl(this.enhancedData.videoUrl)
+    return videoId
+  }
+
+  get testimonials() {
+    return this.enhancedData.testimonials
+  }
 
   get slideCount() {
     return 4
@@ -145,33 +118,16 @@ export default class EnhancedVendor extends Vue {
   get vendorId() {
     return this.$route.params.vendorId
   }
-
-  historyBack() {
-    window.history.back()
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-.single-vendor {
-  @include desktop-max-width-layout;
-  padding: 40px;
-  text-align: left;
-  background: white;
-  position: relative;
+.enhanced-vendor {
+  width: 100%;
+  @include col--center;
 }
 
-$adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
-
-.single-vendor__right-ad {
-  position: absolute;
-  top: 110px;
-  right: 20px;
-  width: 200px;
-  max-width: $adMaxWidth;
-}
-
-.single-vendor__row {
+.enhanced-vendor__row {
   width: 100%;
   @include row;
 
@@ -184,28 +140,46 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-vendor__frame {
+.enhanced-vendor__frame-video {
   width: 100%;
-  @include col--center;
+  @include row;
+  align-items: center;
   background: $colorNeutralsSnow;
   border-radius: 10px;
+  overflow: hidden;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
 
-.single-vendor__frame-video {
-  width: 100%;
-  @include col--center;
-  background: $colorNeutralsSnow;
-  display: flex;
-  flex-direction: row;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   @include respondTo(mobile) {
-    flex-direction: column;
+    @include col;
   }
 }
 
-.single-vendor__enhanced-description {
+.enhanced-vendor__video {
+  height: 100%;
+  @include row;
+  overflow: hidden;
+
+  @include respondTo(mobile) {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+  }
+}
+
+.enhanced-vendor__video-description {
+  height: 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  flex: 1;
+  padding: 20px 30px;
+  color: $colorDarkGrey;
+
+  p {
+    @include typography(lg, normal);
+    color: $colorDarkGrey;
+  }
+}
+
+.enhanced-vendor__description {
   width: 100%;
   background: $colorNeutralsSnow;
   border-radius: 10px;
@@ -213,20 +187,17 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   flex: 2;
   padding: 20px 30px;
   margin-right: 40px;
+  color: $colorDarkGrey;
+
   p {
     @include typography(lg, normal);
-    color: #546e7a;
+    color: $colorDarkGrey;
   }
 }
 
-.single-vendor__enhanced-icon {
-  width: 100%;
-  object-fit: cover;
-}
-
-.single-vendor__enhanced-title {
+.enhanced-vendor__title {
   @include typography(lg, narrow, bold);
-  color: #546e7a;
+  color: $colorDarkGrey;
   text-align: center;
   margin: 16px 8px 16px 8px;
   padding: 8px 4px;
@@ -236,7 +207,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-vendor__enhanced-avatar {
+.enhanced-vendor__avatar {
   width: 100%;
   height: 100%;
   display: flex;
@@ -249,18 +220,24 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-vendor__enhanced-username {
+.enhanced-vendor__username {
   @include col--center;
-  @include typography(xl, none, bold);
+  @include typography(xl, default, bold);
   margin-left: 24px;
 
   @include respondTo(mobile) {
-    @include typography(md, none, bold);
+    @include typography(md, default, bold);
     margin-left: 12px;
   }
 }
 
-.single-vendor__enhanced-link {
+.enhanced-vendor__testimonial-content {
+  width: 100%;
+  flex: 1;
+  text-align: center;
+}
+
+.enhanced-vendor__link {
   @include typography(xl, narrow, bold);
   text-align: right;
   color: #212353;
@@ -268,32 +245,63 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   padding: 24px;
 }
 
-.single-vendor__enhanced-side {
+.enhanced-vendor__side {
   flex: 1;
   @include col;
   justify-content: center;
+
   & > *:not(:last-child) {
     margin-bottom: 20px;
   }
 
   @include respondTo(mobile) {
-    flex-flow: row;
+    flex-direction: row;
     margin-top: 20px;
   }
 }
 
-.single-vendor__enhanced-frame {
+.enhanced-vendor__picture {
+  @include col--center;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+
+  &:hover {
+    background: $colorNeutralsSnow;
+  }
+  &:active {
+    background: $colorLightGrey2;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  @include respondTo(mobile) {
+    border-radius: 15px;
+  }
+}
+
+.enhanced-vendor__picture__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.enhanced-vendor__frame {
   @include col--center;
   border-radius: 16px;
   background: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.13);
-  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   overflow: hidden;
   margin: 8px 10px;
+  padding: 10px;
+
   &:hover {
     background: $colorNeutralsSnow;
   }
+
   &:active {
     background: $colorLightGrey2;
   }
@@ -303,43 +311,28 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-vendor__enhanced-video {
-  width: 50%;
-  height: 100%;
-  object-fit: cover;
-  cursor: pointer;
-  overflow: hidden;
-  &:hover {
-    background: $colorNeutralsSnow;
-  }
-  &:active {
-    background: $colorLightGrey2;
-  }
-
-  @include respondTo(mobile) {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-  }
-}
-
-.single-vendor__enhanced-reviews {
+.enhanced-vendor__reviews {
   width: 100%;
-  margin-top: 36px;
+  margin-top: 50px;
+}
 
-  .single-vendor__reviews-title {
-    @include typography(xl, narrow, bold);
-    color: #011d58;
-  }
+.enhanced-vendor__reviews-title {
+  @include typography(xl, narrow, bold);
+  color: #011d58;
+}
 
-  .single-vendor_reviews-container {
-    @include col--center;
-    display: flex;
-    flex-direction: row;
-    margin-top: 24px;
+.enhanced-vendor_reviews-container {
+  @include col--center;
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+
+  & > * {
+    min-width: 100%;
   }
 }
-.single-vendor__enhanced-others-container {
+
+.enhanced-vendor__others-container {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -347,7 +340,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   margin-top: 36px;
 }
 
-.single-vendor__enhanced-others-frame {
+.enhanced-vendor__others-frame {
   width: 50%;
   @include col--center;
   border-radius: 32px;
@@ -363,56 +356,50 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-vendor_enhanced-others-title {
+.enhanced-vendor__others-title {
+  width: 100%;
+  text-align: left;
   @include col--left;
-  @include typography(xl-2, none);
-  color: #212353;
-  margin-left: 8px;
-  margin-right: auto;
-  margin-bottom: 16px;
+  @include typography(xl-2);
+  color: $colorNavy;
+  margin: 0 0 16px 0;
+
   @include respondTo(mobile) {
-    @include typography(xl, none);
+    @include typography(xl);
     padding: 16px;
     border-radius: 16px;
   }
 }
 
-.single-vendor_enhanced-social-text {
-  @include col--left;
-  @include typography(xl, none);
-  color: #4b5d68;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  height: 50%;
-}
-
-.single-vendor_enhanced-others-text {
-  @include col--left;
-  @include typography(lg, none);
+.enhanced-vendor__others-text {
+  flex: 1;
+  @include typography(xl);
+  text-align: center;
   color: #4b5d68;
   @include respondTo(mobile) {
-    @include typography(md, none);
+    @include typography(md);
   }
 }
 
-.single-vendor_enhanced-social-container {
+.enhanced-vendor__social-text {
+  flex: 1;
+  @include typography(xl);
+  width: 100%;
+  color: #4b5d68;
+}
+
+.enhanced-vendor_social-container {
   @include col--center;
   display: flex;
   flex-direction: row;
   margin-bottom: 24px;
 }
 
-.single-vendor_enhanced-social-icon {
+.enhanced-vendor_social-icon {
   margin-left: 8px;
   margin-right: 8px;
   @include respondTo(mobile) {
     margin: 0px 4px;
   }
-}
-
-.single-vendor__similar-results {
-  width: 100%;
-  margin: 20px 0;
 }
 </style>
