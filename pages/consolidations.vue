@@ -1,5 +1,6 @@
 <template>
   <div class="consolidations">
+    <graveyard-tab :status="2" />
     <div class="consolidations__carousel-container">
       <div class="consolidations__carousel">
         <div class="consolidations__hero">
@@ -56,7 +57,7 @@ export default class Consolidations extends Vue {
   @include col;
   align-items: center;
   width: 100%;
-  margin-top: 70px;
+  margin-top: 32px;
   padding-bottom: 60px;
 }
 

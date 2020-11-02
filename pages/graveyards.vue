@@ -1,5 +1,6 @@
 <template>
   <div class="graveyards">
+    <graveyard-tab :status="1" />
     <div class="graveyards__carousel-container">
       <div class="graveyards__carousel">
         <div class="graveyards__hero">
