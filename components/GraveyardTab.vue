@@ -7,12 +7,14 @@
         </div>
         <div class="graveyard-tab__container">
           <nuxt-link class="graveyard-tab__link" to="/graveyards">
-            <label :class="[status == '1' ? 'graveyard-tab__title-active' : 'graveyard-tab__title']">GRAVEYARD</label>
+            <label class="graveyard-tab__title" :class="{ 'graveyard-tab__title-active': status == 1 }"
+              >GRAVEYARD</label
+            >
           </nuxt-link>
         </div>
         <div class="graveyard-tab__container">
           <nuxt-link class="graveyard-tab__link" to="/consolidations">
-            <label :class="[status == '2' ? 'graveyard-tab__title-active' : 'graveyard-tab__title']"
+            <label class="graveyard-tab__title" :class="{ 'graveyard-tab__title-active': status == 2 }"
               >CONSOLIDATION</label
             >
           </nuxt-link>
@@ -37,15 +39,14 @@ export default class GraveyardTab extends Vue {
   @Prop({ required: true }) status!: number
   show: boolean = false
   mounted() {
-    setTimeout(() => (this.show = true), 100)
+    this.show = true
   }
 }
 </script>
 
 <style lang="scss">
 .graveyard-tab {
-  display: flex;
-  flex-direction: row;
+  @include row;
   padding: 16px;
   justify-content: center;
 }
@@ -83,7 +84,6 @@ export default class GraveyardTab extends Vue {
 
 .tab-indicator__consolidations {
   position: relative;
-  left: 100px;
   width: calc(100% / 5);
   height: 2px;
   background: #80c41c;
@@ -95,7 +95,6 @@ export default class GraveyardTab extends Vue {
 
 .tab-indicator__graveyards {
   position: relative;
-  left: 100px;
   width: calc(100% / 5);
   height: 2px;
   background: #80c41c;
@@ -107,10 +106,12 @@ export default class GraveyardTab extends Vue {
 }
 
 .tab-indicator__anim-right {
+  transition-delay: 0.1s;
   transform: translateX(200px);
 }
 
 .tab-indicator__anim-left {
+  transition-delay: 0.1s;
   transform: translateX(0px);
 }
 </style>
