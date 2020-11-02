@@ -7,16 +7,16 @@
         </div>
         <div class="graveyard-tab__container">
           <nuxt-link class="graveyard-tab__link" to="/graveyards">
-            <label class="graveyard-tab__title" :class="{ 'graveyard-tab__title-active': status == 1 }"
-              >GRAVEYARD</label
-            >
+            <label class="graveyard-tab__title" :class="{ 'graveyard-tab__title-active': status == 1 }">
+              GRAVEYARD
+            </label>
           </nuxt-link>
         </div>
         <div class="graveyard-tab__container">
           <nuxt-link class="graveyard-tab__link" to="/consolidations">
-            <label class="graveyard-tab__title" :class="{ 'graveyard-tab__title-active': status == 2 }"
-              >CONSOLIDATION</label
-            >
+            <label class="graveyard-tab__title" :class="{ 'graveyard-tab__title-active': status == 2 }">
+              CONSOLIDATION
+            </label>
           </nuxt-link>
         </div>
         <div class="graveyard-tab__container">
@@ -25,10 +25,11 @@
       </client-only>
     </div>
     <div
-      :class="[
-        status == '2' ? 'tab-indicator__consolidations' : 'tab-indicator__graveyards',
-        show ? (status == '2' ? 'tab-indicator__anim-right' : 'tab-indicator__anim-left') : ''
-      ]"
+      class="graveyard-tab-indicator"
+      :class="{
+        'graveyard-tab-indicator--graveyards': status === 1 && show,
+        'graveyard-tab-indicator--consolidations': status === 2 && show
+      }"
     ></div>
   </div>
 </template>
@@ -82,7 +83,7 @@ export default class GraveyardTab extends Vue {
   margin: auto;
 }
 
-.tab-indicator__consolidations {
+.graveyard-tab-indicator {
   position: relative;
   width: calc(100% / 5);
   height: 2px;
@@ -90,28 +91,15 @@ export default class GraveyardTab extends Vue {
   left: 0px;
   border-radius: 5px;
   margin: 0px calc(100% / 6);
-  transition: 0.5s ease;
+  transition: 0.5s ease-in-out;
+  transform: translateX(100px);
 }
 
-.tab-indicator__graveyards {
-  position: relative;
-  width: calc(100% / 5);
-  height: 2px;
-  background: #80c41c;
-  left: 0px;
-  border-radius: 5px;
-  margin: 0px calc(100% / 6);
-  transition: 0.5s ease;
+.graveyard-tab-indicator--consolidations {
   transform: translateX(200px);
 }
 
-.tab-indicator__anim-right {
-  transition-delay: 0.1s;
-  transform: translateX(200px);
-}
-
-.tab-indicator__anim-left {
-  transition-delay: 0.1s;
+.graveyard-tab-indicator--graveyards {
   transform: translateX(0px);
 }
 </style>
