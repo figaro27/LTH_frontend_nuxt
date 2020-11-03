@@ -13,9 +13,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 @Component({
   name: 'contact-dialog'
 })
-export default class ContactDialog extends Vue {
-  mounted() {}
-}
+export default class ContactDialog extends Vue {}
 </script>
 
 <style lang="scss" scoped>
