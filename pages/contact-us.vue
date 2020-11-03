@@ -68,14 +68,17 @@
         </div>
       </div>
     </div>
+    <client-only>
+      <contact-dialog v-if="showModal" v-on-clickaway="away" class="contact-us__modal" />
+    </client-only>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-
 import { api, buildMeta } from '@/utils'
-
+import { mixin as ClickAway } from 'vue-clickaway'
+import { ComponentOptions } from 'vue'
 type ContactData = {
   email: string
   firstName: string
@@ -87,6 +90,7 @@ type ContactData = {
 
 @Component({
   name: 'contact-us',
+  mixins: [ClickAway as ComponentOptions<Vue>],
   head() {
     return buildMeta({
       title: 'Contact Us - Legaltech Hub',
@@ -103,6 +107,8 @@ export default class ContactUs extends Vue {
     country: '',
     message: ''
   }
+
+  showModal: boolean = false
 
   get disabled() {
     const { data } = this
@@ -127,6 +133,12 @@ export default class ContactUs extends Vue {
       country: '',
       message: ''
     }
+    window.scrollTo(0, 0)
+    this.showModal = true
+  }
+
+  away() {
+    this.showModal = false
   }
 }
 </script>
@@ -248,5 +260,17 @@ export default class ContactUs extends Vue {
     background: $colorNavy;
     color: $colorBg1;
   }
+}
+
+.contact-us__modal {
+  position: absolute;
+  top: 40%;
+  width: 480px;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 40px 40px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
 }
 </style>
