@@ -239,11 +239,6 @@ export default class Home extends Vue {
 
   @include respondTo(lg) {
     display: none;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    height: auto;
-    padding-right: 0;
   }
 }
 
