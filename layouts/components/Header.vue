@@ -311,10 +311,6 @@ ul li {
   display: grid;
   grid-template-columns: 45px 155px 30px 45px;
   grid-template-areas: '. items . ';
-
-  @include respondTo(lg) {
-    display: none;
-  }
 }
 
 .sidebar__menu {
