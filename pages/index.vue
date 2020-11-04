@@ -302,7 +302,7 @@ export default class Home extends Vue {
   flex-wrap: wrap;
   justify-content: center;
 
-  @media (min-width: 640px) {
+  @include respondTo(lg) {
     display: none;
   }
 }

@@ -38,5 +38,8 @@ export default class Search extends Vue {}
   width: $widgetWidth;
   margin-right: 20px;
   margin-top: 30px;
+  @include respondTo(lg) {
+    display: none;
+  }
 }
 </style>
