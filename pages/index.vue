@@ -23,16 +23,6 @@
         <saved-searchs class="home__saved-searchs" />
         <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
       </div>
-      <div class="home__main__popular-searchs">
-        <nuxt-link
-          v-for="(item, index) of popularSearchs"
-          :key="index"
-          class="home__main__popular-searchs__item"
-          :to="item.to"
-        >
-          <label>{{ item.label }}</label>
-        </nuxt-link>
-      </div>
       <div class="home__main__right-side">
         <tool-of-month class="home__tool-of-the-month" />
         <div class="home__main__right-side__absolute">
