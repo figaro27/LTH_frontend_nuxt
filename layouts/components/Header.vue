@@ -238,7 +238,7 @@ export default class DefaultHeader extends Vue {
   width: 20%;
   margin-left: 100px;
 
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     width: 50%;
     margin-left: 0;
   }
@@ -263,12 +263,7 @@ export default class DefaultHeader extends Vue {
   margin-right: 10%;
   justify-content: center;
 
-  @media (max-width: 1150px) {
-    margin-right: 0;
-    width: 80%;
-  }
-
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     display: none;
   }
 }
@@ -300,7 +295,7 @@ ul li {
   top: 35px;
   left: 35px;
   display: none;
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     display: block;
   }
 }
@@ -317,7 +312,7 @@ ul li {
   grid-template-columns: 45px 155px 30px 45px;
   grid-template-areas: '. items . ';
 
-  @media (min-width: 640px) {
+  @include respondTo(lg) {
     display: none;
   }
 }
