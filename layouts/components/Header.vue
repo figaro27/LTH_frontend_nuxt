@@ -263,11 +263,6 @@ export default class DefaultHeader extends Vue {
   margin-right: 10%;
   justify-content: center;
 
-  @include repondTo(lg) {
-    margin-right: 0;
-    width: 80%;
-  }
-
   @include respondTo(lg) {
     display: none;
   }
