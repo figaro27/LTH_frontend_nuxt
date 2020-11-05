@@ -309,7 +309,9 @@ export default class ListingForm extends Vue {
   & > * {
     margin: 5px 0;
   }
-
+  @include respondFromTo(mobile, lg) {
+    width: 80%;
+  }
   @include respondTo(mobile) {
     width: 100%;
     min-width: 35%;
