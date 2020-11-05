@@ -31,7 +31,7 @@ export default class Listing extends Vue {
   margin: 70px auto;
   padding: 24px 24px 36px 24px;
   width: 60%;
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     padding: 24px 8px 36px 8px;
   }
 }
