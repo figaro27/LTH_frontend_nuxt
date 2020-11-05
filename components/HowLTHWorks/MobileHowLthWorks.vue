@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mobile-lth__container">
     <h1 class="lth__title">How <span>LTH works</span></h1>
     <h3 class="lth__summary">
       Legaltech Hub is the global information portal for commercial legal professionals. Here, you will find tools to
@@ -225,6 +225,14 @@ export default class MobileHowLTHWorks extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.mobile-lth__container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  @include respondTo(mobile) {
+    width: 100%;
+  }
+}
 .lth__title {
   @include typography(xxl-1, narrow, bold);
   margin-top: 16px;
