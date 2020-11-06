@@ -45,14 +45,14 @@ export default class GraveyardItem extends Vue {
 }
 
 .graveyard-item__rip {
-  @include typography(xl-1, narrow, bold);
+  @include typography(xl-2, narrow, bold);
   color: #979797;
   font-size: 3rem;
   margin-bottom: 16px;
 
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     margin-bottom: 0;
-    font-size: 1rem;
+    @include typography(xl-2, narrow, bold);
   }
 }
 
@@ -67,11 +67,11 @@ export default class GraveyardItem extends Vue {
 }
 
 .graveyard-item__title {
-  @include typography(xxl, narrow, bold);
+  @include typography(xl, narrow, bold);
   margin-bottom: 10px;
   color: $colorNavy;
   @include respondTo(mobile) {
-    font-size: 1rem;
+    @include typography(lg, narrow, bold);
     margin-bottom: 0;
   }
 }
