@@ -21,7 +21,7 @@ export default class SearchAds extends Vue {}
   width: $widgetWidth;
   @include col;
 
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     display: none;
   }
 }

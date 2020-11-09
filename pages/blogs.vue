@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <ad v-if="isMobile" class="blogs__horizontal-ad" direction="horizontal" />
+          <ad v-if="isMobile || isTablet" class="blogs__horizontal-ad" direction="horizontal" />
           <hr v-if="sectionIndex < blogSections.length - 1" class="blogs__divider" />
         </div>
       </client-only>
@@ -842,8 +842,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .blogs__horizontal-ad {
   width: 70%;
-
-  @include respondTo(mobile) {
+  margin-left: auto;
+  margin-right: auto;
+  @include respondTo(lg) {
     width: 90%;
   }
 }

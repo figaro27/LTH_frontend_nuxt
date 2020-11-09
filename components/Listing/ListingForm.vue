@@ -1,178 +1,179 @@
 <template>
   <div class="listing">
-    <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
-    <div class="listing-form__header">
-      <label class="listing-form__tip">I want to</label>
-      <div class="listing-action__group">
-        <button
-          class="listing-action__container"
-          :class="{ 'listing-action__container--selected': vendorRequest.type === 'create' }"
-          @click="vendorRequest.type = 'create'"
-        >
-          <img
-            :src="vendorRequest.type === 'create' ? '/images/listings/add_selected.svg' : '/images/listings/add.svg'"
-          />
-          <label class="listing-action__label">
-            Add a new listing
-          </label>
-        </button>
-        <button
-          class="listing-action__container"
-          :class="{ 'listing-action__container--selected': vendorRequest.type === 'update' }"
-          @click="vendorRequest.type = 'update'"
-        >
-          <img
-            :src="
-              vendorRequest.type === 'update'
-                ? '/images/listings/form-pencil_selected.svg'
-                : '/images/listings/form-pencil.svg'
-            "
-          />
-          <label class="listing-action__label">
-            Update an existing listing
-          </label>
-        </button>
+    <client-only>
+      <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
+      <div class="listing-form__header">
+        <label class="listing-form__tip">I want to</label>
+        <div class="listing-action__group">
+          <button
+            class="listing-action__container"
+            :class="{ 'listing-action__container--selected': vendorRequest.type === 'create' }"
+            @click="vendorRequest.type = 'create'"
+          >
+            <img
+              :src="vendorRequest.type === 'create' ? '/images/listings/add_selected.svg' : '/images/listings/add.svg'"
+            />
+            <label class="listing-action__label">
+              Add a new listing
+            </label>
+          </button>
+          <button
+            class="listing-action__container"
+            :class="{ 'listing-action__container--selected': vendorRequest.type === 'update' }"
+            @click="vendorRequest.type = 'update'"
+          >
+            <img
+              :src="
+                vendorRequest.type === 'update'
+                  ? '/images/listings/form-pencil_selected.svg'
+                  : '/images/listings/form-pencil.svg'
+              "
+            />
+            <label class="listing-action__label">
+              Update an existing listing
+            </label>
+          </button>
+        </div>
       </div>
-    </div>
+      <form class="listing-form" @submit.prevent="submit">
+        <listing-form-input
+          v-model="vendorRequest.name"
+          :error="errors.name"
+          label="Vendor Name *"
+          name="name"
+          placeholder="The organization that produces the tool"
+          required
+        />
+        <listing-form-input
+          v-model="vendorRequest.tool"
+          :error="errors.tool"
+          label="Tool *"
+          name="tool"
+          placeholder="The name of the tool"
+          required
+        />
+        <select-filter
+          id="hqs"
+          v-model="vendorRequest.hqs"
+          :error="errors.hqs"
+          below-text="The country where the vendor is based"
+          name="hqs"
+          label="HQ *"
+          :options="offices"
+          required
+        />
+        <select-filter
+          id="offices"
+          v-model="vendorRequest.offices"
+          :error="errors.offices"
+          below-text="Countries where the vendor has a physical presence"
+          name="offices"
+          label="Office *"
+          :options="offices"
+          required
+        />
+        <select-filter
+          id="functionalities"
+          v-model="vendorRequest.functionalities"
+          :error="errors.functionalities"
+          below-text="The primary function of the tool"
+          name="functionality"
+          label="Functionality *"
+          :options="functionalities"
+          required
+        />
+        <select-filter
+          id="subfunctionalities"
+          v-model="vendorRequest.subFunctionalities"
+          below-text="Secondary functions of the tool"
+          name="subfunctionality"
+          label="Sub-Functionality"
+          :options="functionalities"
+        />
+        <select-filter
+          id="practiceAreas"
+          v-model="vendorRequest.practiceAreas"
+          :error="errors.practiceAreas"
+          below-text="The area(s) of law to which the tool is targeted "
+          name="practiceArea"
+          label="Practice Area *"
+          :options="practiceAreas"
+          required
+        />
+        <select-filter
+          id="platformLanguages"
+          v-model="vendorRequest.platformLanguages"
+          :error="errors.platformLanguages"
+          below-text="Language(s) of the tool interface"
+          name="platformLanguage"
+          label="Platform Language *"
+          :options="platformLanguages"
+          required
+        />
+        <select-filter
+          id="linguisticFunctionalities"
+          v-model="vendorRequest.linguisticFunctionalities"
+          :error="errors.linguisticFunctionalities"
+          below-text="Language(s) in which the tool can be utilized"
+          name="linguisticFunctionality"
+          label="Linguistic Efficacy *"
+          :options="platformLanguages"
+          required
+        />
+        <select-filter
+          id="demographics"
+          v-model="vendorRequest.demographics"
+          :error="errors.demographics"
+          below-text=" "
+          name="demographic"
+          label="Target Entity *"
+          :options="demographics"
+          required
+        />
+        <select-filter
+          id="installations"
+          v-model="vendorRequest.installations"
+          below-text=" "
+          name="installation"
+          label="Deployment"
+          :options="installations"
+        />
+        <editable-filter
+          id="integrations"
+          v-model="vendorRequest.integrations"
+          below-text="Other tools with which the tool is designed to integrate"
+          name="integrations"
+          label="Integrations"
+        />
+        <editable-filter
+          id="existingCustomers"
+          v-model="vendorRequest.existingCustomers"
+          below-text=" "
+          name="existingCustomer"
+          label="Existing Customers"
+        />
 
-    <form class="listing-form" @submit.prevent="submit">
-      <listing-form-input
-        v-model="vendorRequest.name"
-        :error="errors.name"
-        label="Vendor Name *"
-        name="name"
-        placeholder="The organization that produces the tool"
-        required
-      />
-      <listing-form-input
-        v-model="vendorRequest.tool"
-        :error="errors.tool"
-        label="Tool *"
-        name="tool"
-        placeholder="The name of the tool"
-        required
-      />
-      <select-filter
-        id="hqs"
-        v-model="vendorRequest.hqs"
-        :error="errors.hqs"
-        below-text="The country where the vendor is based"
-        name="hqs"
-        label="HQ *"
-        :options="offices"
-        required
-      />
-      <select-filter
-        id="offices"
-        v-model="vendorRequest.offices"
-        :error="errors.offices"
-        below-text="Countries where the vendor has a physical presence"
-        name="offices"
-        label="Office *"
-        :options="offices"
-        required
-      />
-      <select-filter
-        id="functionalities"
-        v-model="vendorRequest.functionalities"
-        :error="errors.functionalities"
-        below-text="The primary function of the tool"
-        name="functionality"
-        label="Functionality *"
-        :options="functionalities"
-        required
-      />
-      <select-filter
-        id="subfunctionalities"
-        v-model="vendorRequest.subFunctionalities"
-        below-text="Secondary functions of the tool"
-        name="subfunctionality"
-        label="Sub-Functionality"
-        :options="functionalities"
-      />
-      <select-filter
-        id="practiceAreas"
-        v-model="vendorRequest.practiceAreas"
-        :error="errors.practiceAreas"
-        below-text="The area(s) of law to which the tool is targeted "
-        name="practiceArea"
-        label="Practice Area *"
-        :options="practiceAreas"
-        required
-      />
-      <select-filter
-        id="platformLanguages"
-        v-model="vendorRequest.platformLanguages"
-        :error="errors.platformLanguages"
-        below-text="Language(s) of the tool interface"
-        name="platformLanguage"
-        label="Platform Language *"
-        :options="platformLanguages"
-        required
-      />
-      <select-filter
-        id="linguisticFunctionalities"
-        v-model="vendorRequest.linguisticFunctionalities"
-        :error="errors.linguisticFunctionalities"
-        below-text="Language(s) in which the tool can be utilized"
-        name="linguisticFunctionality"
-        label="Linguistic Efficacy *"
-        :options="platformLanguages"
-        required
-      />
-      <select-filter
-        id="demographics"
-        v-model="vendorRequest.demographics"
-        :error="errors.demographics"
-        below-text=" "
-        name="demographic"
-        label="Target Entity *"
-        :options="demographics"
-        required
-      />
-      <select-filter
-        id="installations"
-        v-model="vendorRequest.installations"
-        below-text=" "
-        name="installation"
-        label="Deployment"
-        :options="installations"
-      />
-      <editable-filter
-        id="integrations"
-        v-model="vendorRequest.integrations"
-        below-text="Other tools with which the tool is designed to integrate"
-        name="integrations"
-        label="Integrations"
-      />
-      <editable-filter
-        id="existingCustomers"
-        v-model="vendorRequest.existingCustomers"
-        below-text=" "
-        name="existingCustomer"
-        label="Existing Customers"
-      />
+        <listing-form-input
+          v-model="vendorRequest.website"
+          :error="errors.website"
+          label="Website *"
+          name="website"
+          required
+        />
+        <listing-form-input
+          v-model="vendorRequest.email"
+          :error="errors.email"
+          label="Your Email *"
+          name="email"
+          placeholder="For correspondence with LTH only, not to be published"
+          required
+        />
 
-      <listing-form-input
-        v-model="vendorRequest.website"
-        :error="errors.website"
-        label="Website *"
-        name="website"
-        required
-      />
-      <listing-form-input
-        v-model="vendorRequest.email"
-        :error="errors.email"
-        label="Your Email *"
-        name="email"
-        placeholder="For correspondence with LTH only, not to be published"
-        required
-      />
+        <listing-form-description v-model="vendorRequest.description" :error="errors.description" />
 
-      <listing-form-description v-model="vendorRequest.description" :error="errors.description" />
-
-      <button type="submit" :disabled="loading" class="listing-form__button">Submit</button>
-    </form>
+        <button type="submit" :disabled="loading" class="listing-form__button">Submit</button>
+      </form>
+    </client-only>
   </div>
 </template>
 
@@ -308,7 +309,9 @@ export default class ListingForm extends Vue {
   & > * {
     margin: 5px 0;
   }
-
+  @include respondFromTo(mobile, lg) {
+    width: 80%;
+  }
   @include respondTo(mobile) {
     width: 100%;
     min-width: 35%;

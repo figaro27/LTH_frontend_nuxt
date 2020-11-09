@@ -23,16 +23,6 @@
         <saved-searchs class="home__saved-searchs" />
         <ad v-if="isMobile" class="home__horizontal-ad" direction="horizontal" type="home" />
       </div>
-      <div class="home__main__popular-searchs">
-        <nuxt-link
-          v-for="(item, index) of popularSearchs"
-          :key="index"
-          class="home__main__popular-searchs__item"
-          :to="item.to"
-        >
-          <label>{{ item.label }}</label>
-        </nuxt-link>
-      </div>
       <div class="home__main__right-side">
         <tool-of-month class="home__tool-of-the-month" />
         <div class="home__main__right-side__absolute">
@@ -172,7 +162,7 @@ export default class Home extends Vue {
   @include row;
   justify-content: center;
 
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     flex-direction: column;
   }
 }
@@ -181,7 +171,7 @@ export default class Home extends Vue {
   position: absolute;
   top: 0;
   left: 0;
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     display: none;
   }
 }
@@ -190,7 +180,7 @@ export default class Home extends Vue {
   position: absolute;
   bottom: -20px;
   right: 0;
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     display: none;
   }
 }
@@ -204,7 +194,7 @@ export default class Home extends Vue {
   z-index: 1;
   margin-left: 40px;
 
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     display: none;
   }
 }
@@ -237,12 +227,8 @@ export default class Home extends Vue {
   z-index: 1;
   padding-right: 30px;
 
-  @include respondTo(mobile) {
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    height: auto;
-    padding-right: 0;
+  @include respondTo(lg) {
+    display: none;
   }
 }
 
@@ -253,7 +239,7 @@ export default class Home extends Vue {
 .home__main__right-side__absolute {
   @include col;
 
-  @include respondFrom(mobile) {
+  @include respondFrom(lg) {
     position: absolute;
     top: 100%;
     left: 0;
@@ -306,7 +292,7 @@ export default class Home extends Vue {
   flex-wrap: wrap;
   justify-content: center;
 
-  @media (min-width: 640px) {
+  @include respondTo(lg) {
     display: none;
   }
 }
@@ -335,7 +321,7 @@ export default class Home extends Vue {
   background: rgba(249, 249, 251, 0.5);
   padding: 46px 0px 40px;
 
-  @include respondTo(mobile) {
+  @include respondTo(lg) {
     min-height: auto;
   }
 }

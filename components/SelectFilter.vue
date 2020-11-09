@@ -1,6 +1,8 @@
 <template>
   <div class="search-filter">
-    <label v-if="label" class="search-filter__label" :for="id"> {{ label }} </label>
+    <client-only>
+      <label v-if="label" class="search-filter__label" :for="id"> {{ label }} </label>
+    </client-only>
     <multiselect
       v-model="selectedVal"
       class="search-filter__select"
@@ -13,8 +15,10 @@
       track-by="id"
       :options="options"
     />
-    <label v-if="error" class="search-filter__error"> {{ error }}</label>
-    <label v-else-if="belowText" class="search-filter__below"> {{ belowText }}</label>
+    <client-only>
+      <label v-if="error" class="search-filter__error"> {{ error }}</label>
+      <label v-else-if="belowText" class="search-filter__below"> {{ belowText }}</label>
+    </client-only>
   </div>
 </template>
 

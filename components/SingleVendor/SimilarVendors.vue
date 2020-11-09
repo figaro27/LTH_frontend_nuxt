@@ -58,7 +58,7 @@ export default class SimilarVendors extends Vue {
   width: 100%;
   @include col;
   padding-top: 60px;
-  border-top: 4px solid $colorLightNavy;
+  border-top: 4px solid $colorLightGreen;
 }
 
 .similar-vendors__title {
