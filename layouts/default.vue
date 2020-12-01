@@ -2,6 +2,7 @@
   <div class="main">
     <default-header />
     <nuxt class="main__content" />
+    <default-subscribe />
     <default-footer />
   </div>
 </template>
@@ -10,10 +11,11 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import DefaultHeader from './components/Header.vue'
 import DefaultFooter from './components/Footer.vue'
+import DefaultSubscribe from './components/Subscribe.vue'
 
 @Component({
   name: 'DefaultLayout',
-  components: { DefaultHeader, DefaultFooter }
+  components: { DefaultHeader, DefaultFooter, DefaultSubscribe }
 })
 export default class DefaultLayout extends Vue {}
 </script>
