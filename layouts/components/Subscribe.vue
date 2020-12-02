@@ -1,22 +1,30 @@
 <template>
-  <div class="subscribe">
-    <div class="subscribe_form">
-      <h1 class="subscribe_form_title">Subscribe To Our Newsletter</h1>
-      <label class="subscribe_form_desc">
-        Join our subscribers list to get the latest news and updates delivered directly to your inbox
-      </label>
-      <div class="subscribe_form_input_section">
-        <input
-          id="email"
-          v-model="data.email"
-          class="subscribe_form_input"
-          name="email"
-          type="email"
-          required="required"
-          placeholder="Your Email"
-        />
-        <button class="sumscribe_form__submit" type="button" @click="submit">Subscribe</button>
+  <div>
+    <div v-if="isSubscribe" class="subscribe">
+      <div class="subscribe_form">
+        <h1 class="subscribe_form_title">Subscribe To Our Newsletter</h1>
+        <label class="subscribe_form_desc">
+          Join our subscribers list to get the latest news and updates delivered directly to your inbox
+        </label>
+        <div class="subscribe_form_input_section">
+          <input
+            id="email"
+            v-model="data.email"
+            class="subscribe_form_input"
+            name="email"
+            type="email"
+            required="required"
+            placeholder="Your Email"
+          />
+          <button class="sumscribe_form__submit" type="button" @click="submit">Subscribe</button>
+        </div>
       </div>
+    </div>
+    <div v-if="isSnackbar" class="snackbar">
+      <label class="snackbar_text">
+        <span class="snackbar_text_bold">Thank you!</span> You have subscribed to our monthly newsletter
+      </label>
+      <label class="snackbar_close" @click="isSnackbar = false">CLOSE</label>
     </div>
   </div>
 </template>
@@ -38,8 +46,16 @@ export default class DefaultSubscribe extends Vue {
     email: ''
   }
 
+  isSnackbar: boolean = false
+  isSubscribe: boolean = true
+
   submit() {
     console.log('submit')
+    this.isSubscribe = false
+    this.isSnackbar = true
+    setTimeout(() => {
+      this.isSnackbar = false
+    }, 3000)
   }
 }
 </script>
@@ -91,7 +107,7 @@ export default class DefaultSubscribe extends Vue {
 .subscribe_form_title {
   font-size: 36px;
   font-family: 'PT Sans';
-  font-style: bold;
+  font-weight: bold;
   color: $colorNavy;
   margin: 15px 0;
   @media (max-width: 640px) {
@@ -125,7 +141,7 @@ export default class DefaultSubscribe extends Vue {
   padding: 15px;
   width: 530px;
   height: 65px;
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 200px;
     height: 40px;
   }
@@ -135,14 +151,52 @@ export default class DefaultSubscribe extends Vue {
 .sumscribe_form__submit {
   font-size: 18px;
   font-family: 'PT Sans';
-  font-style: bold;
+  font-weight: bold;
   width: 170px;
   height: 66px;
-  @media (max-width: 640px) {
+  @media (max-width: 780px) {
     width: 100px;
     height: 40px;
   }
   background: $colorLightGreen;
   border-radius: 0 20px 20px 0;
+}
+
+.snackbar {
+  position: fixed;
+  width: 646px;
+  height: 58px;
+  z-index: 10;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url('/images/subscribe/snackbar_background.svg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  @media (max-width: 620px) {
+    width: 500px;
+  }
+}
+
+.snackbar_text {
+  font-family: 'PT Sans Narrow';
+  font-size: 18px;
+  color: $colorNavy;
+  margin: 20px;
+}
+
+.snackbar_text_bold {
+  font-weight: bold;
+}
+
+.snackbar_close {
+  font-family: 'PT Sans Narrow';
+  font-size: 14px;
+  color: #5980d7;
+  margin: 20px;
 }
 </style>
