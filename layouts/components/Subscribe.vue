@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="subscribe_container">
     <div v-if="isSubscribe" class="subscribe">
+      <img class="subscribe_img" src="/images/subscribe/box.svg" />
       <div class="subscribe_form">
         <h1 class="subscribe_form_title">Subscribe To Our Newsletter</h1>
         <label class="subscribe_form_desc">
@@ -16,7 +17,7 @@
             required="required"
             placeholder="Your Email"
           />
-          <button class="sumscribe_form__submit" type="button" @click="submit">Subscribe</button>
+          <button class="sumscribe_form_submit" type="button" @click="submit">Subscribe</button>
         </div>
       </div>
     </div>
@@ -61,45 +62,65 @@ export default class DefaultSubscribe extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.subscribe {
-  height: 540px;
-  @media (max-width: 640px) {
-    height: 250px;
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.subscribe_container {
   background: $colorNeutralsSnow;
-  background-image: url('/images/subscribe/background.svg');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
-.subscribe_background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+.subscribe {
+  display: flex;
+  align-items: flex-end;
+  background-image: url('/images/subscribe/background.svg');
+  background-repeat: no-repeat;
+  background-size: 90% 90%;
+  background-position: bottom;
+  height: 520px;
+  width: 1440px;
+  @media (max-width: 1200px) {
+    height: 400px;
+    width: 1100px;
+  }
+  @media (max-width: 870px) {
+    height: 285px;
+    width: 750px;
+  }
+  @media (max-width: 640px) {
+    height: 160px;
+    width: 440px;
+  }
+}
+
+.subscribe_img {
+  width: 420px;
+  height: 350px;
+  @media (max-width: 1200px) {
+    width: 310px;
+    height: 270px;
+  }
+  @media (max-width: 870px) {
+    width: 210px;
+    height: 199px;
+  }
+  @media (max-width: 640px) {
+    width: 140px;
+    height: 120px;
+  }
 }
 
 .subscribe_form {
   display: flex;
   flex-direction: column;
-  margin: 30px 0 0 250px;
-  @media (max-width: 900px) {
-    margin: 20px 30px 0 360px;
+  padding: 20px 100px 100px 60px;
+  @media (max-width: 1200px) {
+    padding: 0 85px 30px 0;
   }
-  @media (max-width: 768px) {
-    margin: 20px 30px 0 400px;
+  @media (max-width: 870px) {
+    padding: 0 40px 30px 30px;
   }
-  @media (max-width: 620px) {
-    margin: 25px 30px 0 320px;
-  }
-  @media (max-width: 580px) {
-    margin: 30px 30px 0 280px;
-  }
-  @media (max-width: 465px) {
-    margin: 35px 30px 0 200px;
+  @media (max-width: 640px) {
+    padding: 0 20px 10px 0;
   }
   text-align: left;
 }
@@ -110,9 +131,13 @@ export default class DefaultSubscribe extends Vue {
   font-weight: bold;
   color: $colorNavy;
   margin: 15px 0;
+  @media (max-width: 870px) {
+    margin: 2px 5px;
+    font-size: 18px;
+  }
   @media (max-width: 640px) {
-    font-size: 20px;
-    margin: 5px;
+    font-size: 14px;
+    margin: 2px 5px;
   }
 }
 
@@ -121,42 +146,59 @@ export default class DefaultSubscribe extends Vue {
   font-family: 'PT Sans';
   color: $colorNavy;
   margin: 15px 0;
+  @media (max-width: 870px) {
+    margin: 2px 5px;
+    font-size: 16px;
+  }
   @media (max-width: 640px) {
-    margin: 5px;
+    margin: 2px 5px;
+    font-size: 12px;
   }
 }
 
 .subscribe_form_input_section {
   display: flex;
-  align-items: center;
   margin: 15px 0;
   @media (max-width: 640px) {
-    margin: 5px;
+    margin: 2px 5px;
   }
 }
 
 .subscribe_form_input {
   font-size: 18px;
   font-family: 'PT Sans';
-  padding: 15px;
+  padding: 0 20px;
   width: 530px;
   height: 65px;
-  @media (max-width: 780px) {
-    width: 200px;
-    height: 40px;
+  @media (max-width: 870px) {
+    font-size: 14px;
+    width: 289px;
+    height: 35px;
+  }
+  @media (max-width: 640px) {
+    width: 160px;
+    height: 30px;
+    font-size: 12px;
+    padding: 0 10px;
   }
   border-radius: 20px 0 0 20px;
 }
 
-.sumscribe_form__submit {
+.sumscribe_form_submit {
   font-size: 18px;
   font-family: 'PT Sans';
   font-weight: bold;
   width: 170px;
   height: 66px;
-  @media (max-width: 780px) {
+  @media (max-width: 870px) {
+    font-size: 10px;
     width: 100px;
-    height: 40px;
+    height: 35px;
+  }
+  @media (max-width: 640px) {
+    width: 70px;
+    height: 30px;
+    font-size: 10px;
   }
   background: $colorLightGreen;
   border-radius: 0 20px 20px 0;
@@ -174,10 +216,10 @@ export default class DefaultSubscribe extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: url('/images/subscribe/snackbar_background.svg');
+  background: url('/images/subscribe/snackbar_background.svg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  @media (max-width: 620px) {
+  @media (max-width: 640px) {
     width: 500px;
   }
 }
