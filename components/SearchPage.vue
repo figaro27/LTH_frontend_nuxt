@@ -119,6 +119,7 @@
 </template>
 
 <script lang="ts">
+/* global gtag */
 import isEqual from 'lodash.isequal'
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
@@ -324,20 +325,80 @@ export default class Search extends Vue {
     window.scrollTo(0, 0)
   }
 
+  submitAnalyticsData() {
+    if (process.env.environment !== 'production') return
+
+    const {
+      keyword,
+      demographics,
+      functionalities,
+      hqs,
+      integrations,
+      installations,
+      offices,
+      platformLanguages,
+      practiceAreas
+    } = this.filters
+
+    if (keyword) {
+      gtag('event', 'search', { event_category: 'keyword', event_label: this.searchQuery.keyword })
+    }
+
+    if (functionalities.length > 0) {
+      functionalities.forEach((item) => {
+        gtag('event', 'search', { event_category: 'functionality', event_label: item.name })
+      })
+    }
+
+    if (demographics.length > 0) {
+      demographics.forEach((item) => {
+        gtag('event', 'search', { event_category: 'demographic', event_label: item.name })
+      })
+    }
+
+    if (hqs.length > 0) {
+      hqs.forEach((item) => {
+        gtag('event', 'search', { event_category: 'hq', event_label: item.name })
+      })
+    }
+
+    if (integrations.length > 0) {
+      integrations.forEach((item) => {
+        gtag('event', 'search', { event_category: 'integration', event_label: item.name })
+      })
+    }
+
+    if (installations.length > 0) {
+      installations.forEach((item) => {
+        gtag('event', 'search', { event_category: 'installation', event_label: item.name })
+      })
+    }
+
+    if (offices.length > 0) {
+      offices.forEach((item) => {
+        gtag('event', 'search', { event_category: 'office', event_label: item.name })
+      })
+    }
+
+    if (platformLanguages.length > 0) {
+      platformLanguages.forEach((item) => {
+        gtag('event', 'search', { event_category: 'platformLanguage', event_label: item.name })
+      })
+    }
+
+    if (practiceAreas.length > 0) {
+      practiceAreas.forEach((item) => {
+        gtag('event', 'search', { event_category: 'practiceArea', event_label: item.name })
+      })
+    }
+  }
+
   async submitQuery() {
-    if (isEqual(this.searchQuery, this.lastSearchQuery)) return
+    if (isEqual(this.searchRouteQuery, this.lastSearchQuery)) return
 
     this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
 
-    if (process.env.environment === 'production') {
-      if (this.searchQuery.keyword) {
-        // eslint-disable-next-line no-undef
-        gtag('event', 'search', { event_label: this.searchQuery.keyword })
-      } else {
-        // eslint-disable-next-line no-undef
-        gtag('event', 'search', { event_label: '' })
-      }
-    }
+    this.submitAnalyticsData()
     await this.$store.dispatch('search/runSearch', this.searchQuery)
   }
 }
