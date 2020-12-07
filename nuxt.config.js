@@ -143,7 +143,7 @@ export default {
         }
       }
     },
-    transpile: ['get-youtube-id', 'lodash', 'validator']
+    transpile: ['get-youtube-id', 'lodash.isequal', 'validator']
   },
 
   generate: {

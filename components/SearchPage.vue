@@ -119,7 +119,7 @@
 </template>
 
 <script lang="ts">
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
 
