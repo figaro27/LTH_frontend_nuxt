@@ -215,7 +215,7 @@ export default class EnhancedVendor extends Vue {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direct: row;
+  flex-direction: row;
   padding: 24px 36px 16px 16px;
   align-items: center;
 
