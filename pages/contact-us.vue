@@ -68,14 +68,17 @@
         </div>
       </div>
     </div>
+    <client-only>
+      <contact-dialog v-if="showModal" v-on-clickaway="away" class="contact-us__modal" />
+    </client-only>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-
-import { api } from '@/utils'
-
+import { api, buildMeta } from '@/utils'
+import { mixin as ClickAway } from 'vue-clickaway'
+import { ComponentOptions } from 'vue'
 type ContactData = {
   email: string
   firstName: string
@@ -85,7 +88,16 @@ type ContactData = {
   message: string
 }
 
-@Component({ name: 'contact-us' })
+@Component({
+  name: 'contact-us',
+  mixins: [ClickAway as ComponentOptions<Vue>],
+  head() {
+    return buildMeta({
+      title: 'Contact Us - Legaltech Hub',
+      description: 'Contact Us - Legaltech Hub'
+    })
+  }
+})
 export default class ContactUs extends Vue {
   data: ContactData = {
     email: '',
@@ -95,6 +107,8 @@ export default class ContactUs extends Vue {
     country: '',
     message: ''
   }
+
+  showModal: boolean = false
 
   get disabled() {
     const { data } = this
@@ -119,6 +133,12 @@ export default class ContactUs extends Vue {
       country: '',
       message: ''
     }
+    window.scrollTo(0, 0)
+    this.showModal = true
+  }
+
+  away() {
+    this.showModal = false
   }
 }
 </script>
@@ -130,7 +150,7 @@ export default class ContactUs extends Vue {
   padding-bottom: 60px;
   @include col--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background: none;
   }
 }
@@ -138,7 +158,7 @@ export default class ContactUs extends Vue {
 .contact-us__content {
   padding: 30px 70px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 30px 10px;
   }
 }
@@ -163,7 +183,7 @@ export default class ContactUs extends Vue {
   box-shadow: 0px 8px 40px rgba(9, 44, 76, 0.16);
   box-shadow: 5px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 95%;
     padding: 25px;
     flex-direction: column;
@@ -174,7 +194,7 @@ export default class ContactUs extends Vue {
   flex: 3;
   @include col--center;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 70%;
   }
 }
@@ -189,7 +209,7 @@ export default class ContactUs extends Vue {
   margin-left: 50px;
   @include col;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin-left: 0;
     margin-top: 20px;
   }
@@ -236,9 +256,21 @@ export default class ContactUs extends Vue {
     }
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     background: $colorNavy;
     color: $colorBg1;
   }
+}
+
+.contact-us__modal {
+  position: absolute;
+  top: 40%;
+  width: 480px;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 40px 40px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
 }
 </style>

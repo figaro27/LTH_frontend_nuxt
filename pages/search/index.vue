@@ -7,8 +7,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'search' })
+@Component({
+  name: 'search',
+  head() {
+    return buildMeta({
+      title: 'Legaltech Hub',
+      description: 'Legaltech Hub'
+    })
+  }
+})
 export default class Search extends Vue {}
 </script>
 
@@ -29,5 +38,8 @@ export default class Search extends Vue {}
   width: $widgetWidth;
   margin-right: 20px;
   margin-top: 30px;
+  @include respondTo(lg) {
+    display: none;
+  }
 }
 </style>

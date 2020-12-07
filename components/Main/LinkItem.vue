@@ -57,7 +57,7 @@ export default class LinkItem extends Vue {
     background: $colorLightGrey2;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     height: 110px;
     border-radius: 15px;
   }
@@ -86,7 +86,7 @@ export default class LinkItem extends Vue {
   bottom: 1em;
   background-color: white;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     @include typography(sm, narrow, bold);
     height: auto;
     bottom: 0;

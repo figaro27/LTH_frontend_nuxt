@@ -1,9 +1,8 @@
 <template>
   <header class="header">
-    <logo class="header__logo" />
-    <h2 class="header__label">
-      Your legaltech needs. In your area. In your language.
-    </h2>
+    <div class="header__logo">
+      <logo-label />
+    </div>
     <div class="header__links">
       <nuxt-link
         v-for="(link, index) of links"
@@ -12,40 +11,31 @@
         active-class="header__link--active"
         :to="link.path"
         :exact="link.exact"
-        @click.native="collapseItem(index, link)"
       >
-        {{ link.text }}
-        <div
-          v-if="link.children && link.children.length"
-          class="header__link--icon"
-          :class="{ 'header__link--icon-active': link.path === selectedMenu }"
-        ></div>
-        <transition v-if="link.children && link.children.length && selectedMenu === link.path" name="slide-fade">
-          <ul v-if="openedItems[index]" class="header__links__nested">
-            <li v-for="(child, childIndex) in link.children" :key="childIndex" class="header__links__nested--item">
-              <router-link :to="child.path" @click.stop>
-                {{ child.text }}
-              </router-link>
-            </li>
-          </ul>
-        </transition>
+        <span v-if="!link.children || link.children.length === 0">{{ link.text }}</span>
+        <header-submenu v-else :link="link" />
       </nuxt-link>
     </div>
-    <div class="header__popup-menu" @click="showMenu()">
+
+    <div class="header__mobile-popup-menu" @click="showMenu">
       <img src="/images/svgs/popup-menu.svg" />
     </div>
+
     <div v-if="isPopupMenuClicked" v-on-clickaway="away" class="sidebar">
       <ul class="sidebar__menu">
         <li v-for="(item, index) in links" :key="index" class="sidebar__menu__item" @click="collapseItem(index, item)">
-          <router-link :to="item.path">
-            <p class="sidebar__menu__item--name" :class="{ 'header__link--active': item.path === selectedMenu }">
+          <nuxt-link :to="item.path">
+            <span
+              class="sidebar__menu__item-name"
+              :class="{ 'sidebar__menu__item-name--active': item.path === selectedMenu }"
+            >
               {{ item.text }}
-            </p>
+            </span>
             <div
               v-if="item.children && item.children.length"
-              class="sidebar__menu__item--icon"
-              :class="{ 'sidebar__menu__item--icon-active': item.path === selectedMenu }"
-            ></div>
+              class="sidebar__menu__item-icon"
+              :class="{ 'sidebar__menu__item-icon--active': item.path === selectedMenu }"
+            />
 
             <transition name="slide-fade">
               <ul v-if="openedItems[index]" class="sidebar__menu__child">
@@ -55,13 +45,19 @@
                   class="sidebar__menu__child--item"
                   @click="hideMenu(child)"
                 >
-                  <router-link :to="child.path" @click.stop>
+                  <nuxt-link
+                    :to="child.path"
+                    :exact="child.exact"
+                    class="header__link"
+                    active-class="header__link--active"
+                    @click.stop
+                  >
                     {{ child.text }}
-                  </router-link>
+                  </nuxt-link>
                 </li>
               </ul>
             </transition>
-          </router-link>
+          </nuxt-link>
         </li>
       </ul>
     </div>
@@ -72,11 +68,15 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { mixin as ClickAway } from 'vue-clickaway'
 import { ComponentOptions } from 'vue'
-import Logo from './Logo.vue'
+
+import HeaderSubmenu from './HeaderSubmenu.vue'
+import LogoLabel from './LogoLabel.vue'
+
+import { HeaderLink } from './types'
 
 @Component({
   name: 'default-header',
-  components: { Logo },
+  components: { HeaderSubmenu, LogoLabel },
   mixins: [ClickAway as ComponentOptions<Vue>]
 })
 export default class DefaultHeader extends Vue {
@@ -84,12 +84,39 @@ export default class DefaultHeader extends Vue {
   isPopupMenuClicked: boolean = false
   selectedMenu: string = 'home'
 
-  get links() {
+  get links(): HeaderLink[] {
     return [
       {
         text: 'Home',
         path: '/',
-        exact: true
+        exact: true,
+        children: [
+          {
+            text: 'Tools',
+            path: '/search',
+            exact: true
+          },
+          {
+            text: 'Events',
+            path: '/',
+            exact: true
+          },
+          {
+            text: 'Awards',
+            path: '/',
+            exact: true
+          },
+          {
+            text: 'Graveyard',
+            path: '/graveyards',
+            exact: true
+          },
+          {
+            text: 'Consolidations',
+            path: '/consolidations',
+            exact: true
+          }
+        ]
       },
       {
         text: 'About Us',
@@ -200,12 +227,21 @@ export default class DefaultHeader extends Vue {
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  @include col--center;
   padding-top: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header__logo {
-  width: 280px;
+  width: 20%;
+  margin-left: 100px;
+
+  @include respondTo(lg) {
+    width: 50%;
+    margin-left: 0;
+  }
 }
 
 .header__label {
@@ -214,12 +250,20 @@ export default class DefaultHeader extends Vue {
   color: $colorNavy;
   margin-bottom: 30px;
 }
-
+.header__label__small {
+  @include typography(lg, narrow, bold);
+  text-align: left;
+  color: $colorNavy;
+  margin-top: 4px;
+  margin-left: 35%;
+}
 .header__links {
   @include row;
+  width: 70%;
+  margin-right: 10%;
   justify-content: center;
 
-  @media (max-width: 640px) {
+  @include respondTo(lg) {
     display: none;
   }
 }
@@ -227,34 +271,31 @@ export default class DefaultHeader extends Vue {
 .header__link {
   margin: 0 10px;
   color: $colorDarkGrey;
-  @include typography(xl, narrow, bold);
   text-decoration: none;
+
+  span {
+    @include typography(xl, narrow, bold);
+  }
 }
 
 .header__link--active {
   color: $colorGreen;
-}
 
-.main__content {
-  width: 100%;
-  flex: 1;
-  overflow: hidden;
-}
-
-a {
-  text-decoration: none;
+  ::v-deep .header__link__chevron {
+    background-color: $colorGreen;
+  }
 }
 
 ul li {
   list-style-type: none;
 }
 
-.header__popup-menu {
+.header__mobile-popup-menu {
   position: absolute;
   top: 35px;
   left: 35px;
   display: none;
-  @media (max-width: 640px) {
+  @include respondTo(lg) {
     display: block;
   }
 }
@@ -270,10 +311,6 @@ ul li {
   display: grid;
   grid-template-columns: 45px 155px 30px 45px;
   grid-template-areas: '. items . ';
-
-  @media (min-width: 640px) {
-    display: none;
-  }
 }
 
 .sidebar__menu {
@@ -296,78 +333,57 @@ ul li {
   color: white;
 }
 
-.sidebar__menu__item--icon,
-.header__link--icon {
+.sidebar__menu__item-icon {
   width: 25px;
   height: 10px;
-  padding-top: 5px;
-  padding-right: 15px;
   grid-area: item-icon;
   float: left;
   margin-left: 2px;
-  margin-top: 4px;
   background-color: white; /* defines the background color of the image */
   mask: url(/images/svgs/arrow-down.svg) no-repeat center / contain;
   -webkit-mask: url(/images/svgs/arrow-down.svg) no-repeat center / contain;
 }
 
-.sidebar__menu__item--icon-active,
-.header__link--icon-active {
+.sidebar__menu__item-icon {
+  padding-top: 5px;
+  padding-right: 15px;
+  margin-top: 4px;
+}
+
+.sidebar__menu__item-icon--active {
   background-color: $colorGreen !important;
 }
 
-.header__link--icon {
-  margin-top: 8px;
-  float: right;
-  background-color: $colorDarkGrey;
-}
-
-.sidebar__menu__item--name {
+.sidebar__menu__item-name {
   grid-area: item-name;
   position: static;
   float: left;
   @include typography(lg, narrow);
 }
 
-.sidebar__menu__child,
-.header__links__nested {
+.sidebar__menu__item-name--active {
+  color: $colorGreen;
+}
+
+.sidebar__menu__child {
   padding-top: 36px;
   padding-left: 0;
   font-size: 12px;
 }
 
-.sidebar__menu__child--item,
-.header__links__nested--item {
+.sidebar__menu__child--item {
+  @include typography(md-1, narrow);
   padding-bottom: 15px;
   white-space: nowrap;
   text-align: left;
   color: white;
-  @include typography(md-1, narrow);
+  a {
+    text-decoration: none;
+  }
 }
 
-.header__links__nested--item {
-  padding-bottom: 0;
-}
-
-.header__links__nested {
-  z-index: 9999;
-  position: absolute;
-  padding-top: 1em;
-  background-color: white;
-  box-shadow: 0 0 black;
-  width: 150px;
-}
-
-.header__links__nested--item a {
-  display: block;
-  border-bottom: 1px solid #d8d8d8;
-  width: 100%;
-  padding: 12px;
-  color: #092c4c;
-}
-
-.header__links__nested--item:last-child a {
-  border: none;
+li a {
+  text-decoration: none;
 }
 
 .slide-fade-enter-active {

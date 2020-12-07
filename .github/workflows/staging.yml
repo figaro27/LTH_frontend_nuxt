@@ -1,0 +1,52 @@
+name: Staging Deployment
+on:
+  push:
+    branches: [ staging ]
+jobs:
+  staging:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Yarn Install
+      run: |
+        npm install
+    - name: Yarn Lint
+      run: |
+        npm run lint
+    - name: Yarn Build
+      run: |
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NODE_ENV=staging npm run build
+    - name: Yarn Generate
+      run: |
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NODE_ENV=staging npm run generate
+    - name: Deploy to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.STAGING_AWS_BUCKET_NAME }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        SOURCE_DIR: "dist"
+    - name: Invalidate Cloudfront
+      uses: chetan/invalidate-cloudfront-action@master
+      env:
+        DISTRIBUTION: ${{ secrets.STAGING_DISTRIBUTION }}
+        PATHS: '/*'
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Send message to Slack
+      uses: archive/github-actions-slack@v1.0.0
+      with:
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
+        slack-channel: deployment
+        slack-text: ':fire: Staging site was deployed successfully to https://staging.legaltechnologyhub.com'

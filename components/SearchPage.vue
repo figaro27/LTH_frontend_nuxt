@@ -11,13 +11,14 @@
         </div>
       </div>
     </div>
+
     <div class="search-page__content-container">
       <div class="search-page__side-filter">
         <select-filter
           id="functionalities"
           v-model="filters.functionalities"
           name="functionality"
-          label="Functionality"
+          label="Functionality:"
           :options="functionalities"
           @change="onFilterUpdate"
         />
@@ -25,7 +26,7 @@
           id="hqs"
           v-model="filters.hqs"
           name="hqs"
-          label="HQ"
+          label="HQ:"
           :options="offices"
           @change="onFilterUpdate"
         />
@@ -33,7 +34,7 @@
           id="offices"
           v-model="filters.offices"
           name="offices"
-          label="Office"
+          label="Office:"
           :options="offices"
           @change="onFilterUpdate"
         />
@@ -41,7 +42,7 @@
           id="practiceAreas"
           v-model="filters.practiceAreas"
           name="practiceArea"
-          label="Practice Area"
+          label="Practice Area:"
           :options="practiceAreas"
           @change="onFilterUpdate"
         />
@@ -49,7 +50,7 @@
           id="platformLanguages"
           v-model="filters.platformLanguages"
           name="platformLanguage"
-          label="Platform Language"
+          label="Platform Language:"
           :options="platformLanguages"
           @change="onFilterUpdate"
         />
@@ -57,7 +58,7 @@
           id="demographics"
           v-model="filters.demographics"
           name="demographic"
-          label="Target Entity"
+          label="Target Entity:"
           :options="demographics"
           @change="onFilterUpdate"
         />
@@ -65,7 +66,7 @@
           id="installations"
           v-model="filters.installations"
           name="installation"
-          label="Deployment"
+          label="Deployment:"
           :options="installations"
           @change="onFilterUpdate"
         />
@@ -73,10 +74,12 @@
           id="integrations"
           v-model="filters.integrations"
           name="integrations"
-          label="Integrations"
+          label="Integrations:"
           :options="integrations"
           @change="onFilterUpdate"
         />
+
+        <ad class="search-page__left-ad" direction="vertical" position="left" />
       </div>
       <div v-loading="vendorsLoading !== 2" class="search-page__content">
         <div class="search-page__content-wrapper">
@@ -88,35 +91,44 @@
           </h4>
           <div class="search-page__vendors">
             <vendor-item
-              v-for="(vendor, index) of vendors"
+              v-for="(vendor, index) of vendors.slice(0, 10)"
               :key="index"
+              class="search-page__vendor-item"
+              :data="vendor"
+            />
+
+            <ad class="search-page__vendors__ad" direction="horizontal" />
+
+            <vendor-item
+              v-for="(vendor, index) of vendors.slice(10)"
+              :key="10 + index"
               class="search-page__vendor-item"
               :data="vendor"
             />
           </div>
         </div>
         <div v-if="showPagination && !isMobile" class="search-page__vendors-pagination">
-          <pagination :page-count="pageCount" @change="onPageChange" />
+          <pagination :page-count="pageCount" :page="curPageNum" @change="onPageChange" />
         </div>
       </div>
     </div>
     <div v-if="showPagination && isMobile" class="search-page__vendors-pagination">
-      <pagination :page-count="pageCount" @change="onPageChange" />
+      <pagination :page-count="pageCount" :page="curPageNum" @change="onPageChange" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { isEqual } from 'lodash'
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
+import { isMobile } from 'mobile-device-detect'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
+import { RouteQuery } from '@/store/search/types'
 import { RootState, LoadingStatus } from '@/store/types'
-import { isMobile } from 'mobile-device-detect'
 
-@Component({
-  name: 'search'
-})
+@Component({ name: 'search' })
 export default class Search extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
 
@@ -130,6 +142,11 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.vendors) vendors!: SearchResultVendor[]
   @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
   @State((state: RootState) => state.search.totalVendors) total!: number
+  @State((state: RootState) => state.search.vendorsLastFilter) lastSearch!: Filters
+  @State((state: RootState) => state.search.vendorsPage) curPageNum!: Filters
+
+  @State((state: RootState) => state.search.routeQuery) lastSearchQuery!: RouteQuery
+
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
   }
@@ -216,16 +233,17 @@ export default class Search extends Vue {
 
   @Watch('routeQuery', { immediate: true })
   async onRouteChange() {
-    if (this.filterOptionsLoaded) {
-      this.updateFromRouteQuery()
-    }
+    if (!this.filterOptionsLoaded) return
+    this.updateFromRouteQuery()
     await this.submitQuery()
   }
 
   async mounted() {
     this.filterOptionsLoaded = false
     this.isMobile = isMobile
-    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', 1)
+
+    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', this.curPageNum)
+
     const promises = [
       this.$store.dispatch('search/loadDemographics'),
       this.$store.dispatch('search/loadFunctionalities'),
@@ -238,12 +256,12 @@ export default class Search extends Vue {
     try {
       await Promise.all(promises)
     } catch (err) {
-      console.error(err)
       this.filterOptionsLoaded = true
       return
     }
     this.updateFromRouteQuery()
     this.filterOptionsLoaded = true
+    await this.submitQuery()
   }
 
   onFilterUpdate() {
@@ -303,13 +321,23 @@ export default class Search extends Vue {
   async onPageChange(pageNum: number) {
     this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', pageNum)
     await this.$store.dispatch('search/runSearch', this.searchQuery)
+    window.scrollTo(0, 0)
   }
 
   async submitQuery() {
-    await new Promise((resolve) => {
-      setTimeout(() => resolve(), 1000)
-    })
+    if (isEqual(this.searchQuery, this.lastSearchQuery)) return
+
     this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
+
+    if (process.env.environment === 'production') {
+      if (this.searchQuery.keyword) {
+        // eslint-disable-next-line no-undef
+        gtag('event', 'search', { event_label: this.searchQuery.keyword })
+      } else {
+        // eslint-disable-next-line no-undef
+        gtag('event', 'search', { event_label: '' })
+      }
+    }
     await this.$store.dispatch('search/runSearch', this.searchQuery)
   }
 }
@@ -348,7 +376,7 @@ export default class Search extends Vue {
   width: calc(100% - 200px);
   margin: 30px 170px 40px 30px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     margin: 30px 0;
     width: 100%;
   }
@@ -436,11 +464,15 @@ export default class Search extends Vue {
     margin: 5px 0;
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 40%;
     min-width: 35%;
     margin-right: 0;
   }
+}
+
+.search-page__left-ad {
+  width: 100%;
 }
 
 .search-page__content {
@@ -452,7 +484,7 @@ export default class Search extends Vue {
   overflow: visible;
   padding: 10px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 50%;
   }
 }
@@ -486,6 +518,11 @@ export default class Search extends Vue {
   overflow: hidden;
 }
 
+.search-page__vendors__ad {
+  width: 100%;
+  padding: 0 20px;
+}
+
 .search-page__vendor-item {
   &:not(:last-child) {
     margin-bottom: 10px;
@@ -497,7 +534,7 @@ export default class Search extends Vue {
   @include row--center;
   margin-top: 50px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 100%;
   }
 }

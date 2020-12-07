@@ -2,7 +2,7 @@
   <nuxt-link class="vendor-item" :to="url">
     <div class="vendor-item__row">
       <h4 v-if="data.name" class="vendor-item__title">
-        <text-highlight :queries="highlightQueries">{{ `${data.tool}, ${data.name}` }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ title }}</text-highlight>
       </h4>
       <span class="vendor-item__dash">-</span>
       <h5 v-if="hq" class="vendor-item__hq">
@@ -35,6 +35,17 @@ import { SearchResultVendor } from '@/models'
 export default class VendorItem extends Vue {
   @Prop({ required: true }) data!: SearchResultVendor
   @Getter('highlightQueries', { namespace: 'search' }) highlightQueries!: string[]
+
+  get title() {
+    let title = ''
+    const { name, tool } = this.data
+    if (tool) {
+      title = tool !== name ? `${tool} by ${name}` : `${tool}`
+    } else {
+      title = `${name}`
+    }
+    return title
+  }
 
   get hq() {
     return this.data.hqs.map((item) => item.name).join(',')
@@ -92,7 +103,7 @@ export default class VendorItem extends Vue {
   text-decoration: none;
   color: $colorNavy;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     width: 90%;
   }
 }
@@ -108,7 +119,7 @@ export default class VendorItem extends Vue {
   color: $colorNeutralsGrey;
   margin: 0 5px;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     display: none;
   }
 }
@@ -122,7 +133,7 @@ export default class VendorItem extends Vue {
 .vendor-item__row {
   width: 100%;
   @include row;
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     flex-wrap: wrap;
     &:first-child {
       flex-direction: column;
@@ -142,7 +153,7 @@ export default class VendorItem extends Vue {
     @include ellipsis(1, md-1);
   }
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     font-size: 12px;
     line-height: 1.125rem;
     white-space: nowrap;

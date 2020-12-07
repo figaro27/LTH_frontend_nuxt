@@ -1,4 +1,5 @@
 import { ActionContext, StoreOptions } from 'vuex'
+import { AdsState } from './ads/state'
 import { ConsolidationState } from './consolidation/state'
 import { GraveyardState } from './graveyard/state'
 import { SavedSearchState } from './savedSearch/state'
@@ -15,10 +16,16 @@ export type TypedAction<S, R, P, T = any> = (
 ) => ActionResponse<T>
 
 export interface RootState {
+  ads: AdsState
   consolidation: ConsolidationState
   graveyard: GraveyardState
   savedSearch: SavedSearchState
   search: SearchState
+}
+
+export type Usecase = {
+  name: string
+  filter: Object
 }
 
 export enum LoadingStatus {

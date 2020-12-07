@@ -1,37 +1,39 @@
 <template>
-  <div class="listing">
-    <div class="listing__content">
-      <h1 class="listing__title">Add/Update <span>Your Listing</span></h1>
-      <p class="listing__description">
-        Legal professionals need relevant information on legaltech products, services and events. Help us get the right
-        content to them. Click <nuxt-link to="/">here</nuxt-link> to add or update your listing.
-      </p>
-      <div class="listing__buttons">
-        <nuxt-link class="listing__button" to="/">
-          <div class="listing__button__icon"><img src="/images/listings/plus.svg" /></div>
-          <label class="listing__button__label"> Add a new Listing </label>
-        </nuxt-link>
-        <nuxt-link class="listing__button" to="/">
-          <div class="listing__button__icon"><img src="/images/listings/pencil.svg" /></div>
-          <label class="listing__button__label"> Update Listing </label>
-        </nuxt-link>
-      </div>
-    </div>
-  </div>
+  <listing-form v-if="!submitted" class="listing-form__container" @submitted="onSubmitted" />
+  <listing-submitted v-else class="listing-form__container" />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'listing' })
-export default class Listing extends Vue {}
+@Component({
+  name: 'listing',
+  head() {
+    return buildMeta({
+      title: 'Add/Update Listings - Legaltech Hub',
+      description: 'Add/Update Listings - Legaltech Hub'
+    })
+  }
+})
+export default class Listing extends Vue {
+  submitted: boolean = false
+
+  onSubmitted() {
+    this.submitted = true
+    window.scrollTo(0, 0)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-.listing {
-  @include desktop-max-width-layout;
-  margin-top: 70px;
-  padding-bottom: 60px;
+.listing-form__container {
+  margin: 70px auto;
+  padding: 24px 24px 36px 24px;
+  width: 60%;
+  @include respondTo(lg) {
+    padding: 24px 8px 36px 8px;
+  }
 }
 
 .listing__content {
@@ -47,10 +49,25 @@ export default class Listing extends Vue {}
   }
 }
 
+.listing__image {
+  width: 100%;
+}
+
 .listing__description {
-  @include typography(xl);
-  color: $colorDarkGrey;
+  @include typography(xl-1, narrow, bold);
+  color: $colorNavy;
   margin: 40px 40px 60px;
+}
+
+.listing__description-guide {
+  @include typography(xl-1, narrow);
+  color: $colorNavy;
+  margin: 40px 40px 60px;
+}
+
+.listing__description-link {
+  @include typography(xl-1, narrow);
+  color: $colorNavy;
 }
 
 .listing__buttons {

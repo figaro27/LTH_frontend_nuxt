@@ -1,9 +1,6 @@
 import axios from 'axios'
 
-const apiUrl =
-  process.env.NUXT_APP_API_URL ||
-  (process.env.NODE_ENV === 'production' ? 'https://api.legaltechnologyhub.com' : 'http://localhost:4000')
-
+const apiUrl = process.env.NUXT_APP_API_URL || 'http://localhost:4000'
 export default {
   /*
    ** Nuxt rendering mode
@@ -11,7 +8,8 @@ export default {
    */
   mode: 'universal',
   env: {
-    apiUrl
+    baseURL: apiUrl,
+    environment: process.env.NODE_ENV
   },
   server: {
     port: 3000,
@@ -42,7 +40,11 @@ export default {
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans' },
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=PT+Sans+Narrow' },
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Rochester' }
-    ]
+    ],
+    script:
+      process.env.NODE_ENV === 'production'
+        ? [{ src: 'https://www.googletagmanager.com/gtag/js?id=G-KJZ26BZ4WK', async: true }, { src: '/js/gtag.js' }]
+        : []
   },
   /*
    ** Global CSS
@@ -53,14 +55,16 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    { src: '@/plugins/loading.js', ssr: false },
-    { src: '@/plugins/v-tooltip.js', ssr: false },
-    { src: '@/plugins/vue-carousel.js', ssr: false },
-    { src: '@/plugins/vue-cool-select.js', ssr: false },
-    { src: '@/plugins/vue-multiselect.js', ssr: false },
-    { src: '@/plugins/vue-paginate.js', ssr: false },
-    { src: '@/plugins/vue-recaptcha-v3.js', ssr: false },
-    { src: '@/plugins/vue-text-highlight.js', ssr: false }
+    { src: '@/plugins/loading.js', mode: 'client' },
+    { src: '@/plugins/v-tooltip.js', mode: 'client' },
+    { src: '@/plugins/vue-carousel.js', mode: 'client' },
+    { src: '@/plugins/vue-cool-select.js', mode: 'client' },
+    { src: '@/plugins/vue-multiselect.js', mode: 'client' },
+    { src: '@/plugins/vue-paginate.js', mode: 'client' },
+    { src: '@/plugins/vue-recaptcha-v3.js', mode: 'client' },
+    { src: '@/plugins/vue-text-highlight.js', mode: 'client' },
+    { src: '@/plugins/vue-avatar.js', mode: 'client' },
+    { src: '@/plugins/vue-youtube.js', mode: 'client' }
   ],
   /*
    ** Auto import components
@@ -138,7 +142,8 @@ export default {
           minPixelValue: 3
         }
       }
-    }
+    },
+    transpile: ['get-youtube-id', 'lodash', 'validator']
   },
 
   generate: {

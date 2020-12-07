@@ -9,8 +9,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'regional-snapshots' })
+@Component({
+  name: 'regional-snapshots',
+  head() {
+    return buildMeta({
+      title: 'Regional Snapshots - Legaltech Hub',
+      description: 'Regional Snapshots - Legaltech Hub'
+    })
+  }
+})
 export default class RegionalSnapshots extends Vue {
   get heroData() {
     return {

@@ -35,7 +35,7 @@ export default class GraveyardItem extends Vue {
   @include col--center;
   padding: 2.5rem;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     padding: 0.5rem;
   }
 }
@@ -45,14 +45,14 @@ export default class GraveyardItem extends Vue {
 }
 
 .graveyard-item__rip {
-  @include typography(xl-1, narrow, bold);
+  @include typography(xl-2, narrow, bold);
   color: #979797;
   font-size: 3rem;
   margin-bottom: 16px;
 
-  @media (max-width: 640px) {
+  @include respondTo(lg) {
     margin-bottom: 0;
-    font-size: 1rem;
+    @include typography(xl-2, narrow, bold);
   }
 }
 
@@ -67,11 +67,11 @@ export default class GraveyardItem extends Vue {
 }
 
 .graveyard-item__title {
-  @include typography(xxl, narrow, bold);
+  @include typography(xl, narrow, bold);
   margin-bottom: 10px;
   color: $colorNavy;
-  @media (max-width: 640px) {
-    font-size: 1rem;
+  @include respondTo(mobile) {
+    @include typography(lg, narrow, bold);
     margin-bottom: 0;
   }
 }
@@ -80,7 +80,7 @@ export default class GraveyardItem extends Vue {
   @include typography(xl, narrow, bold);
   color: #979797;
 
-  @media (max-width: 640px) {
+  @include respondTo(mobile) {
     font-size: 1rem;
     margin-bottom: 1.25rem;
   }

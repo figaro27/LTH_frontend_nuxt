@@ -362,8 +362,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { buildMeta } from '~/utils'
 
-@Component({ name: 'privacy-policy' })
+@Component({
+  name: 'privacy-policy',
+  head() {
+    return buildMeta({
+      title: 'Privacy Policy - Legaltech Hub',
+      description: 'Privacy Policy - Legaltech Hub'
+    })
+  }
+})
 export default class PrivacyPolicy extends Vue {}
 </script>
 

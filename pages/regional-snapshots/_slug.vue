@@ -12,7 +12,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 import { SavedSearch } from '@/models'
-import { api } from '@/utils'
+import { api, buildMeta } from '@/utils'
 
 @Component({
   name: 'single-region',
@@ -22,6 +22,13 @@ import { api } from '@/utils'
     return {
       savedSearch: res.data.data
     }
+  },
+  head() {
+    const { name } = this.$data.savedSearch
+    return buildMeta({
+      title: `${name} - Legaltech Hub`,
+      description: `${name} - Legaltech Hub`
+    })
   }
 })
 export default class SingleRegion extends Vue {
