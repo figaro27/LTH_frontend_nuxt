@@ -64,7 +64,8 @@ export default {
     { src: '@/plugins/vue-recaptcha-v3.js', mode: 'client' },
     { src: '@/plugins/vue-text-highlight.js', mode: 'client' },
     { src: '@/plugins/vue-avatar.js', mode: 'client' },
-    { src: '@/plugins/vue-youtube.js', mode: 'client' }
+    { src: '@/plugins/vue-youtube.js', mode: 'client' },
+    { src: '@/plugins/vue-month-picker.js', mode: 'client' }
   ],
   /*
    ** Auto import components

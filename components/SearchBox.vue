@@ -25,10 +25,14 @@
       :search-text.sync="searchText"
       @select="select"
     >
-      <template v-if="searchText" #input-end>
-        <button class="search-box__cancel" @click.stop="cancelSearch"></button>
+      <template #input-end>
+        <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" />
+        <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
       </template>
 
+      <template>
+        <month-picker :no-default="true"></month-picker>
+      </template>
       <template #input-after>
         <button class="search-box__search" @click.stop="search">
           <img src="/images/svgs/search.svg" />
@@ -41,11 +45,12 @@
 <script lang="ts">
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
+import { MonthPicker } from 'vue-month-picker'
 import { LoadingStatus } from '@/store/types'
 
 @Component({
   name: 'search-box',
-  components: { CoolSelect }
+  components: { CoolSelect, MonthPicker }
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
@@ -239,6 +244,12 @@ $searchBoxHeight: 50px;
     border-left: none;
     border-right: none;
   }
+}
+
+.search-box__calendar_btn {
+  width: 30px;
+  height: 30px;
+  margin: auto 10px;
 }
 
 .search-box__cancel {
