@@ -1,4 +1,4 @@
-# legaltech
+# LegalTech Hub
 
 ## Build Setup
 
