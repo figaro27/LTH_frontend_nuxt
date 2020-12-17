@@ -2,7 +2,7 @@
   <div class="search-page">
     <div class="search-page__header">
       <div class="search-box-container">
-        <search-box :value="filters.keyword" @search="onKeywordSubmit" />
+        <search-box :value="filters.keyword" :contents="'tools'" @search="onKeywordSubmit" />
         <div v-if="filters.keyword" class="search-box__keywords">
           <div class="search-box__keyword">
             <span>{{ filters.keyword }}</span>
