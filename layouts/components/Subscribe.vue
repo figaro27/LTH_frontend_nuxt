@@ -1,5 +1,5 @@
 <template>
-  <div class="subscribe_container">
+  <div id="newsletter" class="subscribe_container">
     <div v-if="status === 'snackbar'" class="snackbar">
       <label class="snackbar_text">
         <span class="snackbar_text_bold">Thank you!</span> You have subscribed to our monthly newsletter
