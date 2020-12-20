@@ -37,7 +37,7 @@
     "moment": "^2.29.1",
     "nuxt": "^2.14.1",
     "nuxt-fontawesome": "^0.4.0",
-    "nuxt-property-decorator": "^2.8.8",
+    "nuxt-property-decorator": "^2.7.2",
     "qs": "^6.9.4",
     "sass-mq": "^5.0.1",
     "v-calendar": "^2.1.1",
