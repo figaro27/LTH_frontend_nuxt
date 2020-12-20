@@ -16,7 +16,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV !== 'development' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV !== 'development' ? 'warn' : 'off',
-    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    '@typescript-eslint/no-unused-vars': ['warn', { ignoreRestSiblings: true }],
     'comma-dangle': ['error', 'never'],
     'vue/no-v-html': 'off',
     'import/order': [
