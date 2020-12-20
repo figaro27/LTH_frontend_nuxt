@@ -20,42 +20,24 @@ import { api, buildMeta } from '@/utils'
 @Component({
   name: 'single-event',
 
-  asyncData() {
-    const res = {
-      id: 14,
-      organizer: 'organizer',
-      title: 'Title of the event',
-      website: 'http://localhost:3000/',
-      description: 'where these are the same, only the title of the event should be listed',
-      city: 'Madrid',
-      country: 'Spain',
-      date: new Date(),
-      audience: 'IT',
-      duration: 'Two days',
-      recurrence: 'Annual',
-      sideImage: '/images/sideImage_test.png',
-      logo: '/images/event_avatar.png'
-    }
+  async asyncData(ctx) {
+    const { params } = ctx
+    const res = await api.get(`events/${params.eventId}`)
     return {
-      data: res as Event
+      data: res.data.data as Event
     }
   },
 
   head() {
-    const { name } = this.$data.data
+    const { title } = this.$data.data
     return buildMeta({
-      title: `${name} - Legaltech Hub`,
-      description: `${name} - Legaltech Hub`
+      title: `${title} - Legaltech Hub`,
+      description: `${title} - Legaltech Hub`
     })
   }
 })
 export default class SingleEvent extends Vue {
   data: Event | null = null
-
-  get isEnhancedEvent() {
-    const { data } = this
-    return data
-  }
 
   async mounted() {
     if (this.data) {

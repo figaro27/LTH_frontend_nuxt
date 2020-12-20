@@ -1,3 +1,18 @@
+export type Audience = {
+  id: number
+  name: string
+}
+
+export type Duration = {
+  id: number
+  name: string
+}
+
+export type Recurrence = {
+  id: number
+  name: string
+}
+
 export type Event = {
   id: string | number
   organizer: string
@@ -9,9 +24,12 @@ export type Event = {
   city: string
   country: string
   date: Date
-  audience: string
-  duration: string
-  recurrence: string
+  audiences: Audience[]
+  duration: Duration
+  recurrence: Recurrence
 }
 
-export type SearchResultEvent = Pick<Event, 'id' | 'title' | 'city' | 'country'>
+export type SearchResultEvent = Pick<
+  Event,
+  'id' | 'organizer' | 'title' | 'logo' | 'country' | 'city' | 'date' | 'audiences' | 'duration' | 'recurrence'
+>

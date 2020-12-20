@@ -9,7 +9,7 @@
       disable-page-swipe
       is-expanded
     >
-      <template v-slot:day-content="{ day, attributes }">
+      <template #day-content="{ day, attributes }">
         <div>
           <span>{{ day.day }}</span>
           <div>
@@ -67,7 +67,7 @@ export default class EventsCalendar extends Vue {
         customData: {
           title: item.title,
           location: `${item.city}, ${item.country}`,
-          info: `${item.audience}, ${item.duration}`,
+          info: `${item.audiences.length}, ${item.duration.name}`,
           desc: item.description,
           url: `/event/${item.id}`,
           backgroundColor: '#c2d5fe',
