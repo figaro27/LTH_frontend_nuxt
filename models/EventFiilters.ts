@@ -6,5 +6,5 @@ export type EventFilters = {
   audiences: any[]
   dates: any[]
   durations: any[]
-  reccurrences: any[]
+  recurrences: any[]
 }

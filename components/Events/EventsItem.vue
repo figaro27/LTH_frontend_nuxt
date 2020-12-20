@@ -1,27 +1,27 @@
 <template>
   <nuxt-link class="events-item" :to="url">
     <div class="events-item__row">
-      <h4 v-if="data.title" class="events-item__title">
-        <text-highlight :queries="highlightQueries">{{ data.title }}</text-highlight>
+      <h4 v-if="title" class="events-item__title">
+        <text-highlight :queries="highlightQueries">{{ title }}</text-highlight>
       </h4>
     </div>
     <div class="events-item__row">
       <span class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ `${data.city}, ${data.country}` }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ location }}</text-highlight>
       </span>
     </div>
     <div class="events-item__row">
       <span v-if="data.month" class="events-item__property">
         <text-highlight :queries="highlightQueries">{{ data.month }}</text-highlight>
       </span>
-      <span v-if="data.audience" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ data.audience }}</text-highlight>
+      <span v-if="audiences" class="events-item__property">
+        <text-highlight :queries="highlightQueries">{{ audiences }}</text-highlight>
       </span>
-      <span v-if="data.duration" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ data.duration }}</text-highlight>
+      <span v-if="duration" class="events-item__property">
+        <text-highlight :queries="highlightQueries">{{ duration }}</text-highlight>
       </span>
-      <span v-if="data.recurrence" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ data.recurrence }}</text-highlight>
+      <span v-if="recurrence" class="events-item__property">
+        <text-highlight :queries="highlightQueries">{{ recurrence }}</text-highlight>
       </span>
     </div>
     <div class="events-item__row">
@@ -39,16 +39,51 @@ import { SearchResultEvent } from '@/models'
 
 @Component({ name: 'events-item' })
 export default class VendorItem extends Vue {
-  @Prop({ required: true }) data!: SearchResultEvent
-  @Getter('highlightQueries', { namespace: 'search' }) highlightQueries!: string[]
+  @Prop({ required: true })
+  data!: SearchResultEvent
+
+  @Getter('highlightQueries', { namespace: 'events' })
+  highlightQueries!: string[]
 
   get title() {
-    const { title } = this.data
-    return title
+    const { data } = this
+    if (data === null) {
+      return null
+    }
+    if (data.title === null) {
+      return data.organizer
+    } else if (data.organizer !== data.title) {
+      return `${data.organizer}, ${data.title}`
+    }
+    return this.data.title
+  }
+
+  get location() {
+    const { data } = this
+    if (!data) {
+      return ''
+    }
+    return `${data.city}, ${data.country}`
   }
 
   get url() {
     return `/event/${this.data.id}`
+  }
+
+  get duration() {
+    const { data } = this
+    return (data && data.duration.name) || ''
+  }
+
+  get audiences() {
+    const { data } = this
+    if (!data) return ''
+    return data.audiences.map((data) => data.name).join(', ')
+  }
+
+  get recurrence() {
+    const { data } = this
+    return (data && data.recurrence.name) || ''
   }
 
   getKeywordPrioritizedString(items: { id: string; name: string }[], maxLength: number = 5) {

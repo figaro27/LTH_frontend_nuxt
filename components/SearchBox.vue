@@ -58,7 +58,7 @@
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
 import { MonthPicker } from 'vue-month-picker'
-import { LoadingStatus } from '@/store/types'
+import { LoadingStatus, RootState } from '@/store/types'
 
 @Component({
   name: 'search-box',
@@ -68,8 +68,8 @@ export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
   @Prop({ required: false }) contents!: string
   @Prop({ required: false }) changeCalendar: any
-  @State((state) => state.search.autosuggestItems) autosuggestItems!: string[]
-  @State((state) => state.search.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
+  @State((state: RootState) => state.vendors.autosuggestItems) autosuggestItems!: string[]
+  @State((state: RootState) => state.vendors.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
   $refs!: {
     select: VueCoolSelectComponentInterface
@@ -131,7 +131,7 @@ export default class SearchBox extends Vue {
 
   @Watch('searchText', { immediate: true })
   onSearchText() {
-    this.$store.dispatch('search/loadAutosuggest', this.searchText)
+    this.$store.dispatch('vendors/loadAutosuggest', this.searchText)
   }
 
   search() {

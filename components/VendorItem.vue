@@ -47,7 +47,7 @@ import { SearchResultVendor } from '@/models'
 @Component({ name: 'vendor-item' })
 export default class VendorItem extends Vue {
   @Prop({ required: true }) data!: SearchResultVendor
-  @Getter('highlightQueries', { namespace: 'search' }) highlightQueries!: string[]
+  @Getter('highlightQueries', { namespace: 'vendors' }) highlightQueries!: string[]
 
   get title() {
     let title = ''

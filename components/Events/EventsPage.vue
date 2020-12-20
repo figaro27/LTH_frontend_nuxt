@@ -15,6 +15,14 @@
     <div class="events-page__content-container">
       <div class="events-page__side-filter">
         <select-filter
+          id="organizations"
+          v-model="filters.organizations"
+          name="organizations"
+          label="Organizations:"
+          :options="organizations"
+          @change="onFilterUpdate"
+        />
+        <select-filter
           id="names"
           v-model="filters.names"
           name="names"
@@ -27,7 +35,7 @@
           v-model="filters.locations"
           name="locations"
           label="Locations:"
-          :options="dates"
+          :options="locations"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -39,11 +47,11 @@
           @change="onFilterUpdate"
         />
         <select-filter
-          id="reccurrences"
-          v-model="filters.reccurrences"
-          name="reccurrences"
+          id="recurrences"
+          v-model="filters.recurrences"
+          name="recurrences"
           label="Reccurrences:"
-          :options="reccurrences"
+          :options="recurrences"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -52,14 +60,6 @@
           name="durations"
           label="Durations:"
           :options="durations"
-          @change="onFilterUpdate"
-        />
-        <select-filter
-          id="organizations"
-          v-model="filters.organizations"
-          name="organizations"
-          label="Organizations:"
-          :options="organizations"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -73,10 +73,10 @@
 
         <ad class="events-page__left-ad" direction="vertical" position="left" />
       </div>
-      <div v-loading="false" class="events-page__content">
+      <div v-loading="eventsLoading !== 2" class="events-page__content">
         <div class="events-page__content-wrapper">
           <h4 v-if="true" class="events-page__count">
-            <span>Search result ({{ eventDatas.length }})</span>
+            <span>Search result ({{ total }})</span>
             <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" to="/search">
               <fa :icon="['fas', 'times-circle']" />
             </nuxt-link>
@@ -84,20 +84,20 @@
           <div class="events-page__events">
             <div v-if="!isCalendar">
               <events-item
-                v-for="(event, index) of eventDatas.slice(0, 10)"
+                v-for="(event, index) of events.slice(0, 10)"
                 :key="index"
                 class="events-page__event-item"
                 :data="event"
               />
               <ad class="events-page__events__ad" direction="horizontal" />
               <events-item
-                v-for="(event, index) of eventDatas.slice(10)"
+                v-for="(event, index) of events.slice(10)"
                 :key="10 + index"
                 class="events-page__event-item"
                 :data="event"
               />
             </div>
-            <events-calendar v-if="isCalendar" :events="eventDatas" :date="selectedDate" />
+            <events-calendar v-if="isCalendar" :events="events" :date="selectedDate" />
           </div>
         </div>
         <div v-if="showPagination && !isMobile" vclass="events-page__events-pagination">
@@ -112,29 +112,44 @@
 </template>
 
 <script lang="ts">
-import { Component, State, Vue } from 'nuxt-property-decorator'
-import { EventFilters } from '@/models'
-import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
+import isEqual from 'lodash.isequal'
 import { isMobile } from 'mobile-device-detect'
+import { Component, State, Vue, Watch } from 'nuxt-property-decorator'
+
+import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
+import { EventFilters, SearchResultEvent } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
-import { RouteQuery } from '@/store/search/types'
-import { EventsData } from './events_data'
+import { EventsRouteQuery } from '@/store/events/types'
 
 @Component({ name: 'search-events' })
 export default class SearchEvents extends Vue {
-  @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
-  @State((state: RootState) => state.search.routeQuery) lastSearchQuery!: RouteQuery
+  @State((state: RootState) => state.events.organizations) organizations!: any[]
+  @State((state: RootState) => state.events.names) names!: any[]
+  @State((state: RootState) => state.events.locations) locations!: any[]
+  @State((state: RootState) => state.events.audiences) audiences!: any[]
+  @State((state: RootState) => state.events.dates) dates!: any[]
+  @State((state: RootState) => state.events.durations) durations!: any[]
+  @State((state: RootState) => state.events.recurrences) recurrences!: any[]
+  @State((state: RootState) => state.events.events) events!: SearchResultEvent[]
+  @State((state: RootState) => state.events.eventsLoading) eventsLoading!: LoadingStatus
+  @State((state: RootState) => state.events.totalEvents) total!: number
+  @State((state: RootState) => state.events.eventsLastFilter) lastSearch!: EventFilters
+  @State((state: RootState) => state.events.eventsPage) curPageNum!: EventFilters
 
-  names = []
-  locations = []
-  audiences = []
-  dates = []
-  reccurrences = []
-  durations = []
-  organizations = []
+  @State((state: RootState) => state.events.routeQuery) lastSearchQuery!: EventsRouteQuery
+
+  get pageCount() {
+    return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
+  }
+
+  get showPagination() {
+    return this.pageCount > 1
+  }
+
   isMobile: boolean = false
   isCalendar = false
   selectedDate = new Date()
+  filterOptionsLoaded: boolean = false
 
   filters: EventFilters = {
     keyword: '',
@@ -144,19 +159,93 @@ export default class SearchEvents extends Vue {
     audiences: [],
     dates: [],
     durations: [],
-    reccurrences: []
+    recurrences: []
   }
 
-  mounted() {
+  get routeQuery() {
+    return this.$route.query
+  }
+
+  get searchRouteQuery() {
+    const { keyword, organizations, names, locations, audiences, dates, durations, recurrences } = this.filters
+    return {
+      keyword: keyword === '' ? undefined : keyword,
+      organizations: organizations.length === 0 ? undefined : organizations.map((item) => item.name).join(','),
+      names: names.length === 0 ? undefined : names.map((item) => item.name).join(','),
+      locations: locations.length === 0 ? undefined : locations.map((item) => item.name).join(','),
+      audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.name).join(','),
+      dates: dates.length === 0 ? undefined : dates.map((item) => item.name).join(','),
+      durations: durations.length === 0 ? undefined : durations.map((item) => item.name).join(','),
+      recurrences: recurrences.length === 0 ? undefined : recurrences.map((item) => item.name).join(',')
+    }
+  }
+
+  get searchQuery() {
+    const { keyword, organizations, names, locations, audiences, dates, durations, recurrences } = this.filters
+    return {
+      keyword: keyword === '' ? undefined : keyword,
+      organizations: organizations.length === 0 ? undefined : organizations.map((item) => item.id),
+      names: names.length === 0 ? undefined : names.map((item) => item.id),
+      locations: locations.length === 0 ? undefined : locations.map((item) => item.id),
+      audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.id),
+      dates: dates.length === 0 ? undefined : dates.map((item) => item.id),
+      durations: durations.length === 0 ? undefined : durations.map((item) => item.id),
+      recurrences: recurrences.length === 0 ? undefined : recurrences.map((item) => item.id)
+    }
+  }
+
+  get showClearFilter() {
+    const { routeQuery } = this
+    return Object.keys(routeQuery).filter((key) => !!routeQuery[key]).length > 0
+  }
+
+  @Watch('routeQuery', { immediate: true })
+  async onRouteChange() {
+    if (!this.filterOptionsLoaded) return
+    this.updateFromRouteQuery()
+    await this.submitQuery()
+  }
+
+  async mounted() {
+    this.filterOptionsLoaded = false
     this.isMobile = isMobile
+
+    this.$store.commit('events/SET_EVENTS_PAGE_NUMBER', this.curPageNum)
+
+    const promises = [
+      this.$store.dispatch('events/loadOrganizations'),
+      this.$store.dispatch('events/loadNames'),
+      this.$store.dispatch('events/loadLocations'),
+      this.$store.dispatch('events/loadAudiences'),
+      this.$store.dispatch('events/loadDates'),
+      this.$store.dispatch('events/loadDurations'),
+      this.$store.dispatch('events/loadRecurrences')
+    ]
+    try {
+      await Promise.all(promises)
+    } catch (err) {
+      this.filterOptionsLoaded = true
+      return
+    }
+    this.updateFromRouteQuery()
+    this.filterOptionsLoaded = true
+    await this.submitQuery()
   }
 
   onFilterUpdate() {
-    console.log('test update')
+    this.updateRouteQuery()
+  }
+
+  onKeywordSubmit(keyword: string) {
+    if (keyword === this.filters.keyword) {
+      return
+    }
+    this.filters.keyword = keyword
+    this.updateRouteQuery()
   }
 
   onKeywordCancelClick() {
-    console.log('test cancel click')
+    this.onKeywordSubmit('')
   }
 
   onChangeCalendar(date: any) {
@@ -164,38 +253,55 @@ export default class SearchEvents extends Vue {
     this.selectedDate = date
   }
 
-  curPageNum() {
-    return 1
+  updatedSelectedValueFromRouteParam(id: keyof EventFilters, options: any[] = []) {
+    const queryValue = this.$route.query[id] as string
+    if (id === 'keyword') {
+      this.filters.keyword = queryValue
+      return
+    }
+    this.filters[id] = queryValue
+      ? queryValue
+          .split(',')
+          .map((item) => options.find((d) => d.name === item))
+          .filter((item) => !!item)
+      : []
   }
 
-  onPageChange() {
-    console.log('onPageCahnge')
+  updateFromRouteQuery() {
+    this.updatedSelectedValueFromRouteParam('keyword')
+    this.updatedSelectedValueFromRouteParam('organizations', this.organizations)
+    this.updatedSelectedValueFromRouteParam('names', this.names)
+    this.updatedSelectedValueFromRouteParam('locations', this.locations)
+    this.updatedSelectedValueFromRouteParam('audiences', this.audiences)
+    this.updatedSelectedValueFromRouteParam('dates', this.dates)
+    this.updatedSelectedValueFromRouteParam('durations', this.durations)
+    this.updatedSelectedValueFromRouteParam('recurrences', this.recurrences)
   }
 
-  get eventDatas() {
-    console.log(EventsData)
-    return EventsData
+  updateRouteQuery() {
+    if (!this.$route.name) {
+      return
+    }
+    this.$store.commit('events/SET_EVENTS_PAGE_NUMBER', 1)
+    this.$router.push({
+      name: this.$route.name,
+      params: this.$route.params,
+      query: this.searchRouteQuery
+    })
   }
 
-  get pageCount() {
-    return Math.ceil(150 / DEFAULT_VENDORS_LIMIT)
+  async onPageChange(pageNum: number) {
+    this.$store.commit('events/SET_EVENTS_PAGE_NUMBER', pageNum)
+    await this.$store.dispatch('events/runSearch', this.searchQuery)
+    window.scrollTo(0, 0)
   }
 
-  get showPagination() {
-    return this.pageCount > 1
-  }
+  async submitQuery() {
+    if (isEqual(this.searchRouteQuery, this.lastSearchQuery)) return
 
-  get eventsData() {
-    return EventsData
-  }
+    this.$store.commit('events/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
 
-  get routeQuery() {
-    return this.$route.query
-  }
-
-  get showClearFilter() {
-    const { routeQuery } = this
-    return Object.keys(routeQuery).filter((key) => !!routeQuery[key]).length > 0
+    await this.$store.dispatch('events/runSearch', this.searchQuery)
   }
 }
 </script>
