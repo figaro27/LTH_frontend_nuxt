@@ -1,13 +1,26 @@
 <template>
   <nuxt-link class="vendor-item" :to="url">
     <div class="vendor-item__row">
-      <h4 v-if="data.name" class="vendor-item__title">
-        <text-highlight :queries="highlightQueries">{{ title }}</text-highlight>
-      </h4>
-      <span class="vendor-item__dash">-</span>
-      <h5 v-if="hq" class="vendor-item__hq">
-        <text-highlight :queries="highlightQueries">{{ hq }}</text-highlight>
-      </h5>
+      <div class="vendor-item__title-container">
+        <h4 v-if="data.name" class="vendor-item__title">
+          <text-highlight :queries="highlightQueries">{{ title }}</text-highlight>
+        </h4>
+        <span class="vendor-item__dash">-</span>
+        <h5 v-if="hq" class="vendor-item__hq">
+          <text-highlight :queries="highlightQueries">{{ hq }}</text-highlight>
+        </h5>
+      </div>
+      <div class="vendor-item__subtitle-container">
+        <div v-if="isConsolidated" class="vendor-item__consolidation">
+          <img src="/images/svgs/consolidation.svg" />
+          <span>Acquired by {{ data.consolidationData.consolidatedWith }}</span>
+          <span>&nbsp;{{ data.consolidationData.date }} </span>
+        </div>
+        <div v-if="isGraveyard" class="vendor-item__graveyard">
+          <img src="/images/svgs/graveyard.svg" />
+          <span>&nbsp;Died {{ data.graveyardData.date }} </span>
+        </div>
+      </div>
     </div>
     <div class="vendor-item__row">
       <span v-if="functionality" class="vendor-item__property">
@@ -71,6 +84,18 @@ export default class VendorItem extends Vue {
     return `/vendor/${this.data.id}`
   }
 
+  get isConsolidated() {
+    const { data } = this
+    const { consolidationData, type } = data
+    return type === 'consolidation' && consolidationData && JSON.stringify(consolidationData) !== '{}'
+  }
+
+  get isGraveyard() {
+    const { data } = this
+    const { graveyardData, type } = data
+    return type === 'graveyard' && graveyardData && JSON.stringify(graveyardData) !== '{}'
+  }
+
   getKeywordPrioritizedString(items: { id: string; name: string }[], maxLength: number = 5) {
     const polishedItems = []
     const polishedIndexes = []
@@ -108,10 +133,27 @@ export default class VendorItem extends Vue {
   }
 }
 
+.vendor-item__row {
+  width: 100%;
+  @include row;
+  align-items: center;
+
+  @include respondTo(mobile) {
+    flex-wrap: wrap;
+    &:first-child {
+      flex-direction: column;
+    }
+  }
+}
+
+.vendor-item__title-container {
+  @include row--center;
+  margin-right: 10px;
+}
+
 .vendor-item__title {
   @include typography(lg, default, bold);
   color: $colorNavy;
-  margin-bottom: 3px;
 }
 
 .vendor-item__dash {
@@ -127,18 +169,29 @@ export default class VendorItem extends Vue {
 .vendor-item__hq {
   @include typography(lg, default, bold);
   color: $colorNeutralsGrey;
-  margin-bottom: 8px;
 }
 
-.vendor-item__row {
-  width: 100%;
-  @include row;
-  @include respondTo(mobile) {
-    flex-wrap: wrap;
-    &:first-child {
-      flex-direction: column;
-    }
+.vendor-item__subtitle-container {
+  @include row--center;
+}
+
+.vendor-item__consolidation,
+.vendor-item__graveyard {
+  @include row--center;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
   }
+}
+
+.vendor-item__consolidation {
+  color: #fbb540;
+}
+
+.vendor-item__graveyard {
+  color: #546e7a;
 }
 
 .vendor-item__property {
