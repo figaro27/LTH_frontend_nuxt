@@ -6,7 +6,6 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: 'universal',
   env: {
     baseURL: apiUrl,
     environment: process.env.NODE_ENV

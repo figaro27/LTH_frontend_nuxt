@@ -81,6 +81,7 @@ export default class EventDetail extends Vue {
   ]
 }
 </script>
+
 <style lang="scss" scoped>
 .single-event__header {
   width: 100%;
