@@ -10,15 +10,15 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { buildMeta } from '~/utils'
 
 @Component({
-  name: 'search',
+  name: 'search-events',
   head() {
     return buildMeta({
-      title: 'Legaltech Hub',
-      description: 'Legaltech Hub'
+      title: 'Events - Legaltech Hub',
+      description: 'Events - Legaltech Hub'
     })
   }
 })
-export default class Search extends Vue {}
+export default class SearchEvents extends Vue {}
 </script>
 
 <style lang="scss" scoped>

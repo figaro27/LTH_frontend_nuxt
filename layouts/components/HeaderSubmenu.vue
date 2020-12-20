@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <v-popover trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
+    <v-popover :id="link.text" trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
       <span class="header__link__text" @mouseover="onMouseover">
         {{ link.text }} <span class="header__link__chevron" />
       </span>

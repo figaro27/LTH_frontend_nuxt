@@ -4,12 +4,12 @@ import { DEFAULT_VENDORS_LIMIT, MOBILE_VENDORS_LIMIT } from '@/assets/consts'
 import { RootState, TypedAction, LoadingStatus } from '@/store/types'
 import { api } from '@/utils'
 import { isMobile } from 'mobile-device-detect'
-import { SearchState } from './state'
+import { VendorsState } from './state'
 
-export type SearchActions = ActionTree<SearchState, RootState>
-export type SearchAction<T, R = any> = TypedAction<SearchState, RootState, T, R>
+export type VendorActions = ActionTree<VendorsState, RootState>
+export type VendorAction<T, R = any> = TypedAction<VendorsState, RootState, T, R>
 
-const actions: SearchActions = {
+const actions: VendorActions = {
   async loadDemographics({ commit }) {
     const data = await api.get('demographics')
     commit('SET_DEMOGRAPHICS', data)

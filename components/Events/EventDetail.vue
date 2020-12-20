@@ -5,37 +5,37 @@
     <div class="single-event__header">
       <a href="#" class="single-event-header__link" @click="historyBack()">Search Results</a>
       <label class="single-event-header__link">&gt;</label>
-      <div class="single-event__name">{{ data.title }}</div>
+      <div class="single-event__name">{{ title }}</div>
     </div>
 
     <div class="single-event__row">
       <div class="single-event__frame single-event__main">
         <div class="single-event__logo">
-          <img :src="data.logo" />
+          <img :src="logo" />
         </div>
         <div class="single-event__tool">
-          {{ data.title }}
+          {{ title }}
         </div>
         <div class="single-event__details">
           <div class="single-event__property">
             <div class="single-event__property-name">Organization</div>
-            <label class="single-event__property-value">{{ data.organizer }}</label>
+            <label class="single-event__property-value">{{ organizer }}</label>
           </div>
           <div class="single-event__property">
             <div class="single-event__property-name">Location</div>
-            <label class="single-event__property-value">{{ `${data.city}, ${data.country}` }}</label>
+            <label class="single-event__property-value">{{ location }}</label>
           </div>
           <div class="single-event__property">
             <div class="single-event__property-name">Duration</div>
-            <label class="single-event__property-value">{{ data.duration }}</label>
+            <label class="single-event__property-value">{{ duration }}</label>
           </div>
           <div class="single-event__property">
             <div class="single-event__property-name">Audience</div>
-            <label class="single-event__property-value">{{ data.audience }}</label>
+            <label class="single-event__property-value">{{ audiences }}</label>
           </div>
           <div class="single-event__property">
             <div class="single-event__property-name">Recurrence</div>
-            <label class="single-event__property-value">{{ data.recurrence }}</label>
+            <label class="single-event__property-value">{{ recurrence }}</label>
           </div>
           <div class="single-event__enhanced-links">
             <a v-if="data.website" class="single-event__enhanced-website" :href="data.website" target="_blank">
@@ -48,7 +48,7 @@
         <div class="single-event__frame single-event__others">
           <v-calendar v-model="data.date" :attributes="attrs"></v-calendar>
         </div>
-        <img :src="data.sideImage" class="single-event__sideImage" />
+        <img :src="sideImage" class="single-event__side-image" />
       </div>
     </div>
 
@@ -72,6 +72,7 @@ import { Event } from '@/models'
 })
 export default class EventDetail extends Vue {
   @Prop({ required: true }) data!: Event
+
   attrs = [
     {
       key: 'today',
@@ -79,6 +80,58 @@ export default class EventDetail extends Vue {
       date: new Date()
     }
   ]
+
+  get title() {
+    const { data } = this
+    if (data === null) {
+      return null
+    }
+    if (data.title === null) {
+      return data.organizer
+    } else if (data.organizer !== data.title) {
+      return `${data.organizer}, ${data.title}`
+    }
+    return this.data.title
+  }
+
+  get sideImage() {
+    if (!this.data) return '/images/logo-small.png'
+    return this.data.sideImage || '/images/logo-small.png'
+  }
+
+  get logo() {
+    if (!this.data) return '/images/logo-small.png'
+    return this.data.logo || '/images/logo-small.png'
+  }
+
+  get organizer() {
+    const { data } = this
+    return (data && data.organizer) || ''
+  }
+
+  get location() {
+    const { data } = this
+    if (!data) {
+      return ''
+    }
+    return `${data.city}, ${data.country}`
+  }
+
+  get duration() {
+    const { data } = this
+    return (data && data.duration.name) || ''
+  }
+
+  get audiences() {
+    const { data } = this
+    if (!data) return ''
+    return data.audiences.map((data) => data.name).join(', ')
+  }
+
+  get recurrence() {
+    const { data } = this
+    return (data && data.recurrence.name) || ''
+  }
 }
 </script>
 
@@ -316,9 +369,9 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-event__frame single-event__sideImage {
+.single-event__side-image {
   width: 100%;
-  height: 100%;
+  object-fit: cover;
 }
 
 .single-event__description {

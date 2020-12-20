@@ -1,6 +1,5 @@
 <template>
   <div class="events-calendar__container">
-    <!-- <FullCalendar ref="fullCalendar" :options="calendarOptions" class="calendar" @event-render="eventRender" /> -->
     <v-calendar
       ref="eventCalendar"
       class="calendar"
@@ -37,10 +36,7 @@
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
 import { Event } from '@/models'
 
-@Component({
-  name: 'events-calendar',
-  components: {}
-})
+@Component({ name: 'events-calendar' })
 export default class EventsCalendar extends Vue {
   @Prop({ required: true }) events!: Event[]
   @Prop({ required: true }) date!: any
@@ -61,13 +57,14 @@ export default class EventsCalendar extends Vue {
   showDate = new Date(this.date.year, this.date.monthIndex - 1)
 
   get eventsData() {
-    return this.events.map((item, ind) => {
+    return this.events.map((item, index) => {
+      const audiences = item.audiences.map((audience) => audience.name).join(', ')
       const event = {
-        key: ind,
+        key: index,
         customData: {
           title: item.title,
           location: `${item.city}, ${item.country}`,
-          info: `${item.audiences.length}, ${item.duration.name}`,
+          info: `${audiences}, ${item.duration.name}`,
           desc: item.description,
           url: `/event/${item.id}`,
           backgroundColor: '#c2d5fe',

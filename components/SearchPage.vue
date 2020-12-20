@@ -126,7 +126,7 @@ import { isMobile } from 'mobile-device-detect'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
-import { RouteQuery } from '@/store/search/types'
+import { VendorsRouteQuery } from '@/store/vendors/types'
 import { RootState, LoadingStatus } from '@/store/types'
 
 @Component({ name: 'search' })
@@ -146,7 +146,7 @@ export default class Search extends Vue {
   @State((state: RootState) => state.search.vendorsLastFilter) lastSearch!: Filters
   @State((state: RootState) => state.search.vendorsPage) curPageNum!: Filters
 
-  @State((state: RootState) => state.search.routeQuery) lastSearchQuery!: RouteQuery
+  @State((state: RootState) => state.search.routeQuery) lastSearchQuery!: VendorsRouteQuery
 
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
