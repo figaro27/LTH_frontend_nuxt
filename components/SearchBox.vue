@@ -355,17 +355,18 @@ $searchBoxHeight: 50px;
 }
 
 .search-box__selectedDate {
-  display: flex;
-  flex-direction: column;
+  @include col;
+  align-items: flex-end;
   background: $colorLightBlue;
   padding: 10px 30px;
-  align-items: end;
+
   .search-box__selectedDate_year {
     color: $colorNavy;
     @include typography(xl, default, bold);
   }
+
   .search-box__selectedDate_month {
-    color: navy;
+    color: $colorNavy;
     @include typography(xxl, default, bold);
   }
 }
