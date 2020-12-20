@@ -1,8 +1,8 @@
 import { Filters, SearchResultVendor } from '@/models'
 import { LoadingStatus } from '@/store/types'
-import { RouteQuery } from './types'
+import { VendorsRouteQuery } from './types'
 
-export type SearchState = {
+export type VendorsState = {
   demographics: any[]
   functionalities: any[]
   installations: any[]
@@ -19,7 +19,7 @@ export type SearchState = {
   vendorsLoading: LoadingStatus
   vendorsPage: number
   vendorsLastFilter: Filters
-  routeQuery: RouteQuery
+  routeQuery: VendorsRouteQuery
 }
 
 const state = () =>
@@ -51,6 +51,6 @@ const state = () =>
       practiceAreas: []
     },
     routeQuery: {}
-  } as SearchState)
+  } as VendorsState)
 
 export default state

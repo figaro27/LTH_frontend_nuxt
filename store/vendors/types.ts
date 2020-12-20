@@ -1,4 +1,4 @@
-export type RouteQuery = {
+export type VendorsRouteQuery = {
   keyword?: string
   demographics?: string
   functionalities?: string

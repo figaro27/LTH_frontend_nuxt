@@ -25,8 +25,24 @@
       :search-text.sync="searchText"
       @select="select"
     >
-      <template v-if="searchText" #input-end>
-        <button class="search-box__cancel" @click.stop="cancelSearch"></button>
+      <template #input-end>
+        <div v-if="contents === 'events'" class="search-box__caleddar_container">
+          <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" @click="showCalendar = !showCalendar" />
+          <div v-if="showCalendar" class="search-box__monthpicker_container">
+            <div class="search-box__selectedDate">
+              <label class="search-box__selectedDate_year">{{ selectedMonth.year }}</label>
+              <label class="search-box__selectedDate_month">{{ selectedMonth.month }}</label>
+            </div>
+            <month-picker
+              v-model="selectedMonth"
+              class="search-box__monthpicker"
+              no-default
+              :months="months"
+              @input="onInputCalendar"
+            />
+          </div>
+        </div>
+        <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
       </template>
 
       <template #input-after>
@@ -41,28 +57,45 @@
 <script lang="ts">
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
-import { LoadingStatus } from '@/store/types'
+import { MonthPicker } from 'vue-month-picker'
+import { LoadingStatus, RootState } from '@/store/types'
 
 @Component({
   name: 'search-box',
-  components: { CoolSelect }
+  components: { CoolSelect, MonthPicker }
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
-  @State((state) => state.search.autosuggestItems) autosuggestItems!: string[]
-  @State((state) => state.search.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
+  @Prop({ required: false }) contents!: string
+  @Prop({ required: false }) changeCalendar: any
+  @State((state: RootState) => state.vendors.autosuggestItems) autosuggestItems!: string[]
+  @State((state: RootState) => state.vendors.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
   $refs!: {
     select: VueCoolSelectComponentInterface
   }
 
+  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   searchText = ''
   selectedValue = ''
+  selectedMonth = {
+    from: null,
+    to: null,
+    month: new Date().toLocaleString('default', { month: 'long' }),
+    year: new Date().getFullYear()
+  }
+
+  showCalendar = false
+  noDefault = true
+
+  clickCalendar() {
+    this.showCalendar = !this.showCalendar
+  }
 
   get tabs() {
     return [
-      { tag: 'nuxt-link', id: 'tools', label: 'Tools', to: '/search' },
-      { tag: 'div', id: 'events', label: 'Events', isComingSoon: true },
+      { tag: 'nuxt-link', id: 'tools', label: 'Tools', to: '/search/tools' },
+      { tag: 'nuxt-link', id: 'events', label: 'Events', to: '/search/events' },
       { tag: 'div', id: 'awards', label: 'Awards', isComingSoon: true }
     ]
   }
@@ -98,7 +131,7 @@ export default class SearchBox extends Vue {
 
   @Watch('searchText', { immediate: true })
   onSearchText() {
-    this.$store.dispatch('search/loadAutosuggest', this.searchText)
+    this.$store.dispatch('vendors/loadAutosuggest', this.searchText)
   }
 
   search() {
@@ -119,6 +152,11 @@ export default class SearchBox extends Vue {
       this.searchText = selectedItem.label
     }
     this.$emit('search', this.searchText)
+  }
+
+  onInputCalendar(date: any) {
+    this.changeCalendar(date)
+    this.showCalendar = false
   }
 }
 </script>
@@ -174,6 +212,35 @@ $searchBoxHeight: 50px;
   &:hover,
   &:active {
     background: lighten($colorLightGreen, 10%);
+  }
+}
+.search-box__monthpicker_container {
+  position: absolute;
+  z-index: 10;
+  background: white;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 20px;
+  color: navy;
+  .month-picker__container {
+    width: 20rem;
+  }
+  .month-picker__year {
+    display: flex;
+    button {
+      border: none;
+      background: transparent;
+      color: navy;
+    }
+  }
+  .month-picker {
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
+    .month-picker__month {
+      border: none;
+    }
   }
 }
 </style>
@@ -241,6 +308,20 @@ $searchBoxHeight: 50px;
   }
 }
 
+.search-box__caleddar_container {
+  position: relative;
+}
+
+.search-box__monthpicker {
+  position: relative;
+}
+
+.search-box__calendar_btn {
+  width: 30px;
+  height: 30px;
+  margin: auto 10px;
+}
+
 .search-box__cancel {
   position: relative;
   width: 25px;
@@ -270,6 +351,23 @@ $searchBoxHeight: 50px;
   }
   &::after {
     transform: rotate(-45deg) translate(-50%);
+  }
+}
+
+.search-box__selectedDate {
+  @include col;
+  align-items: flex-end;
+  background: $colorLightBlue;
+  padding: 10px 30px;
+
+  .search-box__selectedDate_year {
+    color: $colorNavy;
+    @include typography(xl, default, bold);
+  }
+
+  .search-box__selectedDate_month {
+    color: $colorNavy;
+    @include typography(xxl, default, bold);
   }
 }
 </style>

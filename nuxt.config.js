@@ -6,7 +6,6 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: 'universal',
   env: {
     baseURL: apiUrl,
     environment: process.env.NODE_ENV
@@ -64,7 +63,9 @@ export default {
     { src: '@/plugins/vue-recaptcha-v3.js', mode: 'client' },
     { src: '@/plugins/vue-text-highlight.js', mode: 'client' },
     { src: '@/plugins/vue-avatar.js', mode: 'client' },
-    { src: '@/plugins/vue-youtube.js', mode: 'client' }
+    { src: '@/plugins/vue-youtube.js', mode: 'client' },
+    { src: '@/plugins/v-calendar.js', mode: 'client' },
+    { src: '@/plugins/vue-month-picker.js', mode: 'client' }
   ],
   /*
    ** Auto import components
@@ -143,7 +144,7 @@ export default {
         }
       }
     },
-    transpile: ['get-youtube-id', 'lodash.isequal', 'validator']
+    transpile: ['get-youtube-id', 'lodash.isequal', 'validator', 'vue-month-picker']
   },
 
   generate: {

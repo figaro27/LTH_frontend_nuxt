@@ -74,43 +74,21 @@
             <div class="lth__section__ul-container">
               <strong>The metadata that adheres to tools on Legaltech Hub includes:</strong>
               <ul class="lth__section__ul">
-                <li>
-                  Vendor Name - the organization that produces the tool
-                </li>
-                <li>
-                  Tool - the name of the tool
-                </li>
-                <li>
-                  HQ - the country where the vendor is based
-                </li>
-                <li>
-                  Offices - countries where the vendor has a physical presence
-                </li>
-                <li>
-                  Functionality - the primary function of the tool (see taxonomy below)
-                </li>
-                <li>
-                  Sub-Functionality - secondary functions (if any) of the tool
-                </li>
-                <li>
-                  Practice Area - the area(s) of law to which the tool is targeted
-                </li>
-                <li>
-                  Platform Language - language(s) of the tool interface
-                </li>
-                <li>
-                  Linguistic Efficacy - language(s) in which the tool can be utilized
-                </li>
+                <li>Vendor Name - the organization that produces the tool</li>
+                <li>Tool - the name of the tool</li>
+                <li>HQ - the country where the vendor is based</li>
+                <li>Offices - countries where the vendor has a physical presence</li>
+                <li>Functionality - the primary function of the tool (see taxonomy below)</li>
+                <li>Sub-Functionality - secondary functions (if any) of the tool</li>
+                <li>Practice Area - the area(s) of law to which the tool is targeted</li>
+                <li>Platform Language - language(s) of the tool interface</li>
+                <li>Linguistic Efficacy - language(s) in which the tool can be utilized</li>
                 <li>
                   Target Entity - either Small Law (solo up to 50 lawyers), Law Firms, Corporates (in-house departments)
                   or Barristers
                 </li>
-                <li>
-                  Deployment - Cloud, Web or On Premise
-                </li>
-                <li>
-                  Integrations - other tools with which the tool is designed to integrate
-                </li>
+                <li>Deployment - Cloud, Web or On Premise</li>
+                <li>Integrations - other tools with which the tool is designed to integrate</li>
                 <li>Website</li>
                 <li>Description</li>
               </ul>

@@ -1,9 +1,10 @@
 import { ActionContext, StoreOptions } from 'vuex'
 import { AdsState } from './ads/state'
 import { ConsolidationState } from './consolidation/state'
+import { EventsState } from './events/state'
 import { GraveyardState } from './graveyard/state'
 import { SavedSearchState } from './savedSearch/state'
-import { SearchState } from './search/state'
+import { VendorsState } from './vendors/state'
 
 export type ApiResponse<T> = { data: T }
 
@@ -18,9 +19,10 @@ export type TypedAction<S, R, P, T = any> = (
 export interface RootState {
   ads: AdsState
   consolidation: ConsolidationState
+  events: EventsState
   graveyard: GraveyardState
   savedSearch: SavedSearchState
-  search: SearchState
+  vendors: VendorsState
 }
 
 export type Usecase = {

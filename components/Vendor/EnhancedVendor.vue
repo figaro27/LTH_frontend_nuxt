@@ -29,9 +29,7 @@
       </client-only>
     </div>
     <div class="enhanced-vendor__reviews">
-      <div class="enhanced-vendor__reviews-title">
-        Articles | Reviews | Testimonials
-      </div>
+      <div class="enhanced-vendor__reviews-title">Articles | Reviews | Testimonials</div>
       <div class="enhanced-vendor_reviews-container">
         <client-only>
           <carousel :per-page="perPage" :navigate-to="-1">
@@ -56,12 +54,8 @@
         <a class="enhanced-vendor__link" :href="enhancedData.poc.url" target="_blank">Read more ...</a>
       </div>
       <div class="enhanced-vendor__others-frame">
-        <p class="enhanced-vendor__others-title">
-          Social
-        </p>
-        <p class="enhanced-vendor__social-text">
-          Follow Us on Social Media
-        </p>
+        <p class="enhanced-vendor__others-title">Social</p>
+        <p class="enhanced-vendor__social-text">Follow Us on Social Media</p>
         <div class="enhanced-vendor_social-container">
           <a v-if="enhancedData.linkedin" :href="enhancedData.linkedin" target="_blank">
             <img class="enhanced-vendor_social-icon" src="/images/svgs/listing/linkedin.svg" />
