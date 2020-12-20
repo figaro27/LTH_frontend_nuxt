@@ -48,7 +48,7 @@ export default class SingleEvent extends Vue {
   }
 
   get eventId() {
-    return this.$route.params.eventId
+    return this.$route.params.id
   }
 }
 </script>

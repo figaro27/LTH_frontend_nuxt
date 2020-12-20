@@ -13,9 +13,7 @@
             <img
               :src="vendorRequest.type === 'create' ? '/images/listings/add_selected.svg' : '/images/listings/add.svg'"
             />
-            <label class="listing-action__label">
-              Add a new listing
-            </label>
+            <label class="listing-action__label"> Add a new listing </label>
           </button>
           <button
             class="listing-action__container"
@@ -29,9 +27,7 @@
                   : '/images/listings/form-pencil.svg'
               "
             />
-            <label class="listing-action__label">
-              Update an existing listing
-            </label>
+            <label class="listing-action__label"> Update an existing listing </label>
           </button>
         </div>
       </div>

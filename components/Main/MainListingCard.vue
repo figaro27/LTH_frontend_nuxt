@@ -9,15 +9,9 @@
       </p>
     </div>
     <div class="listing-card__button__container">
-      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
-        Add
-      </button>
-      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
-        Update
-      </button>
-      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">
-        Upgrade
-      </button>
+      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">Add</button>
+      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">Update</button>
+      <button v-tooltip="{ content: 'Coming soon' }" class="listing-card__button">Upgrade</button>
     </div>
   </div>
 </template>
