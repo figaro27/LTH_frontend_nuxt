@@ -46,7 +46,7 @@
       </div>
       <div class="single-event__side">
         <div class="single-event__frame single-event__others">
-          <v-calendar v-model="data.date" :attributes="attrs"></v-calendar>
+          <v-calendar :attributes="attrs" :disabled-dates="{}" class="single-event__calendar"></v-calendar>
         </div>
         <img :src="sideImage" class="single-event__side-image" />
       </div>
@@ -77,7 +77,7 @@ export default class EventDetail extends Vue {
     {
       key: 'today',
       highlight: true,
-      date: new Date()
+      dates: this.data.date
     }
   ]
 
@@ -161,6 +161,15 @@ export default class EventDetail extends Vue {
   text-align: left;
   background: white;
   position: relative;
+}
+
+.single-event__calendar {
+  .vc-popover-content-wrapper {
+    display: none;
+  }
+  .vc-pane-container {
+    display: none;
+  }
 }
 
 $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
@@ -289,16 +298,6 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 }
 
-.single-vender__side__left {
-  @include respondTo(mobile) {
-    flex: 2;
-
-    .single-event__others {
-      margin-top: 20px;
-    }
-  }
-}
-
 .single-event__offices {
   padding: 15px;
 
@@ -383,11 +382,6 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   margin-bottom: 40px;
   text-align: left;
   overflow: hidden;
-}
-
-.single-event__similar-results {
-  width: 100%;
-  margin: 20px 0;
 }
 
 .calendar >>> .not-in-month {

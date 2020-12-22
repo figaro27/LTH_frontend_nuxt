@@ -1,12 +1,14 @@
 <template>
   <div class="events-calendar__container">
     <v-calendar
+      v-if="!isMobile"
       ref="eventCalendar"
       class="calendar"
       :masks="masks"
       :attributes="eventsData"
       disable-page-swipe
       is-expanded
+      trim-weeks
     >
       <template #day-content="{ day, attributes }">
         <div>
@@ -22,24 +24,59 @@
                 {{ attr.customData.desc }}
               </p>
               <p v-else class="event-calendar__event__desc">
-                {{ attr.customData.desc.slice(0, 45) }} ... <a :href="attr.customData.url">see more</a>
+                {{ attr.customData.desc.slice(0, 45) }} ...
+                <a :href="attr.customData.url">see more</a>
               </p>
             </div>
           </div>
         </div>
       </template>
     </v-calendar>
+    <div v-if="isMobile">
+      <v-calendar
+        v-if="isMobile"
+        trim-weeks
+        :attributes="mobileCalendarDates"
+        class="events-calendar__mobile_calendar"
+      ></v-calendar>
+      <div class="events-calenar__mobile_event_container">
+        <h2 :style="{ color: navy }">Upcoming Events</h2>
+        <div v-for="(data, key) in eventsData" :key="key" class="events-calenar__mobile_event_box">
+          <div class="events-calenar__mobile_event_date">
+            <p>{{ data.dates.getDate() }}</p>
+          </div>
+          <div>
+            <a :href="data.customData.url" class="event-calendar__mobile_event__title">{{ data.customData.title }}</a>
+            <p class="event-calendar__mobile_event__location">
+              {{ data.customData.location }}
+            </p>
+            <p class="event-calendar__mobile_event__info">{{ data.customData.info }}</p>
+            <p v-if="data.customData.desc.length < 45" class="event-calendar__mobile_event__desc">
+              {{ data.customData.desc }}
+            </p>
+            <template v-else>
+              <p class="event-calendar__mobile_event__desc">{{ data.customData.desc.slice(0, 35) }} ...</p>
+              <a :href="data.customData.url">see more</a>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
+import { isMobile } from 'mobile-device-detect'
 import { Event } from '@/models'
+import { EventsData } from './events_data'
 
 @Component({ name: 'events-calendar' })
 export default class EventsCalendar extends Vue {
   @Prop({ required: true }) events!: Event[]
   @Prop({ required: true }) date!: any
+
+  isMobile: boolean = false
 
   @Watch('date', { immediate: true, deep: true })
   async onDateChange(val: any) {
@@ -50,6 +87,7 @@ export default class EventsCalendar extends Vue {
   }
 
   mounted() {
+    this.isMobile = isMobile
     this.onDateChange(this.date)
   }
 
@@ -64,7 +102,7 @@ export default class EventsCalendar extends Vue {
         customData: {
           title: item.title,
           location: `${item.city}, ${item.country}`,
-          info: `${audiences}, ${item.duration.name}`,
+          info: `${audiences} | ${item.duration.name}`,
           desc: item.description,
           url: `/event/${item.id}`,
           backgroundColor: '#c2d5fe',
@@ -76,12 +114,32 @@ export default class EventsCalendar extends Vue {
       return event
     })
   }
+
+  get mobileCalendarDates() {
+    const data = EventsData
+    const eventsDates: any = data.map((item: any) => {
+      return { start: item.date, end: item.date }
+    })
+    return [
+      {
+        key: 'today',
+        highlight: true,
+        dates: eventsDates
+      }
+    ]
+  }
+
+  get eventsDates() {
+    return this.events.map((item) => {
+      return item.date
+    })
+  }
 }
 </script>
 
 <style lang="scss">
 .events-calendar__container {
-  height: 150%;
+  height: 100%;
   .calendar {
     background-color: transparent;
     padding: 12px 40px;
@@ -155,6 +213,57 @@ export default class EventsCalendar extends Vue {
   .event-calendar__event__desc {
     @include typography(md, default, normal);
     color: $colorDarkGrey;
+    color: $colorLightGrey;
+  }
+}
+
+.events-calendar__mobile_calendar {
+  width: 100%;
+  overflow: show;
+  margin-left: 5px;
+  .vc-title {
+    @include typography(xl-1, default, bold);
+    color: navy;
+  }
+  .vc-arrows-container {
+    // justify-content: center;
+    align-items: center;
+    padding: 5px 40px;
+    .vc-arrow {
+      color: navy;
+      @include typography(xxl, default, bold);
+    }
+  }
+}
+
+.events-calenar__mobile_event_container {
+  padding: 10px 0px 10px 15px;
+  .events-calenar__mobile_event_box {
+    display: flex;
+    padding: 10px 0px;
+  }
+  .event-calendar__mobile_event__title {
+    @include typography(xl, default, bold);
+    color: navy;
+    text-decoration: blink;
+  }
+  .event-calendar__mobile_event__location {
+    @include typography(lg, default, bold);
+    color: $colorLightGrey;
+  }
+  .event-calendar__mobile_event__info {
+    @include typography(lg, default, normal);
+    color: $colorLightGrey;
+  }
+  .events-calenar__mobile_event_date {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $colorLightNavy;
   }
 }
 </style>

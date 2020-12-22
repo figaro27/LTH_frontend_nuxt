@@ -216,6 +216,9 @@ $searchBoxHeight: 50px;
 }
 .search-box__monthpicker_container {
   position: absolute;
+  @media (max-width: 1024px) {
+    right: 0;
+  }
   z-index: 10;
   background: white;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
@@ -356,7 +359,7 @@ $searchBoxHeight: 50px;
 
 .search-box__selectedDate {
   @include col;
-  align-items: flex-end;
+  align-items: flex-start;
   background: $colorLightBlue;
   padding: 10px 30px;
 

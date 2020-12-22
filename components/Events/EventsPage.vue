@@ -75,7 +75,7 @@
       </div>
       <div v-loading="eventsLoading !== 2" class="events-page__content">
         <div class="events-page__content-wrapper">
-          <h4 v-if="true" class="events-page__count">
+          <h4 v-if="!isCalendar" class="events-page__count">
             <span>Search result ({{ total }})</span>
             <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" to="/search">
               <fa :icon="['fas', 'times-circle']" />
@@ -411,8 +411,8 @@ export default class SearchEvents extends Vue {
   }
 
   @include respondTo(mobile) {
-    width: 40%;
-    min-width: 35%;
+    width: 25%;
+    min-width: 25%;
     margin-right: 0;
   }
 }
