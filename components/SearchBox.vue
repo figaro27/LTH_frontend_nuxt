@@ -14,43 +14,42 @@
         {{ tab.label }}
       </componet>
     </div>
-    <cool-select
-      ref="select"
-      v-model="selectedValue"
-      item-text="label"
-      item-value="value"
-      placeholder="Search for legaltech tools..."
-      :items="feedItems"
-      :loading="isKeywordsLoading"
-      :search-text.sync="searchText"
-      @select="select"
-    >
-      <template #input-end>
-        <div v-if="contents === 'events'" class="search-box__caleddar_container">
-          <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" @click="showCalendar = !showCalendar" />
-          <div v-if="showCalendar" class="search-box__monthpicker_container">
-            <div class="search-box__selectedDate">
-              <label class="search-box__selectedDate_year">{{ selectedMonth.year }}</label>
-              <label class="search-box__selectedDate_month">{{ selectedMonth.month }}</label>
-            </div>
-            <month-picker
-              v-model="selectedMonth"
-              class="search-box__monthpicker"
-              no-default
-              :months="months"
-              @input="onInputCalendar"
-            />
+    <div class="search-box__input_container">
+      <cool-select
+        ref="select"
+        v-model="selectedValue"
+        item-text="label"
+        item-value="value"
+        placeholder="Search for legaltech events..."
+        :items="feedItems"
+        :loading="isKeywordsLoading"
+        :search-text.sync="searchText"
+        @select="select"
+      >
+        <template #input-end>
+          <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
+        </template>
+      </cool-select>
+      <div v-if="contents === 'events'" ref="calendar" class="search-box__calendar_container">
+        <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" @click="showCalendar = !showCalendar" />
+        <div v-if="showCalendar" class="search-box__monthpicker_container">
+          <div class="search-box__selectedDate">
+            <label class="search-box__selectedDate_year">{{ selectedMonth.year }}</label>
+            <label class="search-box__selectedDate_month">{{ selectedMonth.month }}</label>
           </div>
+          <month-picker
+            v-model="selectedMonth"
+            class="search-box__monthpicker"
+            no-default
+            :months="months"
+            @input="onInputCalendar"
+          />
         </div>
-        <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
-      </template>
-
-      <template #input-after>
-        <button class="search-box__search" @click.stop="search">
-          <img src="/images/svgs/search.svg" />
-        </button>
-      </template>
-    </cool-select>
+      </div>
+      <button class="search-box__search" @click.stop="search">
+        <img src="/images/svgs/search.svg" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -163,16 +162,19 @@ export default class SearchBox extends Vue {
 
 <style lang="scss">
 $searchBoxHeight: 50px;
+$searchBoxWidth: 850px;
 
 #search-box {
   .IZ-select {
     height: $searchBoxHeight;
+    width: $searchBoxWidth;
   }
 
   .IZ-select__input {
     border-radius: 0 0 0 10px !important;
     border-right: none !important;
     border-color: $colorLightGreen;
+    display: flex;
 
     input {
       font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -216,6 +218,13 @@ $searchBoxHeight: 50px;
 }
 .search-box__monthpicker_container {
   position: absolute;
+  top: 45px;
+  @media (max-width: 870px) {
+    right: 10px;
+  }
+  @media (min-width: 870px) {
+    left: 10px;
+  }
   z-index: 10;
   background: white;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
@@ -243,9 +252,25 @@ $searchBoxHeight: 50px;
     }
   }
 }
+.search-box__input_container {
+  display: flex;
+  width: 100%;
+}
 </style>
 
 <style lang="scss" scoped>
+$searchBoxHeight: 50px;
+.search-box__calendar_container {
+  position: relative;
+  height: $searchBoxHeight;
+  border: 1px solid $colorLightGreen;
+  border-left: none !important;
+  border-right: none !important;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
 .search-box {
   @include col;
 }
@@ -308,13 +333,9 @@ $searchBoxHeight: 50px;
   }
 }
 
-.search-box__caleddar_container {
-  position: relative;
-}
-
-.search-box__monthpicker {
-  position: relative;
-}
+// .search-box__monthpicker {
+//   position: relative;
+// }
 
 .search-box__calendar_btn {
   width: 30px;
