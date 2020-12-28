@@ -18,12 +18,14 @@
                 <span class="event-calendar__event__desc">{{ attr.customData.location }}</span>
               </p>
               <p class="event-calendar__event__desc">{{ attr.customData.info }}</p>
-              <p v-if="attr.customData.desc.length < 45" class="event-calendar__event__desc">
-                {{ attr.customData.desc }}
-              </p>
-              <p v-else class="event-calendar__event__desc">
-                {{ attr.customData.desc.slice(0, 45) }} ... <a :href="attr.customData.url">see more</a>
-              </p>
+              <template v-if="attr.customData.desc">
+                <p v-if="attr.customData.desc.length < 45" class="event-calendar__event__desc">
+                  {{ attr.customData.desc }}
+                </p>
+                <p v-else class="event-calendar__event__desc">
+                  {{ attr.customData.desc.slice(0, 45) }} ... <a :href="attr.customData.url">see more</a>
+                </p>
+              </template>
             </div>
           </div>
         </div>
@@ -149,11 +151,11 @@ export default class EventsCalendar extends Vue {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
   .event-calendar__event__title {
-    @include typography(lg, default, bold);
+    @include typography(md, default, bold);
     color: black;
   }
   .event-calendar__event__desc {
-    @include typography(md, default, normal);
+    @include typography(sm, default, normal);
     color: $colorDarkGrey;
   }
 }

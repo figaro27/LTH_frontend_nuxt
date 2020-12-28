@@ -32,7 +32,7 @@
       </cool-select>
       <div v-if="contents === 'events'" ref="calendar" class="search-box__calendar_container">
         <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" @click="showCalendar = !showCalendar" />
-        <div v-if="showCalendar" class="search-box__monthpicker_container">
+        <div v-if="showCalendar" v-on-clickaway="hideCalendar" class="search-box__monthpicker_container">
           <div class="search-box__selectedDate">
             <label class="search-box__selectedDate_year">{{ selectedMonth.year }}</label>
             <label class="search-box__selectedDate_month">{{ selectedMonth.month }}</label>
@@ -50,6 +50,9 @@
         <img src="/images/svgs/search.svg" />
       </button>
     </div>
+    <Modal v-model="showCalendarModal" title="My first modal">
+      <p>Modal content goes here...</p>
+    </Modal>
   </div>
 </template>
 
@@ -57,11 +60,14 @@
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
 import { MonthPicker } from 'vue-month-picker'
+import { mixin as ClickAway } from 'vue-clickaway'
+import { ComponentOptions } from 'vue'
 import { LoadingStatus, RootState } from '@/store/types'
 
 @Component({
   name: 'search-box',
-  components: { CoolSelect, MonthPicker }
+  components: { CoolSelect, MonthPicker },
+  mixins: [ClickAway as ComponentOptions<Vue>]
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
@@ -74,6 +80,7 @@ export default class SearchBox extends Vue {
     select: VueCoolSelectComponentInterface
   }
 
+  showCalendarModal = false
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   searchText = ''
   selectedValue = ''
@@ -87,8 +94,8 @@ export default class SearchBox extends Vue {
   showCalendar = false
   noDefault = true
 
-  clickCalendar() {
-    this.showCalendar = !this.showCalendar
+  hideCalendar() {
+    this.showCalendar = false
   }
 
   get tabs() {
@@ -218,7 +225,7 @@ $searchBoxWidth: 850px;
 }
 .search-box__monthpicker_container {
   position: absolute;
-  top: 45px;
+  top: $searchBoxHeight;
   @media (max-width: 870px) {
     right: 10px;
   }
@@ -260,12 +267,13 @@ $searchBoxWidth: 850px;
 
 <style lang="scss" scoped>
 $searchBoxHeight: 50px;
+
 .search-box__calendar_container {
   position: relative;
   height: $searchBoxHeight;
   border: 1px solid $colorLightGreen;
-  border-left: none !important;
-  border-right: none !important;
+  border-left: none;
+  border-right: none;
   align-items: center;
   display: flex;
   cursor: pointer;
