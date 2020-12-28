@@ -30,7 +30,12 @@
           <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
         </template>
       </cool-select>
-      <div v-if="contents === 'events'" ref="calendar" class="search-box__calendar_container">
+      <div
+        v-if="contents === 'events'"
+        ref="calendar"
+        v-on-clickaway="onClickAwayCalendar"
+        class="search-box__calendar_container"
+      >
         <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" @click="showCalendar = !showCalendar" />
         <div v-if="showCalendar" class="search-box__monthpicker_container">
           <div class="search-box__selectedDate">
@@ -57,11 +62,14 @@
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
 import { MonthPicker } from 'vue-month-picker'
+import { mixin as ClickAway } from 'vue-clickaway'
+import { ComponentOptions } from 'vue'
 import { LoadingStatus, RootState } from '@/store/types'
 
 @Component({
   name: 'search-box',
-  components: { CoolSelect, MonthPicker }
+  components: { CoolSelect, MonthPicker },
+  mixins: [ClickAway as ComponentOptions<Vue>]
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
@@ -143,6 +151,10 @@ export default class SearchBox extends Vue {
     this.$emit('search', '')
   }
 
+  onClickAwayCalendar() {
+    this.showCalendar = false
+  }
+
   select(selectedItem: { index: number; label: string; value: string }) {
     this.selectedValue = selectedItem.value
     if (selectedItem.index === 0) {
@@ -218,7 +230,7 @@ $searchBoxWidth: 850px;
 }
 .search-box__monthpicker_container {
   position: absolute;
-  top: 45px;
+  top: $searchBoxHeight;
   @media (max-width: 870px) {
     right: 10px;
   }
