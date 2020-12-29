@@ -279,8 +279,4 @@ export default class EventsCalendar extends Vue {
   }
 }
 </style>
-<style lang="scss" scoped>
-.events-calendar__container {
-  margin: 10px;
-}
-</style>
+<style lang="scss" scoped></style>
