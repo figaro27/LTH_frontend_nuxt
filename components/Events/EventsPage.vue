@@ -50,7 +50,7 @@
           id="dates"
           v-model="filters.dates"
           name="dates"
-          label="Dates:"
+          label="Format:"
           :options="dates"
           @change="onFilterUpdate"
         />
