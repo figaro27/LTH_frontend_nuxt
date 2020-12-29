@@ -55,9 +55,6 @@
         <img src="/images/svgs/search.svg" />
       </button>
     </div>
-    <Modal v-model="showCalendarModal" title="My first modal">
-      <p>Modal content goes here...</p>
-    </Modal>
   </div>
 </template>
 
