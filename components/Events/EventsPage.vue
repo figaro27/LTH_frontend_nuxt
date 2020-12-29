@@ -22,20 +22,28 @@
           :options="organizations"
           @change="onFilterUpdate"
         />
-        <select-filter
+        <!-- <select-filter
           id="names"
           v-model="filters.names"
           name="names"
           label="Names:"
           :options="names"
           @change="onFilterUpdate"
-        />
+        /> -->
         <select-filter
           id="locations"
           v-model="filters.locations"
           name="locations"
           label="Locations:"
           :options="locations"
+          @change="onFilterUpdate"
+        />
+        <select-filter
+          id="audiences"
+          v-model="filters.audiences"
+          name="audiences"
+          label="Audiences:"
+          :options="audiences"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -47,14 +55,6 @@
           @change="onFilterUpdate"
         />
         <select-filter
-          id="recurrences"
-          v-model="filters.recurrences"
-          name="recurrences"
-          label="Reccurrences:"
-          :options="recurrences"
-          @change="onFilterUpdate"
-        />
-        <select-filter
           id="durations"
           v-model="filters.durations"
           name="durations"
@@ -63,11 +63,11 @@
           @change="onFilterUpdate"
         />
         <select-filter
-          id="audiences"
-          v-model="filters.audiences"
-          name="audiences"
-          label="Audiences:"
-          :options="audiences"
+          id="recurrences"
+          v-model="filters.recurrences"
+          name="recurrences"
+          label="Reccurrences:"
+          :options="recurrences"
           @change="onFilterUpdate"
         />
 

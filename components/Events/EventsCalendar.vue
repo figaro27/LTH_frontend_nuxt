@@ -13,20 +13,21 @@
       <template #day-content="{ day, attributes }">
         <div>
           <span>{{ day.day }}</span>
-          <div>
+          <div class="event-calendar__event__container">
             <div v-for="(attr, key) in attributes" :key="key" class="event-calendar__event">
               <p>
                 <a :href="attr.customData.url" class="event-calendar__event__title">{{ attr.customData.title }} | </a>
                 <span class="event-calendar__event__desc">{{ attr.customData.location }}</span>
               </p>
               <p class="event-calendar__event__desc">{{ attr.customData.info }}</p>
-              <p v-if="attr.customData.desc.length < 45" class="event-calendar__event__desc">
-                {{ attr.customData.desc }}
-              </p>
-              <p v-else class="event-calendar__event__desc">
-                {{ attr.customData.desc.slice(0, 45) }} ...
-                <a :href="attr.customData.url">see more</a>
-              </p>
+              <template v-if="attr.customData.desc">
+                <p v-if="attr.customData.desc.length < 45" class="event-calendar__event__desc">
+                  {{ attr.customData.desc }}
+                </p>
+                <p v-else class="event-calendar__event__desc">
+                  {{ attr.customData.desc.slice(0, 45) }} ... <a :href="attr.customData.url">see more</a>
+                </p>
+              </template>
             </div>
           </div>
         </div>
@@ -40,7 +41,7 @@
         class="events-calendar__mobile_calendar"
       ></v-calendar>
       <div class="events-calenar__mobile_event_container">
-        <h2 :style="{ color: navy }">Upcoming Events</h2>
+        <h2 class="events-calendar__mobile_event_list">Upcoming Events</h2>
         <div v-for="(data, key) in eventsData" :key="key" class="events-calenar__mobile_event_box">
           <div class="events-calenar__mobile_event_date">
             <p>{{ data.dates.getDate() }}</p>
@@ -51,12 +52,14 @@
               {{ data.customData.location }}
             </p>
             <p class="event-calendar__mobile_event__info">{{ data.customData.info }}</p>
-            <p v-if="data.customData.desc.length < 45" class="event-calendar__mobile_event__desc">
-              {{ data.customData.desc }}
-            </p>
-            <template v-else>
-              <p class="event-calendar__mobile_event__desc">{{ data.customData.desc.slice(0, 35) }} ...</p>
-              <a :href="data.customData.url">see more</a>
+            <template v-if="data.customData.desc">
+              <p v-if="data.customData.desc.length < 35" class="event-calendar__mobile_event__desc">
+                {{ data.customData.desc }}
+              </p>
+              <template v-else>
+                <p class="event-calendar__mobile_event__desc">{{ data.customData.desc.slice(0, 35) }} ...</p>
+                <a :href="data.customData.url">see more</a>
+              </template>
             </template>
           </div>
         </div>
@@ -69,7 +72,6 @@
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
 import { Event } from '@/models'
-import { EventsData } from './events_data'
 
 @Component({ name: 'events-calendar' })
 export default class EventsCalendar extends Vue {
@@ -109,15 +111,14 @@ export default class EventsCalendar extends Vue {
           textColor: '#546E7A',
           borderColor: '#c2d5fe'
         },
-        dates: item.date
+        dates: new Date(item.date)
       }
       return event
     })
   }
 
   get mobileCalendarDates() {
-    const data = EventsData
-    const eventsDates: any = data.map((item: any) => {
+    const eventsDates: any = this.events.map((item: any) => {
       return { start: item.date, end: item.date }
     })
     return [
@@ -200,6 +201,10 @@ export default class EventsCalendar extends Vue {
       margin-bottom: 5px;
     }
   }
+  .event-calendar__event__container {
+    height: 6rem;
+    overflow: auto;
+  }
   .event-calendar__event {
     background: $colorLightNavy;
     border-radius: 5px;
@@ -207,11 +212,11 @@ export default class EventsCalendar extends Vue {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
   .event-calendar__event__title {
-    @include typography(lg, default, bold);
+    @include typography(md, default, bold);
     color: black;
   }
   .event-calendar__event__desc {
-    @include typography(md, default, normal);
+    @include typography(sm, default, normal);
     color: $colorDarkGrey;
     color: $colorLightGrey;
   }
@@ -238,6 +243,9 @@ export default class EventsCalendar extends Vue {
 
 .events-calenar__mobile_event_container {
   padding: 10px 0px 10px 15px;
+  .events-calendar__mobile_event_list {
+    color: navy;
+  }
   .events-calenar__mobile_event_box {
     display: flex;
     padding: 10px 0px;
