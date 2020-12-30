@@ -72,6 +72,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
+import { isMobile } from 'mobile-device-detect'
 import { Event } from '@/models'
 import EventsCalendarDetail from './EventsCalendarDetail.vue'
 const EventsCalendarDetailClass = Vue.extend(EventsCalendarDetail)
@@ -80,6 +81,8 @@ const EventsCalendarDetailClass = Vue.extend(EventsCalendarDetail)
 export default class EventsCalendar extends Vue {
   @Prop({ required: true }) events!: Event[]
   @Prop({ required: true }) date!: any
+
+  isMobile: boolean = false
 
   @Watch('date', { immediate: true, deep: true })
   async onDateChange(val: any) {
@@ -135,6 +138,7 @@ export default class EventsCalendar extends Vue {
   }
 
   mounted() {
+    this.isMobile = isMobile
     this.onDateChange(this.date)
   }
 
@@ -149,16 +153,35 @@ export default class EventsCalendar extends Vue {
         customData: {
           title: item.title,
           location: `${item.city}, ${item.country}`,
-          info: `${audiences}, ${item.duration.name}`,
+          info: `${audiences} | ${item.duration.name}`,
           desc: item.description,
           url: `/event/${item.id}`,
           backgroundColor: '#c2d5fe',
           textColor: '#546E7A',
           borderColor: '#c2d5fe'
         },
-        dates: item.date
+        dates: new Date(item.date)
       }
       return event
+    })
+  }
+
+  get mobileCalendarDates() {
+    const eventsDates: any = this.events.map((item: any) => {
+      return { start: item.date, end: item.date }
+    })
+    return [
+      {
+        key: 'today',
+        highlight: true,
+        dates: eventsDates
+      }
+    ]
+  }
+
+  get eventsDates() {
+    return this.events.map((item) => {
+      return item.date
     })
   }
 }
@@ -276,6 +299,60 @@ export default class EventsCalendar extends Vue {
   .event-calendar__event__desc {
     @include typography(sm, default, normal);
     color: $colorDarkGrey;
+    color: $colorLightGrey;
+  }
+}
+
+.events-calendar__mobile_calendar {
+  width: 100%;
+  overflow: show;
+  margin-left: 5px;
+  .vc-title {
+    @include typography(xl-1, default, bold);
+    color: navy;
+  }
+  .vc-arrows-container {
+    // justify-content: center;
+    align-items: center;
+    padding: 5px 40px;
+    .vc-arrow {
+      color: navy;
+      @include typography(xxl, default, bold);
+    }
+  }
+}
+
+.events-calenar__mobile_event_container {
+  padding: 10px 0px 10px 15px;
+  .events-calendar__mobile_event_list {
+    color: navy;
+  }
+  .events-calenar__mobile_event_box {
+    display: flex;
+    padding: 10px 0px;
+  }
+  .event-calendar__mobile_event__title {
+    @include typography(xl, default, bold);
+    color: navy;
+    text-decoration: blink;
+  }
+  .event-calendar__mobile_event__location {
+    @include typography(lg, default, bold);
+    color: $colorLightGrey;
+  }
+  .event-calendar__mobile_event__info {
+    @include typography(lg, default, normal);
+    color: $colorLightGrey;
+  }
+  .events-calenar__mobile_event_date {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $colorLightNavy;
   }
 }
 </style>

@@ -391,7 +391,7 @@ $searchBoxHeight: 50px;
 
 .search-box__selectedDate {
   @include col;
-  align-items: flex-end;
+  align-items: flex-start;
   background: $colorLightBlue;
   padding: 10px 30px;
 

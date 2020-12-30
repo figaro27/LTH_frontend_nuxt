@@ -10,10 +10,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-6-05'
+    date: new Date('2020-6-05')
   },
   {
     id: 2,
@@ -26,10 +26,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-7-05'
+    date: new Date('2020-7-05')
   },
   {
     id: 3,
@@ -42,10 +42,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-8-05'
+    date: new Date('2020-8-05')
   },
   {
     id: 4,
@@ -58,10 +58,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-9-05'
+    date: new Date('2020-9-05')
   },
   {
     id: 5,
@@ -74,10 +74,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-10-25'
+    date: new Date('2020-10-25')
   },
   {
     id: 6,
@@ -90,10 +90,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-10-15'
+    date: new Date('2020-10-15')
   },
   {
     id: 7,
@@ -106,10 +106,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-10-05'
+    date: new Date('2020-10-05')
   },
 
   {
@@ -123,10 +123,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-11-25'
+    date: new Date('2020-11-25')
   },
 
   {
@@ -140,10 +140,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-11-15'
+    date: new Date('2020-11-15')
   },
   {
     id: 10,
@@ -156,10 +156,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-11-05'
+    date: new Date('2020-11-05')
   },
 
   {
@@ -173,10 +173,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-12-05'
+    date: new Date('2020-12-05')
   },
   {
     id: 12,
@@ -189,10 +189,10 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-12-15'
+    date: new Date('2020-12-15')
   },
   {
     id: 13,
@@ -205,9 +205,9 @@ export const EventsData = [
     city: 'Madrid',
     country: 'Spain',
     month: 'Sep',
-    audience: 'IT',
+    audiences: ['IT'],
     duration: 'Two days',
     recurrence: 'Annual',
-    date: '2020-12-25'
+    date: new Date('2020-12-25')
   }
 ]
