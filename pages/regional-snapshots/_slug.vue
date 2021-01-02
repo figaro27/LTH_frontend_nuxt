@@ -38,7 +38,7 @@ export default class SingleRegion extends Vue {
     if (this.savedSearch) {
       return
     }
-    const res = await api.get(`vendors/${this.$route.params.slug}`)
+    const res = await api.get(`saved-searchs/${this.$route.params.slug}`)
     this.savedSearch = res.data.data
   }
 
