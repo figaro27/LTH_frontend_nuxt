@@ -37,9 +37,7 @@
     <div class="home__summary-section">
       <img class="home__summary__background-icon" src="/images/svgs/main/summary.svg" />
       <h1 class="home__summary__title">LegaltechHub</h1>
-      <h2 class="home__summary">
-        is where legal professionals find the right resources, anywhere in the world.
-      </h2>
+      <h2 class="home__summary">is where legal professionals find the right resources, anywhere in the world.</h2>
       <div class="home__summary__content">
         <div class="home__summary__links">
           <div v-for="(item, index) of links" :key="index" class="home__summary__link-container">

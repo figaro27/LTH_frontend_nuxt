@@ -12,9 +12,7 @@
           Our Privacy Policy applies to all users of the LTH website: www.legaltechnologyhub.com (and any subdomains).
           When you use our website, you agree to comply with our Terms of Use and our Community Guidelines.
         </p>
-        <p>
-          This Privacy Policy does not cover your use of any of LTH’s paid products.
-        </p>
+        <p>This Privacy Policy does not cover your use of any of LTH’s paid products.</p>
 
         <h3>About LTH</h3>
         <p>
@@ -74,9 +72,7 @@
         </p>
 
         <h3>Why We Use Your Personal Information</h3>
-        <p>
-          We may use Personal Information as permitted by law, for the following business purposes:
-        </p>
+        <p>We may use Personal Information as permitted by law, for the following business purposes:</p>
         <p>
           To provide the Site and various functions related to services offered on the Site: When you create an account
           on the Site, we store and use the information you provide during that process. This may include your first and
@@ -146,9 +142,7 @@
           Protection Regulation (“GDPR”).
         </p>
 
-        <p>
-          Subject to certain limitations, the GDPR provides you the following privacy rights:
-        </p>
+        <p>Subject to certain limitations, the GDPR provides you the following privacy rights:</p>
 
         <p>
           Transparency and the right to information: Through this policy we explain how we use and share your personal
@@ -195,17 +189,11 @@
           information and the context in which we collect it.
         </p>
 
-        <p>
-          However, we will normally collect personal data from you only in the following circumstances:
-        </p>
+        <p>However, we will normally collect personal data from you only in the following circumstances:</p>
 
-        <p>
-          Where we have your express consent to do so
-        </p>
+        <p>Where we have your express consent to do so</p>
 
-        <p>
-          Where we need the personal data to perform a contract with you
-        </p>
+        <p>Where we need the personal data to perform a contract with you</p>
 
         <p>
           Where the processing is in our legitimate interests and is not overridden by your data protection interests or
@@ -245,21 +233,15 @@
           we collect about you, and your rights under the California Consumer Privacy Act, or “CCPA.”
         </p>
 
-        <p>
-          Subject to certain limitations, the CCPA provides you the right to request:
-        </p>
+        <p>Subject to certain limitations, the CCPA provides you the right to request:</p>
 
         <p>
           That we provide you access to details on the categories or specific pieces of personal information we collect;
         </p>
 
-        <p>
-          That we delete any of your personal information;
-        </p>
+        <p>That we delete any of your personal information;</p>
 
-        <p>
-          To not be discriminated against for exercising any of the above rights.
-        </p>
+        <p>To not be discriminated against for exercising any of the above rights.</p>
 
         <p>
           If you would like to submit a request to exercise your California privacy rights under the CCPA, you may do so
@@ -347,9 +329,7 @@
         </p>
 
         <h3>Contact Us</h3>
-        <p>
-          If you have questions about this Privacy Policy, please contact us at admin@legaltechnologyhub.com.
-        </p>
+        <p>If you have questions about this Privacy Policy, please contact us at admin@legaltechnologyhub.com.</p>
 
         <p>
           Please provide your identification and contact details, including your email address used to register with
