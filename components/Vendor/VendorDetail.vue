@@ -102,11 +102,11 @@
               <div class="single-vendor__property-name">Target Entity</div>
               <div class="single-vendor__property__demographics">
                 <div
-                  v-for="(demographic, index) of data.demographics"
+                  v-for="(demographic, index) of demographics"
                   :key="`demographic${index}`"
                   class="single-vendor__property__demographic"
                 >
-                  {{ index &lt; data.demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
+                  {{ index &lt; demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
                 </div>
               </div>
             </div>
