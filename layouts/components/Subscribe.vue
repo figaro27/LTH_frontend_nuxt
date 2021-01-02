@@ -1,39 +1,42 @@
 <template>
-  <div id="newsletter" class="subscribe_container">
-    <div v-if="status === 'snackbar'" class="snackbar">
-      <label class="snackbar_text">
-        <span class="snackbar_text_bold">Thank you!</span> You have subscribed to our monthly newsletter
-      </label>
-      <label class="snackbar_close" @click="reset">CLOSE</label>
-    </div>
-    <div v-else class="subscribe">
-      <img class="subscribe_img" src="/images/subscribe/box.svg" />
-      <div class="subscribe_form">
-        <h1 class="subscribe_form_title">Subscribe To Our Newsletter</h1>
-        <label class="subscribe_form_desc">
-          Join our subscribers list to get the latest news and updates delivered directly to your inbox
+  <client-only>
+    <div id="newsletter" class="subscribe_container">
+      <div v-if="status === 'snackbar'" class="snackbar">
+        <label class="snackbar_text">
+          <span class="snackbar_text_bold">Thank you!</span> You have subscribed to our monthly newsletter
         </label>
-        <div class="subscribe_form_input_section">
-          <input
-            id="email"
-            v-model="email"
-            class="subscribe_form_input"
-            :disabled="status === 'subscribing'"
-            name="email"
-            type="email"
-            required="required"
-            placeholder="Your email for newsletter subscription"
-          />
-          <button class="subscribe_form_submit" :disabled="status === 'subscribing'" type="button" @click="submit">
-            Subscribe
-          </button>
+        <label class="snackbar_close" @click="reset">CLOSE</label>
+      </div>
+      <div v-else class="subscribe">
+        <img class="subscribe_img" src="/images/subscribe/box.svg" />
+        <div class="subscribe_form">
+          <h1 class="subscribe_form_title">Subscribe To Our Newsletter</h1>
+          <label class="subscribe_form_desc">
+            Join our subscribers list to get the latest news and updates delivered directly to your inbox
+          </label>
+          <div class="subscribe_form_input_section">
+            <input
+              id="email"
+              v-model="email"
+              class="subscribe_form_input"
+              :disabled="status === 'subscribing'"
+              name="email"
+              type="email"
+              required="required"
+              placeholder="Your email for newsletter subscription"
+            />
+            <button class="subscribe_form_submit" :disabled="status === 'subscribing'" type="button" @click="submit">
+              Subscribe
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </client-only>
 </template>
 
 <script lang="ts">
+/* global gtag */
 import { Component, Vue } from 'nuxt-property-decorator'
 
 import { api } from '@/utils'
