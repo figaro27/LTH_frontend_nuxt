@@ -239,10 +239,15 @@ export default class Search extends Vue {
     await this.submitQuery()
   }
 
-  @Watch('savedSearch', { immediate: true })
+  @Watch('savedSearch')
   async onSavedSearchChange() {
-    console.log('onSavedSearchChange savedSearch: ', this.savedSearch)
-    console.log('onSavedSearchChange filterOptionsLoaded: ', this.filterOptionsLoaded)
+    if (!this.filterOptionsLoaded) return
+    this.updateFromRouteQuery()
+    await this.submitQuery()
+  }
+
+  @Watch('filterOptionsLoaded')
+  async onFilterOptionsLoaded() {
     if (!this.filterOptionsLoaded) return
     this.updateFromRouteQuery()
     await this.submitQuery()
