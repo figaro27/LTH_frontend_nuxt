@@ -1,8 +1,6 @@
 <template>
   <div class="popular-searchs">
-    <h2 class="popular-searchs__title">
-      Popular Searches
-    </h2>
+    <h2 class="popular-searchs__title">Popular Searches</h2>
     <div class="popular-searchs__list">
       <nuxt-link v-for="(search, index) of popularSearchs" :key="index" :to="search.to">{{ search.label }}</nuxt-link>
     </div>

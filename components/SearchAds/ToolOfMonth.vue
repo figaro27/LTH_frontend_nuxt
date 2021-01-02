@@ -6,12 +6,8 @@
       src="https://legal-uploads.s3.us-east-2.amazonaws.com/ads/ilves-mobile.svg"
     />
     <div class="tool-of-month-content">
-      <h2 class="tool-of-month__title">
-        Tool Of the Month
-      </h2>
-      <div class="tool-of-month__description">
-        Check out the Enterprise Search tool by Ilves
-      </div>
+      <h2 class="tool-of-month__title">Tool Of the Month</h2>
+      <div class="tool-of-month__description">Check out the Enterprise Search tool by Ilves</div>
       <div class="tool-of-month__learn-more">
         <nuxt-link class="tool-of-month__learn-more__link" to="/vendor/914">
           Learn more <img src="@/assets/icons/chevron-right.svg" />

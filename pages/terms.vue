@@ -58,9 +58,7 @@
           information obtained from or through this Site.
         </p>
 
-        <p>
-          Additionally, you agree not to:
-        </p>
+        <p>Additionally, you agree not to:</p>
 
         <p>
           use this Site or its contents for any commercial purpose without our express written permission;<br />
@@ -266,13 +264,9 @@
         </p>
 
         <h3>Service Help</h3>
-        <p>
-          For answers to your questions or ways to contact us, email us at admin@legaltechnologyhub.com.
-        </p>
+        <p>For answers to your questions or ways to contact us, email us at admin@legaltechnologyhub.com.</p>
 
-        <p>
-          © Copyright 2020 LegalTech Hub, Inc. All Rights Reserved.
-        </p>
+        <p>© Copyright 2020 LegalTech Hub, Inc. All Rights Reserved.</p>
       </div>
     </div>
   </div>
