@@ -408,11 +408,11 @@ export default class Search extends Vue {
   }
 
   async submitQuery() {
-    console.log('searchRouteQuery: ', JSON.stringify(this.searchRouteQuery))
+    console.log('searchQuery: ', JSON.stringify(this.searchQuery))
     console.log('lastSearchQuery: ', JSON.stringify(this.lastSearchQuery))
-    if (isEqual(this.searchRouteQuery, this.lastSearchQuery)) return
+    if (isEqual(this.searchQuery, this.lastSearchQuery)) return
 
-    this.$store.commit('vendors/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
+    this.$store.commit('vendors/SET_LAST_ROUTE_QUERY', this.searchQuery)
 
     this.submitAnalyticsData()
     await this.$store.dispatch('vendors/runSearch', this.searchQuery)
