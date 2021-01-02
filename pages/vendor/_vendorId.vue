@@ -22,12 +22,10 @@ import { api, buildMeta } from '@/utils'
 @Component({
   name: 'single-vendor',
 
-  async asyncData(ctx) {
-    const { params } = ctx
-    const res = await api.get(`vendors/${params.vendorId}`)
-    return {
-      data: res.data.data as Vendor
-    }
+  async fetch() {
+    const { vendorId } = this.$route.params
+    const res = await api.get(`vendors/${vendorId}`)
+    this.$data.data = res.data.data as Vendor
   },
 
   head() {
@@ -50,14 +48,6 @@ export default class SingleVendor extends Vue {
   get isEnhancedVendor() {
     const { data } = this
     return data && data.enhancedListingEnabled && !!data.enhancedListingData
-  }
-
-  async mounted() {
-    if (this.data) {
-      return
-    }
-    const res = await api.get(`vendors/${this.vendorId}`)
-    this.data = res.data.data
   }
 
   get vendorId() {

@@ -13,11 +13,9 @@ import { Functionality } from '~/models'
 
 @Component({
   name: 'how-lth-works',
-  async asyncData() {
+  async fetch() {
     const res = await api.get('functionalities')
-    return {
-      functionalities: res.data
-    }
+    this.$data.functionalities = res.data
   },
   head() {
     return buildMeta({
@@ -28,12 +26,6 @@ import { Functionality } from '~/models'
 })
 export default class HowLthWorks extends Vue {
   functionalities: Functionality[] = []
-
-  async mounted() {
-    if (this.functionalities.length > 0) return
-    const res = await api.get('functionalities')
-    this.functionalities = res.data
-  }
 }
 </script>
 
