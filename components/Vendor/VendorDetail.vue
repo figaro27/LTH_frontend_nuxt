@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data" class="single-vendor__content">
+  <div v-show="data" class="single-vendor__content">
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
