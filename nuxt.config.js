@@ -148,6 +148,11 @@ export default {
     },
     transpile: ['get-youtube-id', 'lodash.isequal', 'validator']
   },
+  generate: {
+    minify: {
+      collapseWhitespace: false
+    }
+  },
 
   async sitemap() {
     const client = axios.create({ baseURL: apiUrl })
