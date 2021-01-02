@@ -16,10 +16,12 @@ import { api, buildMeta } from '@/utils'
 
 @Component({
   name: 'single-region',
-  async fetch() {
-    const { slug } = this.$route.params
-    const res = await api.get(`saved-searchs/${slug}`)
-    this.$data.savedSearch = res.data.data
+  async asyncData(ctx) {
+    const { params } = ctx
+    const res = await api.get(`saved-searchs/${params.slug}`)
+    return {
+      savedSearch: res.data.data
+    }
   },
   head() {
     if (!this.$data.savedSearch) {
@@ -40,6 +42,11 @@ export default class SingleRegion extends Vue {
 
   get title() {
     return this.savedSearch ? this.savedSearch.name : ''
+  }
+
+  async mounted() {
+    const res = await api.get(`saved-searchs/${this.$route.params.slug}`)
+    this.savedSearch = res.data.data
   }
 }
 </script>
