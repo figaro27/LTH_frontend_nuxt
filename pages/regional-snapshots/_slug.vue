@@ -1,5 +1,5 @@
 <template>
-  <div v-if="savedSearch" class="region">
+  <div v-loading="!savedSearch" class="region">
     <regions-hero class="region__hero" :data="savedSearch" />
     <div class="region__content">
       <search-page :saved-search="savedSearch" class="region__search" />
