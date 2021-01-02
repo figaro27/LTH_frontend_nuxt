@@ -5,15 +5,15 @@
     <div class="regions-hero__content">
       <div class="regions-hero__title-section">
         <h1 v-if="isMain" class="regions-hero__title">Regional <span>Snapshots</span></h1>
-        <h1 v-else class="regions-hero__title" :style="{ color: data.titleColor }">
-          {{ data.name }}
+        <h1 v-else class="regions-hero__title" :style="{ color: titleColor }">
+          {{ name }}
         </h1>
         <client-only>
-          <div class="regions-hero__description" v-html="data.description" />
+          <div class="regions-hero__description" v-html="description" />
         </client-only>
       </div>
 
-      <img class="regions-hero__map" :src="data.map" />
+      <img v-if="map" class="regions-hero__map" :src="map" />
     </div>
 
     <ad class="regions-hero__right-ad" direction="vertical" position="right" />
@@ -26,8 +26,28 @@ import { SavedSearch } from '@/models'
 
 @Component({ name: 'regions-hero' })
 export default class RegionsHero extends Vue {
-  @Prop({ required: true }) data!: SavedSearch
+  @Prop({ required: true }) data!: SavedSearch | null
   @Prop({ type: Boolean, default: false }) isMain!: boolean
+
+  get titleColor() {
+    const { data } = this
+    return data ? data.titleColor : 'rgb(0, 0, 0)'
+  }
+
+  get description() {
+    const { data } = this
+    return data ? data.description : ''
+  }
+
+  get map() {
+    const { data } = this
+    return data ? data.map : ''
+  }
+
+  get name() {
+    const { data } = this
+    return data ? data.name : ''
+  }
 }
 </script>
 
