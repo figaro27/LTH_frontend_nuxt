@@ -239,6 +239,13 @@ export default class Search extends Vue {
     await this.submitQuery()
   }
 
+  @Watch('savedSearch')
+  async onSavedSearchChange() {
+    if (!this.filterOptionsLoaded) return
+    this.updateFromRouteQuery()
+    await this.submitQuery()
+  }
+
   async mounted() {
     this.filterOptionsLoaded = false
     this.isMobile = isMobile
