@@ -1,5 +1,5 @@
 <template>
-  <div v-show="data" class="regions-hero" :class="{ 'regions-hero--main': isMain }">
+  <div class="regions-hero" :class="{ 'regions-hero--main': isMain }">
     <ad class="regions-hero__left-ad" direction="vertical" position="left" />
 
     <div class="regions-hero__content">

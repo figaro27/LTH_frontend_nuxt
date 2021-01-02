@@ -1,5 +1,5 @@
 <template>
-  <div class="single-vendor">
+  <div v-loading="!data" class="single-vendor">
     <div class="single-vendor__content">
       <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
