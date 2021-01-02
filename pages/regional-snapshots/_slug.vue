@@ -19,12 +19,15 @@ import { api, buildMeta } from '@/utils'
   async asyncData(ctx) {
     const { params } = ctx
     const res = await api.get(`saved-searchs/${params.slug}`)
+    console.log('asyncData: ', res)
     return {
       savedSearch: res.data.data
     }
   },
   head() {
+    console.log('this: ', this)
     const { name } = this.$data.savedSearch
+    console.log('savedSearch: ', this.$data.savedSearch)
     return buildMeta({
       title: `${name} - Legaltech Hub`,
       description: `${name} - Legaltech Hub`
@@ -35,10 +38,12 @@ export default class SingleRegion extends Vue {
   savedSearch: SavedSearch | null = null
 
   async mounted() {
+    console.log('this.savedSearch: ', this.savedSearch)
     if (this.savedSearch) {
       return
     }
     const res = await api.get(`saved-searchs/${this.$route.params.slug}`)
+    console.log('res: ', res.data)
     this.savedSearch = res.data.data
   }
 
