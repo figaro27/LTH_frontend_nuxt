@@ -1,5 +1,5 @@
 <template>
-  <div class="single-vendor__content">
+  <div v-if="data" class="single-vendor__content">
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
@@ -7,7 +7,7 @@
       <a v-else-if="isGraveyard" href="#" class="single-vendor-header__link" @click="historyBack()"> Graveyards </a>
       <a v-else href="#" class="single-vendor-header__link" @click="historyBack()">Search Results</a>
       <label class="single-vendor-header__link">&gt;</label>
-      <div class="single-vendor__name">{{ data.tool }}</div>
+      <div class="single-vendor__name">{{ tool }}</div>
     </div>
     <div class="single-vendor__row">
       <div class="single-vendor__frame single-vendor__main">
@@ -15,7 +15,7 @@
           <img :src="logo" />
         </div>
         <div class="single-vendor__tool">
-          {{ !isGraveyard && !isConsolidation ? tool : data.tool }}
+          {{ tool }}
         </div>
         <div v-if="isGraveyard" class="single-vendor__state">
           <img src="/images/svgs/graveyard.svg" />
@@ -47,7 +47,10 @@
             <div class="single-vendor__property-name">Features</div>
             <label class="single-vendor__property-value">{{ features }}</label>
           </div>
-          <div v-if="data.enhancedListingEnabled && !!data.enhancedListingData" class="single-vendor__enhanced-links">
+          <div
+            v-if="data && data.enhancedListingEnabled && !!data.enhancedListingData"
+            class="single-vendor__enhanced-links"
+          >
             <a
               v-if="data.website && data.type !== 'consolidation'"
               class="single-vendor__enhanced-website"
@@ -66,7 +69,7 @@
               Request Demo <img src="/images/svgs/link.svg" />
             </a>
           </div>
-          <template v-else>
+          <template v-else-if="data">
             <a
               v-if="data.website && data.type !== 'consolidation'"
               class="single-vendor__link"
@@ -145,10 +148,10 @@ import { Vendor } from '@/models'
   name: 'vendor-detail'
 })
 export default class VendorDetail extends Vue {
-  @Prop({ required: true }) data!: Vendor
+  @Prop({ required: true }) data!: Vendor | null | undefined
 
   get tool() {
-    if (this.data === null) {
+    if (!this.data) {
       return null
     }
     if (this.data.tool === null) {
@@ -197,6 +200,11 @@ export default class VendorDetail extends Vue {
   get practiceAreas() {
     if (!this.data) return ''
     return this.data.practiceAreas.map((data) => data.name).join(', ')
+  }
+
+  get demographics() {
+    if (!this.data) return ''
+    return this.data.demographics.map((data) => data.name).join(', ')
   }
 
   get installations() {
