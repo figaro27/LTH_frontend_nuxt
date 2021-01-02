@@ -20,4 +20,4 @@ jobs:
         npm run lint
     - name: Yarn Build
       run: |
-        npm run build
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NUXT_APP_HOST_URL=https://staging.legaltechnologyhub.com npm run build
