@@ -3,22 +3,8 @@
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
-      <a
-        v-if="JSON.stringify(data.consolidationData) !== '{}'"
-        href="#"
-        class="single-vendor-header__link"
-        @click="historyBack()"
-      >
-        Consolidations
-      </a>
-      <a
-        v-else-if="JSON.stringify(data.graveyardData) !== '{}'"
-        href="#"
-        class="single-vendor-header__link"
-        @click="historyBack()"
-      >
-        Graveyards
-      </a>
+      <a v-if="isConsolidation" href="#" class="single-vendor-header__link" @click="historyBack()"> Consolidations </a>
+      <a v-else-if="isGraveyard" href="#" class="single-vendor-header__link" @click="historyBack()"> Graveyards </a>
       <a v-else href="#" class="single-vendor-header__link" @click="historyBack()">Search Results</a>
       <label class="single-vendor-header__link">&gt;</label>
       <div class="single-vendor__name">{{ data.tool }}</div>
@@ -29,17 +15,13 @@
           <img :src="logo" />
         </div>
         <div class="single-vendor__tool">
-          {{
-            JSON.stringify(data.graveyardData) === '{}' && JSON.stringify(data.consolidationData) === '{}'
-              ? tool
-              : data.tool
-          }}
+          {{ !isGraveyard && !isConsolidation ? tool : data.tool }}
         </div>
-        <div v-if="JSON.stringify(data.graveyardData) !== '{}'" class="single-vendor__state">
+        <div v-if="isGraveyard" class="single-vendor__state">
           <img src="/images/svgs/graveyard.svg" />
           <label class="single-vendor__graveyard">Died {{ data.graveyardData.date }} </label>
         </div>
-        <div v-if="JSON.stringify(data.consolidationData) !== '{}'" class="single-vendor__state">
+        <div v-if="isConsolidation" class="single-vendor__state">
           <img src="/images/svgs/consolidation.svg" />
           <label class="single-vendor__consolidation">Acquired by {{ data.consolidationData.consolidatedWith }} </label>
           <label class="single-vendor__consolidation"> {{ data.consolidationData.date }} </label>
@@ -235,6 +217,18 @@ export default class VendorDetail extends Vue {
   get features() {
     if (!this.data) return ''
     return this.data.features.map((data) => data.name).join(', ')
+  }
+
+  get isConsolidation(): boolean {
+    const { data } = this
+    if (!data) return false
+    return !!data.consolidationData && JSON.stringify(data.consolidationData) !== '{}'
+  }
+
+  get isGraveyard(): boolean {
+    const { data } = this
+    if (!data) return false
+    return !!data.graveyardData && JSON.stringify(data.graveyardData) !== '{}'
   }
 }
 </script>
