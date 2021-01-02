@@ -150,6 +150,11 @@ export default {
     },
     transpile: ['get-youtube-id', 'lodash.isequal', 'validator', 'vue-month-picker']
   },
+  generate: {
+    minify: {
+      collapseWhitespace: false
+    }
+  },
 
   async sitemap() {
     const client = axios.create({ baseURL: apiUrl })
