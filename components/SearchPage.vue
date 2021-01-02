@@ -246,6 +246,13 @@ export default class Search extends Vue {
     await this.submitQuery()
   }
 
+  @Watch('filterOptionsLoaded')
+  async onFilterOptionsLoaded() {
+    if (!this.filterOptionsLoaded) return
+    this.updateFromRouteQuery()
+    await this.submitQuery()
+  }
+
   async mounted() {
     this.filterOptionsLoaded = false
     this.isMobile = isMobile
