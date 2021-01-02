@@ -14,18 +14,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Yarn Install
+    - name: Npm Install
       run: |
         npm install
-    - name: Yarn Lint
+    - name: Npm Lint
       run: |
         npm run lint
-    - name: Yarn Build
+    - name: Npm Build
       run: |
-        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NODE_ENV=staging npm run build
-    - name: Yarn Generate
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NUXT_APP_HOST_URL=https://staging.legaltechnologyhub.com NODE_ENV=staging npm run build
+    - name: Npm Generate
       run: |
-        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NODE_ENV=staging npm run generate
+        NUXT_APP_API_URL=https://staging-api.legaltechnologyhub.com NUXT_APP_HOST_URL=https://staging.legaltechnologyhub.com NODE_ENV=staging npm run generate
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:

@@ -1,5 +1,5 @@
 <template>
-  <div class="single-vendor">
+  <div v-loading="!data" class="single-vendor">
     <div class="single-vendor__content">
       <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
@@ -22,10 +22,12 @@ import { api, buildMeta } from '@/utils'
 @Component({
   name: 'single-vendor',
 
-  async fetch() {
-    const { vendorId } = this.$route.params
+  async asyncData(ctx) {
+    const { vendorId } = ctx.params
     const res = await api.get(`vendors/${vendorId}`)
-    this.$data.data = res.data.data as Vendor
+    return {
+      data: res.data.data
+    }
   },
 
   head() {
@@ -52,6 +54,12 @@ export default class SingleVendor extends Vue {
 
   get vendorId() {
     return this.$route.params.vendorId
+  }
+
+  async mounted() {
+    const { vendorId } = this.$route.params
+    const res = await api.get(`vendors/${vendorId}`)
+    this.data = res.data.data
   }
 }
 </script>

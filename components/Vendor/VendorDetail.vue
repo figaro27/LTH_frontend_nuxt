@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data" class="single-vendor__content">
+  <div class="single-vendor__content">
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
@@ -102,11 +102,11 @@
               <div class="single-vendor__property-name">Target Entity</div>
               <div class="single-vendor__property__demographics">
                 <div
-                  v-for="(demographic, index) of data.demographics"
+                  v-for="(demographic, index) of demographics"
                   :key="`demographic${index}`"
                   class="single-vendor__property__demographic"
                 >
-                  {{ index &lt; data.demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
+                  {{ index &lt; demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
                 </div>
               </div>
             </div>
@@ -129,10 +129,10 @@
       </div>
     </div>
 
-    <div v-if="data.description" class="single-vendor__row">
+    <div v-if="description" class="single-vendor__row">
       <div class="single-vendor__frame single-vendor__description">
         <client-only>
-          <div v-html="data.description" />
+          <div v-html="description" />
         </client-only>
       </div>
     </div>
@@ -237,6 +237,12 @@ export default class VendorDetail extends Vue {
     const { data } = this
     if (!data) return false
     return !!data.graveyardData && JSON.stringify(data.graveyardData) !== '{}'
+  }
+
+  get description() {
+    const { data } = this
+    if (!data) return ''
+    return data.description
   }
 }
 </script>
