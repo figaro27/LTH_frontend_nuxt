@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 const apiUrl = process.env.NUXT_APP_API_URL || 'http://localhost:4000'
+const hostname = process.env.NUXT_APP_HOST_URL || 'http://localhost:3000'
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -82,6 +84,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/sitemap',
     '@nuxtjs/style-resources',
     [
       'nuxt-fontawesome',
@@ -146,24 +149,23 @@ export default {
     transpile: ['get-youtube-id', 'lodash.isequal', 'validator']
   },
 
-  generate: {
-    concurrency: 20,
-    interval: 500,
-    subFolders: false,
-    minify: {
-      collapseWhitespace: false
-    },
-    routes() {
-      const client = axios.create({ baseURL: apiUrl })
-      return Promise.all([
-        client.request({ method: 'GET', url: 'vendors/all' }),
-        client.request({ method: 'GET', url: 'saved-searchs' })
-      ]).then(([res1, res2]) => {
-        const vendorRoutes = res1.data.data.map((vendor) => `/vendor/${vendor.id}`)
-        const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/regional-snapshots/${savedSearch.slug}`)
-        return [...vendorRoutes, ...savedSearchsRoutes]
-      })
+  async sitemap() {
+    const client = axios.create({ baseURL: apiUrl })
+    const routes = await Promise.all([
+      client.request({ method: 'GET', url: 'vendors/all' }),
+      client.request({ method: 'GET', url: 'saved-searchs' })
+    ]).then(([res1, res2]) => {
+      const vendorRoutes = res1.data.data.map((vendor) => `/vendor/${vendor.id}`)
+      const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/regional-snapshots/${savedSearch.slug}`)
+      return [...vendorRoutes, ...savedSearchsRoutes]
+    })
+
+    const sitemapConfig = {
+      hostname,
+      gzip: true,
+      routes
     }
+    return sitemapConfig
   },
 
   typescript: {
