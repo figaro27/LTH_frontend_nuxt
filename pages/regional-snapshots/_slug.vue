@@ -24,6 +24,12 @@ import { api, buildMeta } from '@/utils'
     }
   },
   head() {
+    if (!this.$data.savedSearch) {
+      return buildMeta({
+        title: 'Legaltech Hub',
+        description: 'Legaltech Hub'
+      })
+    }
     const { name } = this.$data.savedSearch
     return buildMeta({
       title: `${name} - Legaltech Hub`,
@@ -35,10 +41,12 @@ export default class SingleRegion extends Vue {
   savedSearch: SavedSearch | null = null
 
   async mounted() {
+    console.log('this.savedSearch: ', this.savedSearch)
     if (this.savedSearch) {
       return
     }
     const res = await api.get(`saved-searchs/${this.$route.params.slug}`)
+    console.log('res: ', res.data)
     this.savedSearch = res.data.data
   }
 
