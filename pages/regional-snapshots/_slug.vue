@@ -19,15 +19,18 @@ import { api, buildMeta } from '@/utils'
   async asyncData(ctx) {
     const { params } = ctx
     const res = await api.get(`saved-searchs/${params.slug}`)
-    console.log('asyncData: ', res)
     return {
       savedSearch: res.data.data
     }
   },
   head() {
-    console.log('this: ', this)
+    if (!this.$data.savedSearch) {
+      return buildMeta({
+        title: 'Legaltech Hub',
+        description: 'Legaltech Hub'
+      })
+    }
     const { name } = this.$data.savedSearch
-    console.log('savedSearch: ', this.$data.savedSearch)
     return buildMeta({
       title: `${name} - Legaltech Hub`,
       description: `${name} - Legaltech Hub`

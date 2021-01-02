@@ -31,6 +31,12 @@ import { api, buildMeta } from '@/utils'
   },
 
   head() {
+    if (!this.$data.data) {
+      return buildMeta({
+        title: 'Legaltech Hub',
+        description: 'Legaltech Hub'
+      })
+    }
     const { name } = this.$data.data
     return buildMeta({
       title: `${name} - Legaltech Hub`,
