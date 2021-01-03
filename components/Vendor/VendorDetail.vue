@@ -106,7 +106,7 @@
                   :key="`demographic${index}`"
                   class="single-vendor__property__demographic"
                 >
-                  {{ index &lt; demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
+                  {{ index !== demographics.length - 1 ? `${demographic.name}, ` : demographic.name }}
                 </div>
               </div>
             </div>
@@ -203,8 +203,8 @@ export default class VendorDetail extends Vue {
   }
 
   get demographics() {
-    if (!this.data) return ''
-    return this.data.demographics.map((data) => data.name).join(', ')
+    if (!this.data) return []
+    return this.data.demographics
   }
 
   get installations() {
