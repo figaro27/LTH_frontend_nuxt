@@ -22,7 +22,7 @@
         item-value="value"
         placeholder="Search for legaltech events..."
         :items="feedItems"
-        :loading="isKeywordsLoading"
+        :loading="isAutosuggestLoading"
         :search-text.sync="searchText"
         @select="select"
       >
@@ -59,12 +59,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
 import { MonthPicker } from 'vue-month-picker'
 import { mixin as ClickAway } from 'vue-clickaway'
 import { ComponentOptions } from 'vue'
-import { LoadingStatus, RootState } from '@/store/types'
+import { LoadingStatus } from '@/store/types'
 
 @Component({
   name: 'search-box',
@@ -73,10 +73,9 @@ import { LoadingStatus, RootState } from '@/store/types'
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
+  @Prop({ required: true }) autosuggestItems!: string[]
+  @Prop({ required: true }) autosuggestItemsLoading!: LoadingStatus
   @Prop({ required: false }) contents!: string
-  @Prop({ required: false }) changeCalendar: any
-  @State((state: RootState) => state.vendors.autosuggestItems) autosuggestItems!: string[]
-  @State((state: RootState) => state.vendors.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
   $refs!: {
     select: VueCoolSelectComponentInterface
@@ -128,8 +127,8 @@ export default class SearchBox extends Vue {
     return items
   }
 
-  get isKeywordsLoading() {
-    return this.autosuggestItemsLoading === LoadingStatus.Loading
+  get isAutosuggestLoading() {
+    return this.autosuggestItemsLoading !== LoadingStatus.Loaded
   }
 
   @Watch('value', { immediate: true })
@@ -139,7 +138,7 @@ export default class SearchBox extends Vue {
 
   @Watch('searchText', { immediate: true })
   onSearchText() {
-    this.$store.dispatch('vendors/loadAutosuggest', this.searchText)
+    this.$emit('autosuggest', this.searchText)
   }
 
   search() {
@@ -167,7 +166,7 @@ export default class SearchBox extends Vue {
   }
 
   onInputCalendar(date: any) {
-    this.changeCalendar(date)
+    this.$emit('calendar', date)
     this.showCalendar = false
   }
 }

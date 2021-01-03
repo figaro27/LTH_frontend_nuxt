@@ -197,9 +197,14 @@ export default class VendorItem extends Vue {
 .vendor-item__property {
   @include typography(md-1);
   color: $colorDarkGrey;
-  padding: 0px 5px;
+
+  &:not(:first-child) {
+    padding-left: 5px;
+  }
+
   &:not(:last-child) {
     border-right: 1px solid;
+    padding-right: 5px;
   }
 
   @media (min-width: 640px) {

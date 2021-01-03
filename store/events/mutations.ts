@@ -7,25 +7,25 @@ import { EventsRouteQuery } from './types'
 
 const mutations: MutationTree<EventsState> = {
   SET_ORGANIZATIONS(state: EventsState, organizations: any) {
-    state.organizations = organizations.data
-  },
-  SET_NAMES(state: EventsState, names: any) {
-    state.names = names.data
+    state.organizations = organizations
   },
   SET_LOCATIONS(state: EventsState, locations: any) {
-    state.locations = locations.data
+    state.locations = locations
   },
   SET_AUDIENCES(state: EventsState, audiences: any) {
-    state.audiences = audiences.data
+    state.audiences = audiences
   },
   SET_DATES(state: EventsState, dates: any) {
-    state.dates = dates.data
+    state.dates = dates
+  },
+  SET_FORMATS(state: EventsState, formats: any) {
+    state.formats = formats
   },
   SET_DURATIONS(state: EventsState, durations: any) {
-    state.durations = durations.data
+    state.durations = durations
   },
   SET_RECURRENCES(state: EventsState, recurrences: any) {
-    state.recurrences = recurrences.data
+    state.recurrences = recurrences
   },
 
   SET_AUTOSUGGEST_ITEMS(state: EventsState, items: string[]) {

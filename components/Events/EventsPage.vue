@@ -2,7 +2,15 @@
   <div class="events-page">
     <div class="events-page__header">
       <div class="search-box-container">
-        <search-box :value="filters.keyword" :contents="'events'" :change-calendar="onChangeCalendar" />
+        <search-box
+          contents="events"
+          :autosuggest-items="autosuggestItems"
+          :autosuggest-items-loading="autosuggestItemsLoading"
+          :value="filters.keyword"
+          @autosuggest="onAutoSuggest"
+          @calendar="onChangeCalendar"
+          @search="onKeywordSubmit"
+        />
         <div v-if="filters.keyword" class="search-box__keywords">
           <div class="search-box__keyword">
             <span>{{ filters.keyword }}</span>
@@ -18,23 +26,15 @@
           id="organizations"
           v-model="filters.organizations"
           name="organizations"
-          label="Organizations:"
+          label="Organization:"
           :options="organizations"
           @change="onFilterUpdate"
         />
-        <!-- <select-filter
-          id="names"
-          v-model="filters.names"
-          name="names"
-          label="Names:"
-          :options="names"
-          @change="onFilterUpdate"
-        /> -->
         <select-filter
           id="locations"
           v-model="filters.locations"
           name="locations"
-          label="Locations:"
+          label="Location:"
           :options="locations"
           @change="onFilterUpdate"
         />
@@ -42,15 +42,24 @@
           id="audiences"
           v-model="filters.audiences"
           name="audiences"
-          label="Audiences:"
+          label="Audience:"
           :options="audiences"
           @change="onFilterUpdate"
         />
         <select-filter
+          id="formats"
+          v-model="filters.formats"
+          name="formats"
+          label="Format:"
+          :options="formats"
+          @change="onFilterUpdate"
+        />
+        <select-filter
+          v-if="!isCalendar"
           id="dates"
           v-model="filters.dates"
           name="dates"
-          label="Format:"
+          label="Date:"
           :options="dates"
           @change="onFilterUpdate"
         />
@@ -58,7 +67,7 @@
           id="durations"
           v-model="filters.durations"
           name="durations"
-          label="Durations:"
+          label="Duration:"
           :options="durations"
           @change="onFilterUpdate"
         />
@@ -66,7 +75,7 @@
           id="recurrences"
           v-model="filters.recurrences"
           name="recurrences"
-          label="Reccurrences:"
+          label="Reccurrence:"
           :options="recurrences"
           @change="onFilterUpdate"
         />
@@ -75,14 +84,19 @@
       </div>
       <div v-loading="eventsLoading !== 2" class="events-page__content">
         <div class="events-page__content-wrapper">
-          <h4 v-if="!isCalendar" class="events-page__count">
-            <span>Search result ({{ total }})</span>
-            <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" to="/search">
-              <fa :icon="['fas', 'times-circle']" />
-            </nuxt-link>
-          </h4>
-          <div class="events-page__events">
-            <div v-if="!isCalendar">
+          <template v-if="isCalendar">
+            <div class="events-page__events">
+              <events-calendar :events="events" :date="selectedDate" />
+            </div>
+          </template>
+          <template v-else>
+            <h4 class="events-page__count">
+              <span>Search result ({{ total }})</span>
+              <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" to="/search/events">
+                <fa :icon="['fas', 'times-circle']" />
+              </nuxt-link>
+            </h4>
+            <div class="events-page__events">
               <events-item
                 v-for="(event, index) of events.slice(0, 10)"
                 :key="index"
@@ -97,8 +111,7 @@
                 :data="event"
               />
             </div>
-            <events-calendar v-if="isCalendar" :events="events" :date="selectedDate" />
-          </div>
+          </template>
         </div>
         <div v-if="showPagination && !isMobile" vclass="events-page__events-pagination">
           <pagination v-if="!isCalendar" :page-count="pageCount" :page="curPageNum" @change="onPageChange" />
@@ -123,13 +136,17 @@ import { EventsRouteQuery } from '@/store/events/types'
 
 @Component({ name: 'search-events' })
 export default class SearchEvents extends Vue {
+  @State((state: RootState) => state.events.autosuggestItems) autosuggestItems!: string[]
+  @State((state: RootState) => state.events.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
+
   @State((state: RootState) => state.events.organizations) organizations!: any[]
-  @State((state: RootState) => state.events.names) names!: any[]
   @State((state: RootState) => state.events.locations) locations!: any[]
   @State((state: RootState) => state.events.audiences) audiences!: any[]
   @State((state: RootState) => state.events.dates) dates!: any[]
   @State((state: RootState) => state.events.durations) durations!: any[]
+  @State((state: RootState) => state.events.formats) formats!: any[]
   @State((state: RootState) => state.events.recurrences) recurrences!: any[]
+
   @State((state: RootState) => state.events.events) events!: SearchResultEvent[]
   @State((state: RootState) => state.events.eventsLoading) eventsLoading!: LoadingStatus
   @State((state: RootState) => state.events.totalEvents) total!: number
@@ -154,10 +171,10 @@ export default class SearchEvents extends Vue {
   filters: EventFilters = {
     keyword: '',
     organizations: [],
-    names: [],
     locations: [],
     audiences: [],
     dates: [],
+    formats: [],
     durations: [],
     recurrences: []
   }
@@ -167,11 +184,11 @@ export default class SearchEvents extends Vue {
   }
 
   get searchRouteQuery() {
-    const { keyword, organizations, names, locations, audiences, dates, durations, recurrences } = this.filters
+    const { keyword, organizations, formats, locations, audiences, dates, durations, recurrences } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
       organizations: organizations.length === 0 ? undefined : organizations.map((item) => item.name).join(','),
-      names: names.length === 0 ? undefined : names.map((item) => item.name).join(','),
+      names: formats.length === 0 ? undefined : formats.map((item) => item.name).join(','),
       locations: locations.length === 0 ? undefined : locations.map((item) => item.name).join(','),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.name).join(','),
       dates: dates.length === 0 ? undefined : dates.map((item) => item.name).join(','),
@@ -181,11 +198,11 @@ export default class SearchEvents extends Vue {
   }
 
   get searchQuery() {
-    const { keyword, organizations, names, locations, audiences, dates, durations, recurrences } = this.filters
+    const { keyword, organizations, formats, locations, audiences, dates, durations, recurrences } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
       organizations: organizations.length === 0 ? undefined : organizations.map((item) => item.id),
-      names: names.length === 0 ? undefined : names.map((item) => item.id),
+      formats: formats.length === 0 ? undefined : formats.map((item) => item.id),
       locations: locations.length === 0 ? undefined : locations.map((item) => item.id),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.id),
       dates: dates.length === 0 ? undefined : dates.map((item) => item.id),
@@ -214,10 +231,10 @@ export default class SearchEvents extends Vue {
 
     const promises = [
       this.$store.dispatch('events/loadOrganizations'),
-      this.$store.dispatch('events/loadNames'),
       this.$store.dispatch('events/loadLocations'),
       this.$store.dispatch('events/loadAudiences'),
       this.$store.dispatch('events/loadDates'),
+      this.$store.dispatch('events/loadFormats'),
       this.$store.dispatch('events/loadDurations'),
       this.$store.dispatch('events/loadRecurrences')
     ]
@@ -230,6 +247,10 @@ export default class SearchEvents extends Vue {
     this.updateFromRouteQuery()
     this.filterOptionsLoaded = true
     await this.submitQuery()
+  }
+
+  onAutoSuggest(searchText: string) {
+    this.$store.dispatch('events/loadAutosuggest', searchText)
   }
 
   onFilterUpdate() {
@@ -270,11 +291,11 @@ export default class SearchEvents extends Vue {
   updateFromRouteQuery() {
     this.updatedSelectedValueFromRouteParam('keyword')
     this.updatedSelectedValueFromRouteParam('organizations', this.organizations)
-    this.updatedSelectedValueFromRouteParam('names', this.names)
     this.updatedSelectedValueFromRouteParam('locations', this.locations)
     this.updatedSelectedValueFromRouteParam('audiences', this.audiences)
     this.updatedSelectedValueFromRouteParam('dates', this.dates)
     this.updatedSelectedValueFromRouteParam('durations', this.durations)
+    this.updatedSelectedValueFromRouteParam('formats', this.formats)
     this.updatedSelectedValueFromRouteParam('recurrences', this.recurrences)
   }
 

@@ -2,7 +2,14 @@
   <div class="search-page">
     <div class="search-page__header">
       <div class="search-box-container">
-        <search-box :value="filters.keyword" :contents="'tools'" @search="onKeywordSubmit" />
+        <search-box
+          contents="tools"
+          :autosuggest-items="autosuggestItems"
+          :autosuggest-items-loading="autosuggestItemsLoading"
+          :value="filters.keyword"
+          @autosuggest="onAutoSuggest"
+          @search="onKeywordSubmit"
+        />
         <div v-if="filters.keyword" class="search-box__keywords">
           <div class="search-box__keyword">
             <span>{{ filters.keyword }}</span>
@@ -132,6 +139,9 @@ import { RootState, LoadingStatus } from '@/store/types'
 @Component({ name: 'search' })
 export default class Search extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
+
+  @State((state: RootState) => state.vendors.autosuggestItems) autosuggestItems!: string[]
+  @State((state: RootState) => state.vendors.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
   @State((state: RootState) => state.vendors.demographics) demographics!: any[]
   @State((state: RootState) => state.vendors.functionalities) functionalities!: any[]
@@ -283,6 +293,10 @@ export default class Search extends Vue {
     this.updateFromRouteQuery()
     this.filterOptionsLoaded = true
     await this.submitQuery()
+  }
+
+  onAutoSuggest(searchText: string) {
+    this.$store.dispatch('vendors/loadAutosuggest', searchText)
   }
 
   onFilterUpdate() {

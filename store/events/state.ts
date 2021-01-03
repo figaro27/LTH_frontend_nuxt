@@ -4,11 +4,11 @@ import { EventsRouteQuery } from './types'
 
 export type EventsState = {
   organizations: any[]
-  names: any[]
   locations: any[]
   audiences: any[]
   dates: any[]
   durations: any[]
+  formats: any[]
   recurrences: any[]
 
   autosuggestItems: string[]
@@ -24,11 +24,11 @@ export type EventsState = {
 
 const state = (): EventsState => ({
   organizations: [],
-  names: [],
   locations: [],
   audiences: [],
   dates: [],
   durations: [],
+  formats: [],
   recurrences: [],
 
   autosuggestItems: [],
@@ -41,11 +41,11 @@ const state = (): EventsState => ({
   eventsLastFilter: {
     keyword: '',
     organizations: [],
-    names: [],
     locations: [],
     audiences: [],
     dates: [],
     durations: [],
+    formats: [],
     recurrences: []
   },
   routeQuery: {}

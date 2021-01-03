@@ -12,37 +12,37 @@ export type EventsAction<T, R = any> = TypedAction<EventsState, RootState, T, R>
 const actions: EventsActions = {
   async loadOrganizations({ commit }) {
     const response = await api.get('events/organizers')
-    commit('SET_ORGANIZATIONS', response)
-  },
-
-  async loadNames({ commit }) {
-    const response = await api.get('events/titles')
-    commit('SET_NAMES', response)
+    commit('SET_ORGANIZATIONS', response.data)
   },
 
   async loadLocations({ commit }) {
     const response = await api.get('events/locations')
-    commit('SET_LOCATIONS', response)
+    commit('SET_LOCATIONS', response.data)
   },
 
   async loadAudiences({ commit }) {
     const response = await api.get('audiences')
-    commit('SET_AUDIENCES', response)
+    commit('SET_AUDIENCES', response.data)
   },
 
   async loadDates({ commit }) {
     const response = await api.get('events/dates')
-    commit('SET_DATES', response)
+    commit('SET_DATES', response.data)
+  },
+
+  async loadFormats({ commit }) {
+    const response = await api.get('event-formats')
+    commit('SET_FORMATS', response.data)
   },
 
   async loadDurations({ commit }) {
     const response = await api.get('durations')
-    commit('SET_DURATIONS', response)
+    commit('SET_DURATIONS', response.data)
   },
 
   async loadRecurrences({ commit }) {
     const response = await api.get('recurrences')
-    commit('SET_RECURRENCES', response)
+    commit('SET_RECURRENCES', response.data)
   },
 
   async runSearch({ commit, state }, query: any = {}) {

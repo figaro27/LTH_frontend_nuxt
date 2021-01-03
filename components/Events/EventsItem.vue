@@ -26,7 +26,9 @@
     </div>
     <div class="events-item__row">
       <span v-if="data.description" class="events-item__des">
-        <text-highlight :queries="highlightQueries">{{ data.description }}</text-highlight>
+        <client-only>
+          <text-highlight :queries="highlightQueries" v-html="data.description" />
+        </client-only>
       </span>
     </div>
   </nuxt-link>
@@ -60,10 +62,9 @@ export default class VendorItem extends Vue {
 
   get location() {
     const { data } = this
-    if (!data) {
-      return ''
-    }
-    return `${data.city}, ${data.country}`
+    if (!data) return ''
+    if (data.city) return `${data.city}, ${data.country}`
+    return data.country
   }
 
   get url() {
@@ -159,10 +160,15 @@ export default class VendorItem extends Vue {
 .events-item__property {
   @include typography(md-1);
   color: $colorLightGrey;
-  padding: 0 5px;
   margin: 3px 0;
+
+  &:not(:first-child) {
+    padding-left: 5px;
+  }
+
   &:not(:last-child) {
     border-right: 1px solid;
+    padding-right: 5px;
   }
 
   @media (min-width: 640px) {

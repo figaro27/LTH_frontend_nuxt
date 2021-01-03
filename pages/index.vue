@@ -15,7 +15,13 @@
           <h2>by searching across our global directories.</h2>
         </div>
         <div class="home__main__search-box">
-          <search-box v-model="keyword" @search="onSearch" />
+          <search-box
+            v-model="keyword"
+            :autosuggest-items="autosuggestItems"
+            :autosuggest-items-loading="autosuggestItemsLoading"
+            @autosuggest="onAutoSuggest"
+            @search="onSearch"
+          />
         </div>
         <div class="home__main__usecase">
           <use-cases />
@@ -70,9 +76,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, State, Vue } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
 import { buildMeta, CONSTS } from '@/utils'
+import { LoadingStatus, RootState } from '~/store/types'
 
 @Component({
   name: 'home',
@@ -84,6 +91,12 @@ import { buildMeta, CONSTS } from '@/utils'
   }
 })
 export default class Home extends Vue {
+  @State((state: RootState) => state.vendors.autosuggestItems)
+  autosuggestItems!: string[]
+
+  @State((state: RootState) => state.vendors.autosuggestItemsLoading)
+  autosuggestItemsLoading!: LoadingStatus
+
   keyword = ''
   isMobile = isMobile
 
@@ -116,6 +129,10 @@ export default class Home extends Vue {
       { title: 'Graveyard', icon: '/images/svgs/main/graveyard.svg', url: '/graveyards' },
       { title: 'Consolidations', icon: '/images/svgs/main/consolidation.svg', url: '/consolidations' }
     ]
+  }
+
+  onAutoSuggest(searchText: string) {
+    this.$store.dispatch('vendors/loadAutosuggest', searchText)
   }
 
   onSearch(keyword: string) {
