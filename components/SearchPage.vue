@@ -422,11 +422,11 @@ export default class Search extends Vue {
       return
     }
 
-    this.$store.commit('vendors/SET_LAST_ROUTE_QUERY', searchRouteQuery)
+    this.$store.commit('search/SET_LAST_ROUTE_QUERY', searchRouteQuery)
     this.lastSavedSearchId = savedSearch ? savedSearch.id : null
 
     this.submitAnalyticsData()
-    await this.$store.dispatch('vendors/runSearch', searchQuery)
+    await this.$store.dispatch('search/runSearch', searchQuery)
   }
 }
 </script>
