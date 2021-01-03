@@ -160,11 +160,15 @@ export default {
     const client = axios.create({ baseURL: apiUrl })
     const routes = await Promise.all([
       client.request({ method: 'GET', url: 'vendors/all' }),
+      client.request({ method: 'GET', url: 'events/all' }),
       client.request({ method: 'GET', url: 'saved-searchs' })
-    ]).then(([res1, res2]) => {
-      const vendorRoutes = res1.data.data.map((vendor) => `/vendor/${vendor.id}`)
-      const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/regional-snapshots/${savedSearch.slug}`)
-      return [...vendorRoutes, ...savedSearchsRoutes]
+    ]).then(([vendorsRes, eventsRes, savedSearchRes]) => {
+      const vendorRoutes = vendorsRes.data.data.map((vendor) => `/vendor/${vendor.id}`)
+      const eventRoutes = eventsRes.data.data.map((event) => `/event/${event.id}`)
+      const savedSearchsRoutes = savedSearchRes.data.data.map(
+        (savedSearch) => `/regional-snapshots/${savedSearch.slug}`
+      )
+      return [...vendorRoutes, ...eventRoutes, ...savedSearchsRoutes]
     })
 
     const sitemapConfig = {
