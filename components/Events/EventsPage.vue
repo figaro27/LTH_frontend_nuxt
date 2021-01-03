@@ -23,11 +23,11 @@
     <div class="events-page__content-container">
       <div class="events-page__side-filter">
         <select-filter
-          id="organizations"
-          v-model="filters.organizations"
-          name="organizations"
+          id="organizers"
+          v-model="filters.organizers"
+          name="organizers"
           label="Organization:"
-          :options="organizations"
+          :options="organizers"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -139,7 +139,7 @@ export default class SearchEvents extends Vue {
   @State((state: RootState) => state.events.autosuggestItems) autosuggestItems!: string[]
   @State((state: RootState) => state.events.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
-  @State((state: RootState) => state.events.organizations) organizations!: any[]
+  @State((state: RootState) => state.events.organizers) organizers!: any[]
   @State((state: RootState) => state.events.locations) locations!: any[]
   @State((state: RootState) => state.events.audiences) audiences!: any[]
   @State((state: RootState) => state.events.dates) dates!: any[]
@@ -170,7 +170,7 @@ export default class SearchEvents extends Vue {
 
   filters: EventFilters = {
     keyword: '',
-    organizations: [],
+    organizers: [],
     locations: [],
     audiences: [],
     dates: [],
@@ -184,28 +184,28 @@ export default class SearchEvents extends Vue {
   }
 
   get searchRouteQuery() {
-    const { keyword, organizations, formats, locations, audiences, dates, durations, recurrences } = this.filters
+    const { keyword, organizers, formats, locations, audiences, dates, durations, recurrences } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
-      organizations: organizations.length === 0 ? undefined : organizations.map((item) => item.name).join(','),
-      names: formats.length === 0 ? undefined : formats.map((item) => item.name).join(','),
-      locations: locations.length === 0 ? undefined : locations.map((item) => item.name).join(','),
+      organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name).join(','),
+      locations: locations.length === 0 ? undefined : locations.map((item) => item.name).join('$'),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.name).join(','),
       dates: dates.length === 0 ? undefined : dates.map((item) => item.name).join(','),
       durations: durations.length === 0 ? undefined : durations.map((item) => item.name).join(','),
+      formats: formats.length === 0 ? undefined : formats.map((item) => item.name).join(','),
       recurrences: recurrences.length === 0 ? undefined : recurrences.map((item) => item.name).join(',')
     }
   }
 
   get searchQuery() {
-    const { keyword, organizations, formats, locations, audiences, dates, durations, recurrences } = this.filters
+    const { keyword, organizers, formats, locations, audiences, dates, durations, recurrences } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
-      organizations: organizations.length === 0 ? undefined : organizations.map((item) => item.id),
+      organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name),
+      locations: locations.length === 0 ? undefined : locations.map((item) => item.name),
+      dates: dates.length === 0 ? undefined : dates.map((item) => item.name),
       formats: formats.length === 0 ? undefined : formats.map((item) => item.id),
-      locations: locations.length === 0 ? undefined : locations.map((item) => item.id),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.id),
-      dates: dates.length === 0 ? undefined : dates.map((item) => item.id),
       durations: durations.length === 0 ? undefined : durations.map((item) => item.id),
       recurrences: recurrences.length === 0 ? undefined : recurrences.map((item) => item.id)
     }
@@ -230,7 +230,7 @@ export default class SearchEvents extends Vue {
     this.$store.commit('events/SET_EVENTS_PAGE_NUMBER', this.curPageNum)
 
     const promises = [
-      this.$store.dispatch('events/loadOrganizations'),
+      this.$store.dispatch('events/loadOrganizers'),
       this.$store.dispatch('events/loadLocations'),
       this.$store.dispatch('events/loadAudiences'),
       this.$store.dispatch('events/loadDates'),
@@ -282,7 +282,7 @@ export default class SearchEvents extends Vue {
     }
     this.filters[id] = queryValue
       ? queryValue
-          .split(',')
+          .split(id === 'locations' ? '$' : ',')
           .map((item) => options.find((d) => d.name === item))
           .filter((item) => !!item)
       : []
@@ -290,7 +290,7 @@ export default class SearchEvents extends Vue {
 
   updateFromRouteQuery() {
     this.updatedSelectedValueFromRouteParam('keyword')
-    this.updatedSelectedValueFromRouteParam('organizations', this.organizations)
+    this.updatedSelectedValueFromRouteParam('organizers', this.organizers)
     this.updatedSelectedValueFromRouteParam('locations', this.locations)
     this.updatedSelectedValueFromRouteParam('audiences', this.audiences)
     this.updatedSelectedValueFromRouteParam('dates', this.dates)

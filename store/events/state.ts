@@ -3,7 +3,7 @@ import { LoadingStatus } from '@/store/types'
 import { EventsRouteQuery } from './types'
 
 export type EventsState = {
-  organizations: any[]
+  organizers: any[]
   locations: any[]
   audiences: any[]
   dates: any[]
@@ -23,7 +23,7 @@ export type EventsState = {
 }
 
 const state = (): EventsState => ({
-  organizations: [],
+  organizers: [],
   locations: [],
   audiences: [],
   dates: [],
@@ -40,7 +40,7 @@ const state = (): EventsState => ({
   eventsLoading: LoadingStatus.Unloaded,
   eventsLastFilter: {
     keyword: '',
-    organizations: [],
+    organizers: [],
     locations: [],
     audiences: [],
     dates: [],

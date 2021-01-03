@@ -5,10 +5,10 @@ import { EventsState } from './state'
 
 const getters: GetterTree<EventsState, RootState> = {
   highlightQueries: (state) => {
-    const { keyword, organizations, names, locations, audiences, dates, durations, recurrences } = state.routeQuery
+    const { keyword, organizers, names, locations, audiences, dates, durations, recurrences } = state.routeQuery
     const queries = []
     if (keyword) queries.push(keyword)
-    if (organizations) queries.push(...organizations.split(','))
+    if (organizers) queries.push(...organizers.split(','))
     if (names) queries.push(...names.split(','))
     if (locations) queries.push(...locations.split(','))
     if (audiences) queries.push(...audiences.split(','))

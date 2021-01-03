@@ -10,9 +10,9 @@ export type EventsActions = ActionTree<EventsState, RootState>
 export type EventsAction<T, R = any> = TypedAction<EventsState, RootState, T, R>
 
 const actions: EventsActions = {
-  async loadOrganizations({ commit }) {
+  async loadOrganizers({ commit }) {
     const response = await api.get('events/organizers')
-    commit('SET_ORGANIZATIONS', response.data)
+    commit('SET_ORGANIZERS', response.data)
   },
 
   async loadLocations({ commit }) {
@@ -49,7 +49,7 @@ const actions: EventsActions = {
     commit('SET_EVENTS_LOADING', LoadingStatus.Loading)
     commit('SAVE_LAST_FILTER', query)
     const limit = isMobile ? MOBILE_EVENTS_LIMIT : DEFAULT_EVENTS_LIMIT
-    const { data } = await api.get('events/search', {
+    const { data } = await api.post('events/search', {
       ...query,
       offset: (state.eventsPage - 1) * limit,
       limit

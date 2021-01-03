@@ -1,6 +1,6 @@
 export type EventsRouteQuery = {
   keyword?: string
-  organizations?: string
+  organizers?: string
   names?: string
   locations?: string
   audiences?: string

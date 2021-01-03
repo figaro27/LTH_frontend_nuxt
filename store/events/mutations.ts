@@ -6,8 +6,8 @@ import { EventsState } from './state'
 import { EventsRouteQuery } from './types'
 
 const mutations: MutationTree<EventsState> = {
-  SET_ORGANIZATIONS(state: EventsState, organizations: any) {
-    state.organizations = organizations
+  SET_ORGANIZERS(state: EventsState, organizers: any) {
+    state.organizers = organizers
   },
   SET_LOCATIONS(state: EventsState, locations: any) {
     state.locations = locations

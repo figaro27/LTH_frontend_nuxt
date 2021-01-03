@@ -1,6 +1,6 @@
 export type EventFilters = {
   keyword: string
-  organizations: any[]
+  organizers: any[]
   locations: any[]
   audiences: any[]
   dates: any[]
