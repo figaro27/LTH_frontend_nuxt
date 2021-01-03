@@ -417,7 +417,7 @@ export default class Search extends Vue {
     const { searchRouteQuery, lastSearchQuery, lastSavedSearchId, searchQuery, savedSearch } = this
     if (
       isEqual(searchRouteQuery, lastSearchQuery) &&
-      ((!savedSearch && lastSavedSearchId === null) || (savedSearch && lastSavedSearchId !== savedSearch.id))
+      ((!savedSearch && !lastSavedSearchId) || (savedSearch && lastSavedSearchId === savedSearch.id))
     ) {
       return
     }
