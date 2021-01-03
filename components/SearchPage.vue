@@ -85,7 +85,7 @@
         <div class="search-page__content-wrapper">
           <h4 v-if="vendorsLoading !== 0" class="search-page__count">
             <span>Search result ({{ total }})</span>
-            <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" to="/search">
+            <nuxt-link v-if="showClearFilter" v-tooltip="{ content: 'Clear Search' }" :to="clearFilterPath">
               <fa :icon="['fas', 'times-circle']" />
             </nuxt-link>
           </h4>
@@ -158,6 +158,7 @@ export default class Search extends Vue {
 
   isMobile: boolean = false
   filterOptionsLoaded: boolean = false
+  lastSavedSearchId: number | null = null
 
   filters: Filters = {
     keyword: '',
@@ -230,6 +231,11 @@ export default class Search extends Vue {
   get showClearFilter() {
     const { routeQuery } = this
     return Object.keys(routeQuery).filter((key) => !!routeQuery[key]).length > 0
+  }
+
+  get clearFilterPath() {
+    const { savedSearch } = this
+    return savedSearch ? `/regional-snapshots/${savedSearch.slug}` : `/search`
   }
 
   @Watch('routeQuery', { immediate: true })
@@ -408,12 +414,19 @@ export default class Search extends Vue {
   }
 
   async submitQuery() {
-    if (isEqual(this.searchQuery, this.lastSearchQuery)) return
+    const { searchRouteQuery, lastSearchQuery, lastSavedSearchId, searchQuery, savedSearch } = this
+    if (
+      isEqual(searchRouteQuery, lastSearchQuery) &&
+      ((!savedSearch && lastSavedSearchId === null) || (savedSearch && lastSavedSearchId !== savedSearch.id))
+    ) {
+      return
+    }
 
-    this.$store.commit('search/SET_LAST_ROUTE_QUERY', this.searchQuery)
+    this.$store.commit('vendors/SET_LAST_ROUTE_QUERY', searchRouteQuery)
+    this.lastSavedSearchId = savedSearch ? savedSearch.id : null
 
     this.submitAnalyticsData()
-    await this.$store.dispatch('search/runSearch', this.searchQuery)
+    await this.$store.dispatch('vendors/runSearch', searchQuery)
   }
 }
 </script>
