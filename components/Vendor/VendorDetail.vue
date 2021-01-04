@@ -3,9 +3,9 @@
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
-      <a v-if="isConsolidation" href="#" class="single-vendor-header__link" @click="historyBack()"> Consolidations </a>
-      <a v-else-if="isGraveyard" href="#" class="single-vendor-header__link" @click="historyBack()"> Graveyards </a>
-      <a v-else href="#" class="single-vendor-header__link" @click="historyBack()">Search Results</a>
+      <a v-if="isConsolidation" href="#" class="single-vendor-header__link" @click="$router.go(-1)"> Consolidations </a>
+      <a v-else-if="isGraveyard" href="#" class="single-vendor-header__link" @click="$router.go(-1)"> Graveyards </a>
+      <a v-else href="#" class="single-vendor-header__link" @click="$router.go(-1)">Search Results</a>
       <label class="single-vendor-header__link">&gt;</label>
       <div class="single-vendor__name">{{ tool }}</div>
     </div>

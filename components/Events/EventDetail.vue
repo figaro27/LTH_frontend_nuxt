@@ -3,7 +3,7 @@
     <ad class="single-event__left-ad" position="left" direction="vertical" />
 
     <div class="single-event__header">
-      <a href="#" class="single-event-header__link" @click="historyBack()">Search Results</a>
+      <a href="#" class="single-event-header__link" @click="$router.go(-1)">Search Results</a>
       <label class="single-event-header__link">&gt;</label>
       <div class="single-event__name">{{ title }}</div>
     </div>
