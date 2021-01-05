@@ -18,6 +18,7 @@
               v-for="(blogsCol, colIndex) of blogsRow"
               :key="`${sectionIndex}-col${rowIndex}-${colIndex}`"
               class="blogs__section__col"
+              :class="`blogs__section__col__${blogsRow.length}`"
             >
               <div
                 v-for="blog of blogsCol"
@@ -251,7 +252,19 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://www.denniskennedy.com'
               }
-            ]
+            ],
+            [
+              {
+                name: 'law-21',
+                title: 'Law 21',
+                description:
+                  'Law21 Dispatches From a Legal Profession on the Brink is the award-winning blog of Jordan Furlong, a Canadian legal sector analyst and consultant who has published numerous articles and books and addressed dozens of audiences around the world on the subject of legal services innovation. The Law21 blog, which contains more than 500 posts over nearly 15 years about the changing legal market, has recently begun to focus on issues of lawyer formation, licensing, and competence, as well as legal education and legal services regulation.',
+                image: '/images/blogs/law-21.png',
+                type: 'portrait',
+                url: 'https://www.law21.com'
+              }
+            ],
+            []
           ]
         ]
       },
@@ -262,13 +275,13 @@ export default class Blogs extends Vue {
           [
             [
               {
-                name: 'law-next',
-                title: 'LawNext',
+                name: 'fringe-legal',
+                title: 'Fringe Legal',
                 description:
-                  'LawNext is a weekly podcast hosted by Bob Ambrogi, publisher of LawSites. Each week, Bob interviews the innovators and entrepreneurs who are driving what’s next in the legal industry. From legal technology startups to new law firm business models to enhancing access to justice, Bob and his guests explore the future of law and legal practice.',
-                image: '/images/blogs/law-next.png',
+                  'A podcast by Abhijat Saraswat (Twitter: <a href="https://twitter.com/WholsAbs" target="_blank">@WholsAbs</a>, <a href="https://twitter.com/FringeLegal" target="_blank">@FringeLegal</a>) discussing the future of the legal profession, aimed at law firm leaders and influencers. Each episode involves guest speakers discussing ideas impacting the evolution of the legal profession.',
+                image: '/images/blogs/fringe-legal.png',
                 type: 'portrait',
-                url: 'https://lawnext.libsyn.com'
+                url: 'https://www.fringelegal.com'
               }
             ],
             [
@@ -286,13 +299,13 @@ export default class Blogs extends Vue {
           [
             [
               {
-                name: 'fringe-legal',
-                title: 'Fringe Legal',
+                name: 'law-next',
+                title: 'LawNext',
                 description:
-                  'A podcast by Abhijat Saraswat (Twitter: <a href="https://twitter.com/WholsAbs" target="_blank">@WholsAbs</a>, <a href="https://twitter.com/FringeLegal" target="_blank">@FringeLegal</a>) discussing the future of the legal profession, aimed at law firm leaders and influencers. Each episode involves guest speakers discussing ideas impacting the evolution of the legal profession.',
-                image: '/images/blogs/fringe-legal.png',
+                  'LawNext is a weekly podcast hosted by Bob Ambrogi, publisher of LawSites. Each week, Bob interviews the innovators and entrepreneurs who are driving what’s next in the legal industry. From legal technology startups to new law firm business models to enhancing access to justice, Bob and his guests explore the future of law and legal practice.',
+                image: '/images/blogs/law-next.png',
                 type: 'portrait',
-                url: 'https://www.fringelegal.com'
+                url: 'https://lawnext.libsyn.com'
               }
             ],
             [
@@ -342,6 +355,17 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://abovethelaw.com/legal-innovation-center/category/podcast'
               }
+            ],
+            [
+              {
+                name: 'the-legal-ops-podcast',
+                title: 'The Legal Ops Podcast',
+                description:
+                  "The Legal Ops Podcast is about all things legal operations, legal business and legal technology. It's hosted by Alex Rosenrauch and Elliot Leibu, legal ops professionals with experience and passion for this subject, and deep connections in the industry. Every episode covers a new aspect of transformation, operationalisation and technology implementation, overlaid with the human elements of change management and organisational psychology. If you're interested in the changing nature of legal services delivery, and you want to be a part of it, this is the podcast for you.",
+                image: '/images/blogs/the-legal-ops-podcast.png',
+                type: 'portrait',
+                url: 'https://thelegalopspodcast.com'
+              }
             ]
           ]
         ]
@@ -361,7 +385,32 @@ export default class Blogs extends Vue {
                 type: 'portrait',
                 url: 'https://www.litera.com/litera-tv'
               }
+            ],
+            [
+              {
+                name: 'crafty-counsel-video',
+                title: 'Crafty Counsel Video',
+                description:
+                  'Crafty Counsel is a London headquartered legal media company and community, with a mission to help legal professionals learn, achieve, and share. Known for short, snappy and authentic video, they publish regular content on innovation, legal tech, and other areas relevant to legal life. They also run active virtual meet-ups and a digital platform for their community of in-house counsel, legal innovators, tech professionals and law firm allies.',
+                image: '/images/blogs/crafty-counsel-video.png',
+                type: 'portrait',
+                url: 'https://www.craftycounselvideo.com'
+              }
             ]
+          ],
+          [
+            [
+              {
+                name: 'legal-tech-live',
+                title: 'LegalTechLIVE',
+                description:
+                  'LegalTechLIVE is a live video show highlighting and promoting the advancements and innovators in law and technology. The show was co-founded by Ivan Raiklin and Nick Rishwain in the summer of 2015 in the early days of the live video revolution, and recently celebrated its 100th episode.',
+                image: '/images/blogs/legal-tech-live.png',
+                type: 'portrait',
+                url: 'https://legaltechlive.com'
+              }
+            ],
+            []
           ]
         ]
       }
@@ -443,7 +492,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 
 .blogs__section__col {
   flex: 1;
-  max-width: 50%;
+  // max-width: 50%;
   padding: 15px;
   @include col;
 
@@ -459,6 +508,12 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     flex: none;
     max-width: 50%;
   }
+}
+.blogs__section__col__3 {
+  max-width: 33.3%;
+}
+.blogs__section__col__2 {
+  max-width: 50%;
 }
 
 .blog {
@@ -615,6 +670,12 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     }
   }
 
+  &--law-21 {
+    .blog__image {
+      background: white;
+    }
+  }
+
   &--tower-of-babel,
   &--the-time-blawg {
     .blog__title {
@@ -672,7 +733,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   }
 
   &--dennis-kennedy {
-    width: 67%;
+    // width: 67%;
 
     .blog__image {
       background: #000000;
@@ -688,7 +749,8 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     }
   }
 
-  &--fringe-legal {
+  &--fringe-legal,
+  &--the-legal-ops-podcast {
     .blog__title {
       color: white;
     }
@@ -700,9 +762,15 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     .blog__image {
       background: #000000;
     }
+    .blog__image__img {
+      padding: 0 10px;
+    }
   }
 
-  &--the-modern-lawyer {
+  &--the-modern-lawyer,
+  &--law-next,
+  &--ilta-podcast,
+  &--evolve-the-law {
     .blog__image {
       background: white;
     }
@@ -750,7 +818,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
       position: relative;
       padding-top: 50px;
       padding-bottom: 60px;
-      height: auto;
+      height: 210px;
 
       &::after {
         position: absolute;
@@ -764,7 +832,30 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
     }
 
     .blog__image__img {
-      height: 150px;
+      height: 100px;
+    }
+  }
+
+  &--crafty-counsel-video {
+    .blog__image {
+      background: #1b9869;
+      height: 210px;
+    }
+    .blog__title {
+      color: white;
+    }
+    .blog__title-border {
+      background: white;
+    }
+  }
+
+  &--legal-tech-live {
+    .blog__image {
+      background: white;
+      height: auto;
+    }
+    .blog__image__img {
+      padding: 0 20px 10px 20px;
     }
   }
 }
