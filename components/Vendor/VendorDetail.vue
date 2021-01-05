@@ -3,9 +3,27 @@
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
-      <a v-if="isConsolidation" href="#" class="single-vendor-header__link" @click="$router.go(-1)"> Consolidations </a>
-      <a v-else-if="isGraveyard" href="#" class="single-vendor-header__link" @click="$router.go(-1)"> Graveyards </a>
-      <a v-else href="#" class="single-vendor-header__link" @click="$router.go(-1)">Search Results</a>
+      <nuxt-link
+        v-if="isConsolidation && $routerHistory.hasPrevious()"
+        :to="{ path: $routerHistory.previous().path }"
+        class="single-vendor-header__link"
+      >
+        Consolidations
+      </nuxt-link>
+      <nuxt-link
+        v-else-if="isGraveyard && $routerHistory.hasPrevious()"
+        :to="{ path: $routerHistory.previous().path }"
+        class="single-vendor-header__link"
+      >
+        Graveyards
+      </nuxt-link>
+      <nuxt-link
+        v-else-if="$routerHistory.hasPrevious()"
+        :to="{ path: $routerHistory.previous().path }"
+        class="single-vendor-header__link"
+      >
+        Search Results
+      </nuxt-link>
       <label class="single-vendor-header__link">&gt;</label>
       <div class="single-vendor__name">{{ tool }}</div>
     </div>
