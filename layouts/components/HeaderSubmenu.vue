@@ -28,7 +28,7 @@ import { ComponentOptions } from 'vue'
 import { HeaderLink } from './types'
 
 @Component({
-  name: 'default-header',
+  name: 'header-submenu',
   mixins: [ClickAway as ComponentOptions<Vue>]
 })
 export default class HeaderSubmenu extends Vue {
