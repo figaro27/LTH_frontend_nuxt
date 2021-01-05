@@ -68,7 +68,8 @@ export default {
     { src: '@/plugins/vue-youtube.js', mode: 'client' },
     { src: '@/plugins/v-calendar.js', mode: 'client' },
     { src: '@/plugins/vue-month-picker.js', mode: 'client' },
-    { src: '@/plugins/vue-full-calendar.js', mode: 'client' }
+    { src: '@/plugins/vue-full-calendar.js', mode: 'client' },
+    { src: '@/plugins/vue-router-back-button.js', mode: 'client' }
   ],
   /*
    ** Auto import components

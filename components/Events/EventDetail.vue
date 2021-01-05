@@ -3,7 +3,13 @@
     <ad class="single-event__left-ad" position="left" direction="vertical" />
 
     <div class="single-event__header">
-      <a href="#" class="single-event-header__link" @click="historyBack()">Search Results</a>
+      <nuxt-link
+        v-if="$routerHistory.hasPrevious()"
+        :to="{ path: $routerHistory.previous().path }"
+        class="single-event-header__link"
+      >
+        Search Results
+      </nuxt-link>
       <label class="single-event-header__link">&gt;</label>
       <div class="single-event__name">{{ title }}</div>
     </div>
