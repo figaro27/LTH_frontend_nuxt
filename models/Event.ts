@@ -6,6 +6,7 @@ export type Audience = {
 export type Duration = {
   id: number
   name: string
+  days: number
 }
 
 export type Recurrence = {

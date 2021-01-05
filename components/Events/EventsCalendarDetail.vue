@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="event-calendar__event__container">
     <p>
       <a :href="event.url" class="event-calendar__event__title">{{ event.title }} | </a>
       <span class="event-calendar__event__desc">{{ event.location }}</span>
@@ -30,8 +30,11 @@ export default class EventsCalendarDetail extends Vue {
 
 <style lang="scss">
 .event-calendar__event__container {
-  height: 6rem;
-  overflow: auto;
+  padding: 4px 2px;
+  margin: 0 0 4px 0;
+  background-color: $colorLightNavy;
+  border-radius: 4px;
+  box-shadow: 0px 4px rgba(0, 0, 0, 0.25);
 }
 .event-calendar__event {
   background: $colorLightNavy;
@@ -47,6 +50,6 @@ export default class EventsCalendarDetail extends Vue {
 .event-calendar__event__desc {
   @include typography(sm, default, normal);
   color: $colorDarkGrey;
-  color: $colorLightGrey;
+  white-space: pre-line;
 }
 </style>
