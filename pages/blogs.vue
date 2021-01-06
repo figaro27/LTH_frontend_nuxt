@@ -256,9 +256,9 @@ export default class Blogs extends Vue {
             [
               {
                 name: 'law-21',
-                title: 'Law 21',
+                title: 'Law21',
                 description:
-                  'Law21 Dispatches From a Legal Profession on the Brink is the award-winning blog of Jordan Furlong, a Canadian legal sector analyst and consultant who has published numerous articles and books and addressed dozens of audiences around the world on the subject of legal services innovation. The Law21 blog, which contains more than 500 posts over nearly 15 years about the changing legal market, has recently begun to focus on issues of lawyer formation, licensing, and competence, as well as legal education and legal services regulation.',
+                  'Law21: Dispatches From a Legal Profession on the Brink is the award-winning blog of Jordan Furlong, a Canadian legal sector analyst and consultant who has published numerous articles and books and addressed dozens of audiences around the world on the subject of legal services innovation. The Law21 blog, which contains more than 500 posts over nearly 15 years about the changing legal market, has recently begun to focus on issues of lawyer formation, licensing, and competence, as well as legal education and legal services regulation.',
                 image: '/images/blogs/law-21.png',
                 type: 'portrait',
                 url: 'https://www.law21.ca/blog/'
@@ -311,7 +311,7 @@ export default class Blogs extends Vue {
             [
               {
                 name: 'ilta-podcast',
-                title: 'ILTA podcast',
+                title: 'Global Legal Innovators',
                 description:
                   'This ILTA podcast hosted by Nicola Shaver features speakers located across the globe... who are doing things differently. These guests offer unique perspectives on what the state of legal innovation looks like in different countries, towns, and cities, and speak about the most innovative projects they are seeing in their regions.',
                 image: '/images/blogs/ilta-podcast.png',
