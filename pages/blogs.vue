@@ -261,7 +261,7 @@ export default class Blogs extends Vue {
                   'Law21 Dispatches From a Legal Profession on the Brink is the award-winning blog of Jordan Furlong, a Canadian legal sector analyst and consultant who has published numerous articles and books and addressed dozens of audiences around the world on the subject of legal services innovation. The Law21 blog, which contains more than 500 posts over nearly 15 years about the changing legal market, has recently begun to focus on issues of lawyer formation, licensing, and competence, as well as legal education and legal services regulation.',
                 image: '/images/blogs/law-21.png',
                 type: 'portrait',
-                url: 'https://www.law21.com'
+                url: 'https://www.law21.ca/blog/'
               }
             ],
             []
@@ -364,7 +364,7 @@ export default class Blogs extends Vue {
                   "The Legal Ops Podcast is about all things legal operations, legal business and legal technology. It's hosted by Alex Rosenrauch and Elliot Leibu, legal ops professionals with experience and passion for this subject, and deep connections in the industry. Every episode covers a new aspect of transformation, operationalisation and technology implementation, overlaid with the human elements of change management and organisational psychology. If you're interested in the changing nature of legal services delivery, and you want to be a part of it, this is the podcast for you.",
                 image: '/images/blogs/the-legal-ops-podcast.png',
                 type: 'portrait',
-                url: 'https://thelegalopspodcast.com'
+                url: 'https://www.legalops.fm'
               }
             ]
           ]
@@ -394,7 +394,7 @@ export default class Blogs extends Vue {
                   'Crafty Counsel is a London headquartered legal media company and community, with a mission to help legal professionals learn, achieve, and share. Known for short, snappy and authentic video, they publish regular content on innovation, legal tech, and other areas relevant to legal life. They also run active virtual meet-ups and a digital platform for their community of in-house counsel, legal innovators, tech professionals and law firm allies.',
                 image: '/images/blogs/crafty-counsel-video.png',
                 type: 'portrait',
-                url: 'https://www.craftycounselvideo.com'
+                url: 'https://craftycounsel.co.uk/channel/transforming-legal'
               }
             ]
           ],
