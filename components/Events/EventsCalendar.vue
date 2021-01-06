@@ -84,7 +84,7 @@ export default class EventsCalendar extends Vue {
         backgroundColor: '#c2d5fe',
         textColor: '#546E7A',
         borderColor: '#c2d5fe',
-        start: new Date(item.date),
+        start: Date.parse(item.date.toString()),
         end: endDate
       }
       return event
