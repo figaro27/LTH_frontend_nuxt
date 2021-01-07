@@ -43,6 +43,10 @@
             <div class="single-event__property-name">Recurrence</div>
             <label class="single-event__property-value">{{ recurrence }}</label>
           </div>
+          <div class="single-event__property">
+            <div class="single-event__property-name">Notes</div>
+            <label class="single-event__property-value">{{ notes }}</label>
+          </div>
           <div class="single-event__enhanced-links">
             <a v-if="data.website" class="single-event__enhanced-website" :href="data.website" target="_blank">
               Visit Website
@@ -52,17 +56,20 @@
       </div>
       <div class="single-event__side">
         <div class="single-event__frame single-event__others">
-          <v-calendar :attributes="attrs" :disabled-dates="{}" class="single-event__calendar"></v-calendar>
+          <v-calendar
+            ref="eventCalendar"
+            :attributes="attrs"
+            :disabled-dates="{}"
+            class="single-event__calendar"
+          ></v-calendar>
         </div>
-        <img :src="sideImage" class="single-event__side-image" />
-      </div>
-    </div>
-
-    <div v-if="data.description" class="single-event__row">
-      <div class="single-event__frame single-event__description">
-        <client-only>
-          <div v-html="data.description" />
-        </client-only>
+        <div class="single-event__frame single-event__others">
+          <div class="single-event__description">
+            <client-only>
+              <div v-html="data.description" />
+            </client-only>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -79,13 +86,35 @@ import { Event } from '@/models'
 export default class EventDetail extends Vue {
   @Prop({ required: true }) data!: Event
 
-  attrs = [
-    {
-      key: 'today',
-      highlight: true,
-      dates: this.data.date
+  mounted() {
+    setTimeout(() => {
+      this.onDateChange(this.data.date)
+    }, 100)
+  }
+
+  async onDateChange(date: any) {
+    if (this.$refs.eventCalendar) {
+      const startDate = new Date(date.toString().slice(0, 10).replace('-', '/'))
+      const calendar = this.$refs.eventCalendar as any
+      await calendar.move(startDate)
     }
-  ]
+  }
+
+  get attrs() {
+    const startDate = new Date(this.data.date.toString().slice(0, 10).replace('-', '/'))
+    const endDate = new Date(startDate)
+    const duration = this.data.duration.id > 1 ? this.data.duration.id - 2 : 1
+    endDate.setDate(endDate.getDate() + duration)
+    const eventsDates = [{ start: startDate, end: endDate }]
+
+    return [
+      {
+        key: 'today',
+        highlight: true,
+        dates: eventsDates
+      }
+    ]
+  }
 
   get title() {
     const { data } = this
@@ -138,6 +167,11 @@ export default class EventDetail extends Vue {
     const { data } = this
     return (data && data.recurrence.name) || ''
   }
+
+  get notes() {
+    const { data } = this
+    return (data && data.notes) || ''
+  }
 }
 </script>
 
@@ -167,15 +201,6 @@ export default class EventDetail extends Vue {
   text-align: left;
   background: white;
   position: relative;
-}
-
-.single-event__calendar {
-  .vc-popover-content-wrapper {
-    display: none;
-  }
-  .vc-pane-container {
-    display: none;
-  }
 }
 
 $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
@@ -384,19 +409,31 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include row;
   @include typography(lg-1);
   color: $colorDarkGrey;
-  padding: 20px 30px;
-  margin-bottom: 40px;
+  padding: 30px 15px;
   text-align: left;
   overflow: hidden;
 }
 
 .calendar >>> .not-in-month {
-  color: rgba(0, 0, 0, 0.5); // change this
+  color: rgba(0, 0, 0, 0.5);
   opacity: 0.5;
 }
 </style>
 
 <style lang="scss">
+.vc-arrows-container {
+  display: none;
+}
+.vc-title-layout[data-v-ea3333ec] {
+  justify-content: left;
+}
+.vc-popover-content-wrapper {
+  display: none;
+}
+.vc-weekday[data-v-ea3333ec] {
+  color: navy;
+}
+
 .single-event__description {
   & > div {
     width: 100%;
