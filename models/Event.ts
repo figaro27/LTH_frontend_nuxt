@@ -28,6 +28,7 @@ export type Event = {
   audiences: Audience[]
   duration: Duration
   recurrence: Recurrence
+  notes: string
 }
 
 export type SearchResultEvent = Pick<

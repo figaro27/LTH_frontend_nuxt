@@ -12,15 +12,15 @@
       <div v-if="isMobile">
         <v-calendar
           v-if="isMobile"
-          trim-weeks
+          ref="eventMobileCalendar"
           :attributes="mobileCalendarDates"
           class="events-calendar__mobile_calendar"
         ></v-calendar>
         <div class="events-calenar__mobile_event_container">
           <h2 class="events-calendar__mobile_event_list">Upcoming Events</h2>
           <div v-for="(data, key) in fullCalendarEvents" :key="key" class="events-calenar__mobile_event_box">
-            <div class="events-calenar__mobile_event_date">
-              <p>{{ data.start.getDate() }}</p>
+            <div class="events-calenar__mobile_event_date_container">
+              <p class="events-calenar__mobile_event_date">{{ data.start.getDate() }}-{{ data.end.getDate() }}</p>
             </div>
             <div>
               <a :href="data.url" class="event-calendar__mobile_event__title">{{ data.title }}</a>
@@ -61,18 +61,23 @@ export default class EventsCalendar extends Vue {
   isMobile: boolean = false
 
   @Watch('date', { immediate: true, deep: true })
-  onDateChange(val: any) {
+  async onDateChange(val: any) {
     if (this.$refs.eventCalendar) {
       const calendar = this.$refs.eventCalendar as any
       calendar.fireMethod('gotoDate', new Date(val.year, val.monthIndex - 1))
+    }
+    if (this.$refs.eventMobileCalendar) {
+      const mobileCalendar = this.$refs.eventMobileCalendar as any
+      await mobileCalendar.move({ month: val.monthIndex, year: val.year })
     }
   }
 
   get fullCalendarEvents() {
     return this.events.map((item, index) => {
       const audiences = item.audiences.map((audience) => audience.name).join(', ')
-      const endDate = new Date(item.date)
-      const duration = item.duration.id > 1 ? item.duration.id - 2 : 1
+      const startDate = new Date(item.date.toString().slice(0, 10).replace('-', '/'))
+      const endDate = new Date(startDate)
+      const duration = item.duration.id > 1 ? item.duration.id - 1 : 1
       endDate.setDate(endDate.getDate() + duration)
       const event = {
         key: index,
@@ -84,7 +89,7 @@ export default class EventsCalendar extends Vue {
         backgroundColor: '#c2d5fe',
         textColor: '#546E7A',
         borderColor: '#c2d5fe',
-        start: Date.parse(item.date.toString()),
+        start: startDate,
         end: endDate
       }
       return event
@@ -109,10 +114,7 @@ export default class EventsCalendar extends Vue {
   mounted() {
     this.isMobile = isMobile
     setTimeout(() => {
-      if (this.$refs.eventCalendar) {
-        const calendar = this.$refs.eventCalendar as any
-        calendar.fireMethod('gotoDate', new Date(this.date.year, this.date.monthIndex - 1))
-      }
+      this.onDateChange(this.date)
     }, 100)
   }
 
@@ -142,7 +144,11 @@ export default class EventsCalendar extends Vue {
 
   get mobileCalendarDates() {
     const eventsDates: any = this.events.map((item: any) => {
-      return { start: item.date, end: item.date }
+      const startDate = new Date(item.date.slice(0, 10).replace('-', '/'))
+      const endDate = new Date(startDate)
+      const duration = item.duration.id > 1 ? item.duration.id - 2 : 1
+      endDate.setDate(endDate.getDate() + duration)
+      return { start: startDate, end: endDate }
     })
     return [
       {
@@ -227,12 +233,12 @@ export default class EventsCalendar extends Vue {
   width: 100%;
   overflow: show;
   margin-left: 5px;
+  border: none;
   .vc-title {
     @include typography(xl-1, default, bold);
     color: navy;
   }
   .vc-arrows-container {
-    // justify-content: center;
     align-items: center;
     padding: 5px 40px;
     .vc-arrow {
@@ -244,8 +250,10 @@ export default class EventsCalendar extends Vue {
 
 .events-calenar__mobile_event_container {
   padding: 10px 0px 10px 15px;
+  border: none;
   .events-calendar__mobile_event_list {
     color: navy;
+    margin: 10px 0;
   }
   .events-calenar__mobile_event_box {
     display: flex;
@@ -264,15 +272,20 @@ export default class EventsCalendar extends Vue {
     @include typography(lg, default, normal);
     color: $colorLightGrey;
   }
-  .events-calenar__mobile_event_date {
-    margin: 10px;
+  .events-calenar__mobile_event_date_container {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 10px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     background-color: $colorLightNavy;
+    .events-calenar__mobile_event_date {
+      width: 50px;
+      text-align: center;
+      margin: auto;
+    }
   }
 }
 </style>
