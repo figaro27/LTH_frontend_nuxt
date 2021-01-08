@@ -71,14 +71,6 @@
           :options="durations"
           @change="onFilterUpdate"
         />
-        <select-filter
-          id="recurrences"
-          v-model="filters.recurrences"
-          name="recurrences"
-          label="Reccurrence:"
-          :options="recurrences"
-          @change="onFilterUpdate"
-        />
 
         <ad class="events-page__left-ad" direction="vertical" position="left" />
       </div>
@@ -145,7 +137,6 @@ export default class SearchEvents extends Vue {
   @State((state: RootState) => state.events.dates) dates!: any[]
   @State((state: RootState) => state.events.durations) durations!: any[]
   @State((state: RootState) => state.events.formats) formats!: any[]
-  @State((state: RootState) => state.events.recurrences) recurrences!: any[]
 
   @State((state: RootState) => state.events.events) events!: SearchResultEvent[]
   @State((state: RootState) => state.events.eventsLoading) eventsLoading!: LoadingStatus
@@ -175,8 +166,7 @@ export default class SearchEvents extends Vue {
     audiences: [],
     dates: [],
     formats: [],
-    durations: [],
-    recurrences: []
+    durations: []
   }
 
   get routeQuery() {
@@ -184,7 +174,7 @@ export default class SearchEvents extends Vue {
   }
 
   get searchRouteQuery() {
-    const { keyword, organizers, formats, locations, audiences, dates, durations, recurrences } = this.filters
+    const { keyword, organizers, formats, locations, audiences, dates, durations } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
       organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name).join(','),
@@ -192,13 +182,12 @@ export default class SearchEvents extends Vue {
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.name).join(','),
       dates: dates.length === 0 ? undefined : dates.map((item) => item.name).join(','),
       durations: durations.length === 0 ? undefined : durations.map((item) => item.name).join(','),
-      formats: formats.length === 0 ? undefined : formats.map((item) => item.name).join(','),
-      recurrences: recurrences.length === 0 ? undefined : recurrences.map((item) => item.name).join(',')
+      formats: formats.length === 0 ? undefined : formats.map((item) => item.name).join(',')
     }
   }
 
   get searchQuery() {
-    const { keyword, organizers, formats, locations, audiences, dates, durations, recurrences } = this.filters
+    const { keyword, organizers, formats, locations, audiences, dates, durations } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
       organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name),
@@ -206,8 +195,7 @@ export default class SearchEvents extends Vue {
       dates: dates.length === 0 ? undefined : dates.map((item) => item.name),
       formats: formats.length === 0 ? undefined : formats.map((item) => item.id),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.id),
-      durations: durations.length === 0 ? undefined : durations.map((item) => item.id),
-      recurrences: recurrences.length === 0 ? undefined : recurrences.map((item) => item.id)
+      durations: durations.length === 0 ? undefined : durations.map((item) => item.id)
     }
   }
 
@@ -308,7 +296,6 @@ export default class SearchEvents extends Vue {
     this.updatedSelectedValueFromRouteParam('dates', this.dates)
     this.updatedSelectedValueFromRouteParam('durations', this.durations)
     this.updatedSelectedValueFromRouteParam('formats', this.formats)
-    this.updatedSelectedValueFromRouteParam('recurrences', this.recurrences)
   }
 
   updateRouteQuery() {

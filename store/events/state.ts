@@ -45,8 +45,7 @@ const state = (): EventsState => ({
     audiences: [],
     dates: [],
     durations: [],
-    formats: [],
-    recurrences: []
+    formats: []
   },
   routeQuery: {}
 })
