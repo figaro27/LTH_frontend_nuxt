@@ -6,5 +6,4 @@ export type EventFilters = {
   dates: any[]
   durations: any[]
   formats: any[]
-  recurrences: any[]
 }
