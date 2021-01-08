@@ -1,7 +1,7 @@
 <template>
   <div class="event-calendar__event__container">
     <p>
-      <a :href="event.url" class="event-calendar__event__title">{{ event.title }} | </a>
+      <a :href="event.url" class="event-calendar__event__title">{{ event.title }} |</a>
       <span class="event-calendar__event__desc">{{ event.location }}</span>
     </p>
     <p class="event-calendar__event__desc">{{ event.info }}</p>
@@ -21,7 +21,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({ name: 'events-calendar-detail' })
 export default class EventsCalendarDetail extends Vue {
-  event = {}
+  event = { detailUrl: '' }
   setEvent(value: any) {
     this.event = value
   }

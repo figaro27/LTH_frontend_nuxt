@@ -3,13 +3,7 @@
     <ad class="single-event__left-ad" position="left" direction="vertical" />
 
     <div class="single-event__header">
-      <nuxt-link
-        v-if="$routerHistory.hasPrevious()"
-        :to="{ path: $routerHistory.previous().path }"
-        class="single-event-header__link"
-      >
-        Search Results
-      </nuxt-link>
+      <a href="#" class="single-event-header__link" @click="$router.go(-1)">Search Results</a>
       <label class="single-event-header__link">&gt;</label>
       <div class="single-event__name">{{ title }}</div>
     </div>
@@ -427,13 +421,18 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 .vc-title-layout[data-v-ea3333ec] {
   justify-content: left;
 }
-.vc-popover-content-wrapper {
+.vc-popover-content-wrapper[data-v-4cb7b681] {
   display: none;
 }
 .vc-weekday[data-v-ea3333ec] {
   color: navy;
 }
-
+.vc-title[data-v-ea3333ec] {
+  color: navy;
+}
+.vc-day-content.is-disabled[data-v-4bf08813] {
+  color: black;
+}
 .single-event__description {
   & > div {
     width: 100%;

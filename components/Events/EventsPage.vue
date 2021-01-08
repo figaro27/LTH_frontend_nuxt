@@ -247,6 +247,13 @@ export default class SearchEvents extends Vue {
     this.updateFromRouteQuery()
     this.filterOptionsLoaded = true
     await this.submitQuery()
+
+    if (this.filters.dates.length > 0) {
+      this.isCalendar = true
+      console.log('filter------------', this.filters.dates[0])
+      this.selectedDate = new Date(this.filters.dates[0].name.replace('-', '/'))
+      console.log('date--------', this.selectedDate)
+    }
   }
 
   onAutoSuggest(searchText: string) {
@@ -270,8 +277,15 @@ export default class SearchEvents extends Vue {
   }
 
   onChangeCalendar(date: any) {
+    const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
+    const strDate = `${date.year}-${month}`
+    const idx = this.dates.findIndex((item) => item.name === strDate)
+    const tempDate = { id: idx, name: strDate }
+    this.filters.dates = []
+    this.filters.dates.push(tempDate)
+    this.onFilterUpdate()
     this.isCalendar = true
-    this.selectedDate = date
+    this.selectedDate = new Date(date.year, date.monthIndex - 1)
   }
 
   updatedSelectedValueFromRouteParam(id: keyof EventFilters, options: any[] = []) {
