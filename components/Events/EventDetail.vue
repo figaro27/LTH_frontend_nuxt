@@ -34,12 +34,16 @@
             <label class="single-event__property-value">{{ audiences }}</label>
           </div>
           <div class="single-event__property">
-            <div class="single-event__property-name">Recurrence</div>
-            <label class="single-event__property-value">{{ recurrence }}</label>
+            <div class="single-event__property-name">Format</div>
+            <label class="single-event__property-value">{{ fromat }}</label>
           </div>
-          <div class="single-event__property">
+          <div v-if="notes" class="single-event__property">
             <div class="single-event__property-name">Notes</div>
             <label class="single-event__property-value">{{ notes }}</label>
+          </div>
+          <div class="single-event__property">
+            <div class="single-event__property-name">Recurrence</div>
+            <label class="single-event__property-value">{{ recurrence }}</label>
           </div>
           <div class="single-event__enhanced-links">
             <a v-if="data.website" class="single-event__enhanced-website" :href="data.website" target="_blank">

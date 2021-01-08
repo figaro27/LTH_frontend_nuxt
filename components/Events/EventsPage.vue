@@ -250,9 +250,7 @@ export default class SearchEvents extends Vue {
 
     if (this.filters.dates.length > 0) {
       this.isCalendar = true
-      console.log('filter------------', this.filters.dates[0])
       this.selectedDate = new Date(this.filters.dates[0].name.replace('-', '/'))
-      console.log('date--------', this.selectedDate)
     }
   }
 
