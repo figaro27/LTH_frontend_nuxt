@@ -7,9 +7,13 @@
         :key="index"
         v-tooltip="tab.isComingSoon ? { content: 'Coming Soon', trigger: 'hover' } : undefined"
         class="search-box__tab"
-        :class="`search-box__tab--${tab.id}`"
+        :class="{
+          [`search-box__tab--${tab.id}`]: true,
+          'search-box__tab--active': tab.id === currentTab
+        }"
         :to="tab.to"
-        :active-class="`search-box__tab--active search-box__tab--${tab.id}--active`"
+        active-class="search-box__tab--active"
+        @click="onTabClick(tab)"
       >
         {{ tab.label }}
       </componet>
@@ -20,7 +24,7 @@
         v-model="selectedValue"
         item-text="label"
         item-value="value"
-        placeholder="Search for legaltech events..."
+        :placeholder="placeholder"
         :items="feedItems"
         :loading="isAutosuggestLoading"
         :search-text.sync="searchText"
@@ -31,7 +35,7 @@
         </template>
       </cool-select>
       <div
-        v-if="contents === 'events'"
+        v-if="isEventsPage"
         ref="calendar"
         v-on-clickaway="onClickAwayCalendar"
         class="search-box__calendar_container"
@@ -59,12 +63,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
 import { MonthPicker } from 'vue-month-picker'
 import { mixin as ClickAway } from 'vue-clickaway'
 import { ComponentOptions } from 'vue'
-import { LoadingStatus } from '@/store/types'
+import { LoadingStatus, RootState } from '@/store/types'
+
+type TabItem = {
+  tag: string
+  id: 'tools' | 'events' | 'awards'
+  label: string
+  to?: string
+  isComingSoon?: boolean
+}
 
 @Component({
   name: 'search-box',
@@ -73,9 +85,18 @@ import { LoadingStatus } from '@/store/types'
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
-  @Prop({ required: true }) autosuggestItems!: string[]
-  @Prop({ required: true }) autosuggestItemsLoading!: LoadingStatus
-  @Prop({ required: false }) contents!: string
+
+  @State((state: RootState) => state.vendors.autosuggestItems)
+  vendorsAutosuggestItems!: string[]
+
+  @State((state: RootState) => state.vendors.autosuggestItemsLoading)
+  vendorsAutosuggestItemsLoading!: LoadingStatus
+
+  @State((state: RootState) => state.events.autosuggestItems)
+  eventsAutosuggestItems!: string[]
+
+  @State((state: RootState) => state.events.autosuggestItemsLoading)
+  eventsAutosuggestItemsLoading!: LoadingStatus
 
   $refs!: {
     select: VueCoolSelectComponentInterface
@@ -99,10 +120,49 @@ export default class SearchBox extends Vue {
     this.showCalendar = false
   }
 
-  get tabs() {
+  currentTab: 'tools' | 'events' = 'tools'
+
+  get autosuggestItems(): string[] {
+    return this.currentTab === 'events' ? this.eventsAutosuggestItems : this.vendorsAutosuggestItems
+  }
+
+  get autosuggestItemsLoading(): LoadingStatus {
+    return this.currentTab === 'events' ? this.eventsAutosuggestItemsLoading : this.vendorsAutosuggestItemsLoading
+  }
+
+  get placeholder() {
+    return this.currentTab === 'events' ? 'Search for legaltech events...' : 'Search for legaltech tools...'
+  }
+
+  get isEventsPage() {
+    const { name } = this.$route
+    return name === 'search-events'
+  }
+
+  get isToolsPage() {
+    const { name } = this.$route
+    return name && ['search-tools', 'regional-snapshots-slug'].includes(name)
+  }
+
+  @Watch('$route.path', { immediate: true })
+  onRoutePathChange() {
+    if (this.isEventsPage) {
+      this.currentTab = 'events'
+    } else {
+      this.currentTab = 'tools'
+    }
+  }
+
+  get tabs(): TabItem[] {
+    const { isEventsPage, isToolsPage } = this
+
     return [
-      { tag: 'nuxt-link', id: 'tools', label: 'Tools', to: '/search/tools' },
-      { tag: 'nuxt-link', id: 'events', label: 'Events', to: '/search/events' },
+      isEventsPage
+        ? { tag: 'nuxt-link', id: 'tools', label: 'Tools', to: '/search/tools' }
+        : { tag: 'div', id: 'tools', label: 'Tools' },
+      isToolsPage
+        ? { tag: 'nuxt-link', id: 'events', label: 'Events', to: '/search/events' }
+        : { tag: 'div', id: 'events', label: 'Events' },
       { tag: 'div', id: 'awards', label: 'Awards', isComingSoon: true }
     ]
   }
@@ -131,6 +191,12 @@ export default class SearchBox extends Vue {
     return this.autosuggestItemsLoading !== LoadingStatus.Loaded
   }
 
+  onTabClick(tab: TabItem) {
+    if (tab.id === 'awards') return
+
+    this.currentTab = tab.id
+  }
+
   @Watch('value', { immediate: true })
   onValue() {
     this.searchText = this.value
@@ -138,17 +204,25 @@ export default class SearchBox extends Vue {
 
   @Watch('searchText', { immediate: true })
   onSearchText() {
-    this.$emit('autosuggest', this.searchText)
+    this.loadAutoSuggest(this.searchText)
+  }
+
+  loadAutoSuggest(searchText: string) {
+    if (this.currentTab === 'events') {
+      this.$store.dispatch('events/loadAutosuggest', searchText)
+    } else {
+      this.$store.dispatch('vendors/loadAutosuggest', searchText)
+    }
   }
 
   search() {
-    this.$emit('search', this.searchText)
+    this.$emit('search', { keyword: this.searchText, tab: this.currentTab })
   }
 
   cancelSearch() {
     this.$refs.select.setSearchData('')
     this.selectedValue = ''
-    this.$emit('search', '')
+    this.$emit('search', { keyword: '', tab: this.currentTab })
   }
 
   onClickAwayCalendar() {
@@ -162,7 +236,7 @@ export default class SearchBox extends Vue {
     } else {
       this.searchText = selectedItem.label
     }
-    this.$emit('search', this.searchText)
+    this.$emit('search', { keyword: this.searchText, tab: this.currentTab })
   }
 
   onInputCalendar(date: any) {
@@ -309,7 +383,7 @@ $searchBoxHeight: 50px;
     background: $colorLightGreen;
     border-color: $colorLightGreen;
 
-    &--active {
+    &.search-box__tab--active {
       color: $colorLightGreen;
     }
   }

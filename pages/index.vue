@@ -15,13 +15,7 @@
           <h2>by searching across our global directories.</h2>
         </div>
         <div class="home__main__search-box">
-          <search-box
-            v-model="keyword"
-            :autosuggest-items="autosuggestItems"
-            :autosuggest-items-loading="autosuggestItemsLoading"
-            @autosuggest="onAutoSuggest"
-            @search="onSearch"
-          />
+          <search-box v-model="keyword" @search="onSearch" />
         </div>
         <div class="home__main__usecase">
           <use-cases />
@@ -76,10 +70,9 @@
 </template>
 
 <script lang="ts">
-import { Component, State, Vue } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
 import { buildMeta, CONSTS } from '@/utils'
-import { LoadingStatus, RootState } from '~/store/types'
 
 @Component({
   name: 'home',
@@ -91,12 +84,6 @@ import { LoadingStatus, RootState } from '~/store/types'
   }
 })
 export default class Home extends Vue {
-  @State((state: RootState) => state.vendors.autosuggestItems)
-  autosuggestItems!: string[]
-
-  @State((state: RootState) => state.vendors.autosuggestItemsLoading)
-  autosuggestItemsLoading!: LoadingStatus
-
   keyword = ''
   isMobile = isMobile
 
@@ -131,20 +118,24 @@ export default class Home extends Vue {
     ]
   }
 
-  onAutoSuggest(searchText: string) {
-    this.$store.dispatch('vendors/loadAutosuggest', searchText)
-  }
+  onSearch(params: { keyword: string; tab: 'tools' | 'events' }) {
+    const { keyword, tab } = params
 
-  onSearch(keyword: string) {
-    if (keyword) {
+    if (tab === 'events') {
+      if (keyword) {
+        this.$router.push({ name: 'search-events', query: { keyword } })
+      } else {
+        this.$router.push({ name: 'search-events' })
+      }
+    } else if (keyword) {
       const polishedKeyword = keyword.toLowerCase().replace(/ /g, '_')
       if (CONSTS.keywordLinkMap[polishedKeyword]) {
         this.$router.push(CONSTS.keywordLinkMap[polishedKeyword])
       } else {
-        this.$router.push({ name: 'search', query: { keyword } })
+        this.$router.push({ name: 'search-tools', query: { keyword } })
       }
     } else {
-      this.$router.push({ name: 'search' })
+      this.$router.push({ name: 'search-tools' })
     }
   }
 

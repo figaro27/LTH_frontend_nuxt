@@ -2,15 +2,7 @@
   <div class="events-page">
     <div class="events-page__header">
       <div class="search-box-container">
-        <search-box
-          contents="events"
-          :autosuggest-items="autosuggestItems"
-          :autosuggest-items-loading="autosuggestItemsLoading"
-          :value="filters.keyword"
-          @autosuggest="onAutoSuggest"
-          @calendar="onChangeCalendar"
-          @search="onKeywordSubmit"
-        />
+        <search-box contents="events" :value="filters.keyword" @calendar="onChangeCalendar" @search="onKeywordSubmit" />
         <div v-if="filters.keyword" class="search-box__keywords">
           <div class="search-box__keyword">
             <span>{{ filters.keyword }}</span>
@@ -137,9 +129,6 @@ import { EventsRouteQuery } from '@/store/events/types'
 
 @Component({ name: 'events-page' })
 export default class EventsPage extends Vue {
-  @State((state: RootState) => state.events.autosuggestItems) autosuggestItems!: string[]
-  @State((state: RootState) => state.events.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
-
   @State((state: RootState) => state.events.organizers) organizers!: any[]
   @State((state: RootState) => state.events.countries) countries!: any[]
   @State((state: RootState) => state.events.audiences) audiences!: any[]
@@ -260,24 +249,20 @@ export default class EventsPage extends Vue {
     }
   }
 
-  onAutoSuggest(searchText: string) {
-    this.$store.dispatch('events/loadAutosuggest', searchText)
-  }
-
   onFilterUpdate() {
     this.updateRouteQuery()
   }
 
-  onKeywordSubmit(keyword: string) {
-    if (keyword === this.filters.keyword) {
-      return
-    }
+  onKeywordSubmit(params: { keyword: string }) {
+    const { keyword } = params
+    if (keyword === this.filters.keyword) return
+
     this.filters.keyword = keyword
     this.updateRouteQuery()
   }
 
   onKeywordCancelClick() {
-    this.onKeywordSubmit('')
+    this.onKeywordSubmit({ keyword: '' })
   }
 
   onChangeCalendar(date: any) {
@@ -319,13 +304,18 @@ export default class EventsPage extends Vue {
     this.updatedSelectedValueFromRouteParam('formats', this.formats)
   }
 
+  get isEventsPage() {
+    const { name } = this.$route
+    return name === 'search-events'
+  }
+
   updateRouteQuery() {
-    if (!this.$route.name) {
-      return
-    }
+    const { name } = this.$route
+    if (!name) return
+
     this.$store.commit('events/SET_EVENTS_PAGE_NUMBER', 1)
     this.$router.push({
-      name: this.$route.name,
+      name: 'search-events',
       params: this.$route.params,
       query: this.searchRouteQuery
     })
