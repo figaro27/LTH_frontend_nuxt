@@ -10,7 +10,7 @@ const getters: GetterTree<EventsState, RootState> = {
       date,
       organizers,
       names,
-      locations,
+      countries,
       audiences,
       months,
       durations,
@@ -22,7 +22,7 @@ const getters: GetterTree<EventsState, RootState> = {
     if (date) queries.push(date)
     if (organizers) queries.push(...organizers.split(','))
     if (names) queries.push(...names.split(','))
-    if (locations) queries.push(...locations.split(','))
+    if (countries) queries.push(...countries.split(','))
     if (audiences) queries.push(...audiences.split(','))
     if (months) queries.push(...months.split(','))
     if (durations) queries.push(...durations.split(','))

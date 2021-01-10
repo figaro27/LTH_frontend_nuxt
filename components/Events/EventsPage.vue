@@ -31,11 +31,11 @@
           @change="onFilterUpdate"
         />
         <select-filter
-          id="locations"
-          v-model="filters.locations"
-          name="locations"
+          id="countries"
+          v-model="filters.countries"
+          name="countries"
           label="Location:"
-          :options="locations"
+          :options="countries"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -44,14 +44,6 @@
           name="audiences"
           label="Audience:"
           :options="audiences"
-          @change="onFilterUpdate"
-        />
-        <select-filter
-          id="features"
-          v-model="filters.features"
-          name="features"
-          label="Feature:"
-          :options="features"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -77,6 +69,14 @@
           name="durations"
           label="Duration:"
           :options="durations"
+          @change="onFilterUpdate"
+        />
+        <select-filter
+          id="features"
+          v-model="filters.features"
+          name="features"
+          label="Features:"
+          :options="features"
           @change="onFilterUpdate"
         />
 
@@ -141,7 +141,7 @@ export default class SearchEvents extends Vue {
   @State((state: RootState) => state.events.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
   @State((state: RootState) => state.events.organizers) organizers!: any[]
-  @State((state: RootState) => state.events.locations) locations!: any[]
+  @State((state: RootState) => state.events.countries) countries!: any[]
   @State((state: RootState) => state.events.audiences) audiences!: any[]
   @State((state: RootState) => state.events.durations) durations!: any[]
   @State((state: RootState) => state.events.features) features!: any[]
@@ -176,7 +176,7 @@ export default class SearchEvents extends Vue {
     keyword: '',
     date: '',
     organizers: [],
-    locations: [],
+    countries: [],
     audiences: [],
     months: [],
     features: [],
@@ -189,12 +189,12 @@ export default class SearchEvents extends Vue {
   }
 
   get searchRouteQuery() {
-    const { keyword, date, organizers, features, formats, locations, audiences, months, durations } = this.filters
+    const { keyword, date, organizers, features, formats, countries, audiences, months, durations } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
       date: date === '' ? undefined : date,
       organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name).join(','),
-      locations: locations.length === 0 ? undefined : locations.map((item) => item.name).join('$'),
+      countries: countries.length === 0 ? undefined : countries.map((item) => item.name).join('$'),
       months: date || months.length === 0 ? undefined : months.map((item) => item.name).join(','),
       features: features.length === 0 ? undefined : features.map((item) => item.name).join(','),
       formats: formats.length === 0 ? undefined : formats.map((item) => item.name).join(','),
@@ -204,12 +204,12 @@ export default class SearchEvents extends Vue {
   }
 
   get searchQuery() {
-    const { keyword, date, organizers, features, formats, locations, audiences, months, durations } = this.filters
+    const { keyword, date, organizers, features, formats, countries, audiences, months, durations } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
       date: date === '' ? undefined : date,
       organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name),
-      locations: locations.length === 0 ? undefined : locations.map((item) => item.name),
+      countries: countries.length === 0 ? undefined : countries.map((item) => item.name),
       months: months.length === 0 ? undefined : months.map((item) => item.id),
       features: features.length === 0 ? undefined : features.map((item) => item.id),
       formats: formats.length === 0 ? undefined : formats.map((item) => item.id),
@@ -238,7 +238,7 @@ export default class SearchEvents extends Vue {
 
     const promises = [
       this.$store.dispatch('events/loadOrganizers'),
-      this.$store.dispatch('events/loadLocations'),
+      this.$store.dispatch('events/loadCountries'),
       this.$store.dispatch('events/loadAudiences'),
       this.$store.dispatch('events/loadFeatures'),
       this.$store.dispatch('events/loadFormats'),
@@ -301,7 +301,7 @@ export default class SearchEvents extends Vue {
 
     this.filters[id] = queryValue
       ? queryValue
-          .split(id === 'locations' ? '$' : ',')
+          .split(id === 'countries' ? '$' : ',')
           .map((item) => options.find((d) => d.name === item))
           .filter((item) => !!item)
       : []
@@ -311,7 +311,7 @@ export default class SearchEvents extends Vue {
     this.updatedSelectedValueFromRouteParam('keyword')
     this.updatedSelectedValueFromRouteParam('date')
     this.updatedSelectedValueFromRouteParam('organizers', this.organizers)
-    this.updatedSelectedValueFromRouteParam('locations', this.locations)
+    this.updatedSelectedValueFromRouteParam('countries', this.countries)
     this.updatedSelectedValueFromRouteParam('audiences', this.audiences)
     this.updatedSelectedValueFromRouteParam('months', this.months)
     this.updatedSelectedValueFromRouteParam('durations', this.durations)

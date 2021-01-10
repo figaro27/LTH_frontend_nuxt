@@ -68,7 +68,7 @@ export default class VendorItem extends Vue {
   get month() {
     const { data } = this
     if (!data) return ''
-    return moment(data.date).format('MMMM')
+    return moment(data.date).utc(false).format('MMMM')
   }
 
   get url() {

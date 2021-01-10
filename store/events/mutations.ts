@@ -9,8 +9,8 @@ const mutations: MutationTree<EventsState> = {
   SET_ORGANIZERS(state: EventsState, organizers: any) {
     state.organizers = organizers
   },
-  SET_LOCATIONS(state: EventsState, locations: any) {
-    state.locations = locations
+  SET_COUNTRIES(state: EventsState, countries: any) {
+    state.countries = countries
   },
   SET_AUDIENCES(state: EventsState, audiences: any) {
     state.audiences = audiences

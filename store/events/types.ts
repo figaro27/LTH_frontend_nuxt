@@ -3,7 +3,7 @@ export type EventsRouteQuery = {
   date?: string
   organizers?: string
   names?: string
-  locations?: string
+  countries?: string
   audiences?: string
   months?: string
   durations?: string

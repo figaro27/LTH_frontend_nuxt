@@ -4,7 +4,7 @@ import { EventsRouteQuery } from './types'
 
 export type EventsState = {
   organizers: any[]
-  locations: any[]
+  countries: any[]
   audiences: any[]
   durations: any[]
   features: any[]
@@ -23,7 +23,7 @@ export type EventsState = {
 
 const state = (): EventsState => ({
   organizers: [],
-  locations: [],
+  countries: [],
   audiences: [],
   durations: [],
   features: [],
@@ -40,7 +40,7 @@ const state = (): EventsState => ({
     keyword: '',
     date: '',
     organizers: [],
-    locations: [],
+    countries: [],
     audiences: [],
     months: [],
     durations: [],

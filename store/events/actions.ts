@@ -15,9 +15,9 @@ const actions: EventsActions = {
     commit('SET_ORGANIZERS', response.data)
   },
 
-  async loadLocations({ commit }) {
-    const response = await api.get('events/locations')
-    commit('SET_LOCATIONS', response.data)
+  async loadCountries({ commit }) {
+    const response = await api.get('events/countries')
+    commit('SET_COUNTRIES', response.data)
   },
 
   async loadAudiences({ commit }) {
