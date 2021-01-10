@@ -7,13 +7,10 @@
     </div>
     <div class="events-item__row">
       <span class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ location }}</text-highlight>
+        <text-highlight :queries="highlightQueries">{{ location }} - {{ month }}</text-highlight>
       </span>
     </div>
     <div class="events-item__row">
-      <span v-if="data.month" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ data.month }}</text-highlight>
-      </span>
       <span v-if="audiences" class="events-item__property">
         <text-highlight :queries="highlightQueries">{{ audiences }}</text-highlight>
       </span>
@@ -35,6 +32,7 @@
 </template>
 
 <script lang="ts">
+import moment from 'moment'
 import { Component, Getter, Prop, Vue } from 'nuxt-property-decorator'
 
 import { SearchResultEvent } from '@/models'
@@ -65,6 +63,12 @@ export default class VendorItem extends Vue {
     if (!data) return ''
     if (data.city) return `${data.city}, ${data.country}`
     return data.country
+  }
+
+  get month() {
+    const { data } = this
+    if (!data) return ''
+    return moment(data.date).format('MMMM')
   }
 
   get url() {
