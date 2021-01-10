@@ -193,8 +193,10 @@ export default class SearchBox extends Vue {
 
   onTabClick(tab: TabItem) {
     if (tab.id === 'awards') return
+    if (this.currentTab === tab.id) return
 
     this.currentTab = tab.id
+    this.loadAutoSuggest()
   }
 
   @Watch('value', { immediate: true })
@@ -204,14 +206,14 @@ export default class SearchBox extends Vue {
 
   @Watch('searchText', { immediate: true })
   onSearchText() {
-    this.loadAutoSuggest(this.searchText)
+    this.loadAutoSuggest()
   }
 
-  loadAutoSuggest(searchText: string) {
+  loadAutoSuggest() {
     if (this.currentTab === 'events') {
-      this.$store.dispatch('events/loadAutosuggest', searchText)
+      this.$store.dispatch('events/loadAutosuggest', this.searchText)
     } else {
-      this.$store.dispatch('vendors/loadAutosuggest', searchText)
+      this.$store.dispatch('vendors/loadAutosuggest', this.searchText)
     }
   }
 
