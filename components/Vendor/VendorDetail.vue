@@ -3,27 +3,11 @@
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
-      <nuxt-link
-        v-if="isConsolidation && $routerHistory.hasPrevious()"
-        :to="{ path: $routerHistory.previous().path }"
-        class="single-vendor-header__link"
-      >
+      <nuxt-link v-if="isConsolidation" to="/consolidations" class="single-vendor-header__link">
         Consolidations
       </nuxt-link>
-      <nuxt-link
-        v-else-if="isGraveyard && $routerHistory.hasPrevious()"
-        :to="{ path: $routerHistory.previous().path }"
-        class="single-vendor-header__link"
-      >
-        Graveyards
-      </nuxt-link>
-      <nuxt-link
-        v-else-if="$routerHistory.hasPrevious()"
-        :to="{ path: $routerHistory.previous().path }"
-        class="single-vendor-header__link"
-      >
-        Search Results
-      </nuxt-link>
+      <nuxt-link v-else-if="isGraveyard" to="/graveyards" class="single-vendor-header__link"> Graveyards </nuxt-link>
+      <nuxt-link v-else :to="searchPageRoute" class="single-vendor-header__link"> Search Results </nuxt-link>
       <label class="single-vendor-header__link">&gt;</label>
       <div class="single-vendor__name">{{ tool }}</div>
     </div>
@@ -178,6 +162,10 @@ export default class VendorDetail extends Vue {
       return `${this.data.tool} by ${this.data.name}`
     }
     return this.data.name
+  }
+
+  get searchPageRoute() {
+    return '/search/tools'
   }
 
   get logo() {

@@ -3,7 +3,7 @@
     <ad class="single-event__left-ad" position="left" direction="vertical" />
 
     <div class="single-event__header">
-      <a href="#" class="single-event-header__link" @click="$router.go(-1)">Search Results</a>
+      <nuxt-link class="single-event-header__link" :to="searchPageRoute">Search Results</nuxt-link>
       <label class="single-event-header__link">&gt;</label>
       <div class="single-event__name">{{ title }}</div>
     </div>
@@ -76,6 +76,10 @@ import { Event } from '@/models'
 })
 export default class EventDetail extends Vue {
   @Prop({ required: true }) data!: Event
+
+  get searchPageRoute() {
+    return '/search/events'
+  }
 
   mounted() {
     setTimeout(() => {
