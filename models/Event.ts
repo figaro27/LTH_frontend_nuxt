@@ -9,6 +9,11 @@ export type Duration = {
   days: number
 }
 
+export type Format = {
+  id: number
+  name: string
+}
+
 export type EventFeature = {
   id: number
   name: string
@@ -33,6 +38,7 @@ export type Event = {
   audiences: Audience[]
   features: EventFeature[]
   duration: Duration
+  format: Format
   recurrence: Recurrence
   notes: string
 }

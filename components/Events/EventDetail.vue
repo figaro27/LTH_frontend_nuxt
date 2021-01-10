@@ -159,6 +159,11 @@ export default class EventDetail extends Vue {
     return (data && data.recurrence.name) || ''
   }
 
+  get format() {
+    const { data } = this
+    return (data && data.format.name) || ''
+  }
+
   get description() {
     const { data } = this
     return (data && data.description) || ''
