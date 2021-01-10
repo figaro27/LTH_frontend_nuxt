@@ -37,10 +37,6 @@
             <div class="single-event__property-name">Format</div>
             <label class="single-event__property-value">{{ format }}</label>
           </div>
-          <div v-if="notes" class="single-event__property">
-            <div class="single-event__property-name">Notes</div>
-            <label class="single-event__property-value">{{ notes }}</label>
-          </div>
           <div class="single-event__property">
             <div class="single-event__property-name">Recurrence</div>
             <label class="single-event__property-value">{{ recurrence }}</label>
@@ -54,13 +50,17 @@
         <div class="single-event__frame single-event__others">
           <v-calendar ref="eventCalendar" :attributes="attrs" :disabled-dates="{}" class="single-event__calendar" />
         </div>
-        <div class="single-event__frame single-event__others">
-          <div class="single-event__description">
-            <client-only>
-              <div v-html="description" />
-            </client-only>
-          </div>
+        <div v-if="notes" class="single-event__frame single-event__others single-event__notes">
+          {{ notes }}
         </div>
+      </div>
+    </div>
+
+    <div v-if="description" class="single-event__row">
+      <div class="single-event__frame single-event__description">
+        <client-only>
+          <div v-html="description" />
+        </client-only>
       </div>
     </div>
   </div>
@@ -232,7 +232,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include row;
 
   &:not(:first-child) {
-    margin-top: 40px;
+    margin-top: 20px;
   }
 
   @include respondTo(mobile) {
@@ -351,24 +351,21 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   padding: 15px;
   overflow: hidden;
 
-  .single-event__property {
-    width: 100%;
-    @include col;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
-  }
-
-  .single-event__property-name {
-    margin-bottom: 5px;
-  }
-
   @include respondTo(mobile) {
     flex: 1;
     align-items: center;
+  }
+}
+
+.single-event__notes {
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: $colorDarkGrey;
+
+  @include respondTo(mobile) {
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
@@ -415,7 +412,8 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include row;
   @include typography(lg-1);
   color: $colorDarkGrey;
-  padding: 30px 15px;
+  padding: 20px 30px;
+  margin-bottom: 40px;
   text-align: left;
   overflow: hidden;
 }
