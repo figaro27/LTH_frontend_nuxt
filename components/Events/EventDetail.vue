@@ -382,7 +382,7 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   height: 40px;
   padding: 5px 15px;
   @include typography(lg-1);
-  background: #8ea5bb55;
+  background: rgba(203, 239, 149, 0.4);
   text-decoration: none;
   color: $colorNavy;
   border-radius: 50px;
