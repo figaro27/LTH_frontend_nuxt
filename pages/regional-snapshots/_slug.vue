@@ -2,7 +2,7 @@
   <div v-loading="!savedSearch" class="region">
     <regions-hero class="region__hero" :data="savedSearch" />
     <div class="region__content">
-      <search-page :saved-search="savedSearch" class="region__search" />
+      <vendors-page :saved-search="savedSearch" class="region__search" />
       <search-ads class="region__ads" />
     </div>
   </div>

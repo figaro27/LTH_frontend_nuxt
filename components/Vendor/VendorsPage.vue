@@ -136,8 +136,8 @@ import { Filters, SearchResultVendor, SavedSearch } from '@/models'
 import { VendorsRouteQuery } from '@/store/vendors/types'
 import { RootState, LoadingStatus } from '@/store/types'
 
-@Component({ name: 'search' })
-export default class Search extends Vue {
+@Component({ name: 'vendors-page' })
+export default class VendorsPage extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
 
   @State((state: RootState) => state.vendors.autosuggestItems) autosuggestItems!: string[]
@@ -186,7 +186,7 @@ export default class Search extends Vue {
     return this.$route.query
   }
 
-  get searchRouteQuery() {
+  get searchRouteQuery(): VendorsRouteQuery {
     const {
       keyword,
       demographics,

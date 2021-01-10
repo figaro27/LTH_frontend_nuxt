@@ -135,8 +135,8 @@ import { EventFilters, SearchResultEvent } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 import { EventsRouteQuery } from '@/store/events/types'
 
-@Component({ name: 'search-events' })
-export default class SearchEvents extends Vue {
+@Component({ name: 'events-page' })
+export default class EventsPage extends Vue {
   @State((state: RootState) => state.events.autosuggestItems) autosuggestItems!: string[]
   @State((state: RootState) => state.events.autosuggestItemsLoading) autosuggestItemsLoading!: LoadingStatus
 
@@ -156,7 +156,7 @@ export default class SearchEvents extends Vue {
   @State((state: RootState) => state.events.routeQuery) lastSearchQuery!: EventsRouteQuery
 
   get months() {
-    return moment.monthsShort().map((month, index) => ({ id: index + 1, name: month }))
+    return moment.months().map((month, index) => ({ id: index + 1, name: month }))
   }
 
   get pageCount() {

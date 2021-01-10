@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <search-page class="search__content" />
+    <vendors-page class="search__content" />
     <search-ads class="search__ads" />
   </div>
 </template>
