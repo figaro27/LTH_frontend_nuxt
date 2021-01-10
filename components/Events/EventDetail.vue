@@ -35,7 +35,7 @@
           </div>
           <div class="single-event__property">
             <div class="single-event__property-name">Format</div>
-            <label class="single-event__property-value">{{ fromat }}</label>
+            <label class="single-event__property-value">{{ format }}</label>
           </div>
           <div v-if="notes" class="single-event__property">
             <div class="single-event__property-name">Notes</div>
@@ -46,25 +46,18 @@
             <label class="single-event__property-value">{{ recurrence }}</label>
           </div>
           <div class="single-event__enhanced-links">
-            <a v-if="data.website" class="single-event__enhanced-website" :href="data.website" target="_blank">
-              Visit Website
-            </a>
+            <a v-if="website" class="single-event__enhanced-website" :href="website" target="_blank"> Visit Website </a>
           </div>
         </div>
       </div>
       <div class="single-event__side">
         <div class="single-event__frame single-event__others">
-          <v-calendar
-            ref="eventCalendar"
-            :attributes="attrs"
-            :disabled-dates="{}"
-            class="single-event__calendar"
-          ></v-calendar>
+          <v-calendar ref="eventCalendar" :attributes="attrs" :disabled-dates="{}" class="single-event__calendar" />
         </div>
         <div class="single-event__frame single-event__others">
           <div class="single-event__description">
             <client-only>
-              <div v-html="data.description" />
+              <div v-html="description" />
             </client-only>
           </div>
         </div>
@@ -166,9 +159,19 @@ export default class EventDetail extends Vue {
     return (data && data.recurrence.name) || ''
   }
 
+  get description() {
+    const { data } = this
+    return (data && data.description) || ''
+  }
+
   get notes() {
     const { data } = this
     return (data && data.notes) || ''
+  }
+
+  get website() {
+    const { data } = this
+    return (data && data.website) || ''
   }
 }
 </script>

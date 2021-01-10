@@ -1,10 +1,12 @@
 export type EventsRouteQuery = {
   keyword?: string
+  date?: string
   organizers?: string
   names?: string
   locations?: string
   audiences?: string
-  dates?: string
+  months?: string
   durations?: string
-  recurrences?: string
+  features?: string
+  formats?: string
 }

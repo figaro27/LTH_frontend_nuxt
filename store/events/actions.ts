@@ -25,9 +25,9 @@ const actions: EventsActions = {
     commit('SET_AUDIENCES', response.data)
   },
 
-  async loadDates({ commit }) {
-    const response = await api.get('events/dates')
-    commit('SET_DATES', response.data)
+  async loadFeatures({ commit }) {
+    const response = await api.get('event-features')
+    commit('SET_FEATURES', response.data)
   },
 
   async loadFormats({ commit }) {
@@ -38,11 +38,6 @@ const actions: EventsActions = {
   async loadDurations({ commit }) {
     const response = await api.get('durations')
     commit('SET_DURATIONS', response.data)
-  },
-
-  async loadRecurrences({ commit }) {
-    const response = await api.get('recurrences')
-    commit('SET_RECURRENCES', response.data)
   },
 
   async runSearch({ commit, state }, query: any = {}) {

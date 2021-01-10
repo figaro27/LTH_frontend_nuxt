@@ -15,17 +15,14 @@ const mutations: MutationTree<EventsState> = {
   SET_AUDIENCES(state: EventsState, audiences: any) {
     state.audiences = audiences
   },
-  SET_DATES(state: EventsState, dates: any) {
-    state.dates = dates
+  SET_FEATURES(state: EventsState, features: any) {
+    state.features = features
   },
   SET_FORMATS(state: EventsState, formats: any) {
     state.formats = formats
   },
   SET_DURATIONS(state: EventsState, durations: any) {
     state.durations = durations
-  },
-  SET_RECURRENCES(state: EventsState, recurrences: any) {
-    state.recurrences = recurrences
   },
 
   SET_AUTOSUGGEST_ITEMS(state: EventsState, items: string[]) {

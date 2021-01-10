@@ -47,6 +47,14 @@
           @change="onFilterUpdate"
         />
         <select-filter
+          id="features"
+          v-model="filters.features"
+          name="features"
+          label="Feature:"
+          :options="features"
+          @change="onFilterUpdate"
+        />
+        <select-filter
           id="formats"
           v-model="filters.formats"
           name="formats"
@@ -56,11 +64,11 @@
         />
         <select-filter
           v-if="!isCalendar"
-          id="dates"
-          v-model="filters.dates"
-          name="dates"
+          id="months"
+          v-model="filters.months"
+          name="months"
           label="Date:"
-          :options="dates"
+          :options="months"
           @change="onFilterUpdate"
         />
         <select-filter
@@ -119,6 +127,7 @@
 <script lang="ts">
 import isEqual from 'lodash.isequal'
 import { isMobile } from 'mobile-device-detect'
+import moment from 'moment'
 import { Component, State, Vue, Watch } from 'nuxt-property-decorator'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
@@ -134,8 +143,8 @@ export default class SearchEvents extends Vue {
   @State((state: RootState) => state.events.organizers) organizers!: any[]
   @State((state: RootState) => state.events.locations) locations!: any[]
   @State((state: RootState) => state.events.audiences) audiences!: any[]
-  @State((state: RootState) => state.events.dates) dates!: any[]
   @State((state: RootState) => state.events.durations) durations!: any[]
+  @State((state: RootState) => state.events.features) features!: any[]
   @State((state: RootState) => state.events.formats) formats!: any[]
 
   @State((state: RootState) => state.events.events) events!: SearchResultEvent[]
@@ -145,6 +154,10 @@ export default class SearchEvents extends Vue {
   @State((state: RootState) => state.events.eventsPage) curPageNum!: EventFilters
 
   @State((state: RootState) => state.events.routeQuery) lastSearchQuery!: EventsRouteQuery
+
+  get months() {
+    return moment.monthsShort().map((month, index) => ({ id: index + 1, name: month }))
+  }
 
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
@@ -161,10 +174,12 @@ export default class SearchEvents extends Vue {
 
   filters: EventFilters = {
     keyword: '',
+    date: '',
     organizers: [],
     locations: [],
     audiences: [],
-    dates: [],
+    months: [],
+    features: [],
     formats: [],
     durations: []
   }
@@ -174,25 +189,29 @@ export default class SearchEvents extends Vue {
   }
 
   get searchRouteQuery() {
-    const { keyword, organizers, formats, locations, audiences, dates, durations } = this.filters
+    const { keyword, date, organizers, features, formats, locations, audiences, months, durations } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
+      date: date === '' ? undefined : date,
       organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name).join(','),
       locations: locations.length === 0 ? undefined : locations.map((item) => item.name).join('$'),
+      months: date || months.length === 0 ? undefined : months.map((item) => item.name).join(','),
+      features: features.length === 0 ? undefined : features.map((item) => item.name).join(','),
+      formats: formats.length === 0 ? undefined : formats.map((item) => item.name).join(','),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.name).join(','),
-      dates: dates.length === 0 ? undefined : dates.map((item) => item.name).join(','),
-      durations: durations.length === 0 ? undefined : durations.map((item) => item.name).join(','),
-      formats: formats.length === 0 ? undefined : formats.map((item) => item.name).join(',')
+      durations: durations.length === 0 ? undefined : durations.map((item) => item.name).join(',')
     }
   }
 
   get searchQuery() {
-    const { keyword, organizers, formats, locations, audiences, dates, durations } = this.filters
+    const { keyword, date, organizers, features, formats, locations, audiences, months, durations } = this.filters
     return {
       keyword: keyword === '' ? undefined : keyword,
+      date: date === '' ? undefined : date,
       organizers: organizers.length === 0 ? undefined : organizers.map((item) => item.name),
       locations: locations.length === 0 ? undefined : locations.map((item) => item.name),
-      dates: dates.length === 0 ? undefined : dates.map((item) => item.name),
+      months: months.length === 0 ? undefined : months.map((item) => item.id),
+      features: features.length === 0 ? undefined : features.map((item) => item.id),
       formats: formats.length === 0 ? undefined : formats.map((item) => item.id),
       audiences: audiences.length === 0 ? undefined : audiences.map((item) => item.id),
       durations: durations.length === 0 ? undefined : durations.map((item) => item.id)
@@ -221,10 +240,9 @@ export default class SearchEvents extends Vue {
       this.$store.dispatch('events/loadOrganizers'),
       this.$store.dispatch('events/loadLocations'),
       this.$store.dispatch('events/loadAudiences'),
-      this.$store.dispatch('events/loadDates'),
+      this.$store.dispatch('events/loadFeatures'),
       this.$store.dispatch('events/loadFormats'),
-      this.$store.dispatch('events/loadDurations'),
-      this.$store.dispatch('events/loadRecurrences')
+      this.$store.dispatch('events/loadDurations')
     ]
     try {
       await Promise.all(promises)
@@ -236,9 +254,9 @@ export default class SearchEvents extends Vue {
     this.filterOptionsLoaded = true
     await this.submitQuery()
 
-    if (this.filters.dates.length > 0) {
+    if (this.filters.date) {
       this.isCalendar = true
-      this.selectedDate = new Date(this.filters.dates[0].name.replace('-', '/'))
+      this.selectedDate = new Date(this.filters.date.replace('-', '/'))
     }
   }
 
@@ -265,10 +283,7 @@ export default class SearchEvents extends Vue {
   onChangeCalendar(date: any) {
     const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
     const strDate = `${date.year}-${month}`
-    const idx = this.dates.findIndex((item) => item.name === strDate)
-    const tempDate = { id: idx, name: strDate }
-    this.filters.dates = []
-    this.filters.dates.push(tempDate)
+    this.filters.date = strDate
     this.onFilterUpdate()
     this.isCalendar = true
     this.selectedDate = new Date(date.year, date.monthIndex - 1)
@@ -279,7 +294,11 @@ export default class SearchEvents extends Vue {
     if (id === 'keyword') {
       this.filters.keyword = queryValue
       return
+    } else if (id === 'date') {
+      this.filters.date = queryValue
+      return
     }
+
     this.filters[id] = queryValue
       ? queryValue
           .split(id === 'locations' ? '$' : ',')
@@ -290,11 +309,13 @@ export default class SearchEvents extends Vue {
 
   updateFromRouteQuery() {
     this.updatedSelectedValueFromRouteParam('keyword')
+    this.updatedSelectedValueFromRouteParam('date')
     this.updatedSelectedValueFromRouteParam('organizers', this.organizers)
     this.updatedSelectedValueFromRouteParam('locations', this.locations)
     this.updatedSelectedValueFromRouteParam('audiences', this.audiences)
-    this.updatedSelectedValueFromRouteParam('dates', this.dates)
+    this.updatedSelectedValueFromRouteParam('months', this.months)
     this.updatedSelectedValueFromRouteParam('durations', this.durations)
+    this.updatedSelectedValueFromRouteParam('features', this.features)
     this.updatedSelectedValueFromRouteParam('formats', this.formats)
   }
 

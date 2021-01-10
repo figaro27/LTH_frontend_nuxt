@@ -6,10 +6,9 @@ export type EventsState = {
   organizers: any[]
   locations: any[]
   audiences: any[]
-  dates: any[]
   durations: any[]
+  features: any[]
   formats: any[]
-  recurrences: any[]
 
   autosuggestItems: string[]
   autosuggestItemsLoading: LoadingStatus
@@ -26,10 +25,9 @@ const state = (): EventsState => ({
   organizers: [],
   locations: [],
   audiences: [],
-  dates: [],
   durations: [],
+  features: [],
   formats: [],
-  recurrences: [],
 
   autosuggestItems: [],
   autosuggestItemsLoading: LoadingStatus.Unloaded,
@@ -40,11 +38,13 @@ const state = (): EventsState => ({
   eventsLoading: LoadingStatus.Unloaded,
   eventsLastFilter: {
     keyword: '',
+    date: '',
     organizers: [],
     locations: [],
     audiences: [],
-    dates: [],
+    months: [],
     durations: [],
+    features: [],
     formats: []
   },
   routeQuery: {}
