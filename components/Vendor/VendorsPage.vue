@@ -235,7 +235,7 @@ export default class VendorsPage extends Vue {
 
   get clearFilterPath() {
     const { savedSearch } = this
-    return savedSearch ? `/regional-snapshots/${savedSearch.slug}` : `/search`
+    return savedSearch ? `/regional-snapshots/${savedSearch.slug}` : `/search/tools`
   }
 
   @Watch('routeQuery', { immediate: true })
