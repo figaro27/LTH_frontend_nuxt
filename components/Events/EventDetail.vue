@@ -41,6 +41,10 @@
             <div class="single-event__property-name">Recurrence</div>
             <label class="single-event__property-value">{{ recurrence }}</label>
           </div>
+          <div class="single-event__property">
+            <div class="single-event__property-name">Features</div>
+            <label class="single-event__property-value">{{ features }}</label>
+          </div>
           <div class="single-event__enhanced-links">
             <a v-if="website" class="single-event__enhanced-website" :href="website" target="_blank"> Visit Website </a>
           </div>
@@ -150,6 +154,12 @@ export default class EventDetail extends Vue {
   get duration() {
     const { data } = this
     return (data && data.duration.name) || ''
+  }
+
+  get features() {
+    const { data } = this
+    if (!data) return ''
+    return data.features.map((data) => data.name).join(', ')
   }
 
   get audiences() {
