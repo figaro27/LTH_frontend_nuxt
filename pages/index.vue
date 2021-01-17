@@ -15,7 +15,7 @@
           <h2>by searching across our global directories.</h2>
         </div>
         <div class="home__main__search-box">
-          <search-box v-model="keyword" @search="onSearch" />
+          <search-box v-model="keyword" @calendar="onChangeCalendar" @search="onSearch" />
         </div>
         <div class="home__main__usecase">
           <use-cases />
@@ -137,6 +137,13 @@ export default class Home extends Vue {
     } else {
       this.$router.push({ name: 'search-tools' })
     }
+  }
+
+  onChangeCalendar(date: any) {
+    const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
+    const strDate = `${date.year}-${month}`
+    console.log(strDate)
+    this.$router.push({ name: 'search-events', query: { date: strDate } })
   }
 
   get popularSearchs() {

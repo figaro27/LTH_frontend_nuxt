@@ -35,7 +35,7 @@
         </template>
       </cool-select>
       <div
-        v-if="isEventsPage"
+        v-if="currentTab == 'events'"
         ref="calendar"
         v-on-clickaway="onClickAwayCalendar"
         class="search-box__calendar_container"
