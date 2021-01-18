@@ -422,10 +422,6 @@ $searchBoxHeight: 50px;
   }
 }
 
-// .search-box__monthpicker {
-//   position: relative;
-// }
-
 .search-box__calendar_btn {
   width: 30px;
   height: 30px;

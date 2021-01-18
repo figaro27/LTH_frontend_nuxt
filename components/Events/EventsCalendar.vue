@@ -1,5 +1,6 @@
 <template>
   <div class="events-calendar__container">
+    <img class="search-box__calendar_btn" src="/images/svgs/list.svg" @click="changeTab" />
     <client-only>
       <full-calendar
         v-if="!isMobile"
@@ -142,6 +143,10 @@ export default class EventsCalendar extends Vue {
       return item.date
     })
   }
+
+  changeTab() {
+    this.$router.push({ name: 'search-tools', query: {} })
+  }
 }
 </script>
 
@@ -205,6 +210,12 @@ export default class EventsCalendar extends Vue {
       opacity: 70%;
     }
   }
+}
+
+.search-box__calendar_btn {
+  width: 30px;
+  height: 30px;
+  margin: auto 10px;
 }
 
 .events-calendar__mobile_calendar {
