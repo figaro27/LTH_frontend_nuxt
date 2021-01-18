@@ -55,6 +55,9 @@
           <v-calendar ref="eventCalendar" :attributes="attrs" :disabled-dates="{}" class="single-event__calendar" />
         </div>
         <div v-if="notes" class="single-event__frame single-event__others single-event__notes">
+          <div class="single-event__note-title">
+            {{ title }}
+          </div>
           {{ notes }}
         </div>
       </div>
@@ -291,6 +294,15 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
   @include typography(xl-2, narrow, bold);
   margin-bottom: 8px;
   color: $colorNavy;
+}
+
+.single-event__note-title {
+  @include typography(xl, narrow, bold);
+  margin-bottom: 16px;
+  margin-top: 8px;
+  color: $colorNavy;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .single-event__state {
