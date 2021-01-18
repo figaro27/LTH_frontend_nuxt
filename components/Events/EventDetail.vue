@@ -148,7 +148,11 @@ export default class EventDetail extends Vue {
     if (!data) {
       return ''
     }
-    return `${data.city}, ${data.country}`
+    if (data.city != null) {
+      return `${data.city}, ${data.country}`
+    } else {
+      return `${data.country}`
+    }
   }
 
   get duration() {
