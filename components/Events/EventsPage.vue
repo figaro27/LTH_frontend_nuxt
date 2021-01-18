@@ -20,7 +20,7 @@
           name="organizers"
           label="Organization:"
           :options="organizers"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
         <select-filter
           id="countries"
@@ -28,7 +28,7 @@
           name="countries"
           label="Location:"
           :options="countries"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
         <select-filter
           id="audiences"
@@ -36,7 +36,7 @@
           name="audiences"
           label="Audience:"
           :options="audiences"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
         <select-filter
           id="formats"
@@ -44,7 +44,7 @@
           name="formats"
           label="Format:"
           :options="formats"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
         <select-filter
           v-if="!isCalendar"
@@ -53,7 +53,7 @@
           name="months"
           label="Date:"
           :options="months"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
         <select-filter
           id="durations"
@@ -61,7 +61,7 @@
           name="durations"
           label="Duration:"
           :options="durations"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
         <select-filter
           id="features"
@@ -69,7 +69,7 @@
           name="features"
           label="Features:"
           :options="features"
-          @change="onFilterUpdate"
+          @change="onFilterUpdate(false)"
         />
 
         <ad class="events-page__left-ad" direction="vertical" position="left" />
@@ -249,7 +249,20 @@ export default class EventsPage extends Vue {
     }
   }
 
-  onFilterUpdate() {
+  onFilterUpdate(isDateSet: boolean) {
+    if (isDateSet) {
+      this.filters = {
+        keyword: '',
+        date: '',
+        organizers: [],
+        countries: [],
+        audiences: [],
+        months: [],
+        features: [],
+        formats: [],
+        durations: []
+      }
+    }
     this.updateRouteQuery()
   }
 
@@ -269,7 +282,7 @@ export default class EventsPage extends Vue {
     const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
     const strDate = `${date.year}-${month}`
     this.filters.date = strDate
-    this.onFilterUpdate()
+    this.onFilterUpdate(true)
     this.isCalendar = true
     this.selectedDate = new Date(date.year, date.monthIndex - 1)
   }
