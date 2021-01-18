@@ -55,9 +55,7 @@
           <v-calendar ref="eventCalendar" :attributes="attrs" :disabled-dates="{}" class="single-event__calendar" />
         </div>
         <div v-if="notes" class="single-event__frame single-event__others single-event__notes">
-          <div class="single-event__note-title">
-            {{ title }}
-          </div>
+          <div class="single-event__note-title">Note</div>
           {{ notes }}
         </div>
       </div>
