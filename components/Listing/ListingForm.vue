@@ -29,6 +29,10 @@
             />
             <label class="listing-action__label"> Update an existing listing </label>
           </button>
+          <nuxt-link class="listing-action__container" to="/listing/enhance">
+            <img src="/images/listings/enhance.svg" />
+            <label class="listing-action__label"> Enhance an existing listing </label>
+          </nuxt-link>
         </div>
       </div>
       <form class="listing-form" @submit.prevent="submit">
@@ -349,6 +353,7 @@ export default class ListingForm extends Vue {
   align-self: flex-center;
   margin-right: 8px;
   cursor: pointer;
+  text-decoration: none;
 
   @include respondTo(mobile) {
     padding-right: 8px;
