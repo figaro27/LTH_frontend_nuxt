@@ -142,7 +142,6 @@ export default class Home extends Vue {
   onChangeCalendar(date: any) {
     const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
     const strDate = `${date.year}-${month}`
-    console.log(strDate)
     this.$router.push({ name: 'search-events', query: { date: strDate } })
   }
 
