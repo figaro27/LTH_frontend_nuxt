@@ -31,30 +31,14 @@
         @select="select"
       >
         <template #input-end>
-          <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch"></button>
+          <button v-if="searchText" class="search-box__cancel" @click.stop="cancelSearch" />
         </template>
       </cool-select>
-      <div
-        v-if="currentTab == 'events'"
-        ref="calendar"
-        v-on-clickaway="onClickAwayCalendar"
-        class="search-box__calendar_container"
-      >
-        <img class="search-box__calendar_btn" src="/images/svgs/calendar.svg" @click="showCalendar = !showCalendar" />
-        <div v-if="showCalendar" v-on-clickaway="hideCalendar" class="search-box__monthpicker_container">
-          <div class="search-box__selectedDate">
-            <label class="search-box__selectedDate_year">{{ selectedMonth.year }}</label>
-            <label class="search-box__selectedDate_month">{{ selectedMonth.month }}</label>
-          </div>
-          <month-picker
-            v-model="selectedMonth"
-            class="search-box__monthpicker"
-            no-default
-            :months="months"
-            @input="onInputCalendar"
-          />
-        </div>
-      </div>
+      <calendar-button
+        v-if="currentTab === 'events'"
+        class="search-box__calendar"
+        @calendar="$emit('calendar', $event)"
+      />
       <button class="search-box__search" @click.stop="search">
         <img src="/images/svgs/search.svg" />
       </button>
@@ -65,9 +49,7 @@
 <script lang="ts">
 import { Component, Prop, State, Vue, Watch } from 'nuxt-property-decorator'
 import { CoolSelect, VueCoolSelectComponentInterface } from 'vue-cool-select'
-import { MonthPicker } from 'vue-month-picker'
-import { mixin as ClickAway } from 'vue-clickaway'
-import { ComponentOptions } from 'vue'
+
 import { LoadingStatus, RootState } from '@/store/types'
 
 type TabItem = {
@@ -80,8 +62,7 @@ type TabItem = {
 
 @Component({
   name: 'search-box',
-  components: { CoolSelect, MonthPicker },
-  mixins: [ClickAway as ComponentOptions<Vue>]
+  components: { CoolSelect }
 })
 export default class SearchBox extends Vue {
   @Prop({ required: true }) value!: string
@@ -102,23 +83,8 @@ export default class SearchBox extends Vue {
     select: VueCoolSelectComponentInterface
   }
 
-  showCalendarModal = false
-  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   searchText = ''
   selectedValue = ''
-  selectedMonth = {
-    from: null,
-    to: null,
-    month: new Date().toLocaleString('default', { month: 'long' }),
-    year: new Date().getFullYear()
-  }
-
-  showCalendar = false
-  noDefault = true
-
-  hideCalendar() {
-    this.showCalendar = false
-  }
 
   currentTab: 'tools' | 'events' = 'tools'
 
@@ -227,10 +193,6 @@ export default class SearchBox extends Vue {
     this.$emit('search', { keyword: '', tab: this.currentTab })
   }
 
-  onClickAwayCalendar() {
-    this.showCalendar = false
-  }
-
   select(selectedItem: { index: number; label: string; value: string }) {
     this.selectedValue = selectedItem.value
     if (selectedItem.index === 0) {
@@ -240,133 +202,20 @@ export default class SearchBox extends Vue {
     }
     this.$emit('search', { keyword: this.searchText, tab: this.currentTab })
   }
-
-  onInputCalendar(date: any) {
-    this.$emit('calendar', date)
-    this.showCalendar = false
-  }
 }
 </script>
 
-<style lang="scss">
-$searchBoxHeight: 50px;
-$searchBoxWidth: 850px;
-
-#search-box {
-  .IZ-select {
-    height: $searchBoxHeight;
-    width: $searchBoxWidth;
-  }
-
-  .IZ-select__input {
-    border-radius: 0 0 0 10px !important;
-    border-right: none !important;
-    border-color: $colorLightGreen;
-    display: flex;
-
-    input {
-      font-family: 'Avenir', Helvetica, Arial, sans-serif;
-      font-weight: 500;
-    }
-  }
-
-  .IZ-select__input--focused {
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-
-  .IZ-select__menu {
-    border-radius: 0 0 10px 10px !important;
-    border-color: $colorLightGreen;
-    z-index: 100;
-  }
-
-  .IZ-select__item {
-    text-align: left;
-    color: $colorNavy;
-  }
-}
-
-.search-box__search {
-  background: $colorLightGreen;
-  width: $searchBoxHeight;
-  height: $searchBoxHeight;
-  outline: none;
-  border: none;
-  border-radius: 0 10px 10px 0;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover,
-  &:active {
-    background: lighten($colorLightGreen, 10%);
-  }
-}
-.search-box__monthpicker_container {
-  position: absolute;
-  top: $searchBoxHeight;
-  @media (max-width: 870px) {
-    right: 10px;
-  }
-  @media (min-width: 870px) {
-    left: 10px;
-  }
-  z-index: 10;
-  background: white;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  overflow: hidden;
-  padding-bottom: 20px;
-  color: navy;
-  .month-picker__container {
-    width: 20rem;
-  }
-  .month-picker__year {
-    display: flex;
-    button {
-      border: none;
-      background: transparent;
-      color: navy;
-    }
-  }
-  .month-picker {
-    display: flex;
-    justify-content: center;
-    box-shadow: none;
-    .month-picker__month {
-      border: none;
-    }
-  }
-}
-.search-box__input_container {
-  display: flex;
-  width: 100%;
-}
-</style>
-
 <style lang="scss" scoped>
+$searchBoxWidth: 850px;
 $searchBoxHeight: 50px;
-
-.search-box__calendar_container {
-  position: relative;
-  height: $searchBoxHeight;
-  border: 1px solid $colorLightGreen;
-  border-left: none;
-  border-right: none;
-  align-items: center;
-  display: flex;
-  cursor: pointer;
-}
 
 .search-box {
   @include col;
 }
 
 .search-box__tabs {
-  width: 100%;
   @include row;
+  width: 100%;
   margin-bottom: -1px;
   z-index: 1;
 }
@@ -422,10 +271,45 @@ $searchBoxHeight: 50px;
   }
 }
 
-.search-box__calendar_btn {
-  width: 30px;
-  height: 30px;
-  margin: auto 10px;
+.search-box__input_container {
+  position: relative;
+  @include row;
+  width: 100%;
+}
+
+#search-box ::v-deep {
+  .IZ-select {
+    flex: 1;
+    height: $searchBoxHeight;
+  }
+
+  .IZ-select__input {
+    border-radius: 0 0 0 10px !important;
+    border-right: none !important;
+    border-color: $colorLightGreen;
+    display: flex;
+
+    input {
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      font-weight: 500;
+    }
+  }
+
+  .IZ-select__input--focused {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .IZ-select__menu {
+    border-radius: 0 0 10px 10px !important;
+    border-color: $colorLightGreen;
+    z-index: 100;
+  }
+
+  .IZ-select__item {
+    text-align: left;
+    color: $colorNavy;
+  }
 }
 
 .search-box__cancel {
@@ -460,20 +344,25 @@ $searchBoxHeight: 50px;
   }
 }
 
-.search-box__selectedDate {
-  @include col;
-  align-items: flex-start;
-  background: $colorLightBlue;
-  padding: 10px 30px;
+.search-box__calendar {
+  position: absolute;
+  right: $searchBoxHeight;
+  padding-right: 5px;
+}
 
-  .search-box__selectedDate_year {
-    color: $colorNavy;
-    @include typography(xl, default, bold);
-  }
+.search-box__search {
+  @include row--center;
+  background: $colorLightGreen;
+  width: $searchBoxHeight;
+  height: $searchBoxHeight;
+  outline: none;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
 
-  .search-box__selectedDate_month {
-    color: $colorNavy;
-    @include typography(xxl, default, bold);
+  &:hover,
+  &:active {
+    background: lighten($colorLightGreen, 10%);
   }
 }
 </style>

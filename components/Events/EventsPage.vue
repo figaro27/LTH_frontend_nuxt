@@ -74,7 +74,7 @@
 
         <ad class="events-page__left-ad" direction="vertical" position="left" />
       </div>
-      <div v-loading="eventsLoading !== 2" class="events-page__content">
+      <div v-loading="eventsLoading !== LoadingStatus.Loaded" class="events-page__content">
         <div class="events-page__content-wrapper">
           <template v-if="isCalendar">
             <div class="events-page__events">
@@ -143,6 +143,8 @@ export default class EventsPage extends Vue {
   @State((state: RootState) => state.events.eventsPage) curPageNum!: EventFilters
 
   @State((state: RootState) => state.events.routeQuery) lastSearchQuery!: EventsRouteQuery
+
+  readonly LoadingStatus = LoadingStatus
 
   get months() {
     return moment.months().map((month, index) => ({ id: index + 1, name: month }))
@@ -252,8 +254,8 @@ export default class EventsPage extends Vue {
   onFilterUpdate(isDateSet: boolean) {
     if (isDateSet) {
       this.filters = {
+        ...this.filters,
         keyword: '',
-        date: '',
         organizers: [],
         countries: [],
         audiences: [],

@@ -1,6 +1,8 @@
 <template>
   <div class="events-calendar__container">
-    <img class="search-box__calendar_btn" src="/images/svgs/list.svg" @click="changeTab" />
+    <nuxt-link :to="listViewUrl">
+      <img class="search-box__calendar_btn" src="/images/svgs/list.svg" />
+    </nuxt-link>
     <client-only>
       <full-calendar
         v-if="!isMobile"
@@ -17,7 +19,7 @@
         ref="eventMobileCalendar"
         :attributes="mobileCalendarDates"
         class="events-calendar__mobile_calendar"
-      ></v-calendar>
+      />
       <div class="events-calenar__mobile_event_container">
         <h2 class="events-calendar__mobile_event_list">Upcoming Events</h2>
         <div v-for="(data, key) in fullCalendarEvents" :key="key" class="events-calenar__mobile_event_box">
@@ -142,6 +144,13 @@ export default class EventsCalendar extends Vue {
     return this.events.map((item) => {
       return item.date
     })
+  }
+
+  get listViewUrl() {
+    return {
+      name: 'search-events',
+      query: { ...this.$route.query, date: undefined }
+    }
   }
 
   changeTab() {
