@@ -286,8 +286,8 @@ export default class EventsPage extends Vue {
   onChangeCalendar(date: MonthPickerDate) {
     const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
     const strDate = `${date.year}-${month}`
-    this.filters.date = strDate
     this.onFilterUpdate(true)
+    this.filters.date = strDate
     this.selectedDate = new Date(date.year, date.monthIndex - 1)
   }
 

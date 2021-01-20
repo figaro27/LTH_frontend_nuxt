@@ -9,6 +9,7 @@
         ref="eventCalendar"
         :config="config"
         :events="fullCalendarEvents"
+        height="100%"
         class="events-calendar__calendar"
       />
     </client-only>
@@ -70,6 +71,8 @@ export default class EventsCalendar extends Vue {
       defaultView: 'month',
       fixedWeekCount: false,
       eventStartEditable: false,
+      height: 'auto',
+      contentHeight: 'auto',
       eventRender: (event: any, element: any) => {
         const EventsCalendarDetailInstance: any = new EventsCalendarDetailClass()
         EventsCalendarDetailInstance.setEvent(event)
@@ -216,6 +219,9 @@ export default class EventsCalendar extends Vue {
 .fc-time {
   display: none;
 }
+.fc-unselectable {
+  height: 100%;
+}
 
 .events-calendar__container {
   height: 100%;
@@ -223,7 +229,6 @@ export default class EventsCalendar extends Vue {
     background-color: transparent;
     padding: 0 20px;
     width: 100%;
-    height: 100%;
     .fc-other-month * {
       opacity: 70%;
     }
