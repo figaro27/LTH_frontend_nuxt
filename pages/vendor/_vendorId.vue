@@ -4,7 +4,7 @@
       <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
       <div class="single-vendor__main">
-        <vendor-detail :data="data" />
+        <vendor-detail v-if="data" :data="data" />
         <enhanced-vendor v-if="isEnhancedVendor" class="single-vendor__enhanced" :data="data" />
       </div>
 
@@ -25,7 +25,9 @@ import { api, buildMeta } from '@/utils'
   async fetch() {
     const { vendorId } = this.$route.params
     const res = await api.get(`vendors/${vendorId}`)
+    console.log('vendor before fetch data: ', this.$data.data)
     this.$data.data = res.data.data
+    console.log('vendor fetch data: ', this.$data.data)
   },
 
   head() {
@@ -57,6 +59,7 @@ export default class SingleVendor extends Vue {
   }
 
   async mounted() {
+    console.log('vendor mounted data: ', this.data)
     const { vendorId } = this.$route.params
     const res = await api.get(`vendors/${vendorId}`)
     this.data = res.data.data

@@ -4,7 +4,7 @@
       <ad class="single-event__left-ad" position="left" direction="vertical" />
 
       <div class="single-event__main">
-        <event-detail :data="data" />
+        <event-detail v-if="data" :data="data" />
       </div>
 
       <ad class="single-event__right-ad" position="right" direction="vertical" />
@@ -47,9 +47,6 @@ export default class SingleEvent extends Vue {
   data: Event | null = null
 
   async mounted() {
-    if (this.data) {
-      return
-    }
     const res = await api.get(`events/${this.eventId}`)
     this.data = res.data.data
   }
