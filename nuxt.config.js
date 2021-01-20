@@ -153,7 +153,7 @@ export default {
   generate: {
     concurrency: 20,
     interval: 500,
-    subFolders: false,
+    subFolders: true,
     minify: {
       collapseWhitespace: false
     },
