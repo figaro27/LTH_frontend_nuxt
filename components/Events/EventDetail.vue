@@ -15,6 +15,9 @@
         </div>
         <div class="single-event__tool">
           {{ title }}
+          <div class="single-event__property-date">
+            <label class="single-event__property-value">{{ date }}</label>
+          </div>
         </div>
         <div class="single-event__details">
           <div class="single-event__property">
@@ -142,6 +145,12 @@ export default class EventDetail extends Vue {
   get organizer() {
     const { data } = this
     return (data && data.organizer) || ''
+  }
+
+  get date() {
+    const { data } = this
+    const newDate = this.data.date.toString().slice(0, 10)
+    return (data && newDate) || ''
   }
 
   get location() {
@@ -348,6 +357,10 @@ $adMaxWidth: calc(50% - #{$desktopMaxWidth / 2} - 40px);
 .single-event__property-value {
   @include typography(lg, default);
   color: $colorLightGrey;
+}
+
+.single-event__property-date {
+  text-align: center;
 }
 
 .single-event__side {
