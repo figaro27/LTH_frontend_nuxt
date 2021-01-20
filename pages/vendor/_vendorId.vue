@@ -25,9 +25,7 @@ import { api, buildMeta } from '@/utils'
   async fetch() {
     const { vendorId } = this.$route.params
     const res = await api.get(`vendors/${vendorId}`)
-    console.log('vendor before fetch data: ', this.$data.data)
     this.$data.data = res.data.data
-    console.log('vendor fetch data: ', this.$data.data)
   },
 
   head() {
@@ -59,7 +57,6 @@ export default class SingleVendor extends Vue {
   }
 
   async mounted() {
-    console.log('vendor mounted data: ', this.data)
     const { vendorId } = this.$route.params
     const res = await api.get(`vendors/${vendorId}`)
     this.data = res.data.data
