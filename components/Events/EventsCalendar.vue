@@ -50,35 +50,48 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
-import { Event } from '@/models'
 import { isMobile } from 'mobile-device-detect'
+import moment from 'moment'
+
+import { MonthPickerDate } from '@/components/SearchBox/types'
+import { Event } from '@/models'
+
 import EventsCalendarDetail from './EventsCalendarDetail.vue'
+
 const EventsCalendarDetailClass = Vue.extend(EventsCalendarDetail)
 
 @Component({ name: 'events-calendar', components: {} })
 export default class EventsCalendar extends Vue {
   @Prop({ required: true }) events!: Event[]
-  @Prop({ required: true }) date!: any
+  @Prop({ required: true }) date!: Date
 
-  isMobile: boolean = false
-
-  mounted() {
-    this.isMobile = isMobile
-    setTimeout(() => {
-      this.onDateChange(this.date)
-    }, 100)
+  get config() {
+    return {
+      defaultView: 'month',
+      fixedWeekCount: false,
+      eventStartEditable: false,
+      eventRender: (event: any, element: any) => {
+        const EventsCalendarDetailInstance: any = new EventsCalendarDetailClass()
+        EventsCalendarDetailInstance.setEvent(event)
+        EventsCalendarDetailInstance.$mount()
+        const eventHTML = EventsCalendarDetailInstance.$el.outerHTML
+        element.find('.fc-title').html(eventHTML)
+        event.editable = false
+        element.draggable = false
+      },
+      viewRender: (event: any) => {
+        const viewingMonth = moment(event.dateProfile.date).utc(true)
+        const dateInfo: MonthPickerDate = {
+          monthIndex: viewingMonth.month() + 1,
+          year: viewingMonth.year()
+        }
+        this.$emit('calendar', dateInfo)
+      }
+    }
   }
 
-  @Watch('date', { immediate: true, deep: true })
-  async onDateChange(val: any) {
-    if (this.$refs.eventCalendar) {
-      const calendar = this.$refs.eventCalendar as any
-      calendar.fireMethod('gotoDate', val)
-    }
-    if (this.$refs.eventMobileCalendar) {
-      const mobileCalendar = this.$refs.eventMobileCalendar as any
-      await mobileCalendar.move(val)
-    }
+  get isMobile() {
+    return isMobile
   }
 
   get fullCalendarEvents() {
@@ -104,24 +117,6 @@ export default class EventsCalendar extends Vue {
       return event
     })
   }
-
-  config = {
-    defaultView: 'month',
-    fixedWeekCount: false,
-    eventStartEditable: false,
-    eventRender: (event: any, element: any) => {
-      const EventsCalendarDetailInstance: any = new EventsCalendarDetailClass()
-      EventsCalendarDetailInstance.setEvent(event)
-      EventsCalendarDetailInstance.$mount()
-      const eventHTML = EventsCalendarDetailInstance.$el.outerHTML
-      element.find('.fc-title').html(eventHTML)
-      event.editable = false
-      element.draggable = false
-    }
-  }
-
-  masks = { weekdays: 'WWW' }
-  showDate = new Date(this.date.year, this.date.monthIndex - 1)
 
   get mobileCalendarDates() {
     const eventsDates: any = this.events.map((item: any) => {
@@ -153,8 +148,22 @@ export default class EventsCalendar extends Vue {
     }
   }
 
-  changeTab() {
-    this.$router.push({ name: 'search-tools', query: {} })
+  mounted() {
+    setTimeout(() => {
+      this.onDateChange()
+    }, 100)
+  }
+
+  @Watch('date', { immediate: true })
+  async onDateChange() {
+    if (this.$refs.eventCalendar) {
+      const calendar = this.$refs.eventCalendar as any
+      calendar.fireMethod('gotoDate', this.date)
+    }
+    if (this.$refs.eventMobileCalendar) {
+      const mobileCalendar = this.$refs.eventMobileCalendar as any
+      await mobileCalendar.move(this.date)
+    }
   }
 }
 </script>

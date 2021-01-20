@@ -17,6 +17,8 @@ import { ComponentOptions } from 'vue'
 import { mixin as ClickAway } from 'vue-clickaway'
 import { MonthPicker } from 'vue-month-picker'
 
+import { MonthPickerDate } from './types'
+
 @Component({
   name: 'calendar-button',
   components: { MonthPicker },
@@ -36,7 +38,7 @@ export default class CalendarButton extends Vue {
     this.showCalendar = false
   }
 
-  onInputCalendar(date: any) {
+  onInputCalendar(date: MonthPickerDate) {
     this.$emit('calendar', date)
     this.showCalendar = false
   }

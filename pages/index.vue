@@ -72,6 +72,8 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
+
+import { MonthPickerDate } from '@/components/SearchBox/types'
 import { buildMeta, CONSTS } from '@/utils'
 
 @Component({
@@ -139,7 +141,7 @@ export default class Home extends Vue {
     }
   }
 
-  onChangeCalendar(date: any) {
+  onChangeCalendar(date: MonthPickerDate) {
     const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
     const strDate = `${date.year}-${month}`
     this.$router.push({ name: 'search-events', query: { date: strDate } })

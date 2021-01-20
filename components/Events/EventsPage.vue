@@ -78,7 +78,7 @@
         <div class="events-page__content-wrapper">
           <template v-if="isCalendar">
             <div class="events-page__events">
-              <events-calendar :events="events" :date="selectedDate" />
+              <events-calendar :events="events" :date="selectedDate" @calendar="onChangeCalendar" />
             </div>
           </template>
           <template v-else>
@@ -123,6 +123,7 @@ import moment from 'moment'
 import { Component, State, Vue, Watch } from 'nuxt-property-decorator'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
+import { MonthPickerDate } from '@/components/SearchBox/types'
 import { EventFilters, SearchResultEvent } from '@/models'
 import { RootState, LoadingStatus } from '@/store/types'
 import { EventsRouteQuery } from '@/store/events/types'
@@ -159,7 +160,6 @@ export default class EventsPage extends Vue {
   }
 
   isMobile: boolean = false
-  isCalendar = false
   selectedDate = new Date()
   filterOptionsLoaded: boolean = false
 
@@ -173,6 +173,10 @@ export default class EventsPage extends Vue {
     features: [],
     formats: [],
     durations: []
+  }
+
+  get isCalendar() {
+    return !!this.filters.date
   }
 
   get routeQuery() {
@@ -246,7 +250,6 @@ export default class EventsPage extends Vue {
     await this.submitQuery()
 
     if (this.filters.date) {
-      this.isCalendar = true
       this.selectedDate = new Date(this.filters.date.replace('-', '/'))
     }
   }
@@ -280,12 +283,11 @@ export default class EventsPage extends Vue {
     this.onKeywordSubmit({ keyword: '' })
   }
 
-  onChangeCalendar(date: any) {
+  onChangeCalendar(date: MonthPickerDate) {
     const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
     const strDate = `${date.year}-${month}`
     this.filters.date = strDate
     this.onFilterUpdate(true)
-    this.isCalendar = true
     this.selectedDate = new Date(date.year, date.monthIndex - 1)
   }
 
@@ -346,7 +348,6 @@ export default class EventsPage extends Vue {
     if (isEqual(this.searchRouteQuery, this.lastSearchQuery)) return
 
     this.$store.commit('events/SET_LAST_ROUTE_QUERY', this.searchRouteQuery)
-
     await this.$store.dispatch('events/runSearch', this.searchQuery)
   }
 }
