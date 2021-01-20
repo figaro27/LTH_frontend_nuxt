@@ -20,19 +20,26 @@ import { api, buildMeta } from '@/utils'
 @Component({
   name: 'single-event',
 
-  async asyncData(ctx) {
-    const { params } = ctx
-    const res = await api.get(`events/${params.eventId}`)
-    return {
-      data: res.data.data as Event
-    }
+  async fetch() {
+    const { eventId } = this.$route.params
+    const res = await api.get(`events/${eventId}`)
+    this.$data.data = res.data.data
   },
 
   head() {
-    const { title } = this.$data.data
+    const event = this.$data.data as Event | null
+    if (!event) {
+      return buildMeta({
+        title: 'Legaltech Hub',
+        description: 'Legaltech Hub'
+      })
+    }
+
+    const { logo, title } = event
     return buildMeta({
       title: `${title} - Legaltech Hub`,
-      description: `${title} - Legaltech Hub`
+      description: `${title} - Legaltech Hub`,
+      imageUrl: logo
     })
   }
 })
