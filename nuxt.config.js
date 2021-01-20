@@ -151,8 +151,26 @@ export default {
     transpile: ['get-youtube-id', 'lodash.isequal', 'validator', 'vue-month-picker']
   },
   generate: {
+    concurrency: 20,
+    interval: 500,
+    subFolders: false,
     minify: {
       collapseWhitespace: false
+    },
+    routes() {
+      const client = axios.create({ baseURL: apiUrl })
+      return Promise.all([
+        client.request({ method: 'GET', url: 'vendors/all' }),
+        client.request({ method: 'GET', url: 'events/all' }),
+        client.request({ method: 'GET', url: 'saved-searchs' })
+      ]).then(([vendorsRes, eventsRes, savedSearchRes]) => {
+        const vendorRoutes = vendorsRes.data.data.map((vendor) => `/vendor/${vendor.id}`)
+        const eventRoutes = eventsRes.data.data.map((event) => `/event/${event.id}`)
+        const savedSearchsRoutes = savedSearchRes.data.data.map(
+          (savedSearch) => `/regional-snapshots/${savedSearch.slug}`
+        )
+        return [...vendorRoutes, ...eventRoutes, ...savedSearchsRoutes]
+      })
     }
   },
 
