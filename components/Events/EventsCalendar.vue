@@ -107,7 +107,7 @@ export default class EventsCalendar extends Vue {
       const event = {
         key: index,
         title: item.title,
-        location: `${item.city}, ${item.country}`,
+        location: item.city != null ? `${item.city}, ${item.country}` : `${item.country}`,
         info: `${audiences} | ${item.duration.name}`,
         desc: item.description,
         url: `/event/${item.id}`,
