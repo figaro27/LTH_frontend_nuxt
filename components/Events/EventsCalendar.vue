@@ -28,9 +28,7 @@
           </div>
           <div>
             <a :href="data.url" class="event-calendar__mobile_event__title">{{ data.title }}</a>
-            <p class="event-calendar__mobile_event__location">
-              {{ data.location }}
-            </p>
+            <p class="event-calendar__mobile_event__location">{{ data.location }}</p>
             <p class="event-calendar__mobile_event__info">{{ data.info }}</p>
             <template v-if="data.desc">
               <p v-if="data.desc.length < 35" class="event-calendar__mobile_event__desc">
@@ -104,7 +102,7 @@ export default class EventsCalendar extends Vue {
       const event = {
         key: index,
         title: item.title,
-        location: `${item.city}, ${item.country}`,
+        location: item.city != null ? `${item.city}, ${item.country}` : `${item.country}`,
         info: `${audiences} | ${item.duration.name}`,
         desc: item.description,
         url: `/event/${item.id}`,
