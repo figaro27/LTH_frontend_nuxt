@@ -1,19 +1,26 @@
 <template>
   <div class="events-calendar__container">
-    <nuxt-link :to="listViewUrl">
-      <img v-tooltip="{ content: 'List View' }" class="search-box__calendar_btn" src="/images/svgs/list.svg" />
-    </nuxt-link>
-    <client-only>
-      <full-calendar
-        v-if="!isMobile"
-        ref="eventCalendar"
-        :config="config"
-        :events="fullCalendarEvents"
-        class="events-calendar__calendar"
-      />
-    </client-only>
-
-    <div v-if="isMobile">
+    <div v-if="!isMobile">
+      <nuxt-link :to="listViewUrl">
+        <img class="search-box__calendar_btn" src="/images/svgs/list.svg" />
+      </nuxt-link>
+      <client-only>
+        <full-calendar
+          ref="eventCalendar"
+          :config="config"
+          :events="fullCalendarEvents"
+          height="100%"
+          class="events-calendar__calendar"
+        />
+      </client-only>
+    </div>
+    <div v-else>
+      <div class="events-calendar__mobile__link-container">
+        <nuxt-link :to="listViewUrl" class="events-calendar__mobile__link">
+          <img class="search-box__calendar_btn" src="/images/svgs/list.svg" />
+          <span class="events-calendar__mobile__link-text">List view</span>
+        </nuxt-link>
+      </div>
       <v-calendar
         v-if="isMobile"
         ref="eventMobileCalendar"
@@ -68,6 +75,8 @@ export default class EventsCalendar extends Vue {
       defaultView: 'month',
       fixedWeekCount: false,
       eventStartEditable: false,
+      height: 'auto',
+      contentHeight: 'auto',
       eventRender: (event: any, element: any) => {
         const EventsCalendarDetailInstance: any = new EventsCalendarDetailClass()
         EventsCalendarDetailInstance.setEvent(event)
@@ -214,6 +223,9 @@ export default class EventsCalendar extends Vue {
 .fc-time {
   display: none;
 }
+.fc-unselectable {
+  height: 100%;
+}
 
 .events-calendar__container {
   height: 100%;
@@ -221,7 +233,6 @@ export default class EventsCalendar extends Vue {
     background-color: transparent;
     padding: 0 20px;
     width: 100%;
-    height: 100%;
     .fc-other-month * {
       opacity: 70%;
     }
@@ -232,6 +243,10 @@ export default class EventsCalendar extends Vue {
   width: 30px;
   height: 30px;
   margin: auto 10px;
+  @include respondTo(mobile) {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .events-calendar__mobile_calendar {
@@ -292,6 +307,30 @@ export default class EventsCalendar extends Vue {
       margin: auto;
     }
   }
+}
+.events-calendar__mobile__link-container {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.events-calendar__mobile__link {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-bottom: 1px solid #c2d5fe;
+  margin-left: auto;
+  text-decoration: none;
+  padding: 4px;
+  nuxt-link {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.events-calendar__mobile__link-text {
+  color: #c2d5fe;
+  @include typography(lg, default);
+  text-align: center;
 }
 </style>
 <style lang="scss" scoped></style>
