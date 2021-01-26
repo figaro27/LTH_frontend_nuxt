@@ -12,13 +12,19 @@
     </div>
     <div class="events-item__row">
       <span v-if="audiences" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ audiences }}</text-highlight>
+        <text-highlight class="events-item__property-highlight" :queries="highlightQueries">{{
+          audiences
+        }}</text-highlight>
       </span>
       <span v-if="duration" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ duration }}</text-highlight>
+        <text-highlight lass="events-item__property-highlight" :queries="highlightQueries">{{
+          duration
+        }}</text-highlight>
       </span>
       <span v-if="recurrence" class="events-item__property">
-        <text-highlight :queries="highlightQueries">{{ recurrence }}</text-highlight>
+        <text-highlight class="events-item__property-highlight" :queries="highlightQueries">{{
+          recurrence
+        }}</text-highlight>
       </span>
     </div>
     <div class="events-item__row">
@@ -165,7 +171,7 @@ export default class VendorItem extends Vue {
   @include typography(md-1);
   color: $colorLightGrey;
   margin: 3px 0;
-
+  overflow-x: hidden;
   &:not(:first-child) {
     padding-left: 5px;
   }
