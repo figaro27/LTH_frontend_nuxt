@@ -2,7 +2,7 @@
   <div class="events-calendar__container">
     <div v-if="!isMobile">
       <nuxt-link :to="listViewUrl">
-        <img class="search-box__calendar_btn" src="/images/svgs/list.svg" />
+        <img v-tooltip="{ content: 'List View' }" class="search-box__calendar_btn" src="/images/svgs/list.svg" />
       </nuxt-link>
       <client-only>
         <full-calendar
