@@ -2,7 +2,7 @@
   <div class="events-calendar__container">
     <div v-if="!isMobile">
       <nuxt-link :to="listViewUrl">
-        <img class="search-box__calendar_btn" src="/images/svgs/list.svg" />
+        <img v-tooltip="{ content: 'List View' }" class="search-box__calendar_btn" src="/images/svgs/list.svg" />
       </nuxt-link>
       <client-only>
         <full-calendar
@@ -14,7 +14,7 @@
         />
       </client-only>
     </div>
-    <div v-if="isMobile">
+    <div v-else>
       <div class="events-calendar__mobile__link-container">
         <nuxt-link :to="listViewUrl" class="events-calendar__mobile__link">
           <img class="search-box__calendar_btn" src="/images/svgs/list.svg" />
@@ -35,9 +35,7 @@
           </div>
           <div>
             <a :href="data.url" class="event-calendar__mobile_event__title">{{ data.title }}</a>
-            <p class="event-calendar__mobile_event__location">
-              {{ data.location }}
-            </p>
+            <p class="event-calendar__mobile_event__location">{{ data.location }}</p>
             <p class="event-calendar__mobile_event__info">{{ data.info }}</p>
             <template v-if="data.desc">
               <p v-if="data.desc.length < 35" class="event-calendar__mobile_event__desc">
