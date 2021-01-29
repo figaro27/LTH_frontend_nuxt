@@ -62,9 +62,14 @@
           :error="errors.description"
           length="400"
         />
-        <enhanced-listing-form-file v-model="enhancedRequest.image" label="Add image or video" />
-        <enhanced-listing-form-file
-          v-model="enhancedRequest.articles"
+        <enhanced-listing-form-file v-model="enhancedRequest.image" label="Add Images" placeholder="Up to 3 Links" />
+        <enhanced-listing-form-link
+          v-model="enhancedRequest.video"
+          label="Add Video"
+          placeholder="Add video link from Youtube, Vimeo"
+        />
+        <enhanced-listing-form-link
+          v-model="enhancedRequest.link"
           label="Add Links for Articles"
           placeholder="Up to 3 Links"
         />
@@ -91,7 +96,8 @@ type EnhancedRequestErrors = {
   useCases?: string
   description?: string
   image?: string
-  articles?: string
+  video?: Array<string>
+  articles?: Array<string>
 }
 
 @Component({
