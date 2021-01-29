@@ -78,7 +78,7 @@
         <div class="events-page__content-wrapper">
           <template v-if="isCalendar">
             <div class="events-page__events">
-              <events-calendar :events="events" :date="selectedDate" @calendar="onChangeCalendar" />
+              <events-calendar :events="events" :date="filters.date" @calendar="onChangeCalendar" />
             </div>
           </template>
           <template v-else>
