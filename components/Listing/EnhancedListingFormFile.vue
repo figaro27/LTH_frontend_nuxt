@@ -15,12 +15,19 @@
     </div>
     <label v-if="error" class="listing-form-input__error">{{ error }}</label>
     <label v-else class="listing-form-input__placeholder">{{ placeholder }}</label>
+    <vue-progress-bar v-if="isPicked" class="listing-form-input__progress"></vue-progress-bar>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import VueProgressBar from 'vue-progressbar'
 
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '2px'
+})
 @Component({ name: 'enhanced-listing-form-file' })
 export default class EnhancedListingFormFile extends Vue {
   @Prop({ required: true }) label!: string
@@ -28,7 +35,7 @@ export default class EnhancedListingFormFile extends Vue {
   @Prop({ default: null }) error!: string | null
   @Prop({ default: '' }) placeholder!: string
   @Prop({ type: Boolean, default: false }) required!: boolean
-
+  isPicked = false
   value = {}
   get _value() {
     return this.value
@@ -42,6 +49,7 @@ export default class EnhancedListingFormFile extends Vue {
   }
 
   changeFile(event: any) {
+    this.isPicked = true
     this.value = event.target.files[0]
   }
 }
@@ -102,5 +110,11 @@ export default class EnhancedListingFormFile extends Vue {
 
 .listing-form-input__file {
   display: none;
+}
+
+.listing-form-input__progress {
+  width: 100%;
+  height: 16px;
+  margin-top: 16px;
 }
 </style>

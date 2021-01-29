@@ -2,46 +2,57 @@
   <div class="listing-form-input">
     <label class="listing-form-input__label">{{ label }}</label>
     <div class="listing-form-input__input">
-      <label class="listing-form-input__name">{{ value.name }}</label>
-      <button class="listing-form-input__upload" @click="onPickFile">Add</button>
       <input
         ref="fileInput"
-        type="file"
+        v-model="value"
+        type="text"
         :required="required ? 'required' : ''"
         style="dispaly: none"
         class="listing-form-input__file"
       />
+      <button class="listing-form-input__upload" @click="onAddLink">Add</button>
     </div>
     <label v-if="error" class="listing-form-input__error">{{ error }}</label>
     <label v-else class="listing-form-input__placeholder">{{ placeholder }}</label>
+    <div v-for="(item, index) in links" :key="index">
+      <enhanced-listing-form-added-item
+        class="listing-form__added-item"
+        :link="item"
+        :index="index"
+        @remove="onRemoved"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
-@Component({ name: 'enhanced-listing-form-file' })
-export default class EnhancedListingFormFile extends Vue {
+@Component({ name: 'enhanced-listing-form-link' })
+export default class EnhancedListingFormLink extends Vue {
   @Prop({ required: true }) label!: string
   @Prop({ default: '' }) name!: string
   @Prop({ default: null }) error!: string | null
   @Prop({ default: '' }) placeholder!: string
   @Prop({ type: Boolean, default: false }) required!: boolean
+  @Prop({ default: null }) links!: any | null
 
-  value = {}
+  value = ''
   get _value() {
     return this.value
   }
 
-  onPickFile() {
-    if (this.$refs.fileInput) {
-      const fileInput = this.$refs.fileInput as any
-      fileInput.click()
+  onAddLink() {
+    if (this._value !== '') {
+      this.links = this.links != null ? [...this.links, this._value] : [...this._value]
+      this.error = ''
+    } else {
+      this.error = 'Cannot be empty'
     }
   }
 
-  changeFile(event: any) {
-    this.value = event.target.files[0]
+  onRemoved(index: number) {
+    this.links.splice(index, 1)
   }
 }
 </script>
@@ -97,5 +108,9 @@ export default class EnhancedListingFormFile extends Vue {
 .listing-form-input__placeholder {
   @include typography(md);
   color: $colorDarkGrey;
+}
+
+.listing-form__added-item {
+  margin-top: 8px;
 }
 </style>
