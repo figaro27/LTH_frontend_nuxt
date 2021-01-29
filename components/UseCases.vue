@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <v-popover trigger="click" popover-class="popover--usecase">
+    <v-popover id="use-cases-popover" trigger="click" popover-class="popover--usecase">
       <div class="use-case">
         <label class="use-case__caption">Browse by Use Case</label>
         <img src="/images/faq/chevron-opened.svg" />

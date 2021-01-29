@@ -2,7 +2,7 @@
   <div class="search-page">
     <div class="search-page__header">
       <div class="search-box-container">
-        <search-box :value="filters.keyword" @search="onKeywordSubmit" />
+        <search-box contents="tools" :value="filters.keyword" @search="onKeywordSubmit" />
         <div v-if="filters.keyword" class="search-box__keywords">
           <div class="search-box__keyword">
             <span>{{ filters.keyword }}</span>
@@ -126,27 +126,27 @@ import { isMobile } from 'mobile-device-detect'
 
 import { DEFAULT_VENDORS_LIMIT } from '@/assets/consts'
 import { Filters, SearchResultVendor, SavedSearch } from '@/models'
-import { RouteQuery } from '@/store/search/types'
+import { VendorsRouteQuery } from '@/store/vendors/types'
 import { RootState, LoadingStatus } from '@/store/types'
 
-@Component({ name: 'search' })
-export default class Search extends Vue {
+@Component({ name: 'vendors-page' })
+export default class VendorsPage extends Vue {
   @Prop({ default: null }) savedSearch!: SavedSearch | null
 
-  @State((state: RootState) => state.search.demographics) demographics!: any[]
-  @State((state: RootState) => state.search.functionalities) functionalities!: any[]
-  @State((state: RootState) => state.search.installations) installations!: any[]
-  @State((state: RootState) => state.search.integrations) integrations!: any[]
-  @State((state: RootState) => state.search.offices) offices!: any[]
-  @State((state: RootState) => state.search.platformLanguages) platformLanguages!: any[]
-  @State((state: RootState) => state.search.practiceAreas) practiceAreas!: any[]
-  @State((state: RootState) => state.search.vendors) vendors!: SearchResultVendor[]
-  @State((state: RootState) => state.search.vendorsLoading) vendorsLoading!: LoadingStatus
-  @State((state: RootState) => state.search.totalVendors) total!: number
-  @State((state: RootState) => state.search.vendorsLastFilter) lastSearch!: Filters
-  @State((state: RootState) => state.search.vendorsPage) curPageNum!: Filters
+  @State((state: RootState) => state.vendors.demographics) demographics!: any[]
+  @State((state: RootState) => state.vendors.functionalities) functionalities!: any[]
+  @State((state: RootState) => state.vendors.installations) installations!: any[]
+  @State((state: RootState) => state.vendors.integrations) integrations!: any[]
+  @State((state: RootState) => state.vendors.offices) offices!: any[]
+  @State((state: RootState) => state.vendors.platformLanguages) platformLanguages!: any[]
+  @State((state: RootState) => state.vendors.practiceAreas) practiceAreas!: any[]
+  @State((state: RootState) => state.vendors.vendors) vendors!: SearchResultVendor[]
+  @State((state: RootState) => state.vendors.vendorsLoading) vendorsLoading!: LoadingStatus
+  @State((state: RootState) => state.vendors.totalVendors) total!: number
+  @State((state: RootState) => state.vendors.vendorsLastFilter) lastSearch!: Filters
+  @State((state: RootState) => state.vendors.vendorsPage) curPageNum!: Filters
 
-  @State((state: RootState) => state.search.routeQuery) lastSearchQuery!: RouteQuery
+  @State((state: RootState) => state.vendors.routeQuery) lastSearchQuery!: VendorsRouteQuery
 
   get pageCount() {
     return Math.ceil(this.total / DEFAULT_VENDORS_LIMIT)
@@ -176,7 +176,7 @@ export default class Search extends Vue {
     return this.$route.query
   }
 
-  get searchRouteQuery() {
+  get searchRouteQuery(): VendorsRouteQuery {
     const {
       keyword,
       demographics,
@@ -235,7 +235,7 @@ export default class Search extends Vue {
 
   get clearFilterPath() {
     const { savedSearch } = this
-    return savedSearch ? `/regional-snapshots/${savedSearch.slug}` : `/search`
+    return savedSearch ? `/regional-snapshots/${savedSearch.slug}` : `/search/tools`
   }
 
   @Watch('routeQuery', { immediate: true })
@@ -263,16 +263,16 @@ export default class Search extends Vue {
     this.filterOptionsLoaded = false
     this.isMobile = isMobile
 
-    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', this.curPageNum)
+    this.$store.commit('vendors/SET_VENDORS_PAGE_NUMBER', this.curPageNum)
 
     const promises = [
-      this.$store.dispatch('search/loadDemographics'),
-      this.$store.dispatch('search/loadFunctionalities'),
-      this.$store.dispatch('search/loadInstallations'),
-      this.$store.dispatch('search/loadIntegrations'),
-      this.$store.dispatch('search/loadOffices'),
-      this.$store.dispatch('search/loadPlatformLanguages'),
-      this.$store.dispatch('search/loadPracticeAreas')
+      this.$store.dispatch('vendors/loadDemographics'),
+      this.$store.dispatch('vendors/loadFunctionalities'),
+      this.$store.dispatch('vendors/loadInstallations'),
+      this.$store.dispatch('vendors/loadIntegrations'),
+      this.$store.dispatch('vendors/loadOffices'),
+      this.$store.dispatch('vendors/loadPlatformLanguages'),
+      this.$store.dispatch('vendors/loadPracticeAreas')
     ]
     try {
       await Promise.all(promises)
@@ -289,16 +289,16 @@ export default class Search extends Vue {
     this.updateRouteQuery()
   }
 
-  onKeywordSubmit(keyword: string) {
-    if (keyword === this.filters.keyword) {
-      return
-    }
+  onKeywordSubmit(params: { keyword: string }) {
+    const { keyword } = params
+    if (keyword === this.filters.keyword) return
+
     this.filters.keyword = keyword
     this.updateRouteQuery()
   }
 
   onKeywordCancelClick() {
-    this.onKeywordSubmit('')
+    this.onKeywordSubmit({ keyword: '' })
   }
 
   updatedSelectedValueFromRouteParam(id: keyof Filters, options: any[] = []) {
@@ -328,20 +328,20 @@ export default class Search extends Vue {
   }
 
   updateRouteQuery() {
-    if (!this.$route.name) {
-      return
-    }
-    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', 1)
+    const { name } = this.$route
+    if (!name) return
+
+    this.$store.commit('vendors/SET_VENDORS_PAGE_NUMBER', 1)
     this.$router.push({
-      name: this.$route.name,
+      name: name === 'regional-snapshots-slug' ? name : 'search-tools',
       params: this.$route.params,
       query: this.searchRouteQuery
     })
   }
 
   async onPageChange(pageNum: number) {
-    this.$store.commit('search/SET_VENDORS_PAGE_NUMBER', pageNum)
-    await this.$store.dispatch('search/runSearch', this.searchQuery)
+    this.$store.commit('vendors/SET_VENDORS_PAGE_NUMBER', pageNum)
+    await this.$store.dispatch('vendors/runSearch', this.searchQuery)
     window.scrollTo(0, 0)
   }
 
@@ -422,11 +422,11 @@ export default class Search extends Vue {
       return
     }
 
-    this.$store.commit('search/SET_LAST_ROUTE_QUERY', searchRouteQuery)
+    this.$store.commit('vendors/SET_LAST_ROUTE_QUERY', searchRouteQuery)
     this.lastSavedSearchId = savedSearch ? savedSearch.id : null
 
     this.submitAnalyticsData()
-    await this.$store.dispatch('search/runSearch', searchQuery)
+    await this.$store.dispatch('vendors/runSearch', searchQuery)
   }
 }
 </script>

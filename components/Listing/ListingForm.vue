@@ -29,6 +29,10 @@
             />
             <label class="listing-action__label"> Update an existing listing </label>
           </button>
+          <!-- <nuxt-link class="listing-action__container" to="/listing/enhance">
+            <img src="/images/listings/enhance.svg" />
+            <label class="listing-action__label"> Enhance an existing listing </label>
+          </nuxt-link> -->
         </div>
       </div>
       <form class="listing-form" @submit.prevent="submit">
@@ -201,12 +205,12 @@ type VendorRequestErrors = {
   name: 'listing-form'
 })
 export default class ListingForm extends Vue {
-  @State((state: RootState) => state.search.demographics) demographics!: any[]
-  @State((state: RootState) => state.search.functionalities) functionalities!: any[]
-  @State((state: RootState) => state.search.installations) installations!: any[]
-  @State((state: RootState) => state.search.offices) offices!: any[]
-  @State((state: RootState) => state.search.platformLanguages) platformLanguages!: any[]
-  @State((state: RootState) => state.search.practiceAreas) practiceAreas!: any[]
+  @State((state: RootState) => state.vendors.demographics) demographics!: any[]
+  @State((state: RootState) => state.vendors.functionalities) functionalities!: any[]
+  @State((state: RootState) => state.vendors.installations) installations!: any[]
+  @State((state: RootState) => state.vendors.offices) offices!: any[]
+  @State((state: RootState) => state.vendors.platformLanguages) platformLanguages!: any[]
+  @State((state: RootState) => state.vendors.practiceAreas) practiceAreas!: any[]
 
   filterOptionsLoaded: boolean = false
   vendorRequest: VendorRequest = getEmptyVendorRequest()
@@ -217,13 +221,13 @@ export default class ListingForm extends Vue {
     this.filterOptionsLoaded = false
 
     const promises = [
-      this.$store.dispatch('search/loadDemographics'),
-      this.$store.dispatch('search/loadFunctionalities'),
-      this.$store.dispatch('search/loadInstallations'),
-      this.$store.dispatch('search/loadIntegrations'),
-      this.$store.dispatch('search/loadOffices'),
-      this.$store.dispatch('search/loadPlatformLanguages'),
-      this.$store.dispatch('search/loadPracticeAreas')
+      this.$store.dispatch('vendors/loadDemographics'),
+      this.$store.dispatch('vendors/loadFunctionalities'),
+      this.$store.dispatch('vendors/loadInstallations'),
+      this.$store.dispatch('vendors/loadIntegrations'),
+      this.$store.dispatch('vendors/loadOffices'),
+      this.$store.dispatch('vendors/loadPlatformLanguages'),
+      this.$store.dispatch('vendors/loadPracticeAreas')
     ]
     try {
       await Promise.all(promises)
@@ -349,6 +353,7 @@ export default class ListingForm extends Vue {
   align-self: flex-center;
   margin-right: 8px;
   cursor: pointer;
+  text-decoration: none;
 
   @include respondTo(mobile) {
     padding-right: 8px;

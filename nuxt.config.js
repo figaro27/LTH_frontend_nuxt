@@ -8,7 +8,6 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: 'universal',
   env: {
     baseURL: apiUrl,
     environment: process.env.NODE_ENV
@@ -22,6 +21,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-target
    */
   target: 'static',
+  telemetry: false,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -66,7 +66,10 @@ export default {
     { src: '@/plugins/vue-recaptcha-v3.js', mode: 'client' },
     { src: '@/plugins/vue-text-highlight.js', mode: 'client' },
     { src: '@/plugins/vue-avatar.js', mode: 'client' },
-    { src: '@/plugins/vue-youtube.js', mode: 'client' }
+    { src: '@/plugins/vue-youtube.js', mode: 'client' },
+    { src: '@/plugins/v-calendar.js', mode: 'client' },
+    { src: '@/plugins/vue-month-picker.js', mode: 'client' },
+    { src: '@/plugins/vue-full-calendar.js', mode: 'client' }
   ],
   /*
    ** Auto import components
@@ -146,23 +149,22 @@ export default {
         }
       }
     },
-    transpile: ['get-youtube-id', 'lodash.isequal', 'validator']
-  },
-  generate: {
-    minify: {
-      collapseWhitespace: false
-    }
+    transpile: ['get-youtube-id', 'lodash.isequal', 'validator', 'vue-month-picker']
   },
 
   async sitemap() {
     const client = axios.create({ baseURL: apiUrl })
     const routes = await Promise.all([
       client.request({ method: 'GET', url: 'vendors/all' }),
+      client.request({ method: 'GET', url: 'events/all' }),
       client.request({ method: 'GET', url: 'saved-searchs' })
-    ]).then(([res1, res2]) => {
-      const vendorRoutes = res1.data.data.map((vendor) => `/vendor/${vendor.id}`)
-      const savedSearchsRoutes = res2.data.data.map((savedSearch) => `/regional-snapshots/${savedSearch.slug}`)
-      return [...vendorRoutes, ...savedSearchsRoutes]
+    ]).then(([vendorsRes, eventsRes, savedSearchRes]) => {
+      const vendorRoutes = vendorsRes.data.data.map((vendor) => `/vendor/${vendor.id}`)
+      const eventRoutes = eventsRes.data.data.map((event) => `/event/${event.id}`)
+      const savedSearchsRoutes = savedSearchRes.data.data.map(
+        (savedSearch) => `/regional-snapshots/${savedSearch.slug}`
+      )
+      return [...vendorRoutes, ...eventRoutes, ...savedSearchsRoutes]
     })
 
     const sitemapConfig = {

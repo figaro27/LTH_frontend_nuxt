@@ -202,7 +202,7 @@ export default class Blogs extends Vue {
                   'Brian Inkster, founder and CEO of Inksters Solicitors and ‘Maverick’ of the Scottish legal profession, writes to express his views on the past, present and future practice of law. Brian’s intelligent yet often irreverent view of developments in the industry provide a refreshing counter-balance to other legaltech blogs.',
                 image: '/images/blogs/the-time-blawg.png',
                 type: 'portrait',
-                url: 'http://thetimeblawg.com'
+                url: 'https://thetimeblawg.com'
               }
             ]
           ],

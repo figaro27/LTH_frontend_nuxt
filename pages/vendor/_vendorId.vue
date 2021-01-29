@@ -4,7 +4,7 @@
       <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
       <div class="single-vendor__main">
-        <vendor-detail :data="data" />
+        <vendor-detail v-if="data" :data="data" />
         <enhanced-vendor v-if="isEnhancedVendor" class="single-vendor__enhanced" :data="data" />
       </div>
 
@@ -22,25 +22,25 @@ import { api, buildMeta } from '@/utils'
 @Component({
   name: 'single-vendor',
 
-  async asyncData(ctx) {
-    const { vendorId } = ctx.params
+  async fetch() {
+    const { vendorId } = this.$route.params
     const res = await api.get(`vendors/${vendorId}`)
-    return {
-      data: res.data.data
-    }
+    this.$data.data = res.data.data
   },
 
   head() {
-    if (!this.$data.data) {
+    const vendor = this.$data.data as Vendor | null
+    if (!vendor) {
       return buildMeta({
         title: 'Legaltech Hub',
         description: 'Legaltech Hub'
       })
     }
-    const { name } = this.$data.data
+    const { logo, name } = vendor
     return buildMeta({
       title: `${name} - Legaltech Hub`,
-      description: `${name} - Legaltech Hub`
+      description: `${name} - Legaltech Hub`,
+      imageUrl: logo
     })
   }
 })

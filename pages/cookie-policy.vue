@@ -180,7 +180,7 @@
           data infringes your privacy rights according to the GDPR, you have the right to lodge a complaint with a
           supervisory authority, in the member state of your habitual residence, place of work, or place of the alleged
           infringement. Contact details for the EU data protection authorities can be found at
-          http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm
+          https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm
         </p>
 
         <h3>Legal Basis for Processing (EEA and Switzerland only)</h3>

@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <v-popover trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
+    <v-popover :id="link.text" trigger="manual" placement="bottom" popover-class="popover--sub-menu" :open.sync="open">
       <span class="header__link__text" @mouseover="onMouseover">
         {{ link.text }} <span class="header__link__chevron" />
       </span>
@@ -28,7 +28,7 @@ import { ComponentOptions } from 'vue'
 import { HeaderLink } from './types'
 
 @Component({
-  name: 'default-header',
+  name: 'header-submenu',
   mixins: [ClickAway as ComponentOptions<Vue>]
 })
 export default class HeaderSubmenu extends Vue {

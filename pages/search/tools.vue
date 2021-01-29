@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <search-page class="search__content" />
+    <vendors-page class="search__content" />
     <search-ads class="search__ads" />
   </div>
 </template>
@@ -10,15 +10,15 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { buildMeta } from '~/utils'
 
 @Component({
-  name: 'search',
+  name: 'search-tools',
   head() {
     return buildMeta({
-      title: 'Legaltech Hub',
-      description: 'Legaltech Hub'
+      title: 'Tools - Legaltech Hub',
+      description: 'Tools - Legaltech Hub'
     })
   }
 })
-export default class Search extends Vue {}
+export default class SearchTools extends Vue {}
 </script>
 
 <style lang="scss" scoped>

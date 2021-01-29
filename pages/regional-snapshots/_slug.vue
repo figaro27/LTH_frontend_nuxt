@@ -2,7 +2,7 @@
   <div v-loading="!savedSearch" class="region">
     <regions-hero class="region__hero" :data="savedSearch" />
     <div class="region__content">
-      <search-page :saved-search="savedSearch" class="region__search" />
+      <vendors-page :saved-search="savedSearch" class="region__search" />
       <search-ads class="region__ads" />
     </div>
   </div>
@@ -40,13 +40,13 @@ import { api, buildMeta } from '@/utils'
 export default class SingleRegion extends Vue {
   savedSearch: SavedSearch | null = null
 
+  get title() {
+    return this.savedSearch ? this.savedSearch.name : ''
+  }
+
   async mounted() {
     const res = await api.get(`saved-searchs/${this.$route.params.slug}`)
     this.savedSearch = res.data.data
-  }
-
-  get title() {
-    return this.savedSearch ? this.savedSearch.name : ''
   }
 }
 </script>

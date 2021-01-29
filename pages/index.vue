@@ -15,7 +15,7 @@
           <h2>by searching across our global directories.</h2>
         </div>
         <div class="home__main__search-box">
-          <search-box v-model="keyword" @search="onSearch" />
+          <search-box v-model="keyword" @calendar="onChangeCalendar" @search="onSearch" />
         </div>
         <div class="home__main__usecase">
           <use-cases />
@@ -72,6 +72,8 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { isMobile } from 'mobile-device-detect'
+
+import { MonthPickerDate } from '@/components/SearchBox/types'
 import { buildMeta, CONSTS } from '@/utils'
 
 @Component({
@@ -118,17 +120,31 @@ export default class Home extends Vue {
     ]
   }
 
-  onSearch(keyword: string) {
-    if (keyword) {
+  onSearch(params: { keyword: string; tab: 'tools' | 'events' }) {
+    const { keyword, tab } = params
+
+    if (tab === 'events') {
+      if (keyword) {
+        this.$router.push({ name: 'search-events', query: { keyword } })
+      } else {
+        this.$router.push({ name: 'search-events' })
+      }
+    } else if (keyword) {
       const polishedKeyword = keyword.toLowerCase().replace(/ /g, '_')
       if (CONSTS.keywordLinkMap[polishedKeyword]) {
         this.$router.push(CONSTS.keywordLinkMap[polishedKeyword])
       } else {
-        this.$router.push({ name: 'search', query: { keyword } })
+        this.$router.push({ name: 'search-tools', query: { keyword } })
       }
     } else {
-      this.$router.push({ name: 'search' })
+      this.$router.push({ name: 'search-tools' })
     }
+  }
+
+  onChangeCalendar(date: MonthPickerDate) {
+    const month = date.monthIndex >= 10 ? `${date.monthIndex}` : `0${date.monthIndex}`
+    const strDate = `${date.year}-${month}`
+    this.$router.push({ name: 'search-events', query: { date: strDate } })
   }
 
   get popularSearchs() {

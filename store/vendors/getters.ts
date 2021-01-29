@@ -1,9 +1,9 @@
 import { GetterTree } from 'vuex'
 
 import { RootState } from '@/store/types'
-import { SearchState } from './state'
+import { VendorsState } from './state'
 
-const getters: GetterTree<SearchState, RootState> = {
+const getters: GetterTree<VendorsState, RootState> = {
   highlightQueries: (state) => {
     const {
       keyword,

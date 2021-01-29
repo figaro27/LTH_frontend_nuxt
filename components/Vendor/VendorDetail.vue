@@ -3,9 +3,11 @@
     <ad class="single-vendor__left-ad" position="left" direction="vertical" />
 
     <div class="single-vendor__header">
-      <a v-if="isConsolidation" href="#" class="single-vendor-header__link" @click="historyBack()"> Consolidations </a>
-      <a v-else-if="isGraveyard" href="#" class="single-vendor-header__link" @click="historyBack()"> Graveyards </a>
-      <a v-else href="#" class="single-vendor-header__link" @click="historyBack()">Search Results</a>
+      <nuxt-link v-if="isConsolidation" to="/consolidations" class="single-vendor-header__link">
+        Consolidations
+      </nuxt-link>
+      <nuxt-link v-else-if="isGraveyard" to="/graveyards" class="single-vendor-header__link"> Graveyards </nuxt-link>
+      <nuxt-link v-else :to="searchPageRoute" class="single-vendor-header__link"> Search Results </nuxt-link>
       <label class="single-vendor-header__link">&gt;</label>
       <div class="single-vendor__name">{{ tool }}</div>
     </div>
@@ -160,6 +162,10 @@ export default class VendorDetail extends Vue {
       return `${this.data.tool} by ${this.data.name}`
     }
     return this.data.name
+  }
+
+  get searchPageRoute() {
+    return '/search/tools'
   }
 
   get logo() {
