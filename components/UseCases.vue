@@ -12,7 +12,7 @@
             <div :key="`parent-${index}`" class="use-cases__menu-item">
               <nuxt-link
                 class="use-cases__menu-item__link"
-                :to="{ path: '/search', query: { functionalities: item.filter.functionalities.join(',') } }"
+                :to="{ path: '/search/tools', query: { functionalities: item.filter.functionalities.join(',') } }"
               >
                 {{ item.name }}
               </nuxt-link>
@@ -29,7 +29,7 @@
               <nuxt-link
                 v-for="(child, childIndex) of item.filter.functionalities"
                 :key="childIndex"
-                :to="{ path: '/search', query: { functionalities: child } }"
+                :to="{ path: '/search/tools', query: { functionalities: child } }"
                 class="use-cases__menu__child"
                 @click.stop
               >
