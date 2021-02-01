@@ -7,6 +7,7 @@ export type EnhancedRequest = {
   useCases: string
   description: string
   image: any
+  video: string
   articles: any
 }
 
@@ -19,5 +20,6 @@ export const getEmptyEnhancedRequest = (): EnhancedRequest => ({
   useCases: '',
   description: '',
   image: '',
+  video: '',
   articles: ''
 })

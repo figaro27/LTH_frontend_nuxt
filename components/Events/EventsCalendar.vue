@@ -68,12 +68,13 @@ const EventsCalendarDetailClass = Vue.extend(EventsCalendarDetail)
 @Component({ name: 'events-calendar', components: {} })
 export default class EventsCalendar extends Vue {
   @Prop({ required: true }) events!: Event[]
-  @Prop({ required: true }) date!: Date
-
+  @Prop({ required: true }) date!: String
+  isCalendarMounted: boolean = false
   get config() {
     return {
       defaultView: 'month',
       fixedWeekCount: false,
+      showNonCurrentDates: true,
       eventStartEditable: false,
       height: 'auto',
       contentHeight: 'auto',
@@ -87,10 +88,20 @@ export default class EventsCalendar extends Vue {
         element.draggable = false
       },
       viewRender: (event: any) => {
-        const viewingMonth = moment(event.dateProfile.date).utc(true)
+        let month: number = 1
+        let year: number = 0
+        if (this.isCalendarMounted) {
+          const viewingMonth = moment(event.dateProfile.date, 'YYYY/MM/DD')
+          month = parseInt(viewingMonth.format('M'))
+          year = parseInt(viewingMonth.format('YYYY'))
+        } else {
+          month = parseInt(this.date.split('-')[1])
+          year = parseInt(this.date.split('-')[0])
+          this.isCalendarMounted = true
+        }
         const dateInfo: MonthPickerDate = {
-          monthIndex: viewingMonth.month() + 1,
-          year: viewingMonth.year()
+          monthIndex: month,
+          year
         }
         this.$emit('calendar', dateInfo)
       }
