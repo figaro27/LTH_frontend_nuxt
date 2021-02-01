@@ -60,7 +60,7 @@
           v-model="filters.durations"
           name="durations"
           label="Duration:"
-          :options="durations"
+          :options="sortedDuration"
           @change="onFilterUpdate(false)"
         />
         <select-filter
@@ -216,6 +216,10 @@ export default class EventsPage extends Vue {
   get showClearFilter() {
     const { routeQuery } = this
     return Object.keys(routeQuery).filter((key) => !!routeQuery[key]).length > 0
+  }
+
+  get sortedDuration() {
+    return this.durations.sort((a, b) => (a.id > b.id ? 1 : -1))
   }
 
   @Watch('routeQuery', { immediate: true })
