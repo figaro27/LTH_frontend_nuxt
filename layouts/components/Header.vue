@@ -93,12 +93,12 @@ export default class DefaultHeader extends Vue {
         children: [
           {
             text: 'Tools',
-            path: '/search',
+            path: '/search/tools',
             exact: true
           },
           {
             text: 'Events',
-            path: '/',
+            path: '/search/events',
             exact: true
           },
           {

@@ -95,7 +95,7 @@ export default class Home extends Vue {
 
   get links() {
     return [
-      { title: 'Global Directory of Legaltech Tools', icon: '/images/svgs/main/tools.svg', url: '/search' },
+      { title: 'Global Directory of Legaltech Tools', icon: '/images/svgs/main/tools.svg', url: '/search/tools' },
       { title: 'Legaltech Jobs', icon: '/images/svgs/main/jobs.svg', url: 'https://legaltechjobs.com' },
       { title: 'Legaltech Events', icon: '/images/svgs/main/events.svg', tooltip: 'Coming soon' },
       { title: 'Recommended Legaltech Resources', icon: '/images/svgs/main/resources.svg', url: '/blogs' },
@@ -149,11 +149,11 @@ export default class Home extends Vue {
 
   get popularSearchs() {
     return [
-      { label: 'AI Tools', to: '/search?keyword=AI Tools' },
-      { label: 'Contract Automation', to: '/search?keyword=Contract Automation' },
-      { label: 'Data Analytics', to: '/search?keyword=Data Analytics' },
-      { label: 'eDiscovery', to: '/search?keyword=eDiscovery' },
-      { label: 'Practice Management', to: '/search?keyword=Practice Management' }
+      { label: 'AI Tools', to: '/search?/toolskeyword=AI Tools' },
+      { label: 'Contract Automation', to: '/search/tools?keyword=Contract Automation' },
+      { label: 'Data Analytics', to: '/search/tools?keyword=Data Analytics' },
+      { label: 'eDiscovery', to: '/search/tools?keyword=eDiscovery' },
+      { label: 'Practice Management', to: '/search/tools?keyword=Practice Management' }
     ]
   }
 }

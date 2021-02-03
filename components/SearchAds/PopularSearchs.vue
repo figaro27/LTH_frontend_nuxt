@@ -15,11 +15,11 @@ export default class PopularSearchs extends Vue {
   // TODO: Add backend support
   get popularSearchs() {
     return [
-      { label: 'AI Tools', to: '/search?keyword=AI Tools' },
-      { label: 'Contract Automation', to: '/search?keyword=Contract Automation' },
-      { label: 'Data Analytics', to: '/search?keyword=Data Analytics' },
-      { label: 'eDiscovery', to: '/search?keyword=eDiscovery' },
-      { label: 'Practice Management', to: '/search?keyword=Practice Management' }
+      { label: 'AI Tools', to: '/search/tools?keyword=AI Tools' },
+      { label: 'Contract Automation', to: '/search/tools?keyword=Contract Automation' },
+      { label: 'Data Analytics', to: '/search/tools?keyword=Data Analytics' },
+      { label: 'eDiscovery', to: '/search/tools?keyword=eDiscovery' },
+      { label: 'Practice Management', to: '/search/tools?keyword=Practice Management' }
     ]
   }
 }
