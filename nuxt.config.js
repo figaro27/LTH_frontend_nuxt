@@ -20,7 +20,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'static',
+  target: 'universal',
   telemetry: false,
   /*
    ** Headers of the page
@@ -174,6 +174,29 @@ export default {
       routes
     }
     return sitemapConfig
+  },
+  generate: {
+    concurrency: 20,
+    interval: 500,
+    subFolders: true,
+    minify: {
+      collapseWhitespace: false
+    },
+    routes() {
+      const client = axios.create({ baseURL: apiUrl })
+      return Promise.all([
+        client.request({ method: 'GET', url: 'vendors/all' }),
+        client.request({ method: 'GET', url: 'events/all' }),
+        client.request({ method: 'GET', url: 'saved-searchs' })
+      ]).then(([vendorsRes, eventsRes, savedSearchRes]) => {
+        const vendorRoutes = vendorsRes.data.data.map((vendor) => `/vendor/${vendor.id}`)
+        const eventRoutes = eventsRes.data.data.map((event) => `/event/${event.id}`)
+        const savedSearchsRoutes = savedSearchRes.data.data.map(
+          (savedSearch) => `/regional-snapshots/${savedSearch.slug}`
+        )
+        return [...vendorRoutes, ...eventRoutes, ...savedSearchsRoutes]
+      })
+    }
   },
 
   typescript: {
