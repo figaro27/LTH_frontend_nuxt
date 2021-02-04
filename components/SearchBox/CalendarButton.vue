@@ -2,10 +2,6 @@
   <div v-on-clickaway="hideCalendar" class="calendar-button">
     <img class="calendar-button__icon" src="/images/svgs/calendar.svg" @click.stop="showCalendar = !showCalendar" />
     <div v-if="showCalendar" v-on-clickaway="hideCalendar" class="calendar-button__picker-container">
-      <div class="calendar-button__picker__header">
-        <label class="calendar-button__picker__header_year">{{ selectedMonth.year }}</label>
-        <label class="calendar-button__picker__header_month">{{ selectedMonth.month }}</label>
-      </div>
       <month-picker v-model="selectedMonth" no-default :months="months" @input="onInputCalendar" />
     </div>
   </div>
