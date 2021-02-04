@@ -149,7 +149,7 @@ export default class Home extends Vue {
 
   get popularSearchs() {
     return [
-      { label: 'AI Tools', to: '/search?/toolskeyword=AI Tools' },
+      { label: 'AI Tools', to: '/search/tools?keyword=AI Tools' },
       { label: 'Contract Automation', to: '/search/tools?keyword=Contract Automation' },
       { label: 'Data Analytics', to: '/search/tools?keyword=Data Analytics' },
       { label: 'eDiscovery', to: '/search/tools?keyword=eDiscovery' },
