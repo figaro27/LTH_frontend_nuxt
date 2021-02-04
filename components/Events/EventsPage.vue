@@ -105,7 +105,7 @@
             </div>
           </template>
         </div>
-        <div v-if="showPagination && !isMobile" vclass="events-page__events-pagination">
+        <div v-if="showPagination && !isMobile" class="events-page__events-pagination">
           <pagination v-if="!isCalendar" :page-count="pageCount" :page="curPageNum" @change="onPageChange" />
         </div>
       </div>
