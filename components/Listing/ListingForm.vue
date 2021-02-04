@@ -29,10 +29,10 @@
             />
             <label class="listing-action__label"> Update an existing listing </label>
           </button>
-          <nuxt-link class="listing-action__container" to="/listing/enhance">
+          <!-- <nuxt-link class="listing-action__container" to="/listing/enhance">
             <img src="/images/listings/enhance.svg" />
             <label class="listing-action__label"> Enhance an existing listing </label>
-          </nuxt-link>
+          </nuxt-link> -->
         </div>
       </div>
       <form class="listing-form" @submit.prevent="submit">
