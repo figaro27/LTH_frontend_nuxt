@@ -64,14 +64,18 @@
         />
         <enhanced-listing-form-file v-model="enhancedRequest.image" label="Add Images" placeholder="Up to 3 Links" />
         <enhanced-listing-form-link
-          v-model="enhancedRequest.video"
+          :video="enhancedRequest.video"
+          type="video"
           label="Add Video"
           placeholder="Add video link from Youtube, Vimeo"
+          @updateVideo="onUpdateVideo"
         />
         <enhanced-listing-form-link
-          v-model="enhancedRequest.link"
+          :links="enhancedRequest.articles"
+          type="link"
           label="Add Links for Articles"
           placeholder="Up to 3 Links"
+          @updateLink="onUpdateLink"
         />
         <enhanced-listing-premium @onSubmit="submit" />
       </div>
@@ -91,13 +95,13 @@ type EnhancedRequestErrors = {
   name?: string
   contactName?: string
   contactEmail?: string
-  link?: string
+  link?: string[]
   customers?: string
   useCases?: string
   description?: string
-  image?: string
-  video?: Array<string>
-  articles?: Array<string>
+  image?: []
+  video?: string
+  articles?: []
 }
 
 @Component({
@@ -108,6 +112,18 @@ export default class EnhancedListing extends Vue {
   enhancedRequest: EnhancedRequest = getEmptyEnhancedRequest()
   errors: EnhancedRequestErrors = {}
   loading: boolean = false
+
+  onUpdateLink(value: []) {
+    this.enhancedRequest.articles = value
+  }
+
+  onUpdateVideo(value: string) {
+    this.enhancedRequest.video = value
+  }
+
+  onUpdateImage(value: []) {
+    this.enhancedRequest.image = value
+  }
 
   validateForm() {
     const errors: EnhancedRequestErrors = {}

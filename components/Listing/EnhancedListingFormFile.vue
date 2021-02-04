@@ -15,7 +15,17 @@
     </div>
     <label v-if="error" class="listing-form-input__error">{{ error }}</label>
     <label v-else class="listing-form-input__placeholder">{{ placeholder }}</label>
-    <vue-progress-bar v-if="isPicked" class="listing-form-input__progress"></vue-progress-bar>
+    <div v-for="(item, index) in images" :key="index">
+      <enhanced-listing-form-added-item
+        class="listing-form__added-item"
+        :is-file="true"
+        :is-uploading="isUploading"
+        :text="item.name"
+        :index="index"
+        :completed-speed="completedSpeed"
+        @remove="onRemoved"
+      />
+    </div>
   </div>
 </template>
 
@@ -35,8 +45,12 @@ export default class EnhancedListingFormFile extends Vue {
   @Prop({ default: null }) error!: string | null
   @Prop({ default: '' }) placeholder!: string
   @Prop({ type: Boolean, default: false }) required!: boolean
+  @Prop({ default: null }) images!: any | []
+
   isPicked = false
-  value = {}
+  isUploading: boolean = false
+  completedSpeed: number = 0
+  value = ''
   get _value() {
     return this.value
   }
@@ -44,6 +58,13 @@ export default class EnhancedListingFormFile extends Vue {
   onPickFile() {
     if (this.$refs.fileInput) {
       const fileInput = this.$refs.fileInput as any
+      this.isUploading = true
+      setTimeout(() => {
+        this.completedSpeed = 1
+      }, 2000)
+      setTimeout(() => {
+        this.isUploading = false
+      }, 5000)
       fileInput.click()
     }
   }
@@ -51,6 +72,16 @@ export default class EnhancedListingFormFile extends Vue {
   changeFile(event: any) {
     this.isPicked = true
     this.value = event.target.files[0]
+    if (this._value !== '') {
+      this.images = this.images != null ? [...this.images, this._value] : [...this._value]
+      this.error = ''
+    } else {
+      this.error = 'Cannot be empty'
+    }
+  }
+
+  updateImage() {
+    this.$emit('updateImage', this.images)
   }
 }
 </script>
