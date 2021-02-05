@@ -62,7 +62,12 @@
           :error="errors.description"
           length="400"
         />
-        <enhanced-listing-form-file v-model="enhancedRequest.image" label="Add Images" placeholder="Up to 3 Links" />
+        <enhanced-listing-form-file
+          :images="enhancedRequest.image"
+          label="Add Images"
+          placeholder="Up to 3 Links"
+          @updateImage="onUpdateImage"
+        />
         <enhanced-listing-form-link
           :video="enhancedRequest.video"
           type="video"
@@ -121,8 +126,8 @@ export default class EnhancedListing extends Vue {
     this.enhancedRequest.video = value
   }
 
-  onUpdateImage(value: []) {
-    this.enhancedRequest.image = value
+  onUpdateImage(value: File[]) {
+    this.enhancedRequest.image = [...value]
   }
 
   validateForm() {

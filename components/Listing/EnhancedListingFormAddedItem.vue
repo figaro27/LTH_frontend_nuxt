@@ -50,8 +50,9 @@ export default class EnhancedListingFormAddedItem extends Vue {
   font-size: 13px;
 }
 .listing-form__item-button {
-  width: 20px;
-  height: 20px;
-  margin: 4px;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  margin: auto;
 }
 </style>

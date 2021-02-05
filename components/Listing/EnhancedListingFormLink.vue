@@ -16,6 +16,7 @@
     <label v-else class="listing-form-input__placeholder">{{ placeholder }}</label>
     <div v-for="(item, index) in links" v-show="type === 'link'" :key="index">
       <enhanced-listing-form-added-item
+        v-show="type === 'link'"
         class="listing-form__added-item"
         :is-file="false"
         :title="item"
@@ -107,9 +108,7 @@ export default class EnhancedListingFormLink extends Vue {
     const regExp = RegExp(
       '^(http:\\/\\/|https:\\/\\/)(vimeo\\.com|youtu\\.be|www\\.youtube\\.com)\\/([\\w\\/]+)([\\?].*)?$'
     )
-    console.log(this.value)
     const match = this.value.match(regExp)
-    console.log('Match', match)
     return !!match
   }
 }
