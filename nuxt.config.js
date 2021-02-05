@@ -70,6 +70,7 @@ export default {
     { src: '@/plugins/vue-progressbar.js', mode: 'client' },
     { src: '@/plugins/v-calendar.js', mode: 'client' },
     { src: '@/plugins/vue-month-picker.js', mode: 'client' },
+    { src: '@/plugins/vue-radial-progress.js', mode: 'client' },
     { src: '@/plugins/vue-full-calendar.js', mode: 'client' }
   ],
   /*
